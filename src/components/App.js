@@ -9,10 +9,6 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 
-import Main from '../pages/Main';
-import Login from '../pages/Login';
-import Gnb from '../components/gnb/Gnb';
-
 function App() {
   return (
     <Layout>
@@ -38,13 +34,13 @@ const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eeeeee;
+  background: var(--color-layout);
 `;
 
 const MobileView = styled.div`
   width: 375px;
   height: 812px;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   position: relative;
 `;
 
