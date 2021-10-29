@@ -16,12 +16,12 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/login" component={Login} />
+        <Route path="/avatar" component={Avatar} />
         <>
           <Route exact path="/" component={Main} />
           <Route path="/achievement" component={Achievement} />
           <Route path="/new" component={New} />
           <Route path="/mypage" component={MyPage} />
-          <Route path="/avatar" component={Avatar} />
           <Gnb />
         </>
       </Switch>
