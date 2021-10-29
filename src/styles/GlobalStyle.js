@@ -47,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
     --animation-duration: 200ms;
     }
 
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
     }
 `;
