@@ -36,3 +36,38 @@
   font-family: Apple SD Gothic Neo M;
   src: url('./AppleSDGothicNeoM.ttf');
 }
+
+/*
+  @jaekyung
+  Apple SD Gothic Neo font-weight 별로 설정한다
+  Apple SD Gothic Neo L:  500   // Light
+  Apple SD Gothic Neo M:  600   // Medium
+  Apple SD Gothic Neo B:  700   // Bold
+  Apple SD Gothic Neo EB: 800   // Extra-Bold
+  Apple SD Gothic Neo H:  900   // Heavy
+*/
+@font-face {
+  font-family: 'Apple SD Gothic Neo';
+  src: url('./AppleSDGothicNeoL.ttf');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Apple SD Gothic Neo';
+  src: url('./AppleSDGothicNeoM.ttf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Apple SD Gothic Neo';
+  src: url('./AppleSDGothicNeoB.ttf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Apple SD Gothic Neo';
+  src: url('./AppleSDGothicNeoEB.ttf');
+  font-weight: 800;
+}
+@font-face {
+  font-family: 'Apple SD Gothic Neo';
+  src: url('./AppleSDGothicNeoH.ttf');
+  font-weight: 900;
+}

@@ -68,13 +68,13 @@ CategoryList.propTypes = {
   habit: PropTypes.object.isRequired,
 };
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
 `;
 
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
   max-width: 322px;
   height: 40px;
   margin-top: 44px;

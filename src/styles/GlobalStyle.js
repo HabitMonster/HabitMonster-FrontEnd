@@ -15,6 +15,12 @@ const GlobalStyle = createGlobalStyle`
     --color-progressbar: #f0f0f0;
     --color-gauge: #7057fc;
     --color-layout: #eeeeee;
+    --color-yellow: #fcec57;
+    --color-purple: #7057fc;
+
+
+    /* Font name */
+    --font-name-apple: 'Apple SD Gothic Neo';
 
     /* Font size */
     --font-large: 48px;
@@ -39,6 +45,10 @@ const GlobalStyle = createGlobalStyle`
 
     /* Animation Duration */
     --animation-duration: 200ms;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 `;
 

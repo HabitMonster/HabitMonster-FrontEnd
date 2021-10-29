@@ -29,7 +29,9 @@ const New = () => {
       <Route exact path="/new">
         <CategoryList habit={habit} setHabit={setHabit} />
       </Route>
-      <Route exact path="/new/detail" component={AddDetail} />
+      <Route exact path="/new/detail">
+        <AddDetail habit={habit} setHabit={setHabit} />
+      </Route>
     </>
   );
 };

@@ -9,6 +9,7 @@ import { AddDetail, CategoryList } from './habit';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
+import Avatar from '../pages/Avatar';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/achievement" component={Achievement} />
           <Route path="/new" component={New} />
           <Route path="/mypage" component={MyPage} />
+          <Route path="/avatar" component={Avatar} />
           <Gnb />
         </>
       </Switch>
