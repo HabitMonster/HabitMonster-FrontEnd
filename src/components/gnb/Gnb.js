@@ -44,13 +44,13 @@ const Gnb = () => {
 const TabBar = styled.nav`
   width: 100%;
   height: 49px;
-  position: absolute;
-  left: 0;
+  max-width: 375px;
+  position: fixed;
   bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   box-shadow: 0px -0.5px 20px rgba(111, 151, 255, 0.1);
   backdrop-filter: blur(20px);
 `;
@@ -80,6 +80,7 @@ const NavigationItem = styled.li`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-sizing: border-box;
 
   & a {
     text-decoration: none;
@@ -94,12 +95,12 @@ const NavigationItem = styled.li`
     }
 
     &.active path {
-      fill: #7057fc;
+      fill: var(--color-gauge);
     }
 
     & span {
       align-self: stretch;
-      color: #999999;
+      color: var(--color-gray);
       font-size: 10px;
       font-weight: 500;
       line-height: 12px;
@@ -108,7 +109,7 @@ const NavigationItem = styled.li`
     }
 
     &.active span {
-      color: #7057fc;
+      color: var(--color-gauge);
     }
   }
 `;
