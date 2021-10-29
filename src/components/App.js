@@ -9,6 +9,10 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 
+import Main from '../pages/Main';
+import Login from '../pages/Login';
+import Gnb from '../components/gnb/Gnb';
+
 function App() {
   return (
     <Layout>

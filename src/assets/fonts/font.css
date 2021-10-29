@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Retro Gaming';
+  src: url('./Retro\ Gaming.ttf');
+  font-style: normal;
+  font-weight: normal;
+  line-height: 61px;
+}
+
+@font-face {
+  font-family: 'Noto Sans KR Medium';
+  src: url('./NotoSansKR-Medium.otf');
+  line-height: 24px;
+}
