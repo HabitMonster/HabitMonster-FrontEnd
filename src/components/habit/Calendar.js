@@ -34,7 +34,22 @@ const MONTH = [
 
 const Calendar = ({ isStart }) => {
   const [startDate, setStartDate] = useState(new Date());
+  // TODOS
+  //*State Handling.
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   const calendarReference = useRef(null);
+
+  const cancel = () => {
+    setStartDate(currentDate);
+    calendarReference.current.setOpen(false);
+  };
+
+  const close = () => {
+    setCurrentDate(startDate);
+    calendarReference.current.setOpen(false);
+  };
+
   return (
     <DatePicker
       ref={calendarReference}
@@ -53,6 +68,7 @@ const Calendar = ({ isStart }) => {
         console.log(date);
         setStartDate(date);
       }}
+      shouldCloseOnSelect={false}
       customInput={<CalendarInput isStart={isStart} />}
       renderCustomHeader={({
         date,
@@ -87,8 +103,8 @@ const Calendar = ({ isStart }) => {
               <RightIcon />
             </CalenderIconWrapper>
             <CalendarSaveButtonWrapper>
-              <button>취소</button>
-              <button>완료</button>
+              <button onClick={() => cancel()}>취소</button>
+              <button onClick={() => close()}>완료</button>
             </CalendarSaveButtonWrapper>
           </CalenderHeaderWrapper>
         </>
