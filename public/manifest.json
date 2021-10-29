@@ -1,25 +1,31 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Habit Monster",
+  "name": "Habit Monster",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "habit_Mon.png",
+      "sizes": "128x128 96x96 72x72 48x48",
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "habit_Monx192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "habit_Monx512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/index.html",
   "display": "standalone",
-  "theme_color": "#000000",
+  "dir": "ltr",
+  "orientation": "portrait",
+  "description": "Habit Monster Frontend",
+  "categories": [],
+  "screenshots": [],
+  "shortcuts": [],
+  "theme_color": "none",
   "background_color": "#ffffff"
 }
