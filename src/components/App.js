@@ -8,6 +8,7 @@ import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
+import Avatar from '../pages/Avatar';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/achievement" component={Achievement} />
           <Route exact path="/new" component={New} />
           <Route exact path="/mypage" component={MyPage} />
+          <Route exact path="/avatar" component={Avatar} />
           <Gnb />
         </>
       </Switch>
