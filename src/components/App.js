@@ -12,35 +12,30 @@ import Gnb from '../components/gnb/Gnb';
 function App() {
   return (
     <Layout>
-      <MobileView>
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/achievement" component={Achievement} />
-            <Route exact path="/new" component={New} />
-            <Route exact path="/mypage" component={MyPage} />
-            <Gnb />
-          </>
-        </Switch>
-      </MobileView>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/achievement" component={Achievement} />
+          <Route exact path="/new" component={New} />
+          <Route exact path="/mypage" component={MyPage} />
+          <Gnb />
+        </>
+      </Switch>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  min-width: 100vw;
-  min-height: 100vh;
+  background: var(--color-layout);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--color-layout);
-`;
-
-const MobileView = styled.div`
-  width: 375px;
-  height: 812px;
-  background-color: var(--color-white);
+  max-width: 375px;
+  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
   position: relative;
 `;
 
