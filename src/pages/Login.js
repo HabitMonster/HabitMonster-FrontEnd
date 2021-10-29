@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
 import styled from 'styled-components';
 import { SocialLogin, Title } from '../components/login';
 import '../assets/fonts/font.css';
@@ -28,11 +27,4 @@ const Wrapper = styled.div`
   background-position: center 92px;
 `;
 
-=======
-
-const Login = () => {
-  return <h1>로그인 할롱</h1>;
-};
-
->>>>>>> dev
 export default Login;
