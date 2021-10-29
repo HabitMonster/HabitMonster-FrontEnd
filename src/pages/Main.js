@@ -27,7 +27,6 @@ const Main = () => {
               <HabitCard />
               <HabitCard />
               <HabitCard />
-              <HabitCard />
             </HabitList>
           </HabitContainer>
         </HabitWrapper>
@@ -39,17 +38,19 @@ const Main = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  height: 100vh;
   background: linear-gradient(180deg, #7057fc 0%, #7057fc 50.52%, #7f9ae6 100%);
 `;
 
 const HabitWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
-  height: 417px;
+  height: 100%;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 24px 24px 0px 0px;
@@ -79,7 +80,7 @@ const RestHabit = styled.p`
 `;
 
 const HabitContainer = styled.div`
-  height: 300px;
+  height: 100%;
   overflow-y: scroll;
   padding-left: 16px;
   padding-right: 16px;
@@ -96,6 +97,7 @@ const HabitContainer = styled.div`
 const HabitList = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 `;
 
 export default Main;
