@@ -3,17 +3,17 @@
   "name": "Habit Monster",
   "icons": [
     {
-      "src": "habit_Mon.png",
+      "src": "images/128x128 96x96 72x72 48x48.png",
       "sizes": "128x128 96x96 72x72 48x48",
       "type": "image/png"
     },
     {
-      "src": "habit_Monx192.png",
+      "src": "hMon129.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "habit_Monx512.png",
+      "src": "hMon512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
