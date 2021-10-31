@@ -1,36 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import Main from '../pages/Main';
 import Login from '../pages/Login';
+import Main from '../pages/Main';
+import Achievement from '../pages/Achievement';
+import { AddDetail, CategoryList } from './habit';
+import New from '../pages/New';
+import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
+import Avatar from '../pages/Avatar';
 
 function App() {
   return (
     <Layout>
-      <MobileView>
-        <Route exact path="/" component={Main} />
-        <Route exact path="/login" component={Login} />
-        <Gnb />
-      </MobileView>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <>
+          <Route exact path="/" component={Main} />
+          <Route path="/achievement" component={Achievement} />
+          <Route path="/new" component={New} />
+          <Route path="/mypage" component={MyPage} />
+          <Route path="/avatar" component={Avatar} />
+          <Gnb />
+        </>
+      </Switch>
     </Layout>
   );
 }
 
 const Layout = styled.div`
-  min-width: 100vw;
-  min-height: 100vh;
+  background: var(--color-white);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eeeeee;
-`;
-
-const MobileView = styled.div`
-  width: 375px;
-  height: 812px;
-  background-color: #ffffff;
+  max-width: 375px;
+  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
 `;
 
 export default App;
