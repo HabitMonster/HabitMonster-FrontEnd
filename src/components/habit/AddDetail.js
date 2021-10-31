@@ -1,44 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Calendar from './Calendar';
+import { useLocation, useHistory } from 'react-router-dom';
 
-import { Back, UpIcon, DownIcon } from '../../assets/icons/common';
+import { BackButtonHeader } from '../common';
+import TextInput from './TextInput';
+import CategorySummary from './CategorySummary';
+import Calender from './Calender';
+import FrequencySetting from './FrequencySetting';
+
 import { CalenderIcon, ModeIcon, SettingIcon } from '../../assets/icons/habits';
+import { useInput } from '../../hooks';
 
 const AddDetail = () => {
+  const location = useLocation();
+  const history = useHistory();
+
+  const [title, onTitleChanged] = useInput('');
+  const [description, onDescriptionChanged] = useInput('');
+  const category = location.state?.category ?? '';
+
+  const [durationStart, setDurationStart] = useState('');
+  const [durationEnd, setDurationEnd] = useState(durationStart);
+
+  console.log(durationStart);
+  console.log(durationEnd);
+
+  const [tensFrequency, setTensFrequency] = useState(0);
+  const [unitsFrequency, setUnitsFrequency] = useState(0);
+
+  const count = String(tensFrequency) + String(unitsFrequency);
+  console.log(count);
+
   return (
     <Wrapper>
-      <DetailHeader>
-        <IconWrapper>
-          <Back />
-          <Title>습관 작성하기</Title>
-        </IconWrapper>
-        <CategorySummary>생활</CategorySummary>
-        <CustomInputWrapper>
-          <label htmlFor="asd">타이틀</label>
-          <input id="asd" placeholder="택시 안타기! 그럴거면 차를 사세요" />
-        </CustomInputWrapper>
-        <CustomInputWrapper s={true}>
-          <label htmlFor="dfg">서브타이틀</label>
-          <input id="dfg" placeholder="5분만 더 자다가 텅장된다." />
-        </CustomInputWrapper>
-      </DetailHeader>
+      <Header>
+        <BackButtonHeader
+          onButtonClick={() => {
+            history.replace({
+              pathname: '/new',
+              state: {
+                category: location.state.category,
+              },
+            });
+          }}
+          pageTitleText="습관 작성하기"
+        />
+        <CategorySummary category={category} />
+        <TextInput
+          isTitle={true}
+          labelName="타이틀"
+          id="title"
+          value={title}
+          placeholder="택시 안타기! 그럴거면 차를 사세요"
+          onValueChanged={onTitleChanged}
+        />
+        <TextInput
+          isTitle={false}
+          id="description"
+          value={description}
+          labelName="설명"
+          placeholder="5분만 더 자다가 텅장된다."
+          onValueChanged={onDescriptionChanged}
+        />
+        <Bar factor={0}>
+          <div></div>
+          <div></div>
+        </Bar>
+        <Bar factor={1}>
+          <div></div>
+          <div></div>
+        </Bar>
+        <Bar factor={2}>
+          <div></div>
+          <div></div>
+        </Bar>
+      </Header>
       <DetailBody>
         <DetailOuter>
           <DetailInner>
-            {/* 시작일이 바뀌었다면: 해당 날짜 변경 */}
             <CalenderIcon />
             <DetailRightColumn>
-              <Calendar isStart={true} />
+              <Calender isStart={true} onDateChosen={setDurationStart} />
             </DetailRightColumn>
           </DetailInner>
         </DetailOuter>
         <DetailOuter>
           <DetailInner>
-            {/* 종료일이 바뀌었다면: 해당 날짜 변경 */}
             <CalenderIcon />
             <DetailRightColumn>
-              <Calendar />
+              <Calender isStart={false} onDateChosen={setDurationEnd} />
             </DetailRightColumn>
           </DetailInner>
         </DetailOuter>
@@ -65,20 +115,14 @@ const AddDetail = () => {
             </DetailRightColumn>
           </DetailInner>
           <FrequenciesWrapper>
-            <Frequency>
-              <div>
-                <UpIcon />
-                <span>1</span>
-                <DownIcon />
-              </div>
-            </Frequency>
-            <Frequency>
-              <div>
-                <UpIcon />
-                <span>2</span>
-                <DownIcon />
-              </div>
-            </Frequency>
+            <FrequencySetting
+              currentValue={tensFrequency}
+              setValue={setTensFrequency}
+            />
+            <FrequencySetting
+              currentValue={unitsFrequency}
+              setValue={setUnitsFrequency}
+            />
           </FrequenciesWrapper>
         </DetailOuter>
         <SaveButton>저장하기</SaveButton>
@@ -88,118 +132,41 @@ const AddDetail = () => {
 };
 
 const Wrapper = styled.div`
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
+  position: relative;
   background: #f7f5ff;
 `;
 
-const DetailHeader = styled.div`
+const Header = styled.section`
   width: 100%;
-  min-height: 392px;
-  box-sizing: border-box;
-  background: linear-gradient(180deg, #7056ff 0%, #7f9ae6 99.99%, #7f9be6 100%);
-  padding: 0 16px;
+  min-height: 404px;
   padding-top: 44px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  position: relative;
+  top: 0;
+  background: linear-gradient(180deg, #7056ff 0%, #7f9ae6 99.99%, #7f9be6 100%);
 `;
 
-const IconWrapper = styled.div`
-  box-sizing: border-box;
-  width: 322px;
-  height: 52px;
+const Bar = styled.div`
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: ${({ factor }) => 8 - 4 * factor}px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 48px;
+  justify-content: space-between;
 
-  & path {
-    fill: #fff;
-  }
-`;
-
-const Title = styled.h1`
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 41px;
-  margin-left: 8px;
-  color: #fff;
-`;
-
-const CategorySummary = styled.div`
-  box-sizing: border-box;
-  width: 60px;
-  height: 35px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 33px;
-
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-
-  color: #7158fd;
-`;
-
-const CustomInputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 24px;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 18px;
-
-  color: #ffffff;
-
-  & label {
-    margin-left: 15px;
-    margin-bottom: 4px;
-    font-size: 15px;
-  }
-
-  & input {
-    width: 343px;
-    height: 52px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-sizing: border-box;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    padding-left: 15px;
-    font-weight: ${({ s }) => (s ? '500' : '700')};
-    font-size: ${({ s }) => (s ? '17px' : '21px')};
-    line-height: ${({ s }) => (s ? '20px' : '25px')};
-    color: #ffffff;
-
-    &::placeholder {
-      font-weight: ${({ s }) => (s ? '500' : '700')};
-      font-size: ${({ s }) => (s ? '17px' : '21px')};
-      line-height: ${({ s }) => (s ? '20px' : '25px')};
-      color: #ffffff;
-      opacity: 0.4;
-    }
-
-    &:focus {
-      outline: none;
-      border: 1px solid #ffffff;
-      box-sizing: border-box;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.2);
-    }
+  & div {
+    background: #f7f5ff;
+    width: ${({ factor }) => 5 * (factor + 1)}px;
+    height: 4px;
   }
 `;
 
 const DetailBody = styled.div`
   width: 100%;
+  background: #f7f5ff;
   padding: 0 16px;
   margin-top: 24px;
-  //TODOS: RESEARCH AND IMPLEMENT CORRECT SOLUTION
   overflow: scroll;
 `;
 
@@ -207,8 +174,8 @@ const DetailOuter = styled.section`
   width: 100%;
   max-width: 343px;
   min-height: 56px;
-  background: #ffffff;
-  border-radius: 10px;
+  background: var(--color-white);
+  border-radius: var(--border-radius-progress);
   padding: 16px;
   margin-bottom: 24px;
 `;
@@ -225,8 +192,8 @@ const DetailRightColumn = styled.div`
 
   //TODO: REMOVE DUPLICATED STYLE
   & span {
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: var(--weight-semi-bold);
+    font-size: var(--font-small);
     line-height: 19px;
     display: inline-block;
   }
@@ -236,8 +203,8 @@ const Mode = styled.div`
   width: 60px;
   height: 24px;
   display: flex;
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: var(--weight-semi-bold);
+  font-size: var(--font-small);
   line-height: 19px;
 
   & input {
@@ -260,39 +227,6 @@ const FrequenciesWrapper = styled.div`
   display: flex;
 `;
 
-const Frequency = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 21px;
-
-  width: 72px;
-  height: 136px;
-  background: #f7f5ff;
-  border: 1px solid #e5dcff;
-  box-sizing: border-box;
-  border-radius: 36px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin-top: 18.5px;
-  margin-right: 16px;
-
-  & div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  & span {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: 48px;
-    color: #7057fc;
-  }
-`;
-
 const SaveButton = styled.button`
   display: flex;
   justify-content: center;
@@ -303,16 +237,16 @@ const SaveButton = styled.button`
   max-width: 343px;
   height: 54px;
 
-  background: #7057fc;
+  background: var(--color-purple);
   border-radius: 10px;
   margin-top: 42px;
   margin-bottom: 70px;
 
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: var(--weight-semi-bold);
+  font-size: var(--font-regular);
   line-height: 22px;
 
-  color: #ffffff;
+  color: var(--color-white);
 `;
 
 export default AddDetail;
