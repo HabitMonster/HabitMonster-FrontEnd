@@ -10,3 +10,6 @@ export const createDate = (date) => {
     new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0),
   );
 };
+
+export const convertYYYYMMDD = (date) =>
+  date.toISOString().split('T')[0].split('-').join('/');
