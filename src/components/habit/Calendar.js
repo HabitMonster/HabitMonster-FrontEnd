@@ -232,7 +232,7 @@ const CalendarMonthPicker = styled.div`
   align-items: center;
   color: #4e4e4e;
   margin-bottom: 17px;
-  height: 48px; // 아이콘이랑 갈아 끼워야함.
+  height: 48px;
   padding: 0 21px;
 
   & span {
@@ -261,9 +261,6 @@ const CalendarRow = styled.div`
     flex-grow: 1;
     border: none;
 
-    &:hover {
-      background-color: 'red';
-    }
     &:first-child {
       color: #e57ad9;
     }
