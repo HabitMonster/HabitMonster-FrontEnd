@@ -5,8 +5,10 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { BackButtonHeader } from '../common';
 import TextInput from './TextInput';
 import CategorySummary from './CategorySummary';
-import Calender from './Calender';
+import Calendar from './Calendar';
+
 import FrequencySetting from './FrequencySetting';
+import { Modal } from '../common';
 
 import { CalenderIcon, ModeIcon, SettingIcon } from '../../assets/icons/habits';
 import { useInput } from '../../hooks';
@@ -19,17 +21,26 @@ const AddDetail = () => {
   const [description, onDescriptionChanged] = useInput('');
   const category = location.state?.category ?? '';
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [durationStart, setDurationStart] = useState('');
   const [durationEnd, setDurationEnd] = useState(durationStart);
 
-  console.log(durationStart);
-  console.log(durationEnd);
+  const [durationHelper, setDurationHelper] = useState('날짜');
+
+  const handleCalendarButtonClick = (type, [fromDate, endDate] = []) => {
+    if (type === 'save') {
+      setDurationStart(fromDate);
+      setDurationEnd(endDate);
+      setDurationHelper(`${fromDate} ~ ${endDate}`);
+    }
+
+    setModalOpen(false);
+  };
 
   const [tensFrequency, setTensFrequency] = useState(0);
   const [unitsFrequency, setUnitsFrequency] = useState(0);
 
   const count = String(tensFrequency) + String(unitsFrequency);
-  console.log(count);
 
   return (
     <Wrapper>
@@ -80,16 +91,24 @@ const AddDetail = () => {
           <DetailInner>
             <CalenderIcon />
             <DetailRightColumn>
-              <Calender isStart={true} onDateChosen={setDurationStart} />
+              <span
+                onClick={() => {
+                  setModalOpen(true);
+                }}
+              >
+                {durationHelper}
+              </span>
             </DetailRightColumn>
-          </DetailInner>
-        </DetailOuter>
-        <DetailOuter>
-          <DetailInner>
-            <CalenderIcon />
-            <DetailRightColumn>
-              <Calender isStart={false} onDateChosen={setDurationEnd} />
-            </DetailRightColumn>
+            {modalOpen && (
+              <Modal
+                open={modalOpen}
+                onClose={() => {
+                  setModalOpen(false);
+                }}
+              >
+                <Calendar onClick={handleCalendarButtonClick} />
+              </Modal>
+            )}
           </DetailInner>
         </DetailOuter>
         <DetailOuter>
@@ -190,12 +209,12 @@ const DetailRightColumn = styled.div`
   display: flex;
   align-items: center;
 
-  //TODO: REMOVE DUPLICATED STYLE
   & span {
     font-weight: var(--weight-semi-bold);
     font-size: var(--font-small);
     line-height: 19px;
     display: inline-block;
+    cursor: pointer;
   }
 `;
 
