@@ -244,8 +244,7 @@ const CalendarMonthPicker = styled.div`
 
 const CalendarRow = styled.div`
   width: 100%;
-  box-sizing: border-box;
-  display: flex; // 봐야함..
+  display: flex;
   justify-content: center;
   width: 281px;
   margin: 0 auto;
@@ -254,7 +253,6 @@ const CalendarRow = styled.div`
   padding: 0 5px;
 
   & div {
-    box-sizing: border-box;
     width: 2rem;
     height: 2rem;
     display: flex;
@@ -262,6 +260,7 @@ const CalendarRow = styled.div`
     align-items: center;
     flex-grow: 1;
     border: none;
+
     &:hover {
       background-color: 'red';
     }
@@ -310,6 +309,7 @@ const SaveButtons = styled.div`
     color: #252525;
     cursor: pointer;
     border: none;
+
     &:first-child {
       color: #797979;
       border-right: 1px solid #d5d5d5;
