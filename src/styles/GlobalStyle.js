@@ -17,6 +17,12 @@ const GlobalStyle = createGlobalStyle`
     --color-layout: #eeeeee;
     --color-yellow: #fcec57;
     --color-purple: #7057fc;
+    --color-title: #333333;
+    --color-grey01: #131313;
+    --color-deemed: #999999;
+    --color-main: #7057fc;
+    --color-subtext2: #868686;
+    --color-deemed2: #E8E8E8;
 
 
     /* Font name */
@@ -33,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
 
     /* Font weight */
     --weight-heavy-bold: 900;
+    --weight-extra-bold: 800;
     --weight-bold: 700;
     --weight-semi-bold: 600;
     --weight-regular: 500;

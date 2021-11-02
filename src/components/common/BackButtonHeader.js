@@ -25,11 +25,9 @@ BackButtonHeader.defaultProps = {
 const Wrapper = styled.div`
   max-width: 322px;
   height: 40px;
-  /* margin-top: 44px; */
   display: flex;
   align-items: center;
   padding: 0 16px;
-  /* padding-top: 44px; */
 `;
 
 const PageTitle = styled.h1`
