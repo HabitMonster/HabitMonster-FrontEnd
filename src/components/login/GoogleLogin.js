@@ -39,14 +39,13 @@ const GoogleLogin = ({ setIsFirstLogin }) => {
                 setCookie('refreshToken', data.refreshToken);
                 history.push('/');
               } catch (err) {
-                console.log(err);
                 console.error(err);
               }
             }
             getTokenWithGoogle();
           },
           (error) => {
-            alert(JSON.stringify(error, undefined, 2));
+            console.error(error);
           },
         );
       });
