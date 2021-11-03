@@ -1,12 +1,11 @@
 import axios from 'axios';
+import { getCookie } from '../utils/cookie';
 
 const instance = axios.create({
-  baseURL: 'https://3.35.218.192/',
+  baseURL: `${process.env.REACT_APP_BASE_URL}`,
   headers: {
-    'content-type': 'application/json;charset=UTF-8',
-    accept: 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8',
   },
-  withCredentials: true,
 });
 
 export default instance;

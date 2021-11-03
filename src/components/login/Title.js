@@ -5,7 +5,7 @@ import { babyMonsters } from '../../assets/images/monsters';
 const Title = () => {
   return (
     <Wrapper className="TitleContainer">
-      <Container className="Title">
+      <Container className="TitleContainer">
         <p>Habit</p>
         <p>Monster</p>
       </Container>
@@ -17,7 +17,8 @@ const Title = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 190px;
+  justify-content: flex-end;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.div`

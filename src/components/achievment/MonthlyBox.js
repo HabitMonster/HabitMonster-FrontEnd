@@ -7,7 +7,7 @@ const MonthlyBox = () => {
 
   return (
     <MonthBox>
-      <DateBox>
+      {/* <DateBox>
         <achieveLeft />
         <span>{currentMonth}</span>
         <achieveRight />
@@ -17,7 +17,7 @@ const MonthlyBox = () => {
           <StatisticTitle>전체</StatisticTitle>
           <StatisticCount>39개</StatisticCount>
           {/* <StatisticCount>{statistics.successedCount}개</StatisticCount> */}
-        </CompletionHabit>
+      {/* </CompletionHabit>
         <CompletionHabit>
           <StatisticTitle>완료</StatisticTitle>
           <StatisticCount>30개</StatisticCount>
@@ -25,23 +25,24 @@ const MonthlyBox = () => {
         <CompletionHabit>
           <StatisticTitle>미완료</StatisticTitle>
           <StatisticCount>9개</StatisticCount>
-        </CompletionHabit>
-        {/* <CompletionHabit>{statistics}</CompletionHabit> */}
+        </CompletionHabit>  */}
+      {/* <CompletionHabit>{statistics}</CompletionHabit> */}
 
-        {/* <CompletionHabit>{statistics.successedCount}</CompletionHabit> */}
+      {/* <CompletionHabit>{statistics.successedCount}</CompletionHabit> */}
 
-        {/* <FailedHabit>{statistics.failedCount}</FailedHabit> */}
-      </MonthContainer>
+      {/* <FailedHabit>{statistics.failedCount}</FailedHabit> */}
+      {/* </MonthContainer> */}
     </MonthBox>
   );
 };
 export default MonthlyBox;
 
 const MonthBox = styled.div`
-  width: 360px;
-  height: 195px;
-  top: 82px;
   background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
 `;
 
 const MonthContainer = styled.ul`

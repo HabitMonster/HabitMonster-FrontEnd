@@ -1,5 +1,5 @@
 import HabitCard from './HabitCard';
 import Exp from './Exp';
-import Chracter from './Chracter';
+import Character from './Character';
 
-export { HabitCard, Exp, Chracter };
+export { HabitCard, Exp, Character };

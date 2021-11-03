@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
@@ -6,7 +6,6 @@ import { RecoilRoot } from 'recoil';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
-import { AddDetail, CategoryList } from './habit';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
@@ -24,6 +23,7 @@ function App() {
             <Route path="/achievement" component={Achievement} />
             <Route path="/new" component={New} />
             <Route path="/mypage" component={MyPage} />
+            <Route path="/avatar" component={Avatar} />
             <Gnb />
           </>
         </Switch>

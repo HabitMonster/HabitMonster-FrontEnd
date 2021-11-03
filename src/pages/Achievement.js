@@ -11,9 +11,9 @@ const Achievement = () => {
         <NavButtonItem>월간 통계</NavButtonItem>
         <NavButtonItem>몬스터 도감</NavButtonItem>
       </NavButtonWrap>
-      <>
+      <DateWrap>
         <MonthlyBox />
-      </>
+      </DateWrap>
       {/* {habitList.map((habit) => {
         return <TodaysHabit key={habit.habitId} habit={habit} />;
       })} */}
@@ -29,34 +29,44 @@ export default Achievement;
 const AcheiveContainer = styled.div`
   font-family: var(--font-name-apple);
   width: 100%;
-  height: 100%;
+  margin: 0 auto;
 `;
 
 const NavButtonWrap = styled.ul`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 34px;
-  width: 50%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
 
 const NavButtonItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   list-style: none;
-  color: #999999;
+  width: 50%;
+  min-height: 40px;
+  position: relative;
 `;
 
 const NavButton = styled.button`
+  background-color: transparent;
+  border: 0;
+  outline: 0;
   color: #999999;
-  border: none;
+  &:hover {
+    cursor: pointer;
+    color: #7057fc;
+    border-bottom: 3px solid #7057fc;
+  }
+  &:active {
+    cursor: pointer;
+    color: #7057fc;
+    border-bottom: 3px solid #7057fc;
+  }
 `;
 
-const DateWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 148px;
-  height: 24px;
-`;
+const DateWrap = styled.div``;
 
 const Text = styled.p`
   font-size: 16px;
