@@ -1,11 +1,3 @@
-import dimmedEmotion from './emotion-dim.png';
-import dimmedEtc from './etc-dim.png';
-import dimmedHealth from './health-dim.png';
-import dimmedHobby from './hobby-dim.png';
-import dimmedLife from './life-dim.png';
-import dimmedRelationship from './relationship-dim.png';
-import dimmedStudy from './study-dim.png';
-
 import emotion from './emotion.png';
 import etc from './etc.png';
 import health from './health.png';
@@ -14,60 +6,33 @@ import life from './life.png';
 import relationship from './relationship.png';
 import study from './study.png';
 
-const INACTIVE = {
-  EMOTION: dimmedEmotion,
-  ETC: dimmedEtc,
-  HEALTH: dimmedHealth,
-  HOBBY: dimmedHobby,
-  LIFE: dimmedLife,
-  RELATIONSHIP: dimmedRelationship,
-  STUDY: dimmedStudy,
-};
-
-const ACTIVE = {
-  EMOTION: emotion,
-  ETC: etc,
-  HEALTH: health,
-  HOBBY: hobby,
-  LIFE: life,
-  RELATIONSHIP: relationship,
-  STUDY: study,
-};
-
 export default {
-  EMOTION: {
+  Emotion: {
     name: '감정관리',
-    active: emotion,
-    inactive: dimmedEmotion,
+    src: emotion,
   },
-  ETC: {
+  Etc: {
     name: '기타',
-    active: etc,
-    inactive: dimmedEtc,
+    src: etc,
   },
-  HEALTH: {
+  Health: {
     name: '건강',
-    active: health,
-    inactive: dimmedHealth,
+    src: health,
   },
-  HOBBY: {
+  Hobby: {
     name: '취미',
-    active: hobby,
-    inactive: dimmedHobby,
+    src: hobby,
   },
-  LIFE: {
+  Life: {
     name: '생활',
-    active: life,
-    inactive: dimmedLife,
+    src: life,
   },
-  RELATIONSHIP: {
+  Relation: {
     name: '관계',
-    active: relationship,
-    inactive: dimmedRelationship,
+    src: relationship,
   },
-  STUDY: {
+  Study: {
     name: '공부',
-    active: study,
-    inactive: dimmedStudy,
+    src: study,
   },
 };

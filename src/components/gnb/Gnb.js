@@ -43,7 +43,7 @@ const Gnb = () => {
 
 const TabBar = styled.nav`
   width: 100%;
-  height: 49px;
+  height: 56px;
   max-width: 375px;
   position: fixed;
   bottom: 0;
@@ -73,8 +73,8 @@ const Navigation = styled.ul`
 `;
 
 const NavigationItem = styled.li`
-  height: 49px;
-  padding: 11px 0px 8px 0px;
+  height: 100%;
+  padding: 6px 0px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,7 +95,7 @@ const NavigationItem = styled.li`
     }
 
     &.active path {
-      fill: var(--color-gauge);
+      fill: var(--color-purple);
     }
 
     & span {

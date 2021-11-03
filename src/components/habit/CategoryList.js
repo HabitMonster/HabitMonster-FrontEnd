@@ -1,52 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { useHistory, useLocation } from 'react-router';
 
-import { BackButtonHeader } from '../common';
-import CategoryCell from './CategoryCell';
-import CategoryGrid from './CategoryGrid';
-import CategoryHelperText from './CategoryHelperText';
-
+import { CategoryCell, CategoryGrid, CategoryHelperText } from '.';
 import CATEGORIES from '../../assets/images/habit';
 
+import H from '../../api/habits';
+import { OK } from '../../constants/statusCode';
+
 const CategoryList = () => {
+  const [categories, setCategories] = useState([]);
   const history = useHistory();
-  const location = useLocation();
-  const [selectedCategory, setSelectedCategory] = useState(() =>
-    location.state ? location.state.category : '',
-  );
+  const { path } = useRouteMatch();
+
+  useEffect(() => {
+    async function getCategoryListFromServer() {
+      try {
+        const { data } = await H.getCategoryList();
+        if (data.statusCode === OK) {
+          setCategories(data.categories);
+        }
+      } catch (error) {
+        console.error(error);
+        history.replace('/');
+      }
+    }
+
+    getCategoryListFromServer();
+  }, []);
 
   return (
     <Wrapper>
-      <Header>
-        <BackButtonHeader onButtonClick={() => history.replace('/')} />
-      </Header>
       <CategoryHelperText />
       <CategoryGrid>
-        {Object.keys(CATEGORIES).map((category) => (
+        {categories.map(({ categoryId, category: categoryName }) => (
           <CategoryCell
-            key={category}
-            srcs={CATEGORIES[category]}
-            selected={selectedCategory === CATEGORIES[category].name}
-            onCategorySelected={(newCategory) =>
-              setSelectedCategory(newCategory)
-            }
+            key={categoryId}
+            src={CATEGORIES[categoryName].src}
+            name={CATEGORIES[categoryName].name}
+            onClick={() => {
+              history.push({
+                pathname: `${path}/${categoryId}/preset`,
+                state: {
+                  id: categoryId,
+                  name: CATEGORIES[categoryName].name,
+                },
+              });
+            }}
           />
         ))}
       </CategoryGrid>
-      <ChoiceButton
-        disabled={!selectedCategory}
-        onClick={() =>
-          history.push({
-            pathname: '/new/detail',
-            state: {
-              category: selectedCategory,
-            },
-          })
-        }
-      >
-        선택하기
-      </ChoiceButton>
     </Wrapper>
   );
 };
@@ -55,42 +58,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-`;
-
-const Header = styled.div`
-  padding-top: 44px;
-`;
-
-const ChoiceButton = styled.button`
-  width: 328px;
-  height: 56px;
-  margin: 0 auto;
-  position: absolute;
-  left: 50%;
-  bottom: 81px;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 17px 52px;
-  background: var(--color-purple);
-  border-radius: 12px;
-  font-weight: var(--weight-semi-bold);
-  font-size: var(--font-regular);
-  line-height: 22px;
-  color: var(--color-white);
-  border: none;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.3;
-    background: var(--color-white);
-    border: 1px solid var(--color-purple);
-    border-radius: var(--border-radius-progress);
-    color: var(--color-purple);
-  }
+  padding: 0 24px;
 `;
 
 export default CategoryList;

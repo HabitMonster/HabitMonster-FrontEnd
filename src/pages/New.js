@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { AddDetail, CategoryList } from '../components/habit';
-
-// state를 공유할 수 있어야 함.
-// url 단위로 이동. pages에 저장하지 않았음.
-// url 단위로 이동하는 컴포넌트는 state를 공유하게 됨.
-// Route component 프랍으로 작성 안함.
-// 전부의 chervon: goBack처리를 해줌.
+import React from 'react';
+import { Route, useRouteMatch } from 'react-router-dom';
+import { AddDetail, CategoryList, HabitPreset } from '../components/habit';
 
 const New = () => {
+  const { path } = useRouteMatch();
+
   return (
     <>
-      <Route exact path="/new">
+      <Route exact path={path}>
         <CategoryList />
       </Route>
-      <Route exact path="/new/detail">
+      <Route path={`${path}/:categoryId/preset`}>
+        <HabitPreset />
+      </Route>
+      <Route path={`${path}/:categoryId/detail`}>
         <AddDetail />
       </Route>
     </>

@@ -13,21 +13,19 @@ const CategoryHelperText = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 12px 0px;
-  margin-top: 24px;
-  margin-bottom: 60px;
-  padding: 0 24px;
+  margin-top: 71px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 32px;
 
   & h2 {
-    font-weight: 800;
+    font-weight: var(--weight-extra-bold);
     font-size: var(--font-semi-medium);
     line-height: 29px;
     letter-spacing: 0.374px;
-    color: #333333;
-    margin-bottom: 12px;
+    color: var(--color-title);
+    margin-bottom: 8px;
 
     & b {
       color: var(--color-purple);

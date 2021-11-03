@@ -70,10 +70,6 @@ const Calendar = ({ onClick = () => {} }) => {
     }
   };
 
-  const convertSeperator = (string, baseSeperator, newSeperator) => {
-    return string.split(baseSeperator).join(newSeperator);
-  };
-
   const renderCurrentMonth = (dateString) => {
     const arr = dateString.split('-');
     return `${arr[0]}년 ${arr[1]}월`;
@@ -187,14 +183,7 @@ const Calendar = ({ onClick = () => {} }) => {
       </CalendarRow>
       <SaveButtons>
         <button onClick={() => onClick('cancel')}>취소</button>
-        <button
-          onClick={() =>
-            onClick('save', [
-              convertSeperator(fromDate, '-', '/'),
-              convertSeperator(endDate, '-', '/'),
-            ])
-          }
-        >
+        <button onClick={() => onClick('save', [fromDate, endDate])}>
           완료
         </button>
       </SaveButtons>

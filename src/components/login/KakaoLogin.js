@@ -13,7 +13,9 @@ const KakaoLogin = ({ setIsFirstLogin }) => {
   const socialName = 'kakao';
 
   useEffect(() => {
-    if (!window.location.search) return;
+    if (!window.location.search) {
+      return;
+    }
     const kakaoAuthCode = window.location.search.split('=')[1];
 
     async function getTokenWithKakao() {
@@ -24,7 +26,6 @@ const KakaoLogin = ({ setIsFirstLogin }) => {
         setCookie('refreshToken', data.refreshToken);
         history.push('/');
       } catch (err) {
-        console.log(err);
         console.error(err);
       }
     }
