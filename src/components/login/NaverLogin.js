@@ -47,7 +47,6 @@ const NaverLogin = ({ setIsFirstLogin }) => {
         setCookie('refreshToken', data.refreshToken);
         history.push('/');
       } catch (err) {
-        console.log(err);
         console.error(err);
       }
     }

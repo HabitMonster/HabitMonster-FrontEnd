@@ -1,18 +1,28 @@
+import {
+  DAY_MILLISECS,
+  HOUR_MILLISECS,
+  MIN_MILLISECS,
+  SECS_MILLISECS,
+} from '../constants';
+
 const getCookie = (name) => {
   const value = '; ' + document.cookie;
   const parts = value.split('; ' + name + '=');
+
   if (parts.length === 2) {
     return parts.pop().split(';').shift();
   } else if (parts === '; ') {
     return undefined;
-  } else {
-    return parts.pop().split('=')[1];
   }
+  return parts.pop().split('=')[1];
 };
 
 const setCookie = (name, value, exp = 5) => {
   const date = new Date();
-  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+  date.setTime(
+    date.getTime() +
+      exp * DAY_MILLISECS * HOUR_MILLISECS * MIN_MILLISECS * SECS_MILLISECS,
+  );
   document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
 };
 
