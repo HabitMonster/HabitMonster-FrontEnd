@@ -10,27 +10,14 @@ import { AddDetail, CategoryList } from '../components/habit';
 // Route component 프랍으로 작성 안함.
 // 전부의 chervon: goBack처리를 해줌.
 
-//* 카테고리 리스트 path가 조금 꼬인 것 같은 느낌이 듬.
-
-const initialHabitState = {
-  category: '',
-  title: '',
-  durationStart: '',
-  durationEnd: '',
-  count: 0,
-  sessionDuration: 0,
-};
-
 const New = () => {
-  const [habit, setHabit] = useState(initialHabitState);
-
   return (
     <>
       <Route exact path="/new">
-        <CategoryList habit={habit} setHabit={setHabit} />
+        <CategoryList />
       </Route>
       <Route exact path="/new/detail">
-        <AddDetail habit={habit} setHabit={setHabit} />
+        <AddDetail />
       </Route>
     </>
   );
