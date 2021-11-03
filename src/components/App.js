@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import Login from '../pages/Login';
 import Main from '../pages/Main';
@@ -12,19 +13,21 @@ import Avatar from '../pages/Avatar';
 
 function App() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <>
-          <Route exact path="/" component={Main} />
-          <Route path="/achievement" component={Achievement} />
-          <Route path="/new" component={New} />
-          <Route path="/mypage" component={MyPage} />
-          <Route path="/avatar" component={Avatar} />
-          <Gnb />
-        </>
-      </Switch>
-    </Layout>
+    <RecoilRoot>
+      <Layout>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <>
+            <Route exact path="/" component={Main} />
+            <Route path="/achievement" component={Achievement} />
+            <Route path="/new" component={New} />
+            <Route path="/mypage" component={MyPage} />
+            <Route path="/avatar" component={Avatar} />
+            <Gnb />
+          </>
+        </Switch>
+      </Layout>
+    </RecoilRoot>
   );
 }
 
