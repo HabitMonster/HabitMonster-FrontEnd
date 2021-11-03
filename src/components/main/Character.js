@@ -1,20 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Character } from '../../assets/images/main';
+import { SampleMain } from '../../assets/images/main';
 
-const Chracter = () => {
+const Character = () => {
   return (
-    <ChracterContainer className="characterContainer">
+    <CharacterContainer className="characterContainer">
       <MainCharacter className="mainChracter" />
       <CharacterInfo className="chracterInfo">
         <CharacterName className="chracterName">해빗몬</CharacterName>
         <CharacterLevel className="chracterLevel">Lv.1</CharacterLevel>
       </CharacterInfo>
-    </ChracterContainer>
+    </CharacterContainer>
   );
 };
 
-const ChracterContainer = styled.div`
+const CharacterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -30,7 +30,7 @@ const MainCharacter = styled.div`
   width: 148px;
   height: 122.94px;
   margin-top: 108px;
-  background-image: url(${Character});
+  background-image: url(${SampleMain});
 `;
 
 const CharacterInfo = styled.div`
@@ -52,4 +52,4 @@ const CharacterLevel = styled.span`
   font-size: var(--font-micro);
 `;
 
-export default Chracter;
+export default Character;

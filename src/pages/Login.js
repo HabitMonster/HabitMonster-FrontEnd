@@ -18,13 +18,14 @@ const Login = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 100%;
   height: 100%;
   background-image: url(${loginPageBg});
   background-color: var(--color-login-bg);
   background-repeat: no-repeat;
-  background-position: center 92px;
+  background-position: center;
 `;
 
 export default Login;
