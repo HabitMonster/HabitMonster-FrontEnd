@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
-import { AddDetail, CategoryList } from './habit';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import Avatar from '../pages/Avatar';
+
+import A from './testing';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 375px;
+  max-width: 360px;
   min-height: 100vh;
   width: 100%;
   height: 100vh;
