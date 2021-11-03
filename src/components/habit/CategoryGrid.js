@@ -12,11 +12,12 @@ CategoryGrid.propTypes = {
 
 const GridContainer = styled.section`
   width: 100%;
-  padding: 0 24px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 22.5px;
+  column-gap: 21px;
   row-gap: 24px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default CategoryGrid;

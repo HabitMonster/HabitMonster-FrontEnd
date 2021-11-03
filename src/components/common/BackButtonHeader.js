@@ -27,7 +27,6 @@ const Wrapper = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
 `;
 
 const PageTitle = styled.h1`
@@ -35,7 +34,7 @@ const PageTitle = styled.h1`
   font-size: 20px;
   line-height: 41px;
   margin-left: 8px;
-  color: var(--color-white);
+  color: var(--color-black);
 `;
 
 export default BackButtonHeader;
