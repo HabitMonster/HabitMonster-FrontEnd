@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import Login from '../pages/Login';
 import Main from '../pages/Main';
@@ -13,19 +14,21 @@ import Avatar from '../pages/Avatar';
 
 function App() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/avatar" component={Avatar} />
-        <>
-          <Route exact path="/" component={Main} />
-          <Route path="/achievement" component={Achievement} />
-          <Route path="/new" component={New} />
-          <Route path="/mypage" component={MyPage} />
-          <Gnb />
-        </>
-      </Switch>
-    </Layout>
+    <RecoilRoot>
+      <Layout>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/avatar" component={Avatar} />
+          <>
+            <Route exact path="/" component={Main} />
+            <Route path="/achievement" component={Achievement} />
+            <Route path="/new" component={New} />
+            <Route path="/mypage" component={MyPage} />
+            <Gnb />
+          </>
+        </Switch>
+      </Layout>
+    </RecoilRoot>
   );
 }
 
@@ -34,7 +37,7 @@ const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 375px;
+  max-width: 360px;
   min-height: 100vh;
   width: 100%;
   height: 100vh;
@@ -43,3 +46,5 @@ const Layout = styled.div`
 `;
 
 export default App;
+
+// https://recoiljs.org/ko/docs/api-reference/core/useSetRecoilState/

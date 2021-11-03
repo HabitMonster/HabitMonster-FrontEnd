@@ -103,12 +103,14 @@ const AvatarContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 const AvatarWrap = styled.div`
   background-color: var(--color-login-bg);
   padding: 6% 24px 10%;
   width: 100%;
   padding: 70px 24px 100px;
 `;
+
 const TitleWrap = styled.div``;
 
 const Title = styled.h2`
@@ -135,6 +137,7 @@ const ThumbnailWrap = styled.div`
   justify-content: center;
   padding: 80px 0 30px;
 `;
+
 const SelectList = styled.ul`
   display: grid;
   gap: 6px;
@@ -142,6 +145,7 @@ const SelectList = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   max-width: 204px;
 `;
+
 const SelectListItem = styled.li`
   border: 3px solid
     ${(props) => (props.selected ? 'var(--color-white)' : 'rgba(0, 0, 0, 0.4)')};
@@ -149,6 +153,7 @@ const SelectListItem = styled.li`
   cursor: pointer;
   transition: border 500ms;
 `;
+
 const InputWrap = styled.div`
   border: 2px solid #ffffff;
   border-radius: 12px;
