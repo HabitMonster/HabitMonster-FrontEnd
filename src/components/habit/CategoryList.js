@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import CategoryCell from './CategoryCell';
-import CategoryGrid from './CategoryGrid';
-import CategoryHelperText from './CategoryHelperText';
-
+import { CategoryCell, CategoryGrid, CategoryHelperText } from '.';
 import CATEGORIES from '../../assets/images/habit';
 
-import A from '../testing';
+import H from '../../api/habits';
+import { OK } from '../../constants/statusCode';
 
-const CategoryList = ({ onCategorySelected }) => {
+const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const history = useHistory();
   const { path } = useRouteMatch();
 
   useEffect(() => {
-    A.get('/categories')
-      .then((res) => setCategories(res.data.categories))
-      .catch((error) => {
+    async function getCategoryListFromServer() {
+      try {
+        const { data } = await H.getCategoryList();
+        if (data.statusCode === OK) {
+          setCategories(data.categories);
+        }
+      } catch (error) {
         console.error(error);
         history.replace('/');
-      });
+      }
+    }
+
+    getCategoryListFromServer();
   }, []);
 
   return (
@@ -35,10 +39,6 @@ const CategoryList = ({ onCategorySelected }) => {
             src={CATEGORIES[categoryName].src}
             name={CATEGORIES[categoryName].name}
             onClick={() => {
-              onCategorySelected({
-                id: categoryId,
-                name: CATEGORIES[categoryName].name,
-              });
               history.push({
                 pathname: `${path}/${categoryId}/preset`,
                 state: {
@@ -52,10 +52,6 @@ const CategoryList = ({ onCategorySelected }) => {
       </CategoryGrid>
     </Wrapper>
   );
-};
-
-CategoryList.propTypes = {
-  onCategorySelected: PropTypes.func.isRequired,
 };
 
 export const Wrapper = styled.div`

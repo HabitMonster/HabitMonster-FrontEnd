@@ -1,32 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useHistory, useParams, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { BackButtonHeader } from '../common';
-import PresetItem from './PresetItem';
+import { PresetItem } from '.';
 
-import A from '../testing';
+import H from '../../api/habits';
+import { OK } from '../../constants/statusCode';
 
-const HabitPreset = ({ category }) => {
-  const [presets, setPresets] = useState([]);
+const HabitPreset = () => {
   const [selectedPresetId, setSelectedPresetId] = useState(null);
-
+  const [presets, setPresets] = useState([]);
   const { state: selectedHabitCategory } = useLocation();
-  const history = useHistory();
   const { categoryId } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    A.get(`/categories/${categoryId}/presets`)
-      .then(({ data: { preSets } }) => {
-        setPresets(preSets);
-      })
-      .catch((error) => console.error(error));
+    async function getHabitPresetFromServer() {
+      try {
+        const { data } = await H.getHabitPreset(categoryId)();
+        if (data.statusCode === OK) {
+          setPresets(data.preSets);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getHabitPresetFromServer();
   }, []);
 
   const handleSaveButtonClick = async () => {
-    const { data } = await A.post(`/presets/${selectedPresetId}`);
-    if (data.statusCode === 200) {
-      history.replace('/');
+    try {
+      const { data } = await H.saveHabitWithPreset(selectedPresetId)();
+      if (data.statusCode === OK) {
+        history.replace('/');
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -39,7 +50,7 @@ const HabitPreset = ({ category }) => {
       <Wrapper>
         <div style={{ marginTop: '44px', marginBottom: '26px' }}>
           <BackButtonHeader
-            pageTitleText={category.name}
+            pageTitleText={selectedHabitCategory.name}
             onButtonClick={() => history.replace('/new')}
           />
         </div>
@@ -72,13 +83,6 @@ const HabitPreset = ({ category }) => {
       <ChooseButton onClick={handleSaveButtonClick}>저장하기</ChooseButton>
     </>
   );
-};
-
-HabitPreset.propTypes = {
-  category: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }),
 };
 
 const Wrapper = styled.div`

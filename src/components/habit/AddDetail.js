@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 
 import { BackButtonHeader } from '../common';
-import TextInput from './TextInput';
-import FrequencySetting from './FrequencySetting';
-import CategorySummary from './CategorySummary';
-import Calendar from './Calendar';
+import { TextInput, FrequencySetting, CategorySummary, Calendar } from '.';
 import { Modal } from '../common';
 
 import { CalenderIcon, SettingIcon } from '../../assets/icons/habits';
@@ -14,8 +11,9 @@ import { CalenderIcon, SettingIcon } from '../../assets/icons/habits';
 import { useInput, useDateRange } from '../../hooks';
 
 import { WEEK } from '../../constants/date';
+import { OK } from '../../constants/statusCode';
 
-import A from '../testing';
+import H from '../../api/habits';
 
 const AddDetail = () => {
   const history = useHistory();
@@ -54,8 +52,11 @@ const AddDetail = () => {
     };
 
     try {
-      const { data } = await A.post('/habits', body);
-      console.log(data);
+      const { data } = await H.saveHabitWithHands(body);
+      if (data.statusCode === OK) {
+        //TODO: WHAT SHOULD I DO WITH RECOIL STATE?
+        history.replace('/');
+      }
     } catch (error) {
       console.error(error);
     }

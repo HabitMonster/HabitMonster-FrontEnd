@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
-import { AddDetail, CategoryList } from '../components/habit';
-import HabitPreset from '../components/habit/HabitPreset';
+import { AddDetail, CategoryList, HabitPreset } from '../components/habit';
 
 const New = () => {
-  const [selectedCategory, setSelectedCategory] = useState({});
   const { path } = useRouteMatch();
 
   return (
     <>
       <Route exact path={path}>
-        <CategoryList onCategorySelected={setSelectedCategory} />
+        <CategoryList />
       </Route>
       <Route path={`${path}/:categoryId/preset`}>
-        <HabitPreset category={selectedCategory} />
+        <HabitPreset />
       </Route>
       <Route path={`${path}/:categoryId/detail`}>
-        <AddDetail category={selectedCategory} />
+        <AddDetail />
       </Route>
     </>
   );
