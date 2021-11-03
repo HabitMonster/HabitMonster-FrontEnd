@@ -1,62 +1,78 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 
 import { BackButtonHeader } from '../common';
 import TextInput from './TextInput';
+import FrequencySetting from './FrequencySetting';
 import CategorySummary from './CategorySummary';
 import Calendar from './Calendar';
-
-import FrequencySetting from './FrequencySetting';
 import { Modal } from '../common';
 
-import { CalenderIcon, ModeIcon, SettingIcon } from '../../assets/icons/habits';
-import { useInput } from '../../hooks';
+import { CalenderIcon, SettingIcon } from '../../assets/icons/habits';
+
+import { useInput, useDateRange } from '../../hooks';
+
+import { WEEK } from '../../constants/date';
+
+import A from '../testing';
 
 const AddDetail = () => {
-  const location = useLocation();
   const history = useHistory();
+  const { state: categoryState } = useLocation();
 
   const [title, onTitleChanged] = useInput('');
   const [description, onDescriptionChanged] = useInput('');
-  const category = location.state?.category ?? '';
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [durationStart, setDurationStart] = useState('');
-  const [durationEnd, setDurationEnd] = useState(durationStart);
+  const [durationStart, durationEnd, dateHelperText, onDateRangeChosen] =
+    useDateRange();
 
-  const [durationHelper, setDurationHelper] = useState('날짜');
+  const [tensFrequency, setTensFrequency] = useState(0);
+  const [unitsFrequency, setUnitsFrequency] = useState(1);
+  const count = tensFrequency
+    ? Number(`${tensFrequency}${unitsFrequency}`)
+    : unitsFrequency;
 
-  const handleCalendarButtonClick = (type, [fromDate, endDate] = []) => {
-    if (type === 'save') {
-      setDurationStart(fromDate);
-      setDurationEnd(endDate);
-      setDurationHelper(`${fromDate} ~ ${endDate}`);
-    }
+  const saveButtonStatus =
+    title && description && durationStart && durationEnd && unitsFrequency;
 
+  const handleDateRangePickerClick = (type, range) => {
+    onDateRangeChosen(type, range);
     setModalOpen(false);
   };
 
-  const [tensFrequency, setTensFrequency] = useState(0);
-  const [unitsFrequency, setUnitsFrequency] = useState(0);
+  const handleSaveButtonClick = async () => {
+    const body = {
+      title,
+      description,
+      durationStart,
+      durationEnd,
+      count,
+      categoryId: categoryState.id,
+      practiceDays: '1234567',
+    };
 
-  const count = String(tensFrequency) + String(unitsFrequency);
+    try {
+      const { data } = await A.post('/habits', body);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (!categoryState) {
+    return <Redirect to="/new" />;
+  }
 
   return (
     <Wrapper>
       <Header>
         <BackButtonHeader
-          onButtonClick={() => {
-            history.replace({
-              pathname: '/new',
-              state: {
-                category: location.state.category,
-              },
-            });
-          }}
+          onButtonClick={() => history.goBack()}
           pageTitleText="습관 작성하기"
         />
-        <CategorySummary category={category} />
+        <CategorySummary category={categoryState.name} />
         <TextInput
           isTitle={true}
           labelName="타이틀"
@@ -96,7 +112,7 @@ const AddDetail = () => {
                   setModalOpen(true);
                 }}
               >
-                {durationHelper}
+                {dateHelperText}
               </span>
             </DetailRightColumn>
             {modalOpen && (
@@ -106,25 +122,17 @@ const AddDetail = () => {
                   setModalOpen(false);
                 }}
               >
-                <Calendar onClick={handleCalendarButtonClick} />
+                <Calendar onClick={handleDateRangePickerClick} />
               </Modal>
             )}
           </DetailInner>
         </DetailOuter>
         <DetailOuter>
-          <DetailInner>
-            <ModeIcon />
-            <DetailRightColumn>
-              <Mode>
-                <input type="radio" />
-                <span>매일</span>
-              </Mode>
-              <Mode>
-                <input type="radio" />
-                <span>매주</span>
-              </Mode>
-            </DetailRightColumn>
-          </DetailInner>
+          <div style={{ display: 'flex' }}>
+            {WEEK.map(({ id, day }) => (
+              <div key={id}>{day}</div>
+            ))}
+          </div>
         </DetailOuter>
         <DetailOuter>
           <DetailInner>
@@ -144,7 +152,12 @@ const AddDetail = () => {
             />
           </FrequenciesWrapper>
         </DetailOuter>
-        <SaveButton>저장하기</SaveButton>
+        <SaveButton
+          onClick={handleSaveButtonClick}
+          disabled={!saveButtonStatus}
+        >
+          저장하기
+        </SaveButton>
       </DetailBody>
     </Wrapper>
   );
@@ -218,46 +231,23 @@ const DetailRightColumn = styled.div`
   }
 `;
 
-const Mode = styled.div`
-  width: 60px;
-  height: 24px;
-  display: flex;
-  font-weight: var(--weight-semi-bold);
-  font-size: var(--font-small);
-  line-height: 19px;
-
-  & input {
-    margin-right: 12px;
-    background-color: #7a80ef;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    margin-right: 12px;
-  }
-
-  & span {
-    display: inline-block;
-    min-width: 32px;
-  }
-`;
-
 const FrequenciesWrapper = styled.div`
   padding-left: 48px;
   display: flex;
 `;
 
 const SaveButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 140px;
-  border: none;
-
+  width: 100%;
   max-width: 343px;
   height: 54px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background: var(--color-purple);
-  border-radius: 10px;
+  border: none;
+  border-radius: var(--border-radius-progress);
   margin-top: 42px;
   margin-bottom: 70px;
 
@@ -266,6 +256,13 @@ const SaveButton = styled.button`
   line-height: 22px;
 
   color: var(--color-white);
+
+  &:disabled {
+    color: var(--color-purple);
+    background: transparent;
+    opacity: 0.3;
+    border: 1px solid #7057fc;
+  }
 `;
 
 export default AddDetail;

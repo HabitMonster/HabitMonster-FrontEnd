@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import CategoryCell from './CategoryCell';
@@ -12,11 +13,16 @@ import A from '../testing';
 
 const CategoryList = ({ onCategorySelected }) => {
   const [categories, setCategories] = useState([]);
+  const history = useHistory();
+  const { path } = useRouteMatch();
 
   useEffect(() => {
     A.get('/categories')
       .then((res) => setCategories(res.data.categories))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        history.replace('/');
+      });
   }, []);
 
   return (
@@ -28,12 +34,19 @@ const CategoryList = ({ onCategorySelected }) => {
             key={categoryId}
             src={CATEGORIES[categoryName].src}
             name={CATEGORIES[categoryName].name}
-            onClick={() =>
+            onClick={() => {
               onCategorySelected({
                 id: categoryId,
                 name: CATEGORIES[categoryName].name,
-              })
-            }
+              });
+              history.push({
+                pathname: `${path}/${categoryId}/preset`,
+                state: {
+                  id: categoryId,
+                  name: CATEGORIES[categoryName].name,
+                },
+              });
+            }}
           />
         ))}
       </CategoryGrid>
