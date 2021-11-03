@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { HabitCard, Exp, Character } from '../components/main';
 import '../assets/fonts/font.css';
-import { HabitCard, Exp, Chracter } from '../components/main';
 
 const Main = () => {
   return (
     <React.Fragment>
       <Wrapper className="wrapper">
-        <Chracter />
+        <Character />
         <Exp />
         <HabitWrapper className="habitWrapper">
           <TitleContainer className="titleContainer">
             <Title className="title">오늘의 습관</Title>
             <RestHabit className="restHabit">아직 12개가 남았어요!</RestHabit>
           </TitleContainer>
-
           <HabitContainer className="habitContainer">
             <HabitList className="habitList">
               <HabitCard />

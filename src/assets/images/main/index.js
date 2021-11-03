@@ -1,4 +1,4 @@
-import Character from './Character.png';
+import SampleMain from './SampleMain.png';
 import SampleCategory from './SampleCategory.png';
 
-export { Character, SampleCategory };
+export { SampleMain, SampleCategory };
