@@ -11,7 +11,6 @@ const { naver } = window;
 const NaverLogin = ({ setIsFirstLogin }) => {
   const history = useHistory();
   const naverRef = useRef();
-  const clientId = process.env.REACT_APP_NAVER_CLIENT_ID;
   const socialName = 'naver';
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const NaverLogin = ({ setIsFirstLogin }) => {
 
   const initializeNaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
-      clientId,
+      clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
       callbackUrl: process.env.REACT_APP_LOGIN_REDIRECT_URI,
       isPopup: false,
       loginButton: {
@@ -35,7 +34,9 @@ const NaverLogin = ({ setIsFirstLogin }) => {
   };
 
   const getNaverAuthCode = () => {
-    if (!window.location.hash) return;
+    if (!window.location.hash) {
+      return;
+    }
     const naverAuthCode = window.location.hash.split('=')[1].split('&')[0];
 
     async function getTokenWithNaver() {
