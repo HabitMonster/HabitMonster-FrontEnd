@@ -1,4 +1,4 @@
-import { ReactComponent as achieveLeft } from './achieveLeft.svg';
-import { ReactComponent as achieveRight } from './achieveRight.svg';
+import { ReactComponent as AchieveLeft } from './achieveLeft.svg';
+import { ReactComponent as AchieveRight } from './achieveRight.svg';
 
-export { achieveLeft, achieveRight };
+export { AchieveLeft, AchieveRight };
