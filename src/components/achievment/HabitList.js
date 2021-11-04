@@ -6,11 +6,6 @@ import { HabitItems } from './index';
 const HabitList = () => {
   return (
     <>
-      <ButtonWrap>
-        <AchieveNavBtn>전체</AchieveNavBtn>
-        <AchieveNavBtn>완료</AchieveNavBtn>
-        <AchieveNavBtn>미완료</AchieveNavBtn>
-      </ButtonWrap>
       <HabitItems />
       {/* {habitList.map((habit) => {
         return <HabitItems key={habit.habitId} habit={habit} />;
