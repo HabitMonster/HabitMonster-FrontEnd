@@ -6,7 +6,7 @@ import A from '../../api/habits';
 import { habitAccomplishState } from '../../recoil/states';
 import { SampleCategory } from '../../assets/images/main';
 
-const HabitCard = ({ habit, accomplished }) => {
+const Habit = ({ habit, accomplished }) => {
   const [current, setCurrent] = useState(habit.current);
   const setHabitAccomplish = useSetRecoilState(habitAccomplishState);
 
@@ -49,7 +49,7 @@ const HabitCard = ({ habit, accomplished }) => {
   );
 };
 
-HabitCard.propTypes = {
+Habit.propTypes = {
   habit: PropTypes.object.isRequired,
   accomplished: PropTypes.bool,
 };
@@ -140,4 +140,4 @@ const CheckBtn = styled.div`
   }
 `;
 
-export default HabitCard;
+export default Habit;

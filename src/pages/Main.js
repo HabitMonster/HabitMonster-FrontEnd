@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Exp, Character } from '../components/main';
-import Habit from './Habit';
+import Habits from './Habits';
 import '../assets/fonts/font.css';
 
 const Main = () => {
@@ -10,7 +10,7 @@ const Main = () => {
       <Wrapper className="wrapper">
         <Character />
         <Exp />
-        <Habit />
+        <Habits />
       </Wrapper>
     </React.Fragment>
   );

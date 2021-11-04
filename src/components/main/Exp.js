@@ -1,20 +1,29 @@
 import React from 'react';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
-import { mainDataSelectorFamily, expState } from '../../recoil/states';
+import Loading from '../../pages/Loading';
+import { userSelector } from '../../recoil/states';
 
 const Exp = () => {
-  const { fieldName } = useRecoilValue(expState);
-  const exp = useRecoilValueLoadable(mainDataSelectorFamily(fieldName));
+  const userData = useRecoilValueLoadable(userSelector);
 
-  return (
-    <ExpContainer className="expContainer">
-      <ExpBar className="expBar">
-        <Gauge className="gauge" />
-      </ExpBar>
-      <Span className="span">Exp</Span>
-    </ExpContainer>
-  );
+  switch (userData.state) {
+    case 'hasValue':
+      const { expPercentage } = userData.contents.userInfo;
+
+      return (
+        <ExpContainer className="expContainer">
+          <ExpBar className="expBar">
+            <Gauge className="gauge" />
+          </ExpBar>
+          <Span className="span">Exp</Span>
+        </ExpContainer>
+      );
+    case 'loading':
+      return <Loading />;
+    case 'hasError':
+      return userInfo.contents;
+  }
 };
 
 const ExpContainer = styled.div`
