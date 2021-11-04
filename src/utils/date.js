@@ -123,3 +123,38 @@ export default function getDateList(date) {
 
   return result;
 }
+
+// @jaekyung: amount만큼 월을 더해주기
+export const addMonths = (date, amount) => {
+  const tempDate = date ? date : new Date();
+  const year = tempDate.getFullYear();
+  const month = tempDate.getMonth();
+  const day = tempDate.getDate();
+
+  return new Date(year, month + amount, day);
+};
+// @jaekyung: amount만큼 월을 빼주기
+export const subMonths = (date, amount) => {
+  const tempDate = date ? date : new Date();
+  const year = tempDate.getFullYear();
+  const month = tempDate.getMonth();
+  const day = tempDate.getDate();
+
+  return new Date(year, month - amount, day);
+};
+
+// @jaekyung: format에 맞는 날짜 정해주기
+export const formatMonth = (date, format) => {
+  const tempDate = new Date(date);
+  const year = tempDate.getFullYear();
+  const month = tempDate.getMonth() + 1;
+  let newMonth = `${month}`;
+
+  if (month < 10) newMonth = `0${newMonth}`;
+
+  const result = format
+    ? `${year}${format}${newMonth}`
+    : `${year}년 ${newMonth}월`;
+
+  return result;
+};
