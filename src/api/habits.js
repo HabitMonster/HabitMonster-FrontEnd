@@ -9,4 +9,7 @@ export default {
     A.get(`/categories/${categoryId}/presets`),
   saveHabitWithPreset: (presetId) => () => A.post(`/presets/${presetId}`),
   saveHabitWithHands: (body) => A.post('/habits', body),
+
+  // 습관 체크
+  checkHabit: (habitId) => A.post(`/habits/${habitId}/check`),
 };
