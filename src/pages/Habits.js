@@ -1,39 +1,42 @@
 import React from 'react';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
+import { Habit } from '../components/main';
 import Loading from './Loading';
-import { HabitCard } from '../components/main';
-import { mainDataSelectorFamily, habitState } from '../recoil/states';
+import { habitSelector } from '../recoil/states';
 
-const Habit = () => {
-  const { fieldName } = useRecoilValue(habitState);
-  const habits = useRecoilValueLoadable(mainDataSelectorFamily(fieldName));
+const Habits = () => {
+  const habitData = useRecoilValueLoadable(habitSelector);
 
-  switch (habits.state) {
+  switch (habitData.state) {
     case 'hasValue':
+      const { habits } = habitData.contents;
+
       return (
-        <HabitWrapper className="habitWrapper">
+        <Wrapper className="habitWrapper">
           <TitleContainer className="titleContainer">
             <Title className="title">오늘의 습관</Title>
-            <RestHabit className="restHabit">아직 12개가 남았어요!</RestHabit>
+            <RemainHabit className="remainHabit">
+              아직 {habits.length}개가 남았어요!
+            </RemainHabit>
           </TitleContainer>
           <HabitContainer className="habitContainer">
-            <HabitList className="habitList">
-              {habits.contents.map((habit, idx) => {
-                return <HabitCard key={idx} habit={habit} />;
+            <List className="habitList">
+              {habits.map((habit, idx) => {
+                return <Habit key={idx} habit={habit} className="habit" />;
               })}
-            </HabitList>
+            </List>
           </HabitContainer>
-        </HabitWrapper>
+        </Wrapper>
       );
     case 'loading':
       return <Loading />;
     case 'hasError':
-      return habits.contents;
+      return habitData.contents;
   }
 };
 
-const HabitWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -61,7 +64,7 @@ const Title = styled.p`
   font-weight: var(--weight-bold);
 `;
 
-const RestHabit = styled.p`
+const RemainHabit = styled.p`
   font-family: Apple SD Gothic Neo L;
   font-size: var(--font-micro);
   font-weight: var(--weight-regular);
@@ -82,10 +85,10 @@ const HabitContainer = styled.div`
   scrollbar-width: none; /* Firefox */
 `;
 
-const HabitList = styled.div`
+const List = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
 `;
 
-export default Habit;
+export default Habits;

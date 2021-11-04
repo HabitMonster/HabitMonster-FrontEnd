@@ -1,27 +1,28 @@
 import React from 'react';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
 import Loading from '../../pages/Loading';
-import { mainDataSelectorFamily, monsterState } from '../../recoil/states';
+import { monsterSelector } from '../../recoil/states';
 
 const Character = () => {
-  const { fieldName } = useRecoilValue(monsterState);
-  const monster = useRecoilValueLoadable(mainDataSelectorFamily(fieldName));
+  const monsterData = useRecoilValueLoadable(monsterSelector);
 
-  switch (monster.state) {
+  switch (monsterData.state) {
     case 'hasValue':
+      const { monster } = monsterData.contents;
+
       return (
         <CharacterContainer className="characterContainer">
           <MainCharacter
             className="mainChracter"
-            image={monster.contents.monsterImage}
+            image={monster.monsterImage}
           />
           <CharacterInfo className="chracterInfo">
             <CharacterName className="chracterName">
-              {monster.contents.monsterName}
+              {monster.monsterName}
             </CharacterName>
             <CharacterLevel className="chracterLevel">
-              lv{monster.contents.level}
+              lv.{monster.level}
             </CharacterLevel>
           </CharacterInfo>
         </CharacterContainer>
@@ -29,7 +30,7 @@ const Character = () => {
     case 'loading':
       return <Loading />;
     case 'hasError':
-      return monster.contents;
+      return monsterData.contents;
   }
 };
 
