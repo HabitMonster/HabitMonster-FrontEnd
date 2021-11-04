@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { HabitCard, Exp, Character } from '../components/main';
+import { Exp, Character } from '../components/main';
+import Habit from './Habit';
 import '../assets/fonts/font.css';
 
 const Main = () => {
@@ -9,26 +10,7 @@ const Main = () => {
       <Wrapper className="wrapper">
         <Character />
         <Exp />
-        <HabitWrapper className="habitWrapper">
-          <TitleContainer className="titleContainer">
-            <Title className="title">오늘의 습관</Title>
-            <RestHabit className="restHabit">아직 12개가 남았어요!</RestHabit>
-          </TitleContainer>
-          <HabitContainer className="habitContainer">
-            <HabitList className="habitList">
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-              <HabitCard />
-            </HabitList>
-          </HabitContainer>
-        </HabitWrapper>
+        <Habit />
       </Wrapper>
     </React.Fragment>
   );
@@ -42,61 +24,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   background: linear-gradient(180deg, #7057fc 0%, #7057fc 50.52%, #7f9ae6 100%);
-`;
-
-const HabitWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 24px 24px 0px 0px;
-`;
-
-const TitleContainer = styled.div`
-  height: 88px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 24px;
-  padding-bottom: 14px;
-  box-sizing: border-box;
-`;
-
-const Title = styled.p`
-  font-family: Apple SD Gothic Neo M;
-  font-size: var(--font-semi-medium);
-  font-weight: var(--weight-bold);
-`;
-
-const RestHabit = styled.p`
-  font-family: Apple SD Gothic Neo L;
-  font-size: var(--font-micro);
-  font-weight: var(--weight-regular);
-`;
-
-const HabitContainer = styled.div`
-  height: 100%;
-  overflow-y: scroll;
-  padding-left: 16px;
-  padding-right: 16px;
-
-  /* Chrome */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-`;
-
-const HabitList = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 50px;
 `;
 
 export default Main;

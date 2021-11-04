@@ -1,11 +1,11 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { loginState } from '../../recoil/states';
 import { GoogleLogin, KakaoLogin, NaverLogin } from './';
 
 const SocialLogin = () => {
-  const [isFirstLogin, setIsFirstLogin] = useRecoilState(loginState);
+  const setIsFirstLogin = useSetRecoilState(loginState);
 
   return (
     <BtnContainer className="BtnContainer">

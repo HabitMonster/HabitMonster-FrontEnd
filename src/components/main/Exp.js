@@ -1,7 +1,12 @@
 import React from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
+import { mainDataSelectorFamily, expState } from '../../recoil/states';
 
 const Exp = () => {
+  const { fieldName } = useRecoilValue(expState);
+  const exp = useRecoilValueLoadable(mainDataSelectorFamily(fieldName));
+
   return (
     <ExpContainer className="expContainer">
       <ExpBar className="expBar">

@@ -1,29 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import A from '../../api/habits';
+import { habitAccomplishState } from '../../recoil/states';
 import { SampleCategory } from '../../assets/images/main';
 
-const HabitCard = () => {
+const HabitCard = ({ habit, accomplished }) => {
+  const [current, setCurrent] = useState(habit.current);
+  const setHabitAccomplish = useSetRecoilState(habitAccomplishState);
+
+  const checkHabit = async () => {
+    const response = await A.checkHabit(habit.habitId);
+    setCurrent(response.data.current);
+
+    if (response.data.isAccomplished) {
+      setHabitAccomplish({
+        habitId: habit.habitId,
+      });
+    }
+  };
+
   return (
     <>
       <Card className="card">
         <Wrapper className="wrapper">
-          <Period className="period">2021.10.21 - 2021.12.24</Period>
+          <Period className="period">
+            {habit.durationStart} - {habit.durationEnd}
+          </Period>
           <DetailBox className="detailBox">
             <CategoryIcon className="categoryIcon" />
             <Info className="info">
-              <HabitTitle className="habitTitle">
-                30분씩 걷기! 운동하자!!
-              </HabitTitle>
+              <HabitTitle className="habitTitle">{habit.title}</HabitTitle>
               <Progress className="progress">
                 <ProgressGauge className="progressGauge" />
               </Progress>
             </Info>
           </DetailBox>
         </Wrapper>
-        <CheckBtn className="checkBtn">🔔</CheckBtn>
+        <CheckBtn
+          className={accomplished ? 'checkBtn accomplished' : 'checkBtn'}
+          onClick={checkHabit}
+        >
+          🔔
+        </CheckBtn>
       </Card>
     </>
   );
+};
+
+HabitCard.propTypes = {
+  habit: PropTypes.object.isRequired,
+  accomplished: PropTypes.bool,
 };
 
 const Card = styled.div`
