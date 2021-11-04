@@ -5,9 +5,8 @@ import A from '../lib/testing';
 
 export default {
   getCategoryList: () => A.get('/categories'),
-  getHabitPreset: (categoryId) => () =>
-    A.get(`/categories/${categoryId}/presets`),
-  saveHabitWithPreset: (presetId) => () => A.post(`/presets/${presetId}`),
+  getHabitPreset: (categoryId) => A.get(`/categories/${categoryId}/presets`),
+  saveHabitWithPreset: (presetId) => A.post(`/presets/${presetId}`),
   saveHabitWithHands: (body) => A.post('/habits', body),
 
   // 습관 체크

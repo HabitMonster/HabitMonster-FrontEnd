@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 
+import Loading from '../pages/Loading';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
@@ -13,21 +14,23 @@ import Avatar from '../pages/Avatar';
 
 function App() {
   return (
-    <RecoilRoot>
-      <Layout>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <>
-            <Route exact path="/" component={Main} />
-            <Route path="/achievement" component={Achievement} />
-            <Route path="/new" component={New} />
-            <Route path="/mypage" component={MyPage} />
-            <Route path="/avatar" component={Avatar} />
-            <Gnb />
-          </>
-        </Switch>
-      </Layout>
-    </RecoilRoot>
+    <Suspense fallback={<Loading />}>
+      <RecoilRoot>
+        <Layout>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <>
+              <Route exact path="/" component={Main} />
+              <Route path="/achievement" component={Achievement} />
+              <Route path="/new" component={New} />
+              <Route path="/mypage" component={MyPage} />
+              <Route path="/avatar" component={Avatar} />
+              <Gnb />
+            </>
+          </Switch>
+        </Layout>
+      </RecoilRoot>
+    </Suspense>
   );
 }
 

@@ -1,39 +1,29 @@
 import React from 'react';
-import { useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { habitIdListState } from '../recoil/states/';
+
 import { Habit } from '../components/main';
-import Loading from './Loading';
-import { habitSelector } from '../recoil/states';
 
 const Habits = () => {
-  const habitData = useRecoilValueLoadable(habitSelector);
-
-  switch (habitData.state) {
-    case 'hasValue':
-      const { habits } = habitData.contents;
-
-      return (
-        <Wrapper className="habitWrapper">
-          <TitleContainer className="titleContainer">
-            <Title className="title">오늘의 습관</Title>
-            <RemainHabit className="remainHabit">
-              아직 {habits.length}개가 남았어요!
-            </RemainHabit>
-          </TitleContainer>
-          <HabitContainer className="habitContainer">
-            <List className="habitList">
-              {habits.map((habit, idx) => {
-                return <Habit key={idx} habit={habit} className="habit" />;
-              })}
-            </List>
-          </HabitContainer>
-        </Wrapper>
-      );
-    case 'loading':
-      return <Loading />;
-    case 'hasError':
-      return habitData.contents;
-  }
+  const idList = useRecoilValue(habitIdListState);
+  return (
+    <Wrapper className="habitWrapper">
+      <TitleContainer className="titleContainer">
+        <Title className="title">오늘의 습관</Title>
+        <RemainHabit className="remainHabit">
+          아직 {idList.length}개가 남았어요!
+        </RemainHabit>
+      </TitleContainer>
+      <HabitContainer className="habitContainer">
+        <List className="habitList">
+          {idList.map((id) => (
+            <Habit key={id} id={id} />
+          ))}
+        </List>
+      </HabitContainer>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
