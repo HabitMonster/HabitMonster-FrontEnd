@@ -1,22 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { LeftIcon, RightIcon } from '../assets/icons/common/index';
-import { MonthlyBox, HabitList } from '../components/achievment';
+import { HabitList } from '../components/achievment';
+import { statisticApi } from '../api/index';
 
 const Achievement = () => {
+  const date = new window.Date();
+  const fullYear = date.getFullYear();
+  const month = date.getMonth();
+  const currentDate = `${fullYear}-${month}`;
+
+  useEffect(() => {
+    statisticApi.getStatistics(currentDate);
+  }, []);
+
   return (
     <AcheiveContainer>
       <NavButtonWrap>
-        <NavButtonItem>월간 통계</NavButtonItem>
-        <NavButtonItem>몬스터 도감</NavButtonItem>
+        <NavButtonItem>
+          <NavButton>월간 통계</NavButton>
+        </NavButtonItem>
+        <NavButtonItem>
+          <NavButton>몬스터 도감</NavButton>
+        </NavButtonItem>
       </NavButtonWrap>
-      <DateWrap>
-        <MonthlyBox />
-      </DateWrap>
-      {/* {habitList.map((habit) => {
-        return <TodaysHabit key={habit.habitId} habit={habit} />;
-      })} */}
+      <DetailWrap>
+        <DateWrap>
+          <DateButton>&lt;</DateButton>
+          <Date>{currentDate}</Date>
+          <DateButton>&gt;</DateButton>
+        </DateWrap>
+
+        <DetailList>
+          <ListItem>
+            <Title>전체</Title>
+            <Text>99개</Text>
+          </ListItem>
+          <ListItem>
+            <Title>완료</Title>
+            <Text>99개</Text>
+          </ListItem>
+          <ListItem>
+            <Title>미완료</Title>
+            <Text>99개</Text>
+          </ListItem>
+        </DetailList>
+      </DetailWrap>
       <ListContainer>
         <HabitList />
       </ListContainer>
@@ -29,7 +59,7 @@ export default Achievement;
 const AcheiveContainer = styled.div`
   font-family: var(--font-name-apple);
   width: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 `;
 
 const NavButtonWrap = styled.ul`
@@ -45,7 +75,7 @@ const NavButtonItem = styled.li`
   align-items: flex-end;
   list-style: none;
   width: 50%;
-  min-height: 40px;
+  /* min-height: 40px; */
   position: relative;
 `;
 
@@ -53,6 +83,8 @@ const NavButton = styled.button`
   background-color: transparent;
   border: 0;
   outline: 0;
+  font-size: 14px;
+  font-weight: 700px;
   color: #999999;
   &:hover {
     cursor: pointer;
@@ -66,84 +98,77 @@ const NavButton = styled.button`
   }
 `;
 
-const DateWrap = styled.div``;
-
-const Text = styled.p`
-  font-size: 16px;
-`;
-
 const ListContainer = styled.div`
   height: 100%;
 `;
 
-const HabitBox = styled.div`
-  width: 328px;
-  margin: 0 auto;
-  border-radius: 11px;
-  background-color: #edf2f7;
+const DetailWrap = styled.div``;
+const DateWrap = styled.div`
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
 `;
 
-const Wrap = styled.div``;
-
-const TextButton = styled.button`
+const DateButton = styled.button`
   background-color: transparent;
   border: 0;
-  border-radius: 3px;
-  color: #999999;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 5px;
+  outline: 0;
+  padding: 10px;
+`;
+
+const Date = styled.p`
+  margin: 0 20px;
+`;
+
+const DetailList = styled.ul`
+  background-color: #7057fc;
+  border-radius: 12px;
+  display: flex;
+  list-style: none;
+  /* width: 292px;
+  height: 83px; */
+  margin: 0;
   padding: 0;
+`;
+
+const ListItem = styled.li`
+  list-style: none;
+  width: calc(100% / 3);
+  min-height: 60px;
   position: relative;
-  min-width: 60px;
-  /* height: 40px; */
-  line-height: 17px;
-  transition: all 0.3s;
+
   &::after {
-    background-color: #7057fc;
     content: '';
+    background-color: #ffffff;
     position: absolute;
-    height: 2px;
-    opacity: 0;
-    width: 0;
-    left: 0;
-    bottom: 0;
-    transition: all 0.3s;
+    width: 1px;
+    height: 30px;
+    right: -3px;
+    bottom: 10px;
+    z-index: 1;
   }
-  &:hover {
-    color: #7057fc;
+
+  &:last-child {
     &::after {
-      width: 100%;
-      opacity: 1;
+      display: none;
     }
   }
 `;
 
-{
-  /* <NavButtonWrap>
-        <NavButtonItem>
-          <TextButton>월간 통계</TextButton>
-        </NavButtonItem>
-        <NavButtonItem>
-          <TextButton>몬스터 도감</TextButton>
-        </NavButtonItem>
-      </NavButtonWrap>
-      <DateWrap>
-        <LeftIcon />
-        <Text>2021년 12월</Text>
-        <RightIcon />
-      </DateWrap>
-      <BoxWrap>
-        <MonthlyBox />
-      </BoxWrap>
-      <Wrap>
-        <TextButton>총 습관</TextButton>
-        <TextButton>성공</TextButton>
-        <TextButton>실패</TextButton>
-      </Wrap>
-      <Wrap>
-        <HabitBox></HabitBox>
-      </Wrap> */
-}
+const Title = styled.p`
+  font-size: 13px;
+  text-align: center;
+  line-height: 16px;
+  color: #ffffff;
+  margin-bottom: 8px;
+`;
+
+const Text = styled.p`
+  font-size: 20px;
+  text-align: center;
+  line-height: 24px;
+  color: #ffffff;
+`;

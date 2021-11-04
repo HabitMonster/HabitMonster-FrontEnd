@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SampleCategory } from '../../assets/images/main';
+import { HabitItems } from './index';
 
 const HabitList = () => {
   return (
@@ -10,34 +11,10 @@ const HabitList = () => {
         <AchieveNavBtn>완료</AchieveNavBtn>
         <AchieveNavBtn>미완료</AchieveNavBtn>
       </ButtonWrap>
-      <CardWrap>
-        <CategoryWrap>
-          <Icon />
-          <HabitTitles>30분씩 걷기! 운동하자!!</HabitTitles>
-          {/* <HabitTitles>{}</HabitTitles> */}
-        </CategoryWrap>
-        <ProgressBar>
-          <ProgressBarGauge />
-        </ProgressBar>
-        <TextWrap>
-          <Period>40번 중 40번 완료</Period>
-          <Period>2021.10.21 - 2021.12.24</Period>
-        </TextWrap>
-      </CardWrap>
-      <CardWrap>
-        <CategoryWrap>
-          <Icon />
-          <HabitTitles>30분씩 걷기! 운동하자!!</HabitTitles>
-          {/* <HabitTitles>{}</HabitTitles> */}
-        </CategoryWrap>
-        <ProgressBar>
-          <ProgressBarGauge />
-        </ProgressBar>
-        <TextWrap>
-          <Period>40번 중 40번 완료</Period>
-          <Period>2021.10.21 - 2021.12.24</Period>
-        </TextWrap>
-      </CardWrap>
+      <HabitItems />
+      {/* {habitList.map((habit) => {
+        return <HabitItems key={habit.habitId} habit={habit} />;
+      })} */}
     </>
   );
 };

@@ -1,9 +1,10 @@
-import instance from '../lib/axios';
+// import instance from '../lib/axios';
+import A from '../lib/testing';
 
 export const avatarApis = {
-  loadAvatar: () => instance.get('/avatars'),
+  loadAvatar: () => A.get('/monsters'),
   // 아바타 요청
-  choiceAvatar: (avatarInfo) => instance.post('/avatars/select', avatarInfo),
+  setAvatar: (avatarInfo) => A.patch('/user/monster', avatarInfo),
   // 아바타선택
   // "avatarId" : Long,"avatarName" : "String"
 };

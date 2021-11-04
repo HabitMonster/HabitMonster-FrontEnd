@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { AvatarThumbnail } from '../components/avatar';
+import { avatarApis } from '../api/index';
 
 import {
   babyMonOrange,
@@ -15,22 +16,27 @@ const AVATAR_MOCK_LIST = [
   {
     imageUrl: babyMonOrange,
     imageAlt: '주황이',
+    monsterId: 1,
   },
   {
     imageUrl: babyMonBlue,
     imageAlt: '파랑이',
+    monsterId: 'Lv1-blue',
   },
   {
     imageUrl: babyMonGreen,
     imageAlt: '녹색이',
+    monsterId: 'Lv1-green',
   },
   {
     imageUrl: babyMonPurple,
     imageAlt: '보랑이',
+    monsterId: 'Lv1-purple',
   },
   {
     imageUrl: babyMonYellow,
     imageAlt: '노랑이',
+    monsterId: 'Lv1-yellow',
   },
 ];
 
@@ -39,11 +45,29 @@ const Avatar = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_MOCK_LIST[0]);
 
   const selectAvatar = (avatar) => {
+    console.log('selectedAvatar.monsterId', selectedAvatar.monsterId);
     setSelectedAvatar(avatar);
   };
 
   const changeAvatarName = (event) => {
     setAvatarName(event.target.value);
+  };
+
+  const setMonsterInfo = async () => {
+    const avatarInfo = {
+      monsterId: selectedAvatar.monsterId,
+      monsterName: avatarName,
+    };
+
+    try {
+      console.log('avatarInfo', avatarInfo);
+      const { data } = await avatarApis.setAvatar(avatarInfo);
+      if (data.statusCode === OK) {
+        history.push('/main');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -87,11 +111,11 @@ const Avatar = () => {
             type="text"
             value={avatarName}
             onChange={changeAvatarName}
-            placeholder="이름을 지어주세요"
+            placeholder="너의 몬스터 이름은?"
           />
         </InputWrap>
       </AvatarWrap>
-      <FixedButton onClick={() => alert('선택!')}>선택하기</FixedButton>
+      <FixedButton onClick={setMonsterInfo}>Start</FixedButton>
     </AvatarContainer>
   );
 };

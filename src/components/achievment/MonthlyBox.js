@@ -45,6 +45,14 @@ const MonthBox = styled.div`
   padding: 20px 0;
 `;
 
+const DateButton = styled.button`
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  padding: 10px;
+`;
+
 const MonthContainer = styled.ul`
   display: flex;
   justify-content: space-around;
