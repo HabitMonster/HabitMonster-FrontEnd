@@ -20,7 +20,9 @@ const Character = () => {
             <CharacterName className="chracterName">
               {monster.contents.monsterName}
             </CharacterName>
-            <CharacterLevel className="chracterLevel">Lv.1</CharacterLevel>
+            <CharacterLevel className="chracterLevel">
+              lv{monster.contents.level}
+            </CharacterLevel>
           </CharacterInfo>
         </CharacterContainer>
       );
