@@ -72,18 +72,19 @@ const DetailContainer = styled.div`
   flex-direction: column;
   z-index: 1;
 `;
+
 const DetailTitle = styled.p`
   color: #9d95ca;
   font-weight: 500;
   font-size: 15px;
   margin-bottom: 5px;
 `;
+
 const DetailValue = styled.p`
   color: #492cf1;
   font-size: 36px;
   font-weight: bold;
 `;
-
 CircleProgress.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,

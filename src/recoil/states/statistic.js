@@ -17,7 +17,7 @@ export const currentListNameState = atom({
 export const getStatistic = selector({
   key: 'getStatistic',
   get: async ({ get }) => {
-    const currentDate = get(currentDateState); // currentDate가 바뀌면 비동기 요청 실행 ㅇㅈ?
+    const currentDate = get(currentDateState); // currentDate가 바뀌면 비동기 요청 실행
     if (!currentDate) return [];
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);

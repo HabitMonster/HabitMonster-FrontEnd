@@ -8,7 +8,7 @@ import {
   getStatistic,
 } from '../../recoil/states';
 
-import { addMonths, subMonths } from '../../utils/date';
+import { formatMonth, addMonths, subMonths } from '../../utils/date';
 
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
@@ -21,12 +21,14 @@ const Statistics = () => {
   const statisticLoadable = useRecoilValueLoadable(getStatistic);
 
   const handleClickChangeMonth = (type) => {
+    let newDate = formatMonth(subMonths(new Date(currentDate), 1), '-');
+
     if (type === 'add') {
-      setCurrentDate(addMonths(currentDate, 1));
-      return;
+      newDate = formatMonth(addMonths(new Date(currentDate), 1), '-');
     }
 
-    setCurrentDate(subMonths(currentDate, 1));
+    console.log('newDate', newDate);
+    setCurrentDate(newDate);
   };
 
   const handleClickChangeTabName = (listName) => {
@@ -51,13 +53,14 @@ const Statistics = () => {
     case 'loading':
       return <div>loading...</div>;
     case 'hasValue':
+      console.log('statisticLoadable', statisticLoadable);
       const {
         totalCount,
         succeededCount,
         failedCount,
         successList,
         failedList,
-      } = statisticLoadable.contents;
+      } = statisticLoadable?.contents;
       const currentList = getCurrentList(successList, failedList);
       const circleValue = totalCount > 0 ? succeededCount / totalCount : 0;
 
@@ -82,6 +85,7 @@ const Statistics = () => {
                 value={0.6}
               />
             </CircleWrap>
+            {/* 프로그레스바 변형 전 작업 물 백업을 위한 주석 처리 */}
             {/* <DetailList>
               <ListItem>
                 <ListTitle>전체</ListTitle>
@@ -122,7 +126,7 @@ const Statistics = () => {
             {currentList.length > 0 ? (
               <HabitList habitList={currentList} />
             ) : (
-              <div>데이터 없다눙!</div>
+              <div>데이터 없다!</div>
             )}
           </ListContainer>
         </>
@@ -207,18 +211,18 @@ const ListContainer = styled.div`
   height: 100%;
 `;
 
-const ListTitle = styled.p`
-  font-size: 13px;
-  text-align: center;
-  margin-bottom: 8px;
-`;
+// const ListTitle = styled.p`
+//   font-size: 13px;
+//   text-align: center;
+//   margin-bottom: 8px;
+// `;
 
-const ListText = styled.p`
-  font-size: 20px;
-  font-weight: 700;
-  text-align: center;
-  line-height: 24px;
-`;
+// const ListText = styled.p`
+//   font-size: 20px;
+//   font-weight: 700;
+//   text-align: center;
+//   line-height: 24px;
+// `;
 
 const ButtonWrap = styled.div`
   display: flex;

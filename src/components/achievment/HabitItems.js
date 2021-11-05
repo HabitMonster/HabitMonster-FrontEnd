@@ -26,7 +26,6 @@ export default HabitItems;
 
 const CardWrap = styled.div`
   justify-content: space-between;
-  /* width: 100%; */
   width: 360px;
   height: 80px;
   padding: 14px 16px;
