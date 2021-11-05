@@ -2,16 +2,22 @@ import React from 'react';
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
 
-import { currentDateState, getStatistic } from '../../recoil/states';
+import {
+  currentDateState,
+  currentListNameState,
+  getStatistic,
+} from '../../recoil/states';
 
 import { addMonths, subMonths } from '../../utils/date';
 
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
-import { HabitList } from './';
+import { HabitList, CircleProgress } from './';
 
 const Statistics = () => {
   const [currentDate, setCurrentDate] = useRecoilState(currentDateState);
+  const [currentListName, setCurrentListName] =
+    useRecoilState(currentListNameState);
   const statisticLoadable = useRecoilValueLoadable(getStatistic);
 
   const handleClickChangeMonth = (type) => {
@@ -21,6 +27,24 @@ const Statistics = () => {
     }
 
     setCurrentDate(subMonths(currentDate, 1));
+  };
+
+  const handleClickChangeTabName = (listName) => {
+    setCurrentListName(listName);
+  };
+
+  // 현재 탭에 해당하는 리스트 세팅하기
+  const getCurrentList = (successList, failedList) => {
+    switch (currentListName) {
+      case 'total':
+        return [...successList, ...failedList];
+      case 'success':
+        return [...successList];
+      case 'failed':
+        return [...failedList];
+      default:
+        return [];
+    }
   };
 
   switch (statisticLoadable.state) {
@@ -34,7 +58,8 @@ const Statistics = () => {
         successList,
         failedList,
       } = statisticLoadable.contents;
-      const totalList = [...successList, ...failedList];
+      const currentList = getCurrentList(successList, failedList);
+      const circleValue = totalCount > 0 ? succeededCount / totalCount : 0;
 
       return (
         <>
@@ -48,8 +73,16 @@ const Statistics = () => {
                 <AchieveRight />
               </DateButton>
             </DateWrap>
-
-            <DetailList>
+            {/* TODO: Circle Progress bar */}
+            <CircleWrap>
+              <CircleProgress
+                width={130}
+                height={130}
+                title={'달성률'}
+                value={0.6}
+              />
+            </CircleWrap>
+            {/* <DetailList>
               <ListItem>
                 <ListTitle>전체</ListTitle>
                 <ListText>{totalCount}개</ListText>
@@ -62,16 +95,35 @@ const Statistics = () => {
                 <ListTitle>미완료</ListTitle>
                 <ListText>{failedCount}개</ListText>
               </ListItem>
-            </DetailList>
+            </DetailList> */}
           </DetailWrap>
           <ListContainer>
             <ButtonWrap>
               {/* TODO: onClick type 지정필요 */}
-              <AchieveNavBtn>전체</AchieveNavBtn>
-              <AchieveNavBtn>완료</AchieveNavBtn>
-              <AchieveNavBtn>미완료</AchieveNavBtn>
+              <AchieveNavBtn
+                isActive={currentListName === 'total'}
+                onClick={() => handleClickChangeTabName('total')}
+              >
+                전체 <span>{totalCount}</span>
+              </AchieveNavBtn>
+              <AchieveNavBtn
+                isActive={currentListName === 'success'}
+                onClick={() => handleClickChangeTabName('success')}
+              >
+                완료 <span>{succeededCount}</span>
+              </AchieveNavBtn>
+              <AchieveNavBtn
+                isActive={currentListName === 'failed'}
+                onClick={() => handleClickChangeTabName('failed')}
+              >
+                미완료 <span>{failedCount}</span>
+              </AchieveNavBtn>
             </ButtonWrap>
-            <HabitList />
+            {currentList.length > 0 ? (
+              <HabitList habitList={currentList} />
+            ) : (
+              <div>데이터 없다눙!</div>
+            )}
           </ListContainer>
         </>
       );
@@ -83,7 +135,7 @@ const Statistics = () => {
 export default Statistics;
 
 const DetailWrap = styled.div`
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   padding: 0 34px 40px;
 `;
 const DateWrap = styled.div`
@@ -106,6 +158,12 @@ const DateText = styled.p`
   font-size: 16px;
   font-weight: 700;
   margin: 0 15px;
+`;
+
+const CircleWrap = styled.div`
+  width: 130px;
+  height: 130px;
+  margin: 0 auto;
 `;
 
 const DetailList = styled.ul`
@@ -165,26 +223,28 @@ const ListText = styled.p`
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-start;
+  padding: 24px 16px;
 `;
 
 const AchieveNavBtn = styled.button`
-  border: none;
-  background: transparent;
-  color: #999999;
-  width: 49px;
-  height: 24px;
+  border: 1px solid ${(props) => (!props.isActive ? '#f0eff8' : '#492cf1')};
+  border-radius: 14px;
+  background-color: ${(props) => (!props.isActive ? 'transparent' : '#492cf1')};
+  color: ${(props) => (!props.isActive ? '#131313' : '#ffffff')};
+  /* height: 26px; */
   font-size: 14px;
-  line-height: 16.8px;
+  line-height: 18px;
   cursor: pointer;
   margin: 10px 0;
-  &:hover {
-    background-color: #7057fc;
-    border-radius: 12px;
-    color: #ffffff;
+  padding: 4px 10px;
+
+  span {
+    color: ${(props) => (!props.isActive ? '#492cf1' : '#ffffff')};
+    font-size: 15px;
+    font-weight: 700;
   }
-  &:active {
-    background-color: #7057fc;
-    border-radius: 12px;
-    color: #ffffff;
+
+  & + button {
+    margin-left: 6px;
   }
 `;

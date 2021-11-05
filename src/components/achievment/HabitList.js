@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SampleCategory } from '../../assets/images/main';
 import { HabitItems } from './index';
 
-const HabitList = () => {
+const HabitList = ({ habitList }) => {
   return (
     <>
-      <HabitItems />
-      {/* {habitList.map((habit) => {
+      {/* <HabitItems /> */}
+      {habitList.map((habit) => {
         return <HabitItems key={habit.habitId} habit={habit} />;
-      })} */}
+      })}
     </>
   );
 };
@@ -105,3 +106,7 @@ const Period = styled.p`
   font-family: Apple SD Gothic Neo L;
   font-size: var(--font-nano);
 `;
+
+HabitList.propTypes = {
+  habitList: PropTypes.array.isRequired,
+};

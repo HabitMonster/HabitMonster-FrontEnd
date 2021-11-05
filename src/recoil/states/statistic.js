@@ -9,6 +9,11 @@ export const currentDateState = atom({
   default: formatMonth(new window.Date(), '-'),
 });
 
+export const currentListNameState = atom({
+  key: 'currentTabList',
+  default: 'total',
+});
+
 export const getStatistic = selector({
   key: 'getStatistic',
   get: async ({ get }) => {

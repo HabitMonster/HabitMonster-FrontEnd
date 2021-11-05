@@ -37,6 +37,7 @@ const AcheiveContainer = styled.div`
 `;
 
 const NavButtonWrap = styled.ul`
+  border-bottom: 1px solid #e8e8e8;
   display: flex;
   list-style: none;
   margin: 0;
