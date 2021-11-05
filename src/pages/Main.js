@@ -6,13 +6,13 @@ import '../assets/fonts/font.css';
 
 const Main = () => {
   return (
-    <React.Fragment>
+    <>
       <Wrapper className="wrapper">
         <Character />
         <Exp />
         <Habits />
       </Wrapper>
-    </React.Fragment>
+    </>
   );
 };
 

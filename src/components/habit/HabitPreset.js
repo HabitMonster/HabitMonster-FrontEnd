@@ -18,7 +18,7 @@ const HabitPreset = () => {
   useEffect(() => {
     async function getHabitPresetFromServer() {
       try {
-        const { data } = await H.getHabitPreset(categoryId)();
+        const { data } = await H.getHabitPreset(categoryId);
         if (data.statusCode === OK) {
           setPresets(data.preSets);
         }
@@ -29,10 +29,9 @@ const HabitPreset = () => {
 
     getHabitPresetFromServer();
   }, []);
-
   const handleSaveButtonClick = async () => {
     try {
-      const { data } = await H.saveHabitWithPreset(selectedPresetId)();
+      const { data } = await H.saveHabitWithPreset(selectedPresetId);
       if (data.statusCode === OK) {
         history.replace('/');
       }

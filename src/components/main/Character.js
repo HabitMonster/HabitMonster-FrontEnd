@@ -1,37 +1,25 @@
 import React from 'react';
-import { useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import Loading from '../../pages/Loading';
-import { monsterSelector } from '../../recoil/states';
+
+import { monsterState } from '../../recoil/states/';
 
 const Character = () => {
-  const monsterData = useRecoilValueLoadable(monsterSelector);
+  const monster = useRecoilValue(monsterState);
 
-  switch (monsterData.state) {
-    case 'hasValue':
-      const { monster } = monsterData.contents;
-
-      return (
-        <CharacterContainer className="characterContainer">
-          <MainCharacter
-            className="mainChracter"
-            image={monster.monsterImage}
-          />
-          <CharacterInfo className="chracterInfo">
-            <CharacterName className="chracterName">
-              {monster.monsterName}
-            </CharacterName>
-            <CharacterLevel className="chracterLevel">
-              lv.{monster.level}
-            </CharacterLevel>
-          </CharacterInfo>
-        </CharacterContainer>
-      );
-    case 'loading':
-      return <Loading />;
-    case 'hasError':
-      return monsterData.contents;
-  }
+  return (
+    <CharacterContainer className="characterContainer">
+      <MainCharacter className="mainChracter" image={monster.monsterImage} />
+      <CharacterInfo className="chracterInfo">
+        <CharacterName className="chracterName">
+          {monster.monsterName}
+        </CharacterName>
+        <CharacterLevel className="chracterLevel">
+          lv.{monster.level}
+        </CharacterLevel>
+      </CharacterInfo>
+    </CharacterContainer>
+  );
 };
 
 const CharacterContainer = styled.div`

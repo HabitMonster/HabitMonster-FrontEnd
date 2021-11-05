@@ -1,10 +1,19 @@
-import { selector } from 'recoil';
+import { atom, selector } from 'recoil';
 import { mainApis } from '../../api';
 
-export const userSelector = selector({
-  key: 'userSelector',
+const asyncDefaultUserState = selector({
+  key: 'asyncDefaultUser',
   get: async () => {
-    const { data } = await mainApis.getUserInfo();
-    return data;
+    try {
+      const { data } = await mainApis.getUserInfo();
+      return data.userInfo;
+    } catch (error) {
+      throw error;
+    }
   },
+});
+
+export const userState = atom({
+  key: 'user',
+  default: asyncDefaultUserState,
 });

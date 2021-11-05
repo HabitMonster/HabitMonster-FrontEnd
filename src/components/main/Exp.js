@@ -1,29 +1,22 @@
 import React from 'react';
-import { useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/states';
 import styled from 'styled-components';
-import Loading from '../../pages/Loading';
-import { userSelector } from '../../recoil/states';
 
 const Exp = () => {
-  const userData = useRecoilValueLoadable(userSelector);
+  const user = useRecoilValue(userState);
 
-  switch (userData.state) {
-    case 'hasValue':
-      const { expPercentage } = userData.contents.userInfo;
+  // user.expPercentage: 현재 유저의 경험치 비율을 뜻합니다.
+  // 아바타의 현재 경험치 비율을 의미하지 않습니다.
 
-      return (
-        <ExpContainer className="expContainer">
-          <ExpBar className="expBar">
-            <Gauge className="gauge" />
-          </ExpBar>
-          <Span className="span">Exp</Span>
-        </ExpContainer>
-      );
-    case 'loading':
-      return <Loading />;
-    case 'hasError':
-      return userInfo.contents;
-  }
+  return (
+    <ExpContainer className="expContainer">
+      <ExpBar className="expBar">
+        <Gauge className="gauge" />
+      </ExpBar>
+      <Span className="span">Exp</Span>
+    </ExpContainer>
+  );
 };
 
 const ExpContainer = styled.div`
