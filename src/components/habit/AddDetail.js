@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { habitsState } from '../../recoil/states/habit';
 
 import { BackButtonHeader } from '../common';
 import { TextInput, FrequencySetting, CategorySummary, Calendar } from '.';
@@ -10,21 +12,27 @@ import { CalenderIcon, SettingIcon } from '../../assets/icons/habits';
 
 import { useInput, useDateRange } from '../../hooks';
 
+import { convertYMD, getCurrentKST } from '../../utils/date';
+
 import { WEEK } from '../../constants/date';
 import { OK } from '../../constants/statusCode';
 
 import H from '../../api/habits';
 
+// TODOS
+// 1. 습관이 추가되었을 때, 메인 페이지 뷰의 위쪽에다가 놓을 것인지, 아래쪽에다가 놓을 것인지 파악하기.
+
 const AddDetail = () => {
+  const addHabit = useSetRecoilState(habitsState);
   const history = useHistory();
   const { state: categoryState } = useLocation();
-
   const [title, onTitleChanged] = useInput('');
   const [description, onDescriptionChanged] = useInput('');
 
   const [modalOpen, setModalOpen] = useState(false);
   const [durationStart, durationEnd, dateHelperText, onDateRangeChosen] =
     useDateRange();
+  const isStartFromToday = durationStart === convertYMD(getCurrentKST());
 
   const [tensFrequency, setTensFrequency] = useState(0);
   const [unitsFrequency, setUnitsFrequency] = useState(1);
@@ -53,8 +61,11 @@ const AddDetail = () => {
 
     try {
       const { data } = await H.saveHabitWithHands(body);
+
       if (data.statusCode === OK) {
-        //TODO: WHAT SHOULD I DO WITH RECOIL STATE?
+        if (isStartFromToday) {
+          addHabit((prev) => [data.habitDetail, ...prev]);
+        }
         history.replace('/');
       }
     } catch (error) {

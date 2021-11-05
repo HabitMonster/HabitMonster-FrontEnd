@@ -1,15 +1,32 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { habitState } from '../../recoil/states/';
+
 import styled from 'styled-components';
 import A from '../../api/habits';
-import { habitAccomplishState } from '../../recoil/states';
 import { SampleCategory } from '../../assets/images/main';
 
-const HabitCard = ({ habit, accomplished }) => {
-  const [current, setCurrent] = useState(habit.current);
-  const setHabitAccomplish = useSetRecoilState(habitAccomplishState);
+// 기존 뷰로 보여지는 맥락을 그대로 유지한채, Habit 컴포넌트에 id만 prop으로 주게끔 변경하였습니다.
+// 정말 죄송합니다만, 해당 내용에 대해 모르고 삭제하여 밑에 주석으로 해당 컴포넌트 달았습니다. 죄송해요!
 
+const Habit = ({ id }) => {
+  // habit:
+  /*
+    {
+      achievePercentage,
+      category,
+      count,
+      current,
+      durationStart,
+      durationEnd,
+      title
+    }
+  */
+
+  const [habit, setHabit] = useRecoilState(habitState(id));
+
+  // 해당 내용은 따로 건드리지 않겠습니다!
   const checkHabit = async () => {
     const response = await A.checkHabit(habit.habitId);
     setCurrent(response.data.current);
@@ -39,7 +56,8 @@ const HabitCard = ({ habit, accomplished }) => {
           </DetailBox>
         </Wrapper>
         <CheckBtn
-          className={accomplished ? 'checkBtn accomplished' : 'checkBtn'}
+          // prop을 안주었기 때문에 해당 주석을 지우면 오류가 납니다. 수정해주시면 감사하겠습니다!
+          // className={accomplished ? 'checkBtn accomplished' : 'checkBtn'}
           onClick={checkHabit}
         >
           🔔
@@ -49,9 +67,8 @@ const HabitCard = ({ habit, accomplished }) => {
   );
 };
 
-HabitCard.propTypes = {
-  habit: PropTypes.object.isRequired,
-  accomplished: PropTypes.bool,
+Habit.propTypes = {
+  id: PropTypes.number.isRequired,
 };
 
 const Card = styled.div`
@@ -140,4 +157,18 @@ const CheckBtn = styled.div`
   }
 `;
 
-export default HabitCard;
+// const [current, setCurrent] = useState(habit.current);
+// const setHabitAccomplish = useSetRecoilState(habitAccomplishState);
+
+// const checkHabit = async () => {
+//   const response = await A.checkHabit(habit.habitId);
+//   setCurrent(response.data.current);
+
+//   if (response.data.isAccomplished) {
+//     setHabitAccomplish({
+//       habitId: habit.habitId,
+//     });
+//   }
+// };
+
+export default Habit;

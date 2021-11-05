@@ -1,11 +1,13 @@
 import React from 'react';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/states';
 import styled from 'styled-components';
-import { mainDataSelectorFamily, expState } from '../../recoil/states';
 
 const Exp = () => {
-  const { fieldName } = useRecoilValue(expState);
-  const exp = useRecoilValueLoadable(mainDataSelectorFamily(fieldName));
+  const user = useRecoilValue(userState);
+
+  // user.expPercentage: 현재 유저의 경험치 비율을 뜻합니다.
+  // 아바타의 현재 경험치 비율을 의미하지 않습니다.
 
   return (
     <ExpContainer className="expContainer">
