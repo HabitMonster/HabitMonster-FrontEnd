@@ -19,6 +19,7 @@ function App() {
         <Layout>
           <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/avatar" component={Avatar} />
             <>
               <Route exact path="/" component={Main} />
               <Route path="/achievement" component={Achievement} />
@@ -37,8 +38,8 @@ function App() {
 const Layout = styled.div`
   background: var(--color-white);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   max-width: 360px;
   min-height: 100vh;
   width: 100%;
