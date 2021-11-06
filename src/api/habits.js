@@ -10,5 +10,5 @@ export default {
   saveHabitWithHands: (body) => A.post('/habits', body),
 
   // 습관 체크
-  checkHabit: (habitId) => A.post(`/habits/${habitId}/check`),
+  checkHabit: (habitId) => A.get(`/habits/${habitId}/check`),
 };

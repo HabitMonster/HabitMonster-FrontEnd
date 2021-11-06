@@ -8,7 +8,12 @@ import { BackButtonHeader } from '../common';
 import { TextInput, FrequencySetting, CategorySummary, Calendar } from '.';
 import { Modal } from '../common';
 
-import { CalenderIcon, SettingIcon } from '../../assets/icons/habits';
+import {
+  CalenderIcon,
+  SettingIcon,
+  CheckIcon,
+  DocumentIcon,
+} from '../../assets/icons/habits';
 
 import { useInput, useDateRange } from '../../hooks';
 
@@ -18,9 +23,6 @@ import { WEEK } from '../../constants/date';
 import { OK } from '../../constants/statusCode';
 
 import H from '../../api/habits';
-
-// TODOS
-// 1. 습관이 추가되었을 때, 메인 페이지 뷰의 위쪽에다가 놓을 것인지, 아래쪽에다가 놓을 것인지 파악하기.
 
 const AddDetail = () => {
   const addHabit = useSetRecoilState(habitsState);
@@ -33,6 +35,24 @@ const AddDetail = () => {
   const [durationStart, durationEnd, dateHelperText, onDateRangeChosen] =
     useDateRange();
   const isStartFromToday = durationStart === convertYMD(getCurrentKST());
+
+  const [chosenDate, setChosenDate] = useState(Array(7).fill(null));
+
+  const choiceDate = (id) => {
+    const newChosenDate = chosenDate.slice();
+    newChosenDate[id - 1] = newChosenDate[id - 1] ? null : id;
+    setChosenDate(newChosenDate);
+  };
+
+  const choiceAll = () => {
+    setChosenDate(
+      chosenDate.join('').length === 7
+        ? Array(7).fill(null)
+        : [1, 2, 3, 4, 5, 6, 7],
+    );
+  };
+
+  console.log(chosenDate);
 
   const [tensFrequency, setTensFrequency] = useState(0);
   const [unitsFrequency, setUnitsFrequency] = useState(1);
@@ -61,10 +81,11 @@ const AddDetail = () => {
 
     try {
       const { data } = await H.saveHabitWithHands(body);
+      console.log(data);
 
       if (data.statusCode === OK) {
         if (isStartFromToday) {
-          addHabit((prev) => [data.habitDetail, ...prev]);
+          addHabit((prev) => [...prev, data.habitDetail]);
         }
         history.replace('/');
       }
@@ -140,11 +161,76 @@ const AddDetail = () => {
           </DetailInner>
         </DetailOuter>
         <DetailOuter>
-          <div style={{ display: 'flex' }}>
+          <DetailInner>
+            <DocumentIcon />
+            <DetailRightColumn>
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <span>요일</span>
+                <CheckBox
+                  checked={
+                    chosenDate.join('').length !== 0 &&
+                    chosenDate.join('').length !== 7
+                  }
+                  id="checkForWeek"
+                  type="checkbox"
+                />
+                <label htmlFor="checkForWeek">
+                  <CheckIcon />
+                </label>
+              </div>
+            </DetailRightColumn>
+          </DetailInner>
+          <DetailInner mt="24">
             {WEEK.map(({ id, day }) => (
-              <div key={id}>{day}</div>
+              <WeeklyItem
+                onClick={() => choiceDate(id)}
+                checked={chosenDate.includes(id)}
+                key={id}
+              >
+                {day}
+              </WeeklyItem>
             ))}
-          </div>
+          </DetailInner>
+          <div
+            style={{
+              width: '282px',
+              height: '1px',
+              margin: '0 auto',
+              marginTop: '22px',
+              marginBottom: '30px',
+              backgroundColor: '#dedede',
+            }}
+          ></div>
+          <DetailInner>
+            <DocumentIcon />
+            <DetailRightColumn>
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <span>매일</span>
+                <CheckBox
+                  checked={chosenDate.join('').length === 7}
+                  id="checkForAllday"
+                  type="checkbox"
+                />
+                <label onClick={choiceAll} htmlFor="checkForAllday">
+                  <CheckIcon />
+                </label>
+              </div>
+            </DetailRightColumn>
+          </DetailInner>
         </DetailOuter>
         <DetailOuter>
           <DetailInner>
@@ -227,10 +313,13 @@ const DetailOuter = styled.section`
 const DetailInner = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
+  margin-top: ${({ mt }) => (mt ? mt : 0)}px;
 `;
 
 const DetailRightColumn = styled.div`
   margin-left: 28px;
+  width: 100%;
   display: flex;
   align-items: center;
 
@@ -240,6 +329,55 @@ const DetailRightColumn = styled.div`
     line-height: 19px;
     display: inline-block;
     cursor: pointer;
+  }
+`;
+
+const CheckBox = styled.input`
+  display: none;
+
+  & + label {
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-white);
+    border: 1px solid #808080;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & svg {
+      display: none;
+    }
+  }
+
+  &:checked + label {
+    border: none;
+    background-color: var(--color-main);
+
+    & svg {
+      display: block;
+    }
+  }
+`;
+
+const WeeklyItem = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 12px;
+  border: none;
+  margin-right: 8px;
+  border-radius: ${({ checked }) => (checked ? '15px' : '')};
+  background: ${({ checked }) => (checked ? '#7A80EF' : 'none')};
+  color: ${({ checked }) => (checked ? 'var(--color-white)' : 'none')};
+
+  &:first-child {
+    color: ${({ checked }) => (checked ? 'var(--color-white)' : '#e57ad9')};
+  }
+
+  &:last-child {
+    color: ${({ checked }) => (checked ? 'var(--color-white)' : '#65B2EE')};
   }
 `;
 

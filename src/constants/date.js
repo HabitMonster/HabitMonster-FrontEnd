@@ -1,5 +1,9 @@
 export const WEEK = [
   {
+    id: 7,
+    day: '일',
+  },
+  {
     id: 1,
     day: '월',
   },
@@ -22,9 +26,5 @@ export const WEEK = [
   {
     id: 6,
     day: '토',
-  },
-  {
-    id: 7,
-    day: '일',
   },
 ];
