@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { habitsState } from '../../recoil/states/habit';
 
 import { BackButtonHeader } from '../common';
@@ -26,6 +26,7 @@ import H from '../../api/habits';
 
 const AddDetail = () => {
   const addHabit = useSetRecoilState(habitsState);
+  const [habits, setHabits] = useRecoilState(habitsState);
   const history = useHistory();
   const { state: categoryState } = useLocation();
   const [title, onTitleChanged] = useInput('');
@@ -36,7 +37,7 @@ const AddDetail = () => {
     useDateRange();
   const isStartFromToday = durationStart === convertYMD(getCurrentKST());
 
-  const [chosenDate, setChosenDate] = useState(Array(7).fill(null));
+  const [chosenDate, setChosenDate] = useState([1, 2, 3, 4, 5, null, null]);
 
   const choiceDate = (id) => {
     const newChosenDate = chosenDate.slice();
@@ -47,12 +48,10 @@ const AddDetail = () => {
   const choiceAll = () => {
     setChosenDate(
       chosenDate.join('').length === 7
-        ? Array(7).fill(null)
+        ? [1, 2, 3, 4, 5, null, null]
         : [1, 2, 3, 4, 5, 6, 7],
     );
   };
-
-  console.log(chosenDate);
 
   const [tensFrequency, setTensFrequency] = useState(0);
   const [unitsFrequency, setUnitsFrequency] = useState(1);
@@ -76,16 +75,16 @@ const AddDetail = () => {
       durationEnd,
       count,
       categoryId: categoryState.id,
-      practiceDays: '1234567',
+      practiceDays: chosenDate.join(''),
     };
 
     try {
       const { data } = await H.saveHabitWithHands(body);
-      console.log(data);
 
       if (data.statusCode === OK) {
         if (isStartFromToday) {
-          addHabit((prev) => [...prev, data.habitDetail]);
+          // addHabit((prev) => [...prev, data.habitDetail]);
+          setHabits([...habits, data.habitDetail]);
         }
         history.replace('/');
       }
@@ -174,6 +173,7 @@ const AddDetail = () => {
               >
                 <span>요일</span>
                 <CheckBox
+                  onChange={choiceAll}
                   checked={
                     chosenDate.join('').length !== 0 &&
                     chosenDate.join('').length !== 7
@@ -221,11 +221,12 @@ const AddDetail = () => {
               >
                 <span>매일</span>
                 <CheckBox
+                  onChange={choiceAll}
                   checked={chosenDate.join('').length === 7}
                   id="checkForAllday"
                   type="checkbox"
                 />
-                <label onClick={choiceAll} htmlFor="checkForAllday">
+                <label htmlFor="checkForAllday">
                   <CheckIcon />
                 </label>
               </div>
