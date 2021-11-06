@@ -19,6 +19,7 @@ const HabitPreset = () => {
     async function getHabitPresetFromServer() {
       try {
         const { data } = await H.getHabitPreset(categoryId);
+
         if (data.statusCode === OK) {
           setPresets(data.preSets);
         }
@@ -29,6 +30,7 @@ const HabitPreset = () => {
 
     getHabitPresetFromServer();
   }, []);
+
   const handleSaveButtonClick = async () => {
     try {
       const { data } = await H.saveHabitWithPreset(selectedPresetId);

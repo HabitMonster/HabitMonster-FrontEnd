@@ -7,6 +7,7 @@ import { Habit } from '../components/main';
 
 const Habits = () => {
   const idList = useRecoilValue(habitIdListState);
+
   return (
     <Wrapper className="habitWrapper">
       <TitleContainer className="titleContainer">
