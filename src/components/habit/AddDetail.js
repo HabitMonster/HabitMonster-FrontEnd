@@ -4,9 +4,8 @@ import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { habitsState } from '../../recoil/states/habit';
 
-import { BackButtonHeader } from '../common';
+import { BackButtonHeader, Modal } from '../common';
 import { TextInput, FrequencySetting, CategorySummary, Calendar } from '.';
-import { Modal } from '../common';
 
 import {
   CalenderIcon,
@@ -266,7 +265,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  background: #f7f5ff;
+  background: var(--color-detail);
 `;
 
 const Header = styled.section`
@@ -287,7 +286,7 @@ const Bar = styled.div`
   justify-content: space-between;
 
   & div {
-    background: #f7f5ff;
+    background: var(--color-detail);
     width: ${({ factor }) => 5 * (factor + 1)}px;
     height: 4px;
   }
@@ -295,7 +294,7 @@ const Bar = styled.div`
 
 const DetailBody = styled.div`
   width: 100%;
-  background: #f7f5ff;
+  background: var(--color-detail);
   padding: 0 16px;
   margin-top: 24px;
   overflow: scroll;
@@ -396,7 +395,7 @@ const SaveButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  background: var(--color-purple);
+  background: var(--color-main);
   border: none;
   border-radius: var(--border-radius-progress);
   margin-top: 42px;
@@ -409,10 +408,10 @@ const SaveButton = styled.button`
   color: var(--color-white);
 
   &:disabled {
-    color: var(--color-purple);
+    color: var(--color-main);
     background: transparent;
     opacity: 0.3;
-    border: 1px solid #7057fc;
+    border: 1px solid var(--color-main);
   }
 `;
 

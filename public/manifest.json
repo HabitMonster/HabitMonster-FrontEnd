@@ -27,5 +27,5 @@
   "screenshots": [],
   "shortcuts": [],
   "theme_color": "none",
-  "background_color": "#ffffff"
+  "background_color": "var(--color-white)"
 }

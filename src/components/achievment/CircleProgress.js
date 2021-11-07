@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 // Reference: https://wit.nts-corp.com/2021/04/23/6338
 function CircleProgress({ width, height, strokeWidth = 12, title, value }) {
   const circleX = useMemo(() => width / 2, [width]);
@@ -75,7 +76,7 @@ const DetailContainer = styled.div`
 
 const DetailTitle = styled.p`
   color: #9d95ca;
-  font-weight: 500;
+  font-weight: var(--weight-regular);
   font-size: 15px;
   margin-bottom: 5px;
 `;

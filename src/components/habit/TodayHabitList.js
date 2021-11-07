@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { habitIdListState } from '../recoil/states/';
+import { habitIdListState } from '../../recoil/states/habit';
 
-import { Habit } from '../components/main';
+import { TodayHabit } from './';
 
-const Habits = () => {
+const TodayHabitList = () => {
   const idList = useRecoilValue(habitIdListState);
-
   return (
     <Wrapper className="habitWrapper">
       <TitleContainer className="titleContainer">
@@ -19,7 +18,7 @@ const Habits = () => {
       <HabitContainer className="habitContainer">
         <List className="habitList">
           {idList.map((id) => (
-            <Habit key={id} id={id} />
+            <TodayHabit key={id} id={id} />
           ))}
         </List>
       </HabitContainer>
@@ -50,13 +49,13 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: Apple SD Gothic Neo M;
+  font-family: var(--font-name-apple);
   font-size: var(--font-semi-medium);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semi-bold);
 `;
 
 const RemainHabit = styled.p`
-  font-family: Apple SD Gothic Neo L;
+  font-family: var(--font-name-apple);
   font-size: var(--font-micro);
   font-weight: var(--weight-regular);
 `;
@@ -82,4 +81,4 @@ const List = styled.div`
   margin-bottom: 50px;
 `;
 
-export default Habits;
+export default TodayHabitList;

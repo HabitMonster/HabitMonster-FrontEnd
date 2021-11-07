@@ -57,7 +57,7 @@ const MonthContainer = styled.ul`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #7057fc;
+  background-color: var(--color-main);
   border-radius: 12px;
   text-align: center;
   width: 292px;
@@ -71,7 +71,7 @@ const DateBox = styled.div`
   width: 148px;
   height: 24px;
   top: 107px;
-  color: #131313;
+  color: var(--color-grey01);
 `;
 
 const CompletionHabit = styled.li`
@@ -80,7 +80,7 @@ const CompletionHabit = styled.li`
   flex-direction: column;
   align-items: center;
   width: 96px;
-  border-right: 1px solid #ffffff;
+  border-right: 1px solid var(--color-white);
   &:nth-child(3) {
     border: none;
   }
@@ -90,7 +90,7 @@ const StatisticTitle = styled.p`
   font-size: 13px;
   text-align: center;
   line-height: 16px;
-  color: #ffffff;
+  color: var(--color-white);
   margin-bottom: 8px;
 `;
 
@@ -98,5 +98,5 @@ const StatisticCount = styled.p`
   font-size: 20px;
   text-align: center;
   line-height: 24px;
-  color: #ffffff;
+  color: var(--color-white);
 `;

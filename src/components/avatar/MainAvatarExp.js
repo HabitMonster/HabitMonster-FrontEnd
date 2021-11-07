@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/states';
+import { userState } from '../../recoil/states/user';
 import styled from 'styled-components';
 
-const Exp = () => {
+const MainAvatarExp = () => {
   const user = useRecoilValue(userState);
 
   // user.expPercentage: 현재 유저의 경험치 비율을 뜻합니다.
@@ -40,7 +40,7 @@ const ExpBar = styled.div`
 const Gauge = styled.div`
   width: 98px;
   height: 8px;
-  background-color: var(--color-gauge);
+  background-color: var(--color-main);
   border-radius: var(--size-border-radius) 0 0 var(--size-border-radius);
   margin: 0 2px;
 `;
@@ -49,10 +49,11 @@ const Span = styled.span`
   color: var(--color-white);
   width: 20px;
   height: 14px;
-  font-family: Apple SD Gothic Neo L;
+  font-family: var(--font-name-apple);
   font-size: var(--font-nano);
+  font-weight: var(--weight-regular);
   margin-top: 8px;
   margin-left: 3px;
 `;
 
-export default Exp;
+export default MainAvatarExp;

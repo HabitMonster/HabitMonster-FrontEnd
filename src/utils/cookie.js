@@ -3,9 +3,9 @@ import {
   HOUR_MILLISECS,
   MIN_MILLISECS,
   SECS_MILLISECS,
-} from '../constants';
+} from '../constants/times';
 
-const getCookie = (name) => {
+export const getCookie = (name) => {
   const value = '; ' + document.cookie;
   const parts = value.split('; ' + name + '=');
 
@@ -17,7 +17,7 @@ const getCookie = (name) => {
   return parts.pop().split('=')[1];
 };
 
-const setCookie = (name, value, exp = 5) => {
+export const setCookie = (name, value, exp = 5) => {
   const date = new Date();
   date.setTime(
     date.getTime() +
@@ -26,8 +26,6 @@ const setCookie = (name, value, exp = 5) => {
   document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
 };
 
-const deleteCookie = (name) => {
+export const deleteCookie = (name) => {
   document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
 };
-
-export { getCookie, setCookie, deleteCookie };

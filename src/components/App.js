@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
-import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { RecoilRoot } from 'recoil';
 
 import Loading from '../pages/Loading';
 import Login from '../pages/Login';
@@ -38,8 +38,6 @@ function App() {
 const Layout = styled.div`
   background: var(--color-white);
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   max-width: 360px;
   min-height: 100vh;
   width: 100%;
