@@ -8,5 +8,5 @@ export default {
   getHabitPreset: (categoryId) => A.get(`/categories/${categoryId}/presets`),
   saveHabitWithPreset: (presetId) => A.post(`/presets/${presetId}`),
   saveHabitWithHands: (body) => A.post('/habits', body),
-  checkHabit: (habitId) => A.post(`/habits/check/${habitId}`),
+  checkHabit: (habitId) => A.get(`/habits/check/${habitId}`),
 };
