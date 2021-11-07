@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { babyMonsters } from '../../assets/images/monsters';
 
-const Title = () => {
+const LoginTitle = () => {
   return (
     <Wrapper className="TitleContainer">
       <Container className="TitleContainer">
@@ -42,4 +42,4 @@ const Monsters = styled.div`
   background-image: url(${babyMonsters});
 `;
 
-export default Title;
+export default LoginTitle;

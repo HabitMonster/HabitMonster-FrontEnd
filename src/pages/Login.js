@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SocialLogin, Title } from '../components/login';
+import { SocialLogin, LoginTitle } from '../components/login';
 import '../assets/fonts/font.css';
 import { loginPageBg } from '../assets/images/background';
 
 const Login = () => {
   return (
     <React.Fragment>
-      <Wrapper className="Wrapper">
-        <Title />
+      <Wrapper>
+        <LoginTitle />
         <SocialLogin />
       </Wrapper>
     </React.Fragment>

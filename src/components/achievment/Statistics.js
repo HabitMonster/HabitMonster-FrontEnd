@@ -6,7 +6,7 @@ import {
   currentDateState,
   currentListNameState,
   getStatistic,
-} from '../../recoil/states';
+} from '../../recoil/states/statistic';
 
 import { formatMonth, addMonths, subMonths } from '../../utils/date';
 
@@ -139,11 +139,11 @@ const Statistics = () => {
 export default Statistics;
 
 const DetailWrap = styled.div`
-  background-color: #ffffff;
+  background-color: var(--color-white);
   padding: 0 34px 40px;
 `;
 const DateWrap = styled.div`
-  color: #131313;
+  color: var(--color-grey01);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,8 +159,8 @@ const DateButton = styled.button`
 `;
 
 const DateText = styled.p`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-small);
+  font-weight: var(--weight-bold);
   margin: 0 15px;
 `;
 
@@ -171,7 +171,7 @@ const CircleWrap = styled.div`
 `;
 
 const DetailList = styled.ul`
-  background-color: #7057fc;
+  background-color: var(--color-main);
   border-radius: 12px;
   display: flex;
   list-style: none;
@@ -182,7 +182,7 @@ const DetailList = styled.ul`
 `;
 
 const ListItem = styled.li`
-  color: #ffffff;
+  color: var(--color-white);
   list-style: none;
   width: calc(100% / 3);
   min-height: 83px;
@@ -234,18 +234,19 @@ const AchieveNavBtn = styled.button`
   border: 1px solid ${(props) => (!props.isActive ? '#f0eff8' : '#492cf1')};
   border-radius: 14px;
   background-color: ${(props) => (!props.isActive ? 'transparent' : '#492cf1')};
-  color: ${(props) => (!props.isActive ? '#131313' : '#ffffff')};
+  color: ${(props) =>
+    !props.isActive ? 'var(--color-grey01)' : 'var(--color-white)'};
   /* height: 26px; */
-  font-size: 14px;
+  font-size: var(--font-micro);
   line-height: 18px;
   cursor: pointer;
   margin: 10px 0;
   padding: 4px 10px;
 
   span {
-    color: ${(props) => (!props.isActive ? '#492cf1' : '#ffffff')};
+    color: ${(props) => (!props.isActive ? '#492cf1' : 'var(--color-white)')};
     font-size: 15px;
-    font-weight: 700;
+    font-weight: var(--weight-bold);
   }
 
   & + button {

@@ -12,31 +12,6 @@
   line-height: 24px;
 }
 
-@font-face {
-  font-family: Apple SD Gothic Neo B;
-  src: url('./AppleSDGothicNeoB.ttf');
-}
-
-@font-face {
-  font-family: Apple SD Gothic Neo L;
-  src: url('./AppleSDGothicNeoL.ttf');
-}
-
-@font-face {
-  font-family: Apple SD Gothic Neo EB;
-  src: url('./AppleSDGothicNeoEB.ttf');
-}
-
-@font-face {
-  font-family: Apple SD Gothic Neo H;
-  src: url('./AppleSDGothicNeoH.ttf');
-}
-
-@font-face {
-  font-family: Apple SD Gothic Neo M;
-  src: url('./AppleSDGothicNeoM.ttf');
-}
-
 /*
   @jaekyung
   Apple SD Gothic Neo font-weight 별로 설정한다

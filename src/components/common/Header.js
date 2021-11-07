@@ -34,7 +34,7 @@ const TextButton = styled.button`
   line-height: 40px;
   transition: all 0.3s;
   &::after {
-    background-color: #ffffff;
+    background-color: var(--color-white);
     content: '';
     position: absolute;
     height: 2px;
@@ -45,7 +45,7 @@ const TextButton = styled.button`
     transition: all 0.3s;
   }
   &:hover {
-    color: #ffffff;
+    color: var(--color-white);
     &::after {
       width: 100%;
       opacity: 1;

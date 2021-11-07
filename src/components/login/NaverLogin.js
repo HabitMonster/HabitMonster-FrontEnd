@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
-import { naverSymbol } from '../../assets/icons/loginSymbol';
+import { NaverSymbol } from '../../assets/icons/loginSymbol';
+import { OK } from '../../constants/statusCode';
 
 const { naver } = window;
 
-const NaverLogin = ({ setIsFirstLogin }) => {
+const NaverLogin = () => {
   const history = useHistory();
   const naverRef = useRef();
   const socialName = 'naver';
@@ -42,9 +42,13 @@ const NaverLogin = ({ setIsFirstLogin }) => {
     async function getTokenWithNaver() {
       try {
         const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
-        setIsFirstLogin(data.isFirstLogin);
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken);
+
+        if (data.statusCode === OK && data.isFirstLogin) {
+          history.push('/avatar');
+          return;
+        }
         history.push('/');
       } catch (err) {
         console.error(err);
@@ -61,7 +65,7 @@ const NaverLogin = ({ setIsFirstLogin }) => {
     <React.Fragment>
       <div ref={naverRef} id="naverIdLogin"></div>
       <LoginBtn className="naverLogin" onClick={handleClick}>
-        <SocialSymbol className="naverSymbol" />
+        <NaverSymbol />
         <SocialTitle>네이버로 시작하기</SocialTitle>
       </LoginBtn>
     </React.Fragment>
@@ -78,17 +82,16 @@ const LoginBtn = styled.div`
   border-radius: var(--size-border-radius);
   cursor: pointer;
   color: var(--color-white);
-  background-color: var(--color-naver);
-`;
 
-const SocialSymbol = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-left: 19px;
-  position: absolute;
+  &.naverLogin {
+    background-color: var(--color-naver);
+  }
 
-  &.naverSymbol {
-    background-image: url(${naverSymbol});
+  & > svg {
+    width: 20px;
+    height: 20px;
+    margin-left: 19px;
+    position: absolute;
   }
 `;
 
@@ -99,9 +102,5 @@ const SocialTitle = styled.span`
   font-family: Noto Sans KR Medium;
   font-size: var(--font-small);
 `;
-
-NaverLogin.propTypes = {
-  setIsFirstLogin: PropTypes.func.isRequired,
-};
 
 export default NaverLogin;

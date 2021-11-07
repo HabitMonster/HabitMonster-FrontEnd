@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
-import { kakaoSymbol } from '../../assets/icons/loginSymbol';
+import { KakaoSymbol } from '../../assets/icons/loginSymbol';
+import { OK } from '../../constants/statusCode';
 
 const { Kakao } = window;
 
-const KakaoLogin = ({ setIsFirstLogin }) => {
+const KakaoLogin = () => {
   const history = useHistory();
   const socialName = 'kakao';
 
@@ -21,9 +21,13 @@ const KakaoLogin = ({ setIsFirstLogin }) => {
     async function getTokenWithKakao() {
       try {
         const { data } = await auth.getSocialLogin(socialName, kakaoAuthCode);
-        setIsFirstLogin(data.isFirstLogin);
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken);
+
+        if (data.statusCode === OK && data.isFirstLogin) {
+          history.push('/avatar');
+          return;
+        }
         history.push('/');
       } catch (err) {
         console.error(err);
@@ -41,7 +45,7 @@ const KakaoLogin = ({ setIsFirstLogin }) => {
   return (
     <React.Fragment>
       <LoginBtn className="kakaoLogin" onClick={loginWithKakao}>
-        <SocialSymbol className="kakaoSymbol" />
+        <KakaoSymbol />
         <SocialTitle>카카오로 시작하기</SocialTitle>
       </LoginBtn>
     </React.Fragment>
@@ -64,16 +68,12 @@ const LoginBtn = styled.div`
   &.kakaoLogin {
     background-color: var(--color-kakao);
   }
-`;
 
-const SocialSymbol = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-left: 19px;
-  position: absolute;
-
-  &.kakaoSymbol {
-    background-image: url(${kakaoSymbol});
+  & > svg {
+    width: 20px;
+    height: 20px;
+    margin-left: 19px;
+    position: absolute;
   }
 `;
 
@@ -84,9 +84,5 @@ const SocialTitle = styled.span`
   font-family: Noto Sans KR Medium;
   font-size: var(--font-small);
 `;
-
-KakaoLogin.propTypes = {
-  setIsFirstLogin: PropTypes.func.isRequired,
-};
 
 export default KakaoLogin;

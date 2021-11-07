@@ -12,6 +12,9 @@ import Calendar from './Calendar';
 import CategorySummary from './CategorySummary';
 import FrequencySetting from './FrequencySetting';
 
+import TodayHabitList from './TodayHabitList';
+import TodayHabit from './TodayHabit';
+
 export {
   CategoryList,
   CategoryGrid,
@@ -24,4 +27,6 @@ export {
   Calendar,
   CategorySummary,
   FrequencySetting,
+  TodayHabitList,
+  TodayHabit,
 };

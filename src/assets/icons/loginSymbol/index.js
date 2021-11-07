@@ -1,5 +1,5 @@
-import googleSymbol from './GoogleSymbol.png';
-import kakaoSymbol from './KakaoSymbol.png';
-import naverSymbol from './NaverSymbol.png';
+import { ReactComponent as GoogleSymbol } from './googleSymbol.svg';
+import { ReactComponent as NaverSymbol } from './naverSymbol.svg';
+import { ReactComponent as KakaoSymbol } from './kakaoSymbol.svg';
 
-export { googleSymbol, kakaoSymbol, naverSymbol };
+export { GoogleSymbol, KakaoSymbol, NaverSymbol };

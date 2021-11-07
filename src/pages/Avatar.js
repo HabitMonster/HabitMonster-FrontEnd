@@ -139,8 +139,8 @@ const TitleWrap = styled.div``;
 
 const Title = styled.h2`
   color: var(--color-white);
-  font-size: 24px;
-  font-weight: 800;
+  font-size: var(--font-semi-medium);
+  font-weight: var(--weight-extra-bold);
   line-height: 29px;
 `;
 
@@ -150,8 +150,8 @@ const ColorText = styled.span`
 
 const Description = styled.p`
   color: var(--color-white);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-micro);
+  font-weight: var(--weight-regular);
   margin-top: 12px;
 `;
 
@@ -179,7 +179,7 @@ const SelectListItem = styled.li`
 `;
 
 const InputWrap = styled.div`
-  border: 2px solid #ffffff;
+  border: 2px solid var(--color-white);
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -193,7 +193,7 @@ const NameInput = styled.input`
   border: 0;
   background: none;
   color: var(--color-white);
-  font-size: 18px;
+  font-size: var(--font-regular);
   font-weight: bold;
   line-height: 22px;
   outline: 0;
@@ -205,12 +205,12 @@ const NameInput = styled.input`
 `;
 
 const FixedButton = styled.button`
-  background-color: var(--color-purple);
+  background-color: var(--color-main);
   border: 0;
   outline: 0;
   color: var(--color-white);
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-regular);
+  font-weight: var(--weight-bold);
   line-height: 22px;
   text-align: center;
   position: fixed;

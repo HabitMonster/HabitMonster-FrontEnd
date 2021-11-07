@@ -54,8 +54,9 @@ const Icon = styled.div`
 const HabitTitles = styled.p`
   width: 212px;
   height: 16px;
-  font-family: Apple SD Gothic Neo B;
+  font-family: var(--font-name-apple);
   font-size: var(--font-micro);
+  font-weight: var(--weight-bold);
 `;
 
 const TextWrap = styled.div`
@@ -74,7 +75,7 @@ const ProgressBar = styled.div`
 const ProgressBarGauge = styled.div`
   width: 39px;
   height: 8px;
-  background-color: var(--color-gauge);
+  background-color: var(--color-main);
   border-radius: var(--border-radius-progress);
 `;
 
@@ -82,6 +83,7 @@ const Period = styled.p`
   width: 256px;
   height: 14px;
   margin-bottom: 7px;
-  font-family: Apple SD Gothic Neo L;
+  font-family: var(--font-name-apple);
   font-size: var(--font-nano);
+  font-weight: var(--weight-regular);
 `;

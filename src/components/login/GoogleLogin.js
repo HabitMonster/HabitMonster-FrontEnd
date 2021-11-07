@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
-import { googleSymbol } from '../../assets/icons/loginSymbol';
+import { GoogleSymbol } from '../../assets/icons/loginSymbol';
+import { OK } from '../../constants/statusCode';
 
-const GoogleLogin = ({ setIsFirstLogin }) => {
+const GoogleLogin = () => {
   const history = useHistory();
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
@@ -34,9 +34,13 @@ const GoogleLogin = ({ setIsFirstLogin }) => {
                   socialName,
                   googleUser.getAuthResponse().id_token,
                 );
-                setIsFirstLogin(data.isFirstLogin);
                 setCookie('accessToken', data.accessToken);
                 setCookie('refreshToken', data.refreshToken);
+
+                if (data.statusCode === OK && data.isFirstLogin) {
+                  history.push('/avatar');
+                  return;
+                }
                 history.push('/');
               } catch (err) {
                 console.error(err);
@@ -68,7 +72,7 @@ const GoogleLogin = ({ setIsFirstLogin }) => {
   return (
     <React.Fragment>
       <LoginBtn ref={googleLoginBtn} id="gSignInWrapper">
-        <SocialSymbol className="googleSymbol" />
+        <GoogleSymbol />
         <SocialTitle>Google로 시작하기</SocialTitle>
       </LoginBtn>
     </React.Fragment>
@@ -91,16 +95,12 @@ const LoginBtn = styled.div`
   &.googleLogin {
     background-color: var(--color-white);
   }
-`;
 
-const SocialSymbol = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-left: 19px;
-  position: absolute;
-
-  &.googleSymbol {
-    background-image: url(${googleSymbol});
+  & > svg {
+    width: 20px;
+    height: 20px;
+    margin-left: 19px;
+    position: absolute;
   }
 `;
 
@@ -111,9 +111,5 @@ const SocialTitle = styled.span`
   font-family: Noto Sans KR Medium;
   font-size: var(--font-small);
 `;
-
-GoogleLogin.propTypes = {
-  setIsFirstLogin: PropTypes.func.isRequired,
-};
 
 export default GoogleLogin;

@@ -36,7 +36,7 @@ const AcheiveContainer = styled.div`
 `;
 
 const NavButtonWrap = styled.ul`
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--color-deemed2);
   display: flex;
   list-style: none;
   margin: 0;
@@ -56,21 +56,21 @@ const NavButton = styled(NavLink)`
   background-color: transparent;
   border: 0;
   border: 1px solid transparent;
-  color: #999999;
+  color: var(--color-deemed);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-micro);
+  font-weight: var(--weight-bold);
   outline: 0;
   line-height: 34px;
   text-decoration: none;
 
   &:hover {
-    color: #7057fc;
-    border-bottom: 3px solid #7057fc;
+    color: var(--color-main);
+    border-bottom: 3px solid var(--color-main);
   }
 
   &.active {
-    color: #7057fc;
-    border-bottom: 3px solid #7057fc;
+    color: var(--color-main);
+    border-bottom: 3px solid var(--color-main);
   }
 `;

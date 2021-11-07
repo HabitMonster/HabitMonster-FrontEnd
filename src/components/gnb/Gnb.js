@@ -95,21 +95,21 @@ const NavigationItem = styled.li`
     }
 
     &.active path {
-      fill: var(--color-purple);
+      fill: var(--color-main);
     }
 
     & span {
       align-self: stretch;
-      color: var(--color-gray);
+      color: var(--color-deemed);
       font-size: 10px;
-      font-weight: 500;
+      font-weight: var(--weight-regular);
       line-height: 12px;
       text-align: center;
       letter-spacing: -0.24px;
     }
 
     &.active span {
-      color: var(--color-gauge);
+      color: var(--color-main);
     }
   }
 `;

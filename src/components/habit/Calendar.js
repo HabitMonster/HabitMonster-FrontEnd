@@ -207,7 +207,7 @@ const CalenderWrapper = styled.div`
 const CalendarHelperText = styled.span`
   display: inline-block;
   font-weight: bold;
-  font-size: 16px;
+  font-size: var(--font-small);
   line-height: 19px;
   color: var(--color-black);
   margin: 0 auto;
@@ -225,8 +225,8 @@ const CalendarMonthPicker = styled.div`
   padding: 0 21px;
 
   & span {
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: var(--weight-semi-regular);
+    font-size: var(--font-regular);
     line-height: 22px;
   }
 `;
@@ -237,7 +237,7 @@ const CalendarRow = styled.div`
   justify-content: center;
   width: 281px;
   margin: 0 auto;
-  font-size: 12px;
+  font-size: var(--font-nano);
   line-height: 14px;
   padding: 0 5px;
 
@@ -260,7 +260,7 @@ const CalendarRow = styled.div`
 `;
 
 const Calendarcell = styled.div`
-  font-size: 16px;
+  font-size: var(--font-small);
   text-align: center;
   line-height: 19.2px;
 
@@ -289,7 +289,7 @@ const SaveButtons = styled.div`
     background: inherit;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: var(--font-regular);
     font-weight: bold;
     line-height: 22px;
     color: #252525;

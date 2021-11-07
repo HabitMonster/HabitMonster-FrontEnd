@@ -28,12 +28,12 @@ const Wrapper = styled.div`
     margin-bottom: 8px;
 
     & b {
-      color: var(--color-purple);
+      color: var(--color-main);
     }
   }
 
   & p {
-    color: #868686;
+    color: var(--color-subtext2);
     font-weight: var(--weight-regular);
     font-size: var(--font-micro);
     line-height: 17px;

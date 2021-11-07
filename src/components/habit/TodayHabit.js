@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilState } from 'recoil';
-import { habitState } from '../../recoil/states/';
+import { habitState } from '../../recoil/states/habit';
 
 import styled from 'styled-components';
 import A from '../../api/habits';
@@ -10,7 +10,7 @@ import { SampleCategory } from '../../assets/images/main';
 // 기존 뷰로 보여지는 맥락을 그대로 유지한채, Habit 컴포넌트에 id만 prop으로 주게끔 변경하였습니다.
 // 정말 죄송합니다만, 해당 내용에 대해 모르고 삭제하여 밑에 주석으로 해당 컴포넌트 달았습니다. 죄송해요!
 
-const Habit = ({ id }) => {
+const TodayHabit = ({ id }) => {
   // habit:
   /*
     {
@@ -67,7 +67,7 @@ const Habit = ({ id }) => {
   );
 };
 
-Habit.propTypes = {
+TodayHabit.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
@@ -95,8 +95,9 @@ const Period = styled.p`
   width: 256px;
   height: 14px;
   margin-bottom: 7px;
-  font-family: Apple SD Gothic Neo L;
+  font-family: var(--font-name-apple);
   font-size: var(--font-nano);
+  font-weight: var(--weight-regular);
 `;
 
 const DetailBox = styled.div`
@@ -124,8 +125,9 @@ const CategoryIcon = styled.div`
 const HabitTitle = styled.p`
   width: 212px;
   height: 16px;
-  font-family: Apple SD Gothic Neo B;
+  font-family: var(--font-name-apple);
   font-size: var(--font-micro);
+  font-weight: var(--weight-bold);
 `;
 
 const Progress = styled.div`
@@ -138,7 +140,7 @@ const Progress = styled.div`
 const ProgressGauge = styled.div`
   width: 39px;
   height: 8px;
-  background-color: var(--color-gauge);
+  background-color: var(--color-main);
   border-radius: var(--border-radius-progress);
 `;
 
@@ -148,7 +150,7 @@ const CheckBtn = styled.div`
   width: 36px;
   height: 28px;
   padding: 4px 8px;
-  background-color: var(--color-gauge);
+  background-color: var(--color-main);
   border-radius: var(--border-radius-checkBtn);
   box-sizing: border-box;
 
@@ -171,4 +173,4 @@ const CheckBtn = styled.div`
 //   }
 // };
 
-export default Habit;
+export default TodayHabit;

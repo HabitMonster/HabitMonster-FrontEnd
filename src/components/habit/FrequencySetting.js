@@ -62,7 +62,7 @@ const FrequencyButton = styled.div`
     font-weight: var(--weight-semi-bold);
     font-size: 40px;
     line-height: 48px;
-    color: var(--color-purple);
+    color: var(--color-main);
   }
 `;
 
