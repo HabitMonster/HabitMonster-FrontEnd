@@ -10,7 +10,7 @@ import getDateList, {
 
 import { LeftIcon, RightIcon } from '../../assets/icons/common';
 
-const Calendar = ({ onClick = () => {} }) => {
+const NewHabitDateRangePicker = ({ onClick = () => {} }) => {
   const [startDate, setStartDate] = useState(getCurrentKST());
   const [[row1, row2, row3, row4, row5, row6], setDates] = useState(
     getDateList(startDate),
@@ -191,7 +191,7 @@ const Calendar = ({ onClick = () => {} }) => {
   );
 };
 
-Calendar.propTypes = {
+NewHabitDateRangePicker.propTypes = {
   onClick: PropTypes.func,
 };
 
@@ -303,4 +303,4 @@ const SaveButtons = styled.div`
   }
 `;
 
-export default Calendar;
+export default NewHabitDateRangePicker;

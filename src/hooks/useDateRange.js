@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { convertYMD, getCurrentKST } from '../utils/date';
 
 export default function useDateRange() {
   const [start, setStart] = useState('');
@@ -13,5 +14,7 @@ export default function useDateRange() {
     }
   }, []);
 
-  return [start, end, helperText, onButtonClick];
+  const shouldAddRightNow = start === convertYMD(getCurrentKST());
+
+  return [start, end, helperText, onButtonClick, shouldAddRightNow];
 }

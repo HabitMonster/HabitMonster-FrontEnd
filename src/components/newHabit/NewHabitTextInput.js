@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const TextInput = ({
+const NewHabitTextInput = ({
   labelName,
   isTitle,
   id,
@@ -24,7 +24,7 @@ const TextInput = ({
   );
 };
 
-TextInput.propTypes = {
+NewHabitTextInput.propTypes = {
   isTitle: PropTypes.bool,
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
@@ -33,7 +33,7 @@ TextInput.propTypes = {
   labelName: PropTypes.string,
 };
 
-TextInput.defaultProps = {
+NewHabitTextInput.defaultProps = {
   isTitle: false,
   placeholder: '',
   labelName: '',
@@ -93,4 +93,4 @@ const InputWrapper = styled.div`
   }
 `;
 
-export default TextInput;
+export default NewHabitTextInput;

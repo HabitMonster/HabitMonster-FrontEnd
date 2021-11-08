@@ -34,6 +34,9 @@ const GlobalStyle = createGlobalStyle`
     --font-micro: 14px;
     --font-nano: 12px;
 
+    /* SEMYUNG: Font Size*/
+    
+
     /* Font weight */
     --weight-heavy-bold: 900;
     --weight-extra-bold: 800;
@@ -41,6 +44,17 @@ const GlobalStyle = createGlobalStyle`
     --weight-semi-bold: 600;
     --weight-regular: 500;
     --weight-semi-regular: 400;
+
+    /* SEMYUNG: Font Weight */
+    --font-extraLight: 200;
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semiBold: 600;
+    --font-bold: 700;
+    --font-extraBold: 800;
+    --font-heavy: 900;
+
 
     /* Size */
     --size-border-radius: 6px;

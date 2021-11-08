@@ -2,28 +2,34 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { habitsState } from '../../recoil/states/habit';
+import { habitsState } from '../recoil/states/habit';
 
-import { BackButtonHeader, Modal } from '../common';
-import { TextInput, FrequencySetting, CategorySummary, Calendar } from '.';
+import { BackButtonHeader, Modal } from '../components/common';
+
+import {
+  NewHabitCategorySummary,
+  NewHabitFrequencySettingButton,
+  NewHabitTextInput,
+  NewHabitDateRangePicker,
+} from '../components/newHabit';
 
 import {
   CalenderIcon,
   SettingIcon,
   CheckIcon,
   DocumentIcon,
-} from '../../assets/icons/habits';
+} from '../assets/icons/habits';
 
-import { useInput, useDateRange } from '../../hooks';
+import { useInput, useDateRange } from '../hooks';
 
-import { convertYMD, getCurrentKST } from '../../utils/date';
+import { convertYMD, getCurrentKST } from '../utils/date';
 
-import { WEEK } from '../../constants/date';
-import { OK } from '../../constants/statusCode';
+import { WEEK } from '../constants/date';
+import { OK } from '../constants/statusCode';
 
-import H from '../../api/habits';
+import { addHabitApis } from '../api';
 
-const AddDetail = () => {
+const NewHabitForm = () => {
   const addHabit = useSetRecoilState(habitsState);
   const [habits, setHabits] = useRecoilState(habitsState);
   const history = useHistory();
@@ -78,7 +84,7 @@ const AddDetail = () => {
     };
 
     try {
-      const { data } = await H.saveHabitWithHands(body);
+      const { data } = await addHabitApis.saveHabitWithHands(body);
 
       if (data.statusCode === OK) {
         if (isStartFromToday) {
@@ -103,8 +109,8 @@ const AddDetail = () => {
           onButtonClick={() => history.goBack()}
           pageTitleText="습관 작성하기"
         />
-        <CategorySummary category={categoryState.name} />
-        <TextInput
+        <NewHabitCategorySummary category={categoryState.name} />
+        <NewHabitTextInput
           isTitle={true}
           labelName="타이틀"
           id="title"
@@ -112,7 +118,7 @@ const AddDetail = () => {
           placeholder="택시 안타기! 그럴거면 차를 사세요"
           onValueChanged={onTitleChanged}
         />
-        <TextInput
+        <NewHabitTextInput
           isTitle={false}
           id="description"
           value={description}
@@ -120,18 +126,6 @@ const AddDetail = () => {
           placeholder="5분만 더 자다가 텅장된다."
           onValueChanged={onDescriptionChanged}
         />
-        <Bar factor={0}>
-          <div></div>
-          <div></div>
-        </Bar>
-        <Bar factor={1}>
-          <div></div>
-          <div></div>
-        </Bar>
-        <Bar factor={2}>
-          <div></div>
-          <div></div>
-        </Bar>
       </Header>
       <DetailBody>
         <DetailOuter>
@@ -153,7 +147,7 @@ const AddDetail = () => {
                   setModalOpen(false);
                 }}
               >
-                <Calendar onClick={handleDateRangePickerClick} />
+                <NewHabitDateRangePicker onClick={handleDateRangePickerClick} />
               </Modal>
             )}
           </DetailInner>
@@ -240,11 +234,11 @@ const AddDetail = () => {
             </DetailRightColumn>
           </DetailInner>
           <FrequenciesWrapper>
-            <FrequencySetting
+            <NewHabitFrequencySettingButton
               currentValue={tensFrequency}
               setValue={setTensFrequency}
             />
-            <FrequencySetting
+            <NewHabitFrequencySettingButton
               currentValue={unitsFrequency}
               setValue={setUnitsFrequency}
             />
@@ -415,4 +409,4 @@ const SaveButton = styled.button`
   }
 `;
 
-export default AddDetail;
+export default NewHabitForm;

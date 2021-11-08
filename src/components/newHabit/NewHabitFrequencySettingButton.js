@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { UpIcon, DownIcon } from '../../assets/icons/common';
 
-const FrequencySetting = ({ currentValue, setValue }) => {
+const NewHabitFrequencySettingButton = ({ currentValue, setValue }) => {
   const changevalue = (isIncrement) => {
     if (
       (currentValue === 0 && !isIncrement) ||
@@ -28,7 +28,7 @@ const FrequencySetting = ({ currentValue, setValue }) => {
   );
 };
 
-FrequencySetting.propTypes = {
+NewHabitFrequencySettingButton.propTypes = {
   currentValue: PropTypes.number.isRequired,
   setValue: PropTypes.func.isRequired,
 };
@@ -66,4 +66,4 @@ const FrequencyButton = styled.div`
   }
 `;
 
-export default FrequencySetting;
+export default NewHabitFrequencySettingButton;

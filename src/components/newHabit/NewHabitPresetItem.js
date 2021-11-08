@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const PresetItem = ({
+const NewHabitPresetItem = ({
   frequency,
   description,
   period,
@@ -23,7 +23,7 @@ const PresetItem = ({
   );
 };
 
-PresetItem.propTypes = {
+NewHabitPresetItem.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   frequency: PropTypes.number.isRequired,
@@ -59,4 +59,4 @@ const Chip = styled.div`
   letter-spacing: 0.374px;
 `;
 
-export default PresetItem;
+export default NewHabitPresetItem;

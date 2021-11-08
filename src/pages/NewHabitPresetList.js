@@ -1,46 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory, useParams, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { BackButtonHeader } from '../common';
-import { PresetItem } from '.';
+import { BackButtonHeader } from '../components/common';
+import { NewHabitPresetItem } from '../components/newHabit';
 
-import H from '../../api/habits';
-import { OK } from '../../constants/statusCode';
+import { useFetchCategoryPresets } from '../hooks';
 
-const HabitPreset = () => {
-  const [selectedPresetId, setSelectedPresetId] = useState(null);
-  const [presets, setPresets] = useState([]);
+const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();
-  const { categoryId } = useParams();
   const history = useHistory();
 
-  useEffect(() => {
-    async function getHabitPresetFromServer() {
-      try {
-        const { data } = await H.getHabitPreset(categoryId);
-
-        if (data.statusCode === OK) {
-          setPresets(data.preSets);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getHabitPresetFromServer();
-  }, []);
-
-  const handleSaveButtonClick = async () => {
-    try {
-      const { data } = await H.saveHabitWithPreset(selectedPresetId);
-      if (data.statusCode === OK) {
-        history.replace('/');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { presetList, onPresetClicked, onSaveButtonClicked } =
+    useFetchCategoryPresets();
 
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
@@ -56,9 +28,9 @@ const HabitPreset = () => {
           />
         </div>
         <HelperText>추천 습관</HelperText>
-        {presets.map(
+        {presetList.map(
           ({ count, description, period, practiceDays, title, presetId }) => (
-            <PresetItem
+            <NewHabitPresetItem
               key={presetId}
               frequency={count}
               description={description}
@@ -66,7 +38,7 @@ const HabitPreset = () => {
               days={practiceDays}
               title={title}
               id={presetId}
-              onClick={() => setSelectedPresetId(presetId)}
+              onClick={() => onPresetClicked(presetId)}
             />
           ),
         )}
@@ -81,7 +53,7 @@ const HabitPreset = () => {
           직접 작성하기
         </button>
       </Wrapper>
-      <ChooseButton onClick={handleSaveButtonClick}>저장하기</ChooseButton>
+      <ChooseButton onClick={onSaveButtonClicked}>저장하기</ChooseButton>
     </>
   );
 };
@@ -117,4 +89,4 @@ const ChooseButton = styled.button`
   border: none;
 `;
 
-export default HabitPreset;
+export default NewHabitPresetList;
