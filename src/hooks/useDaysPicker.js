@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 
 import { getRangeBetweenTwoDates } from '../utils/date';
 
+// TODO: UI 나오면 disabledInteraction 구현
+
 export default function useDaysPicker(startDateString, endDateString) {
   const datesRange = getRangeBetweenTwoDates(startDateString, endDateString);
   const startDay = new Date(startDateString).getDay();

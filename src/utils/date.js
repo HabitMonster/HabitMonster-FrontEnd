@@ -135,6 +135,7 @@ export const getRangeBetweenTwoDates = (previousDateString, nextDateString) => {
   return difference / ONE_DAY + 1;
 };
 
+// TODO: UI 나오면 disabledInteraction 구현
 export const getDisableDays = (datesRange, startDay, endDay) => {
   // if user selects the dates of which range is 7.
   // it means that user do the habit at least one week.
