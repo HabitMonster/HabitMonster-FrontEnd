@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CategoryHelperText = () => {
+const NewHabitCategoryHelperText = () => {
   return (
     <Wrapper>
       <h2>
@@ -41,4 +41,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default CategoryHelperText;
+export default NewHabitCategoryHelperText;

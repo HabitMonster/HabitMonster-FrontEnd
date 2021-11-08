@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { habitState } from '../../recoil/states/habit';
 
 import styled from 'styled-components';
-import A from '../../api/habits';
+import { habitApis } from '../../api/';
 import { SampleCategory } from '../../assets/images/main';
 
 // 기존 뷰로 보여지는 맥락을 그대로 유지한채, Habit 컴포넌트에 id만 prop으로 주게끔 변경하였습니다.
@@ -28,7 +28,7 @@ const TodayHabit = ({ id }) => {
 
   // 해당 내용은 따로 건드리지 않겠습니다!
   const checkHabit = async () => {
-    const response = await A.checkHabit(habit.habitId);
+    const response = await habitApis.checkHabit(habit.habitId);
     setCurrent(response.data.current);
 
     if (response.data.isAccomplished) {

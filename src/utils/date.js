@@ -1,3 +1,5 @@
+import { ONE_DAY } from '../constants/times';
+
 export const convertYYYYMMDD = (date) =>
   date.toISOString().split('T')[0].split('-').join('/');
 
@@ -123,6 +125,40 @@ export default function getDateList(date) {
 
   return result;
 }
+
+export const getRangeBetweenTwoDates = (previousDateString, nextDateString) => {
+  const previousDate = new Date(previousDateString);
+  const nextDate = new Date(nextDateString);
+
+  const difference = Math.abs(nextDate - previousDate);
+
+  return difference / ONE_DAY + 1;
+};
+
+export const getDisableDays = (datesRange, startDay, endDay) => {
+  // if user selects the dates of which range is 7.
+  // it means that user do the habit at least one week.
+  // In this case, We should just give him/her default values
+  if (datesRange >= 7) {
+    return null;
+  }
+
+  const days = Array(7).fill(null);
+
+  let count = 0;
+
+  // 월-금
+  // startDay = 1
+  // endDay = 5
+
+  // 금-일
+  // startDay = 5
+  // endDay = 0
+
+  // 토-수
+  // startDay = 6
+  // endDay = 3
+};
 
 // @jaekyung: amount만큼 월을 더해주기
 export const addMonths = (date, amount) => {

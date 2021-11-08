@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const CategoryCell = ({ src, name, onClick }) => {
+const NewHabitCategoryCell = ({ src, name, onClick }) => {
   return (
     <GategoryWrapper onClick={onClick}>
       <img src={src} alt={`category: ${name}`} />
@@ -11,7 +11,7 @@ const CategoryCell = ({ src, name, onClick }) => {
   );
 };
 
-CategoryCell.propTypes = {
+NewHabitCategoryCell.propTypes = {
   src: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -43,4 +43,4 @@ const GategoryWrapper = styled.div`
   }
 `;
 
-export default CategoryCell;
+export default NewHabitCategoryCell;

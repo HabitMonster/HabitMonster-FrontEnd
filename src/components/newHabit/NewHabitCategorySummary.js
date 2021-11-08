@@ -4,11 +4,11 @@ import styled from 'styled-components';
 
 const REM = 16;
 
-const CategorySummary = ({ category }) => (
+const NewHabitCategorySummary = ({ category }) => (
   <Wrapper widthFactor={category.length}>{category}</Wrapper>
 );
 
-CategorySummary.propTypes = {
+NewHabitCategorySummary.propTypes = {
   category: PropTypes.string.isRequired,
 };
 
@@ -30,4 +30,4 @@ const Wrapper = styled.div`
   margin-top: 60px;
   margin-left: 16px;
 `;
-export default CategorySummary;
+export default NewHabitCategorySummary;

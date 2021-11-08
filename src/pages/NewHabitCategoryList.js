@@ -1,40 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { CategoryCell, CategoryGrid, CategoryHelperText } from '.';
-import CATEGORIES from '../../assets/images/habit';
+import {
+  NewHabitCategoryCell,
+  NewHabitCategoryGrid,
+  NewHabitCategoryHelperText,
+} from '../components/newHabit';
 
-import H from '../../api/habits';
-import { OK } from '../../constants/statusCode';
+import CATEGORIES from '../assets/images/habit';
 
-const CategoryList = () => {
-  const [categories, setCategories] = useState([]);
+import { useFetchCategories } from '../hooks';
+
+const NewHabitCategoryList = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
-
-  useEffect(() => {
-    async function getCategoryListFromServer() {
-      try {
-        const { data } = await H.getCategoryList();
-        if (data.statusCode === OK) {
-          setCategories(data.categories);
-        }
-      } catch (error) {
-        console.error(error);
-        history.replace('/');
-      }
-    }
-
-    getCategoryListFromServer();
-  }, []);
+  const categories = useFetchCategories();
 
   return (
     <Wrapper>
-      <CategoryHelperText />
-      <CategoryGrid>
+      <NewHabitCategoryHelperText />
+      <NewHabitCategoryGrid>
         {categories.map(({ categoryId, category: categoryName }) => (
-          <CategoryCell
+          <NewHabitCategoryCell
             key={categoryId}
             src={CATEGORIES[categoryName].src}
             name={CATEGORIES[categoryName].name}
@@ -49,7 +37,7 @@ const CategoryList = () => {
             }}
           />
         ))}
-      </CategoryGrid>
+      </NewHabitCategoryGrid>
     </Wrapper>
   );
 };
@@ -61,4 +49,4 @@ export const Wrapper = styled.div`
   padding: 0 24px;
 `;
 
-export default CategoryList;
+export default NewHabitCategoryList;

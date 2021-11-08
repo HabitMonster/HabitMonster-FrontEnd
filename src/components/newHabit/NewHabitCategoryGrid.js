@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const CategoryGrid = ({ children }) => {
+const NewHabitCategoryGrid = ({ children }) => {
   return <GridContainer>{children}</GridContainer>;
 };
 
-CategoryGrid.propTypes = {
+NewHabitCategoryGrid.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
@@ -20,4 +20,4 @@ const GridContainer = styled.section`
   justify-content: center;
 `;
 
-export default CategoryGrid;
+export default NewHabitCategoryGrid;
