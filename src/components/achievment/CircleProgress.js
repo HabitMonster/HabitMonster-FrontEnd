@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { fontSize } from '../../styles';
 
 // Reference: https://wit.nts-corp.com/2021/04/23/6338
 function CircleProgress({ width, height, strokeWidth = 12, title, value }) {
@@ -77,13 +78,13 @@ const DetailContainer = styled.div`
 const DetailTitle = styled.p`
   color: #9d95ca;
   font-weight: var(--weight-regular);
-  font-size: 15px;
+  font-size: var(--font-small);
   margin-bottom: 5px;
 `;
 
 const DetailValue = styled.p`
-  color: #492cf1;
-  font-size: 36px;
+  color: var(--color-statistics);
+  ${fontSize('36px')};
   font-weight: bold;
 `;
 CircleProgress.propTypes = {
