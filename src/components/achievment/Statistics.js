@@ -26,8 +26,6 @@ const Statistics = () => {
     if (type === 'add') {
       newDate = formatMonth(addMonths(new Date(currentDate), 1), '-');
     }
-
-    console.log('newDate', newDate);
     setCurrentDate(newDate);
   };
 
@@ -76,30 +74,14 @@ const Statistics = () => {
                 <AchieveRight />
               </DateButton>
             </DateWrap>
-            {/* TODO: Circle Progress bar */}
             <CircleWrap>
               <CircleProgress
                 width={130}
                 height={130}
                 title={'달성률'}
-                value={0.6}
+                value={circleValue}
               />
             </CircleWrap>
-            {/* 프로그레스바 변형 전 작업 물 백업을 위한 주석 처리 */}
-            {/* <DetailList>
-              <ListItem>
-                <ListTitle>전체</ListTitle>
-                <ListText>{totalCount}개</ListText>
-              </ListItem>
-              <ListItem>
-                <ListTitle>완료</ListTitle>
-                <ListText>{succeededCount}개</ListText>
-              </ListItem>
-              <ListItem>
-                <ListTitle>미완료</ListTitle>
-                <ListText>{failedCount}개</ListText>
-              </ListItem>
-            </DetailList> */}
           </DetailWrap>
           <ListContainer>
             <ButtonWrap>
@@ -211,19 +193,6 @@ const ListContainer = styled.div`
   height: 100%;
 `;
 
-// const ListTitle = styled.p`
-//   font-size: 13px;
-//   text-align: center;
-//   margin-bottom: 8px;
-// `;
-
-// const ListText = styled.p`
-//   font-size: 20px;
-//   font-weight: 700;
-//   text-align: center;
-//   line-height: 24px;
-// `;
-
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -231,12 +200,13 @@ const ButtonWrap = styled.div`
 `;
 
 const AchieveNavBtn = styled.button`
-  border: 1px solid ${(props) => (!props.isActive ? '#f0eff8' : '#492cf1')};
+  border: 1px solid
+    ${(props) => (!props.isActive ? '#f0eff8' : 'var(--color-statistics)')};
   border-radius: 14px;
-  background-color: ${(props) => (!props.isActive ? 'transparent' : '#492cf1')};
+  background-color: ${(props) =>
+    !props.isActive ? 'transparent' : 'var(--color-statistics)'};
   color: ${(props) =>
     !props.isActive ? 'var(--color-grey01)' : 'var(--color-white)'};
-  /* height: 26px; */
   font-size: var(--font-micro);
   line-height: 18px;
   cursor: pointer;
@@ -244,7 +214,8 @@ const AchieveNavBtn = styled.button`
   padding: 4px 10px;
 
   span {
-    color: ${(props) => (!props.isActive ? '#492cf1' : 'var(--color-white)')};
+    color: ${(props) =>
+      !props.isActive ? 'var(--color-statistics)' : 'var(--color-white)'};
     font-size: 15px;
     font-weight: var(--weight-bold);
   }

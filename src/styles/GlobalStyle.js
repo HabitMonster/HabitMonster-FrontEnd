@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
@@ -19,14 +19,19 @@ const GlobalStyle = createGlobalStyle`
     --color-deemed: #999999;
     --color-main: #7057fc;
     --color-subtext2: #868686;
-    --color-deemed2: #E8E8E8;
+    --color-deemed2: #e8e8e8;
     --color-detail: #f7f5ff;
+
+    /* 추후 디자이너 답변에 따라 컬러 변수명 수정 */
+    --color-statistics: #492cf1;
+
 
     /* Font name */
     --font-name-apple: 'Apple SD Gothic Neo';
 
     /* Font size */
     --font-large: 48px;
+   /* --font-semi-large: 36px; */
     --font-medium: 28px;
     --font-semi-medium: 24px;
     --font-regular: 18px;
@@ -44,8 +49,12 @@ const GlobalStyle = createGlobalStyle`
 
     /* Size */
     --size-border-radius: 6px;
+    --border-radius-avatarItem: 2px;
     --border-radius-progress: 10px;
     --border-radius-checkBtn: 20px;
+    /* border-radius도 사이즈별로 정의하는건 어떨까요?  */
+    /* --border-radius-small: 6px; */
+    --border-radius-mideum: 12px;
 
     /* Animation Duration */
     --animation-duration: 200ms;

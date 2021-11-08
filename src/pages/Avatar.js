@@ -173,14 +173,14 @@ const SelectList = styled.ul`
 const SelectListItem = styled.li`
   border: 3px solid
     ${(props) => (props.selected ? 'var(--color-white)' : 'rgba(0, 0, 0, 0.4)')};
-  border-radius: 2px;
+  border-radius: var(--border-radius-avatarItem);
   cursor: pointer;
   transition: border 500ms;
 `;
 
 const InputWrap = styled.div`
   border: 2px solid var(--color-white);
-  border-radius: 12px;
+  border-radius: var(--border-radius-mideum);
   display: flex;
   justify-content: center;
   align-items: center;
