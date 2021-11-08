@@ -13,9 +13,8 @@ NewHabitCategoryGrid.propTypes = {
 const GridContainer = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 21px;
-  row-gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
   align-items: center;
   justify-content: center;
 `;

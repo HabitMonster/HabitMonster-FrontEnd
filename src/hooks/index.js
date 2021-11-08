@@ -3,6 +3,7 @@ import useDateRange from './useDateRange';
 import useFetchCategories from './useFetchCategories';
 import useFetchCategoryPresets from './useFetchCategoryPresets';
 import useDaysPicker from './useDaysPicker';
+import useTextInputWithLengthLimitation from './useTextInputWithLengthLimitation';
 
 export {
   useInput,
@@ -10,4 +11,5 @@ export {
   useFetchCategories,
   useFetchCategoryPresets,
   useDaysPicker,
+  useTextInputWithLengthLimitation,
 };

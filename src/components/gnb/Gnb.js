@@ -44,7 +44,7 @@ const Gnb = () => {
 const TabBar = styled.nav`
   width: 100%;
   height: 56px;
-  max-width: 375px;
+  max-width: 360px;
   position: fixed;
   bottom: 0;
   display: flex;

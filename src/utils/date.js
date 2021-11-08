@@ -161,6 +161,16 @@ export const getDisableDays = (datesRange, startDay, endDay) => {
   // endDay = 3
 };
 
+// @semyung: days => practiceDays<string>
+export const renderDays = (days) => {
+  if (days.length === 7) {
+    return '매일';
+  }
+
+  const week = [null, '월', '화', '수', '목', '금', '토', '일'];
+  return Array.from(days, (dayIndex) => week[dayIndex]).join(' ');
+};
+
 // @jaekyung: amount만큼 월을 더해주기
 export const addMonths = (date, amount) => {
   const tempDate = date ? date : new Date();

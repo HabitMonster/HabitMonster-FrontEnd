@@ -6,28 +6,31 @@ import { BackButtonHeader } from '../components/common';
 import { NewHabitPresetItem } from '../components/newHabit';
 
 import { useFetchCategoryPresets } from '../hooks';
+import { PencilIcon } from '../assets/icons/habits';
 
 const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();
   const history = useHistory();
 
-  const { presetList, onPresetClicked, onSaveButtonClicked } =
+  const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useFetchCategoryPresets();
 
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
 
+  console.log(selectedPresetId);
+
   return (
     <>
       <Wrapper>
-        <div style={{ marginTop: '44px', marginBottom: '26px' }}>
+        <div style={{ marginTop: '24px', marginBottom: '12px' }}>
           <BackButtonHeader
             pageTitleText={selectedHabitCategory.name}
             onButtonClick={() => history.replace('/new')}
           />
         </div>
-        <HelperText>추천 습관</HelperText>
+        <HelperText>이런 습관은 어때요?</HelperText>
         {presetList.map(
           ({ count, description, period, practiceDays, title, presetId }) => (
             <NewHabitPresetItem
@@ -39,10 +42,11 @@ const NewHabitPresetList = () => {
               title={title}
               id={presetId}
               onClick={() => onPresetClicked(presetId)}
+              isSelected={selectedPresetId === presetId}
             />
           ),
         )}
-        <button
+        <Hands
           onClick={() =>
             history.push({
               pathname: 'detail',
@@ -50,8 +54,9 @@ const NewHabitPresetList = () => {
             })
           }
         >
-          직접 작성하기
-        </button>
+          <PencilIcon />
+          <span>직접 작성하기</span>
+        </Hands>
       </Wrapper>
       <ChooseButton onClick={onSaveButtonClicked}>저장하기</ChooseButton>
     </>
@@ -62,14 +67,34 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  padding: 0 16px;
+  padding-left: 24px;
+  padding-right: 14px;
+  background: #070707;
 `;
 
 const HelperText = styled.h2`
-  color: #1a202c;
-  font-size: 22px;
-  line-height: 26px;
-  font-weight: var(--weight-bold);
+  color: #f8f8f8;
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 20px;
+  /* font-weight: var(--weight-bold); */
+`;
+
+const Hands = styled.div`
+  width: 312px;
+  height: 64px;
+  background: #1e2025;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  font-size: 18px;
+  line-height: 22px;
+  color: #f8f8f8;
+
+  & span {
+    margin-left: 10px;
+  }
 `;
 
 const ChooseButton = styled.button`

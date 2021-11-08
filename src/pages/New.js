@@ -5,6 +5,8 @@ import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
 import NewHabitPresetList from './NewHabitPresetList';
 
+import Testing from './Testing';
+
 const New = () => {
   const { path } = useRouteMatch();
 
@@ -17,7 +19,8 @@ const New = () => {
         <NewHabitPresetList />
       </Route>
       <Route path={`${path}/:categoryId/detail`}>
-        <NewHabitForm />
+        {/* <NewHabitForm /> */}
+        <Testing />
       </Route>
     </>
   );
