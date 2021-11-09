@@ -28,3 +28,5 @@ export const WEEK = [
     day: '토',
   },
 ];
+
+export const ONE_WEEK = 7;

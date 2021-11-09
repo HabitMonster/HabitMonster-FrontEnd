@@ -11,6 +11,8 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import Avatar from '../pages/Avatar';
+import NewHabitForm from '../pages/NewHabitForm';
+import NewHabitPresetList from '../pages/NewHabitPresetList';
 
 function App() {
   return (
@@ -25,7 +27,6 @@ function App() {
               <Route path="/achievement" component={Achievement} />
               <Route path="/new" component={New} />
               <Route path="/mypage" component={MyPage} />
-              <Route path="/avatar" component={Avatar} />
               <Gnb />
             </>
           </Switch>
@@ -39,8 +40,8 @@ const Layout = styled.div`
   background: var(--color-white);
   display: flex;
   max-width: 360px;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100vh;
   height: 100vh;
   margin: 0 auto;
   position: relative;

@@ -2,18 +2,23 @@ import NewHabitCategoryGrid from './NewHabitCategoryGrid';
 import NewHabitCategoryCell from './NewHabitCategoryCell';
 import NewHabitCategoryHelperText from './NewHabitCategoryHelperText';
 import NewHabitPresetItem from './NewHabitPresetItem';
-import NewHabitCategorySummary from './NewHabitCategorySummary';
-import NewHabitTextInput from './NewHabitTextInput';
-import NewHabitDateRangePicker from './NewHabitDateRangePicker';
-import NewHabitFrequencySettingButton from './NewHabitFrequencySettingButton';
+
+import NewHabitDetailTitle from './NewHabitDetailTitle';
+import NewHabitDetailDescription from './NewHabitDetailDescription';
+import NewHabitDetailDueDatePicker from './NewHabitDetailDueDatePicker';
+import NewHabitCalendar from './NewHabitCalendar';
+import NewHabitDayPicker from './NewHabitDayPicker';
+import NewHabitFrequencySection from './NewHabitFrequencySection';
 
 export {
   NewHabitCategoryGrid,
   NewHabitCategoryCell,
   NewHabitCategoryHelperText,
   NewHabitPresetItem,
-  NewHabitTextInput,
-  NewHabitCategorySummary,
-  NewHabitDateRangePicker,
-  NewHabitFrequencySettingButton,
+  NewHabitDetailTitle,
+  NewHabitDetailDescription,
+  NewHabitDetailDueDatePicker,
+  NewHabitCalendar,
+  NewHabitDayPicker,
+  NewHabitFrequencySection,
 };

@@ -32,26 +32,29 @@ const TextInput = ({
         maxLength={maxLength}
         isValidated={isValidated}
       />
-      {lengthValidationMode ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <div>
-            {maxLength === text.length && (
-              <ErrorHelperMessage>{errorMessage}</ErrorHelperMessage>
-            )}
-          </div>
-          <div>
-            <LengthHelperMessage>
-              {text.length}/{maxLength}
-            </LengthHelperMessage>
-          </div>
-        </div>
-      ) : null}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          height: '14px',
+        }}
+      >
+        {lengthValidationMode ? (
+          <>
+            <div>
+              {maxLength === text.length && (
+                <ErrorHelperMessage>{errorMessage}</ErrorHelperMessage>
+              )}
+            </div>
+            <div>
+              <LengthHelperMessage>
+                {text.length}/{maxLength}
+              </LengthHelperMessage>
+            </div>
+          </>
+        ) : null}
+      </div>
     </div>
   );
 };

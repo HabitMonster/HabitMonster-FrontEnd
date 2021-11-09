@@ -19,44 +19,44 @@ const NewHabitPresetList = () => {
     return <Redirect to="/new" />;
   }
 
-  console.log(selectedPresetId);
-
   return (
     <>
       <Wrapper>
-        <div style={{ marginTop: '24px', marginBottom: '12px' }}>
-          <BackButtonHeader
-            pageTitleText={selectedHabitCategory.name}
-            onButtonClick={() => history.replace('/new')}
-          />
-        </div>
-        <HelperText>이런 습관은 어때요?</HelperText>
-        {presetList.map(
-          ({ count, description, period, practiceDays, title, presetId }) => (
-            <NewHabitPresetItem
-              key={presetId}
-              frequency={count}
-              description={description}
-              period={period}
-              days={practiceDays}
-              title={title}
-              id={presetId}
-              onClick={() => onPresetClicked(presetId)}
-              isSelected={selectedPresetId === presetId}
+        <Inner>
+          <div style={{ marginTop: '24px', marginBottom: '12px' }}>
+            <BackButtonHeader
+              pageTitleText={selectedHabitCategory.name}
+              onButtonClick={() => history.replace('/new')}
             />
-          ),
-        )}
-        <Hands
-          onClick={() =>
-            history.push({
-              pathname: 'detail',
-              state: selectedHabitCategory,
-            })
-          }
-        >
-          <PencilIcon />
-          <span>직접 작성하기</span>
-        </Hands>
+          </div>
+          <HelperText>이런 습관은 어때요?</HelperText>
+          {presetList.map(
+            ({ count, description, period, practiceDays, title, presetId }) => (
+              <NewHabitPresetItem
+                key={presetId}
+                frequency={count}
+                description={description}
+                period={period}
+                days={practiceDays}
+                title={title}
+                id={presetId}
+                onClick={() => onPresetClicked(presetId)}
+                isSelected={selectedPresetId === presetId}
+              />
+            ),
+          )}
+          <Hands
+            onClick={() =>
+              history.push({
+                pathname: 'detail',
+                state: selectedHabitCategory,
+              })
+            }
+          >
+            <PencilIcon />
+            <span>직접 작성하기</span>
+          </Hands>
+        </Inner>
       </Wrapper>
       <ChooseButton onClick={onSaveButtonClicked}>저장하기</ChooseButton>
     </>
@@ -67,9 +67,10 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  padding-left: 24px;
-  padding-right: 14px;
   background: #070707;
+`;
+const Inner = styled.div`
+  padding: 0 24px;
 `;
 
 const HelperText = styled.h2`
@@ -77,7 +78,6 @@ const HelperText = styled.h2`
   font-size: 24px;
   line-height: 32px;
   margin-bottom: 20px;
-  /* font-weight: var(--weight-bold); */
 `;
 
 const Hands = styled.div`
@@ -98,12 +98,13 @@ const Hands = styled.div`
 `;
 
 const ChooseButton = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
+  max-width: 360px;
   height: 64px;
-  background: var(--color-main);
+  background: #3b0a9d;
   display: flex;
   align-items: center;
   justify-content: center;
