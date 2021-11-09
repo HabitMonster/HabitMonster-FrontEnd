@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
+
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
 import { NaverSymbol } from '../../assets/icons/loginSymbol';
@@ -29,6 +30,7 @@ const NaverLogin = () => {
         height: 55,
       },
     });
+
     naverLogin.init();
     naverLogin.logout();
   };
@@ -37,6 +39,7 @@ const NaverLogin = () => {
     if (!window.location.hash) {
       return;
     }
+
     const naverAuthCode = window.location.hash.split('=')[1].split('&')[0];
 
     async function getTokenWithNaver() {
@@ -46,14 +49,20 @@ const NaverLogin = () => {
         setCookie('refreshToken', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
-          history.push('/avatar');
+          localStorage.setItem('isFirstLogin', data.isFirstLogin);
+          history.replace('/monster');
           return;
         }
-        history.push('/');
+
+        if (data.statusCode === OK && !data.isFirstLogin) {
+          history.replace('/');
+          return;
+        }
       } catch (err) {
         console.error(err);
       }
     }
+
     getTokenWithNaver();
   };
 

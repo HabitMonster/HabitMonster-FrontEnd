@@ -8,7 +8,6 @@ const asyncDefaultHabitsState = selector({
       const { data } = await mainApis.getHabitsInfo();
       return data.habits;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   },

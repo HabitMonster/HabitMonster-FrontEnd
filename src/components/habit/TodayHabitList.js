@@ -1,12 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+
 import { habitIdListState } from '../../recoil/states/habit';
 
 import { TodayHabit } from './';
 
 const TodayHabitList = () => {
   const idList = useRecoilValue(habitIdListState);
+
   return (
     <Wrapper className="habitWrapper">
       <TitleContainer className="titleContainer">
