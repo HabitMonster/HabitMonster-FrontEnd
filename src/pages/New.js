@@ -11,7 +11,7 @@ const New = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (Boolean(localStorage.getItem('isFirstLogin'))) {
+    if (localStorage.getItem('isFirstLogin') === 'true') {
       return history.replace('/monster');
     }
   }, []);
