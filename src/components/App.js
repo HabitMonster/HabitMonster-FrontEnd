@@ -11,6 +11,7 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import Avatar from '../pages/Avatar';
+import MonsterSetting from '../pages/MonsterSetting';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
               <Route path="/achievement" component={Achievement} />
               <Route path="/new" component={New} />
               <Route path="/mypage" component={MyPage} />
-              <Route path="/avatar" component={Avatar} />
+              <Route path="/select" component={MonsterSetting} />
               <Gnb />
             </>
           </Switch>

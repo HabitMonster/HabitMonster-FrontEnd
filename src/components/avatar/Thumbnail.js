@@ -11,11 +11,11 @@ export default AvatarThumbnail;
 const getThumbnailSize = (size) => {
   switch (size) {
     case 'large':
-      return { width: '143px', height: '109px' };
+      return { width: '200px', height: '200px' };
     case 'mideum':
       return { width: '105px', height: '105px' };
     default:
-      return { width: '60px', height: '60px' };
+      return { width: '52px', height: '52px' };
   }
 };
 

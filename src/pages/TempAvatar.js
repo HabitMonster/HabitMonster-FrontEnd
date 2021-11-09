@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { babyMonsterState, selectedMonster } from '../recoil/states/monster';
+
 import styled from 'styled-components';
 
 import { AvatarThumbnail } from '../components/avatar';
@@ -16,9 +20,14 @@ import {
 
 const AVATAR_MOCK_LIST = [
   {
-    imageUrl: babyMonOrange,
-    imageAlt: '주황이',
-    monsterId: 1,
+    imageUrl: babyMonGreen,
+    imageAlt: '녹색이',
+    monsterId: 'Lv1-green',
+  },
+  {
+    imageUrl: babyMonPink,
+    imageAlt: '부농이',
+    monsterId: 'Lv1-pink',
   },
   {
     imageUrl: babyMonBlue,
@@ -26,56 +35,35 @@ const AVATAR_MOCK_LIST = [
     monsterId: 'Lv1-blue',
   },
   {
-    imageUrl: babyMonGreen,
-    imageAlt: '녹색이',
-    monsterId: 'Lv1-green',
+    imageUrl: babyMonYellow,
+    imageAlt: '노랑이',
+    monsterId: 'Lv1-yellow',
   },
   {
-    imageUrl: babyMonPink,
-    imageAlt: '분홍이',
-    monsterId: 'Lv1-pink',
+    imageUrl: babyMonOrange,
+    imageAlt: '주황이',
+    monsterId: 1,
   },
   {
     imageUrl: babyMonRed,
     imageAlt: '빨강이',
     monsterId: 'Lv1-red',
   },
-  {
-    imageUrl: babyMonYellow,
-    imageAlt: '노랑이',
-    monsterId: 'Lv1-yellow',
-  },
 ];
 
 const Avatar = () => {
-  const [avatarName, setAvatarName] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_MOCK_LIST[0]);
+  const avatarList = useRecoilValue(babyMonsterState);
+  const [selectedMonster, setSelectedMonster] = useRecoilState(
+    AVATAR_MOCK_LIST[0],
+  );
+  // const [selectedMonster, setSelectedMonster] =
+  //   useRecoilState(selectedMonster);
+  const history = useHistory();
 
   const selectAvatar = (avatar) => {
-    console.log('selectedAvatar.monsterId', selectedAvatar.monsterId);
-    setSelectedAvatar(avatar);
+    setSelectedMonster(avatar);
   };
 
-  const changeAvatarName = (event) => {
-    setAvatarName(event.target.value);
-  };
-
-  const setMonsterInfo = async () => {
-    const avatarInfo = {
-      monsterId: selectedAvatar.monsterId,
-      monsterName: avatarName,
-    };
-
-    try {
-      console.log('avatarInfo', avatarInfo);
-      const { data } = await avatarApis.setAvatar(avatarInfo);
-      if (data.statusCode === OK) {
-        history.push('/main');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <AvatarContainer>
       <AvatarWrap>
@@ -88,8 +76,8 @@ const Avatar = () => {
         </TitleWrap>
         <ThumbnailWrap>
           <AvatarThumbnail
-            imageUrl={selectedAvatar.imageUrl}
-            imageAlt={selectedAvatar.imageAlt}
+            imageUrl={selectedMonster.imageUrl}
+            imageAlt={selectedMonster.imageAlt}
             imageSize={'large'}
           />
         </ThumbnailWrap>
@@ -98,7 +86,7 @@ const Avatar = () => {
             return (
               <SelectListItem
                 key={avatar.imageUrl}
-                selected={selectedAvatar.imageUrl === avatar.imageUrl}
+                selected={selectedMonster.imageUrl === avatar.imageUrl}
                 onClick={() => selectAvatar(avatar)}
               >
                 <AvatarThumbnail
@@ -111,7 +99,13 @@ const Avatar = () => {
           })}
         </SelectList>
       </AvatarWrap>
-      <FixedButton onClick={setMonsterInfo}>선택하기</FixedButton>
+      <FixedButton
+        onClick={() => {
+          history.push('/select');
+        }}
+      >
+        선택하기
+      </FixedButton>
     </AvatarContainer>
   );
 };
@@ -211,9 +205,9 @@ const FixedButton = styled.button`
   background-color: #4d0dcd;
   border: 0;
   outline: 0;
-  color: var(--color-white);
-  font-size: var(--font-regular);
-  font-weight: var(--weight-bold);
+  color: var(—color-white);
+  font-size: var(—font-regular);
+  font-weight: var(—weight-bold);
   line-height: 22px;
   text-align: center;
   position: fixed;

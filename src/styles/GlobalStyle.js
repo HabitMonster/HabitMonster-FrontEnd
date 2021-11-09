@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     --font-nano: 12px;
 
     /* SEMYUNG: Font Size*/
-    
+
 
     /* Font weight */
     --weight-heavy-bold: 900;
