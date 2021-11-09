@@ -42,6 +42,7 @@ export default function useFetchCategoryPresets() {
 
   return {
     presetList: presets,
+    selectedPresetId,
     onPresetClicked: onPresetChosen,
     onSaveButtonClicked: onPresetSaved,
   };

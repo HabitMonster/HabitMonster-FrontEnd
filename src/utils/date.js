@@ -17,7 +17,7 @@ const getPastDate = (dateString, duration) => {
   return convertYMD(initialDateObject);
 };
 
-const getFutureDate = (dateString, duration) => {
+export const getFutureDate = (dateString, duration) => {
   const initialDateObject = new Date(dateString);
   initialDateObject.setDate(initialDateObject.getDate() + duration);
   return convertYMD(initialDateObject);
@@ -135,30 +135,53 @@ export const getRangeBetweenTwoDates = (previousDateString, nextDateString) => {
   return difference / ONE_DAY + 1;
 };
 
-// TODO: UI 나오면 disabledInteraction 구현
-export const getDisableDays = (datesRange, startDay, endDay) => {
-  // if user selects the dates of which range is 7.
-  // it means that user do the habit at least one week.
-  // In this case, We should just give him/her default values
-  if (datesRange >= 7) {
-    return null;
+// base: practiceDays<String>
+// id: the dayId<Number>
+
+export const toggleDay = (base, id) => {
+  if (!base.length) {
+    return String(id);
   }
 
-  const days = Array(7).fill(null);
+  const arr = base.split('').map(Number);
 
-  let count = 0;
+  if (arr.includes(id)) {
+    arr.splice(arr.indexOf(id), 1);
+    return arr.join('');
+  }
 
-  // 월-금
-  // startDay = 1
-  // endDay = 5
+  if (id < arr[0]) {
+    return [id, ...arr].join('');
+  }
 
-  // 금-일
-  // startDay = 5
-  // endDay = 0
+  if (arr[arr.length - 1] < id) {
+    return [...arr, id].join('');
+  }
 
-  // 토-수
-  // startDay = 6
-  // endDay = 3
+  let index;
+
+  for (let i = 0; i < arr.length; i++) {
+    const current = arr[i];
+    const next = arr[i + 1];
+
+    if (current < id && id < next) {
+      index = i + 1;
+      break;
+    }
+  }
+  console.log(index);
+
+  return [...arr.slice(0, index), id, ...arr.slice(index)].join('');
+};
+
+// @semyung: days => practiceDays<string>
+export const renderDays = (days) => {
+  if (days.length === 7) {
+    return '매일';
+  }
+
+  const week = [null, '월', '화', '수', '목', '금', '토', '일'];
+  return Array.from(days, (dayIndex) => week[dayIndex]).join(' ');
 };
 
 // @jaekyung: amount만큼 월을 더해주기
