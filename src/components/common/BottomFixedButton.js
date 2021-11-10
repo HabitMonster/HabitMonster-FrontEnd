@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { whiteOpacity } from '../../styles/Mixin';
 
 const BottomFixedButton = ({ onClick, text, condition = () => false }) => {
   return (
@@ -14,7 +15,7 @@ const BottomFixedButton = ({ onClick, text, condition = () => false }) => {
 };
 
 BottomFixedButton.propTypes = {
-  condition: PropTypes.bool,
+  condition: PropTypes.func,
   onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 };
@@ -37,14 +38,14 @@ const Button = styled.button`
   align-items: center;
 
   font-weight: var(--font-weight-bold);
-  font-size: 18px;
+  font-size: var(--font-l);
   line-height: 22px;
-  color: #f8f8f8;
+  color: var(--color-primary);
   transition: all 150ms ease-out;
 
   &:disabled {
-    background: var(--bg-deActive);
-    color: rgba(248, 248, 248, 0.2);
+    background: var(--bg-disabled);
+    ${whiteOpacity(0.2)};
   }
 `;
 
