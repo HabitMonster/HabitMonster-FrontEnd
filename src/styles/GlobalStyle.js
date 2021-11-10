@@ -56,16 +56,6 @@ const GlobalStyle = createGlobalStyle`
     --weight-regular: 500;
     --weight-semi-regular: 400;
 
-    /* SEMYUNG: Font Weight */
-    --font-weight-extraLight: 200;
-    --font-weight-light: 300;
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --font-weight-semiBold: 600;
-    --font-weight-bold: 700;
-    --font-weight-extraBold: 800;
-    --font-weight-heavy: 900;
-
 
     /* Size */
     --size-border-radius: 6px;
@@ -78,6 +68,16 @@ const GlobalStyle = createGlobalStyle`
 
     /* Animation Duration */
     --animation-duration: 200ms;
+
+    /* SEMYUNG: Font Weight */
+    --font-weight-extraLight: 200;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semiBold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extraBold: 800;
+    --font-weight-heavy: 900;
     }
 
     *, *::before, *::after {

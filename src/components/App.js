@@ -43,7 +43,7 @@ function App() {
 
 // 컨텐츠가 많지 않으면 아래쪽이 비는건 어쩔 수 없다 백그라운드를 채워 주어야 하는데 어쯔라고..
 const Layout = styled.div`
-  background: var(--color-white);
+  background: var(--bg-main);
   display: flex;
   max-width: 360px;
   width: 100%;
@@ -52,4 +52,5 @@ const Layout = styled.div`
   margin: 0 auto;
   position: relative;
 `;
+
 export default App;
