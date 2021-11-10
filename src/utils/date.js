@@ -192,6 +192,18 @@ export const addMonths = (date, amount) => {
 
   return new Date(year, month + amount, day);
 };
+// @semyung
+export const addMonths2 = (date, months) => {
+  const expectedMonth = (((date.getMonth() + months) % 12) + 12) % 12;
+  let result = new Date(date);
+  result.setMonth(result.getMonth() + months);
+
+  if (result.getMonth() !== expectedMonth) {
+    result.setDate(0);
+  }
+
+  return result;
+};
 // @jaekyung: amount만큼 월을 빼주기
 export const subMonths = (date, amount) => {
   const tempDate = date ? date : new Date();

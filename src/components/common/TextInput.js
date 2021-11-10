@@ -11,8 +11,8 @@ const TextInput = ({
   maxLength,
   idleHelperText,
 }) => {
-  const isValidated = text.length < maxLength;
   const isIdle = !text.length;
+  const isValidated = text.length < maxLength;
 
   const handleInputChange = (event) => {
     const newValue = event.target.value;
@@ -35,14 +35,7 @@ const TextInput = ({
         isValidated={isValidated}
         isIdle={isIdle}
       />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: '14px',
-        }}
-      >
+      <HelperSection>
         {isIdle && <IdleHelperText>{idleHelperText}</IdleHelperText>}
         {lengthValidationMode ? (
           <>
@@ -58,7 +51,7 @@ const TextInput = ({
             </div>
           </>
         ) : null}
-      </div>
+      </HelperSection>
     </div>
   );
 };
@@ -91,7 +84,7 @@ const Input = styled.input`
   width: 312px;
   height: 32px;
   background: inherit;
-  font-size: 15px;
+  font-size: var(--font-s);
   line-height: 18px;
   display: flex;
   align-items: center;
@@ -100,15 +93,22 @@ const Input = styled.input`
   border: none;
   border-bottom: 1px solid
     ${({ isValidated }) =>
-      isValidated
-        ? '#3b0a9d'
-        : isIdle
-        ? 'rgba(248, 248, 248, 0.3)'
-        : '#ef2f68'};
+      isValidated ? 'rgba(248, 248, 248, 0.3)' : '#ef2f68'};
   margin-bottom: 4px;
+
+  transition: all 150ms ease-out;
+
   &:focus {
+    border-bottom: 1px solid var(--bg-active);
     outline: none;
   }
+`;
+
+const HelperSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 14px;
 `;
 
 const ErrorHelperMessage = styled.span`

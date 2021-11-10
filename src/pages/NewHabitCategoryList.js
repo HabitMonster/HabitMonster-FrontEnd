@@ -47,7 +47,7 @@ export const Wrapper = styled.div`
   height: 100%;
   position: relative;
   padding: 0 24px;
-  background: #070707;
+  background: var(--bg-wrapper);
 `;
 
 export default NewHabitCategoryList;

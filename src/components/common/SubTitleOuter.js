@@ -17,9 +17,9 @@ SubTitleOuter.propTypes = {
 };
 
 const SubTitle = styled.p`
-  font-weight: var(--font-weight-semi-bold);
-  color: #7d3cff;
-  font-size: 14px;
+  font-weight: var(--font-weight-semiBold);
+  color: var(--bg-selected-light);
+  font-size: var(--font-xs);
   line-height: 17px;
   margin-bottom: 6px;
 `;

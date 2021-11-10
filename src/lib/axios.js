@@ -15,7 +15,9 @@ const setToken = (config) => {
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
 
-  config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
+  // config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
+  config.headers['A-AUTH-TOKEN'] =
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0RyIsInR5cGUiOiJHT09HTEUiLCJpYXQiOjE2MzY1MzkwMjUsImV4cCI6MTYzOTEzMTAyNX0.HLOuaQEOpX3Ruw4r0_9gb63fQ-PVwtZR6AOCJoOzgr4';
   config.headers.withCredentials = true;
   return config;
 };

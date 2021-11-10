@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, memo } from 'react';
+import React, { useState, memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import getDateList, {
@@ -17,18 +17,39 @@ const NewHabitCalendar = ({ onClick }) => {
   const [startDate, setStartDate] = useState(today);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const test = getDateList(startDate);
+  const dates = getDateList(startDate);
 
   const startDateOfCurrentMonth = convertYMD(startDate)
     .split('-')
     .map((_, i) => (i === 2 ? '01' : _))
     .join('-');
 
-  const movePreviousMonth = () =>
-    setStartDate(new Date(getPreviousMonth(startDateOfCurrentMonth)));
+  const isCurrentMonth =
+    convertYMD(today).split('-').slice(0, 2).join('-') ===
+    convertYMD(startDate).split('-').slice(0, 2).join('-');
+
+  const movePreviousMonth = () => {
+    const previousMonth = getPreviousMonth(startDateOfCurrentMonth).split(
+      '-',
+    )[1];
+    const currentMonth = convertYMD(today).split('-')[1];
+    setStartDate(
+      new Date(previousMonth === currentMonth ? today : previousMonth),
+    );
+  };
 
   const moveNextMonth = () =>
     setStartDate(new Date(getNextMonth(startDateOfCurrentMonth)));
+
+  const getRange = () =>
+    getRangeBetweenTwoDates(convertYMD(today), selectedDate);
+
+  const renderHelperText = () => {
+    if (!selectedDate || getRange() < 7) {
+      return null;
+    }
+    return `오늘부터 ${getRange()}일동안 진행합니다.`;
+  };
 
   const renderCurrentMonth = (dateString) => {
     const arr = dateString.split('-');
@@ -40,11 +61,7 @@ const NewHabitCalendar = ({ onClick }) => {
     return Number(dd) < 10 ? dd[1] : dd;
   };
 
-  const isCurrentMonth =
-    convertYMD(today).split('-').slice(0, 2).join('-') ===
-    convertYMD(startDate).split('-').slice(0, 2).join('-');
-
-  const testing = (targetDate) => {
+  const checkDateRange = (targetDate) => {
     if (!selectedDate) {
       return false;
     }
@@ -79,12 +96,12 @@ const NewHabitCalendar = ({ onClick }) => {
           <RightIcon stroke="#f8f8f8" onClick={moveNextMonth} />
         </div>
       </CalendarMonthPicker>
-      <CalendarRow>
+      <CalendarRow className="week">
         {WEEK.map(({ id, day }) => (
           <Days key={id}>{day}</Days>
         ))}
       </CalendarRow>
-      {test.map((week, index) => (
+      {dates.map((week, index) => (
         <CalendarRow key={`week-${index + 1}`}>
           {week.map((date) => (
             <Calendarcell
@@ -95,14 +112,19 @@ const NewHabitCalendar = ({ onClick }) => {
               isTarget={
                 selectedDate === date.day || date.day === convertYMD(today)
               }
-              isInRange={testing(date.day)}
+              isStartDate={date.day === convertYMD(today)}
+              isEndDate={selectedDate === date.day}
+              isInRange={checkDateRange(date.day)}
               onClick={() => handleDateButtonClick(date.day)}
             >
-              {renderDate(date.day)}
+              <div>
+                <div>{renderDate(date.day)}</div>
+              </div>
             </Calendarcell>
           ))}
         </CalendarRow>
       ))}
+      <HelperText>{renderHelperText()}</HelperText>
       <SaveButtons>
         <button onClick={() => onClick({ type: 'cancel' })}>취소</button>
         <button onClick={() => onClick({ type: 'save', value: selectedDate })}>
@@ -122,7 +144,7 @@ const CalenderWrapper = styled.div`
   background: var(--color-white);
   width: 312px;
   text-align: center;
-  background: #1e2025;
+  background: var(--bg-primary);
   border-radius: 12px;
 `;
 
@@ -143,7 +165,7 @@ const CalendarMonthPicker = styled.div`
     font-weight: var(--weight-semi-regular);
     font-size: 18px;
     line-height: 22px;
-    color: #f8f8f8;
+    color: var(--color-primary);
   }
 `;
 
@@ -151,21 +173,15 @@ const CalendarRow = styled.div`
   width: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
-  padding: 0 5px;
+  justify-content: space-around;
+  margin-bottom: 6px;
 
-  & div {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    border: none;
+  &.week {
+    margin-bottom: 12px;
+  }
 
-    &:first-child {
-      color: #ef2f68;
-    }
+  & > div:first-child {
+    color: var(--color-danger);
   }
 `;
 
@@ -176,15 +192,70 @@ const Days = styled.div`
 `;
 
 const Calendarcell = styled.div`
-  font-size: 16px;
+  width: 100%;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-m);
   line-height: 19px;
   text-align: center;
-  color: #f8f8f8;
-  background: ${({ isInRange }) => (isInRange ? 'red' : 'none')};
+  color: var(--color-primary);
+  background: ${({ isStartDate, isEndDate, isInRange }) =>
+    !isInRange && isStartDate
+      ? 'none'
+      : isStartDate
+      ? '-moz-linear-gradient(left, transparent 50%, #1c0054 50%)'
+      : isEndDate
+      ? '-moz-linear-gradient(left, #1c0054 50%, transparent 50%)'
+      : isInRange
+      ? 'var(--bg-selected)'
+      : 'none'};
+  background: ${({ isStartDate, isEndDate, isInRange }) =>
+    isStartDate
+      ? '-webkit-linear-gradient(left, transparent 50%, #1c0054 50%)'
+      : isEndDate
+      ? '-webkit-linear-gradient(left, #1c0054 50%, transparent 50%)'
+      : isInRange
+      ? 'var(--bg-selected)'
+      : 'none'};
+  background: ${({ isStartDate, isEndDate, isInRange }) =>
+    !isInRange
+      ? 'none'
+      : isStartDate
+      ? 'linear-gradient(left, transparent 50%, #1c0054 50%)'
+      : isEndDate
+      ? 'linear-gradient(left, #1c0054 50%, transparent 50%)'
+      : 'var(--bg-selected)'};
+
   font-weight: var(--font-weight-semiBold);
 
-  opacity: ${({ dimmed, disabled }) => (disabled ? '0.1' : dimmed ? '0.4' : 1)};
+  opacity: ${({ dimmed, disabled }) => (disabled ? '0.5' : dimmed ? '0.5' : 1)};
   cursor: pointer;
+
+  transition: all 150ms ease-in;
+
+  & div {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: ${({ isTarget }) => (isTarget ? '50%' : '0px')};
+    background: ${({ isTarget }) => (isTarget ? 'var(--bg-active)' : 'none')};
+    transition: all 200ms ease-in;
+  }
+`;
+
+const HelperText = styled.span`
+  display: block;
+  width: 100%;
+  margin: 24px 0px;
+  padding: 0 16px;
+  text-align: left;
+  font-size: var(--font-s);
+  color: ${({ isError }) =>
+    isError ? 'var(--color-danger)' : 'rgba(248, 248, 248, 0.8)'};
 `;
 
 const SaveButtons = styled.div`
@@ -202,15 +273,14 @@ const SaveButtons = styled.div`
     background: inherit;
     justify-content: center;
     align-items: center;
-    font-size: var(--font-regular);
-    font-weight: bold;
+    font-size: var(--font-m);
+    font-weight: var(--font-weight-bold);
     line-height: 22px;
-    color: #252525;
+    color: var(--color-primary);
     cursor: pointer;
     border: none;
 
     &:first-child {
-      color: #797979;
       border-right: 1px solid rgba(248, 248, 248, 0.1);
     }
   }
