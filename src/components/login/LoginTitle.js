@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { babyMonsters } from '../../assets/images/monsters';
 
 const LoginTitle = () => {

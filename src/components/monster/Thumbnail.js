@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const AvatarThumbnail = ({ imageUrl, imageAlt, imageSize }) => {
-  return <AvatarImage src={imageUrl} alt={imageAlt} size={imageSize} />;
+const MonsterThumbnail = ({ imageUrl, imageAlt, imageSize }) => {
+  return <MonsterImage src={imageUrl} alt={imageAlt} size={imageSize} />;
 };
 
-export default AvatarThumbnail;
+export default MonsterThumbnail;
 
 const getThumbnailSize = (size) => {
   switch (size) {
@@ -19,12 +19,12 @@ const getThumbnailSize = (size) => {
   }
 };
 
-const AvatarImage = styled.img`
+const MonsterImage = styled.img`
   width: ${({ size }) => getThumbnailSize(size).width};
   height: ${({ size }) => getThumbnailSize(size).height};
 `;
 
-AvatarThumbnail.propTypes = {
+MonsterThumbnail.propTypes = {
   imageUrl: PropTypes.string.required,
   imageAlt: PropTypes.string.required,
   imageSize: PropTypes.string,

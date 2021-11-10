@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
+
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
 import { GoogleSymbol } from '../../assets/icons/loginSymbol';
@@ -15,7 +16,6 @@ const GoogleLogin = () => {
     googleSDK();
   }, []);
 
-  // SDK 초기 설정 및 내 API초기화
   const googleSDK = () => {
     window.googleSDKLoaded = () => {
       window.gapi.load('auth2', () => {
@@ -23,7 +23,7 @@ const GoogleLogin = () => {
           client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
           scope: 'profile email',
         });
-        // 버튼 클릭시 사용자 정보 불러오기
+
         auth2.attachClickHandler(
           googleLoginBtn.current,
           {},
@@ -38,14 +38,21 @@ const GoogleLogin = () => {
                 setCookie('refreshToken', data.refreshToken);
 
                 if (data.statusCode === OK && data.isFirstLogin) {
-                  history.push('/avatar');
+                  localStorage.setItem('isFirstLogin', data.isFirstLogin);
+                  history.replace('/monster');
                   return;
                 }
-                history.push('/');
+
+                if (data.statusCode === OK && !data.isFirstLogin) {
+                  history.replace('/');
+                  return;
+                }
               } catch (err) {
+                console.log(err.response);
                 console.error(err);
               }
             }
+
             getTokenWithGoogle();
           },
           (error) => {
@@ -55,13 +62,14 @@ const GoogleLogin = () => {
       });
     };
 
-    // 구글 SDK 불러오기
     (function (d, s, id) {
       let js;
       const fjs = d.getElementsByTagName(s)[0];
+
       if (d.getElementById(id)) {
         return;
       }
+
       js = d.createElement(s);
       js.id = id;
       js.src = 'https://apis.google.com/js/platform.js?onload=googleSDKLoaded';

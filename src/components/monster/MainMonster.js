@@ -1,20 +1,21 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+
 import { monsterState } from '../../recoil/states/monster';
 
-const MainAvatar = () => {
+const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
 
   return (
     <>
-      <CharacterContainer>
-        <CharacterImage image={monster.monsterImage} />
-        <CharacterInfo>
-          <CharacterName>{monster.monsterName}</CharacterName>
-          <CharacterLevel>lv.{monster.level}</CharacterLevel>
-        </CharacterInfo>
-      </CharacterContainer>
+      <MonsterContainer>
+        <MonsterImage image={monster.monsterImage} />
+        <MonsterInfo>
+          <MonsterName>{monster.monsterName}</MonsterName>
+          <MonsterLevel>lv.{monster.level}</MonsterLevel>
+        </MonsterInfo>
+      </MonsterContainer>
       <ExpContainer>
         <ExpBar>
           <Gauge percentage={monster.monsterExpPoint} />
@@ -25,7 +26,7 @@ const MainAvatar = () => {
   );
 };
 
-const CharacterContainer = styled.div`
+const MonsterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -34,7 +35,7 @@ const CharacterContainer = styled.div`
   margin-bottom: 57px;
 `;
 
-const CharacterImage = styled.div`
+const MonsterImage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,7 +45,7 @@ const CharacterImage = styled.div`
   background-image: ${(props) => `url(${props.image})`};
 `;
 
-const CharacterInfo = styled.div`
+const MonsterInfo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,14 +53,14 @@ const CharacterInfo = styled.div`
   color: var(--color-white);
 `;
 
-const CharacterName = styled.span`
+const MonsterName = styled.span`
   margin-right: 6px;
   font-family: var(--font-name-apple);
   font-size: var(--font-regular);
   font-weight: var(--weight-bold);
 `;
 
-const CharacterLevel = styled.span`
+const MonsterLevel = styled.span`
   font-family: var(--font-name-apple);
   font-size: var(--font-micro);
   font-size: var(--weight-regular);
@@ -103,4 +104,4 @@ const Span = styled.span`
   margin-left: 3px;
 `;
 
-export default MainAvatar;
+export default MainMonster;
