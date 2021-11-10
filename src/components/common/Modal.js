@@ -20,7 +20,6 @@ const Modal = ({ open, onClose, children }) => {
     }
 
     if (open) {
-      document.activeElement.blur();
       setActive(open);
       document.querySelector('#root').setAttribute('inert', 'true');
       document.body.style.overflow = 'hidden';
@@ -61,22 +60,41 @@ Modal.propTypes = {
 };
 
 const Backdrop = styled.div`
-  width: 100vw;
-  height: 100vh;
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.31);
-  backdrop-filter: blur(4px);
+  background-color: #000;
+  opacity: 0;
+  transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 200ms;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  & .modal-content {
+    transform: translateY(100px);
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+  }
+
+  &.active {
+    transition-duration: 250ms;
+    transition-delay: 0ms;
+    opacity: 1;
+
+    & .modal-content {
+      transform: translateY(0);
+      opacity: 1;
+      transition-delay: 150ms;
+      transition-duration: 350ms;
+    }
+  }
 `;
 
 const Content = styled.div`
   margin: 0 16px;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-progress);
 `;
 
 export default Modal;

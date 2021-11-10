@@ -1,12 +1,20 @@
 import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import { fontSize } from '../styles';
-
-import { Information, History } from '../components/myPage';
+import { UserInformation, History } from '../components/myPage';
 
 const MyPage = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('isFirstLogin') === 'true') {
+      return history.replace('/monster');
+    }
+  }, []);
+
   return (
     <AcheiveContainer>
       <NavButtonWrap>
@@ -22,7 +30,7 @@ const MyPage = () => {
         </NavButtonItem>
       </NavButtonWrap>
       <Switch>
-        <Route exact path="/mypage/information" component={Information} />
+        <Route exact path="/mypage/information" component={UserInformation} />
         <Route exact path="/mypage/history" component={History} />
         <Redirect from="*" to="/mypage/information" />
       </Switch>

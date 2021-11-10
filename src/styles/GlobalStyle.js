@@ -57,19 +57,19 @@ const GlobalStyle = createGlobalStyle`
     --weight-semi-regular: 400;
 
     /* SEMYUNG: Font Weight */
-    --font-extraLight: 200;
-    --font-light: 300;
-    --font-normal: 400;
-    --font-medium: 500;
-    --font-semiBold: 600;
-    --font-bold: 700;
-    --font-extraBold: 800;
-    --font-heavy: 900;
+    --font-weight-extraLight: 200;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semiBold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extraBold: 800;
+    --font-weight-heavy: 900;
 
 
     /* Size */
     --size-border-radius: 6px;
-    --border-radius-avatarItem: 2px;
+    --border-radius-monsterItem: 2px;
     --border-radius-progress: 10px;
     --border-radius-checkBtn: 20px;
     /* border-radius도 사이즈별로 정의하는건 어떨까요?  */
@@ -82,6 +82,7 @@ const GlobalStyle = createGlobalStyle`
 
     *, *::before, *::after {
       box-sizing: border-box;
+      font-family: var(--font-name-apple);
     }
 `;
 

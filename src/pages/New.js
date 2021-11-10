@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
@@ -7,6 +8,13 @@ import NewHabitPresetList from './NewHabitPresetList';
 
 const New = () => {
   const { path } = useRouteMatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('isFirstLogin') === 'true') {
+      return history.replace('/monster');
+    }
+  }, []);
 
   return (
     <>

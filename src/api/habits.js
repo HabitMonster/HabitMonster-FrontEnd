@@ -1,4 +1,4 @@
-import A from '../lib/testing';
+import A from '../lib/axios';
 
 // TODO
 // 1. Refactor with tokenInstance.

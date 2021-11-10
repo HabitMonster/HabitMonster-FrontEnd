@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { MainAvatar } from '../components/avatar';
+import { useHistory } from 'react-router';
+
+import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
+
 import '../assets/fonts/font.css';
 
 const Main = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('isFirstLogin') === 'true') {
+      return history.replace('/monster');
+    }
+  }, []);
+
   return (
     <>
       <Wrapper>
-        <MainAvatar />
+        <MainMonster />
         <TodayHabitList />
       </Wrapper>
     </>

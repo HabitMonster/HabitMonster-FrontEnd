@@ -6,12 +6,13 @@ import { BackButtonHeader } from '../components/common';
 import { NewHabitPresetItem } from '../components/newHabit';
 
 import { useFetchCategoryPresets } from '../hooks';
+import { PencilIcon } from '../assets/icons/habits';
 
 const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();
   const history = useHistory();
 
-  const { presetList, onPresetClicked, onSaveButtonClicked } =
+  const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useFetchCategoryPresets();
 
   if (!selectedHabitCategory) {
@@ -21,37 +22,41 @@ const NewHabitPresetList = () => {
   return (
     <>
       <Wrapper>
-        <div style={{ marginTop: '44px', marginBottom: '26px' }}>
-          <BackButtonHeader
-            pageTitleText={selectedHabitCategory.name}
-            onButtonClick={() => history.replace('/new')}
-          />
-        </div>
-        <HelperText>추천 습관</HelperText>
-        {presetList.map(
-          ({ count, description, period, practiceDays, title, presetId }) => (
-            <NewHabitPresetItem
-              key={presetId}
-              frequency={count}
-              description={description}
-              period={period}
-              days={practiceDays}
-              title={title}
-              id={presetId}
-              onClick={() => onPresetClicked(presetId)}
+        <Inner>
+          <div style={{ marginTop: '24px', marginBottom: '12px' }}>
+            <BackButtonHeader
+              pageTitleText={selectedHabitCategory.name}
+              onButtonClick={() => history.replace('/new')}
             />
-          ),
-        )}
-        <button
-          onClick={() =>
-            history.push({
-              pathname: 'detail',
-              state: selectedHabitCategory,
-            })
-          }
-        >
-          직접 작성하기
-        </button>
+          </div>
+          <HelperText>이런 습관은 어때요?</HelperText>
+          {presetList.map(
+            ({ count, description, period, practiceDays, title, presetId }) => (
+              <NewHabitPresetItem
+                key={presetId}
+                frequency={count}
+                description={description}
+                period={period}
+                days={practiceDays}
+                title={title}
+                id={presetId}
+                onClick={() => onPresetClicked(presetId)}
+                isSelected={selectedPresetId === presetId}
+              />
+            ),
+          )}
+          <Hands
+            onClick={() =>
+              history.push({
+                pathname: 'detail',
+                state: selectedHabitCategory,
+              })
+            }
+          >
+            <PencilIcon />
+            <span>직접 작성하기</span>
+          </Hands>
+        </Inner>
       </Wrapper>
       <ChooseButton onClick={onSaveButtonClicked}>저장하기</ChooseButton>
     </>
@@ -62,23 +67,44 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  padding: 0 16px;
+  background: #070707;
+`;
+const Inner = styled.div`
+  padding: 0 24px;
 `;
 
 const HelperText = styled.h2`
-  color: #1a202c;
-  font-size: 22px;
-  line-height: 26px;
-  font-weight: var(--weight-bold);
+  color: #f8f8f8;
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 20px;
+`;
+
+const Hands = styled.div`
+  width: 312px;
+  height: 64px;
+  background: #1e2025;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  font-size: 18px;
+  line-height: 22px;
+  color: #f8f8f8;
+
+  & span {
+    margin-left: 10px;
+  }
 `;
 
 const ChooseButton = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
+  max-width: 360px;
   height: 64px;
-  background: var(--color-main);
+  background: #3b0a9d;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -5,7 +5,11 @@ import styled from 'styled-components';
 const NewHabitCategoryCell = ({ src, name, onClick }) => {
   return (
     <GategoryWrapper onClick={onClick}>
-      <img src={src} alt={`category: ${name}`} />
+      <img
+        style={{ width: '30px', height: '30px' }}
+        src={src}
+        alt={`category: ${name}`}
+      />
       <span>{name}</span>
     </GategoryWrapper>
   );
@@ -18,28 +22,28 @@ NewHabitCategoryCell.propTypes = {
 };
 
 const GategoryWrapper = styled.div`
-  width: 90px;
-  height: 90px;
+  width: 150px;
+  height: 92px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 14px 28px;
-  background: var(--color-white);
-  border: 1.5px solid var(--color-title);
-  border-radius: var(--border-radius-checkBtn);
+  padding: 19px 28px 14px;
+  background: #1e2025;
+  border: 1px solid #3c4254;
+  border-radius: 4px;
   cursor: pointer;
 
   & span {
     width: 100%;
     min-width: 54px;
     margin-top: 8px;
-    font-size: 13px;
-    line-height: 16px;
-    font-weight: var(--weight-bold);
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: var(--font-weight-bold);
     text-align: center;
     letter-spacing: 0.374px;
-    color: var(--color-grey01);
+    color: #999999;
   }
 `;
 

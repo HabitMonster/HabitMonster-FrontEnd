@@ -1,13 +1,11 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/states/user';
 import styled from 'styled-components';
 
-const MainAvatarExp = () => {
-  const user = useRecoilValue(userState);
+import { userState } from '../../recoil/states/user';
 
-  // user.expPercentage: 현재 유저의 경험치 비율을 뜻합니다.
-  // 아바타의 현재 경험치 비율을 의미하지 않습니다.
+const MainMonsterExp = () => {
+  const user = useRecoilValue(userState);
 
   return (
     <ExpContainer className="expContainer">
@@ -56,4 +54,4 @@ const Span = styled.span`
   margin-left: 3px;
 `;
 
-export default MainAvatarExp;
+export default MainMonsterExp;
