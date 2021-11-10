@@ -5,7 +5,7 @@ import 'wicg-inert';
 
 import Portal from './Portal';
 
-const Modal = ({ open, onClose, children }) => {
+const Modal = ({ open, onClose, children, blurmode }) => {
   const [active, setActive] = useState(false);
   const backdropReference = useRef(null);
 
@@ -46,7 +46,9 @@ const Modal = ({ open, onClose, children }) => {
             ref={backdropReference}
             className={active && open && 'active'}
           >
-            <Content className="modal-content">{children}</Content>
+            <Content blurmode={blurmode} className="modal-content">
+              {children}
+            </Content>
           </Backdrop>
         </Portal>
       )}
@@ -59,11 +61,11 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
-  closable: PropTypes.bool,
+  blurmode: PropTypes.bool,
 };
 
 Modal.defaultProps = {
-  closable: true,
+  blurmode: false,
 };
 
 const Backdrop = styled.div`
@@ -72,7 +74,8 @@ const Backdrop = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: #000;
+  background-color: ${({ blurmode }) =>
+    blurmode ? 'linear-gradient(0deg, #070707, #070707)' : 'var(--bg-done)'};
   opacity: 0;
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 200ms;
