@@ -6,7 +6,7 @@ const asyncDefaultUserState = selector({
   key: 'asyncDefaultUser',
   get: async () => {
     try {
-      const { data } = await mainApis.getUserInfo();
+      const { data } = await mainApis.loadUserData();
       return data.userInfo;
     } catch (error) {
       throw error;
@@ -21,11 +21,11 @@ export const userState = atom({
 
 //@jaekyung Mypage api
 
-const userDataSelector = selector({
-  key: 'userData',
+const myPageDataSelector = selector({
+  key: 'myPageDataSelector',
   get: async () => {
     try {
-      const { data } = await myPageApis.getUserInfo();
+      const { data } = await myPageApis.loadUserData();
       console.log('userInfo', data, data.userInfo);
       return data.userInfo;
     } catch (error) {
@@ -34,9 +34,9 @@ const userDataSelector = selector({
   },
 });
 
-export const userData = atom({
+export const myPageDataState = atom({
   key: 'myPageData',
-  default: userDataSelector,
+  default: myPageDataSelector,
 });
 
 export const updateUserSelector = selectorFamily({
