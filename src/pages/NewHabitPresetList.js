@@ -18,6 +18,7 @@ const NewHabitPresetList = () => {
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
+  console.log(selectedPresetId);
 
   return (
     <>
@@ -60,7 +61,7 @@ const NewHabitPresetList = () => {
       </Wrapper>
       <BottomFixedButton
         text="저장하기"
-        condition={selectedPresetId}
+        condition={() => selectedPresetId}
         onClick={onSaveButtonClicked}
       />
     </>

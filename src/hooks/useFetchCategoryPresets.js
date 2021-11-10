@@ -5,7 +5,7 @@ import { OK } from '../constants/statusCode';
 
 export default function useFetchCategoryPresets() {
   const [presets, setPresets] = useState([]);
-  const [selectedPresetId, setSelectedPresetId] = useState(null);
+  const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
   const history = useHistory();
 

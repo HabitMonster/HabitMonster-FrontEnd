@@ -78,6 +78,10 @@ const GlobalStyle = createGlobalStyle`
     --font-weight-bold: 700;
     --font-weight-extraBold: 800;
     --font-weight-heavy: 900;
+
+    --bg-active: #3b0a9d;
+    --bg-deActive: #181819;
+    --color-main: #f8f8f8;
     }
 
     *, *::before, *::after {

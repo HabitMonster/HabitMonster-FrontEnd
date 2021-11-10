@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const BottomFixedButton = ({ onClick, text, condition }) => {
+const BottomFixedButton = ({ onClick, text, condition = () => false }) => {
   return (
-    <Button disabled={condition ? !condition : false} onClick={onClick}>
+    <Button
+      disabled={typeof condition === 'function' ? !condition() : false}
+      onClick={onClick}
+    >
       {text}
     </Button>
   );
@@ -40,7 +43,7 @@ const Button = styled.button`
   transition: all 150ms ease-out;
 
   &:disabled {
-    background: var(--bg-disabled);
+    background: var(--bg-deActive);
     color: rgba(248, 248, 248, 0.2);
   }
 `;
