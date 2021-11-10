@@ -10,7 +10,7 @@ import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
-import Avatar from '../pages/Avatar';
+import Monster from '../pages/Monster';
 import MonsterSetting from '../pages/MonsterSetting';
 
 function App() {
@@ -20,13 +20,14 @@ function App() {
         <Layout>
           <Switch>
             <Route path="/login" component={Login} />
-            <Route path="/avatar" component={Avatar} />
+            <Route path="/monster" component={Monster} />
+            <Route path="/select" component={MonsterSetting} />
             <>
               <Route exact path="/" component={Main} />
               <Route path="/achievement" component={Achievement} />
               <Route path="/new" component={New} />
               <Route path="/mypage" component={MyPage} />
-              <Route path="/select" component={MonsterSetting} />
+              {/* <Route path="/select" component={MonsterSetting} /> */}
               <Gnb />
             </>
           </Switch>
@@ -36,6 +37,7 @@ function App() {
   );
 }
 
+// 컨텐츠가 많지 않으면 아래쪽이 비는건 어쩔 수 없다 백그라운드를 채워 주어야 하는데 어쯔라고..
 const Layout = styled.div`
   background: var(--color-white);
   display: flex;
@@ -46,5 +48,4 @@ const Layout = styled.div`
   margin: 0 auto;
   position: relative;
 `;
-
 export default App;
