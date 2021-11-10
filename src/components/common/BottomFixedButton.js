@@ -39,7 +39,7 @@ const Button = styled.button`
   font-weight: var(--font-weight-bold);
   font-size: 18px;
   line-height: 22px;
-  color: var(--color-main);
+  color: #f8f8f8;
   transition: all 150ms ease-out;
 
   &:disabled {

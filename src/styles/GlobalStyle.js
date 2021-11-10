@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
 
   :root {
     /* Color */
-    --color-white: #ffffff;
+
     --color-black: #000000;
     --color-login-bg: #27173f;
     --color-kakao: #fee500;
@@ -45,9 +45,12 @@ const GlobalStyle = createGlobalStyle`
     --font-micro: 14px;
     --font-nano: 12px;
 
+<<<<<<< HEAD
     /* SEMYUNG: Font Size*/
 
 
+=======
+>>>>>>> 33c7262db335a5c9ea43c8f808e2ade7ae332aac
     /* Font weight */
     --weight-heavy-bold: 900;
     --weight-extra-bold: 800;
@@ -69,7 +72,7 @@ const GlobalStyle = createGlobalStyle`
     /* Animation Duration */
     --animation-duration: 200ms;
 
-    /* SEMYUNG: Font Weight */
+  
     --font-weight-extraLight: 200;
     --font-weight-light: 300;
     --font-weight-normal: 400;
@@ -78,9 +81,33 @@ const GlobalStyle = createGlobalStyle`
     --font-weight-bold: 700;
     --font-weight-extraBold: 800;
     --font-weight-heavy: 900;
+    
+    --font-xxxl: 44px;
+    --font-xxl: 24px;
+    --font-xl: 20px;
+    --font-l: 18px;
+    --font-m: 16px;
+    --font-s: 15px;
+    --font-xs: 14px;
+    --font-xxs: 12px;
 
+    --bg-wrapper: #070707;
+    --bg-primary: #1e2025;
+    --bg-disabled: #181819;
     --bg-active: #3b0a9d;
+<<<<<<< HEAD
     --bg-deActive: #181819;
+=======
+    --bg-selected: #1c0054;
+    --bg-selected-light: #7d3cff;
+    --bg-done: #000000;
+    --bg-nope: #303236;
+
+    --color-white: #ffffff;
+    --color-primary: #f8f8f8;
+    --color-primary-deemed: rgba(248, 248, 248, 0.5);
+    --color-danger: #ef2f68;
+>>>>>>> 33c7262db335a5c9ea43c8f808e2ade7ae332aac
     }
 
     *, *::before, *::after {

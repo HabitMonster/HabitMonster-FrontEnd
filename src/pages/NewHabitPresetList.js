@@ -18,7 +18,6 @@ const NewHabitPresetList = () => {
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
-  console.log(selectedPresetId);
 
   return (
     <>
