@@ -11,7 +11,7 @@ import {
   NewHabitDayPicker,
   NewHabitFrequencySection,
 } from '../components/newHabit';
-import { BackButtonHeader } from '../components/common';
+import { BackButtonHeader, BottomFixedButton } from '../components/common';
 
 import { OK } from '../constants/statusCode';
 import { addHabitApis } from '../api';
@@ -29,6 +29,14 @@ const NewHabitForm = () => {
   });
   const [practiceDays, setPracticeDays] = useState('');
   const [frequency, setFrequency] = useState(0);
+
+  const condition =
+    title &&
+    description &&
+    duration.start &&
+    duration.end &&
+    practiceDays &&
+    frequency;
 
   const handleSaveButtonClick = async () => {
     const body = {
@@ -52,6 +60,7 @@ const NewHabitForm = () => {
       console.error(error);
     }
   };
+
   if (!categoryState) {
     return <Redirect to="/new" />;
   }
@@ -90,7 +99,11 @@ const NewHabitForm = () => {
           />
         </MarginInterval>
       </Inner>
-      <SaveButton onClick={handleSaveButtonClick}>저장하기</SaveButton>
+      <BottomFixedButton
+        condition={condition}
+        text="저장하기"
+        onClick={handleSaveButtonClick}
+      />
     </Wrapper>
   );
 };
@@ -116,29 +129,6 @@ const Header = styled.section`
 
 const MarginInterval = styled.div`
   margin-bottom: ${({ mb }) => (mb ? mb : '0')}px;
-`;
-
-const SaveButton = styled.button`
-  width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
-  height: 64px;
-
-  position: fixed;
-  bottom: 0;
-  background-color: #3b0a9d;
-  z-index: 3;
-  border: none;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  font-weight: var(--font-weight-bold);
-  font-size: 18px;
-  line-height: 22px;
-  color: #f8f8f8;
 `;
 
 export default NewHabitForm;

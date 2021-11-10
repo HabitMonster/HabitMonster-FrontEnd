@@ -9,8 +9,10 @@ const TextInput = ({
   lengthValidationMode,
   errorMessage,
   maxLength,
+  idleHelperText,
 }) => {
   const isValidated = text.length < maxLength;
+  const isIdle = !text.length;
 
   const handleInputChange = (event) => {
     const newValue = event.target.value;
@@ -31,6 +33,7 @@ const TextInput = ({
         onChange={handleInputChange}
         maxLength={maxLength}
         isValidated={isValidated}
+        isIdle={isIdle}
       />
       <div
         style={{
@@ -40,6 +43,7 @@ const TextInput = ({
           height: '14px',
         }}
       >
+        {isIdle && <IdleHelperText>{idleHelperText}</IdleHelperText>}
         {lengthValidationMode ? (
           <>
             <div>
@@ -66,14 +70,22 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   errorMessage: PropTypes.string,
   maxLength: PropTypes.number,
+  idleHelperText: PropTypes.string,
 };
 
 TextInput.defaultProps = {
   placeholder: '',
   errorMessage: '',
+  idleHelperText: '',
   maxLength: Infinity,
   lengthValidationMode: false,
 };
+
+const IdleHelperText = styled.span`
+  font-size: 12px;
+  line-height: 14px;
+  color: rgba(248, 248, 248, 0.5);
+`;
 
 const Input = styled.input`
   width: 312px;
@@ -88,9 +100,12 @@ const Input = styled.input`
   border: none;
   border-bottom: 1px solid
     ${({ isValidated }) =>
-      isValidated ? 'rgba(248, 248, 248, 0.3)' : '#ef2f68'};
+      isValidated
+        ? '#3b0a9d'
+        : isIdle
+        ? 'rgba(248, 248, 248, 0.3)'
+        : '#ef2f68'};
   margin-bottom: 4px;
-
   &:focus {
     outline: none;
   }

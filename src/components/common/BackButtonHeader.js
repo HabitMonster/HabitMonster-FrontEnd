@@ -16,6 +16,7 @@ const BackButtonHeader = ({ onButtonClick, pageTitleText }) => {
 BackButtonHeader.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   pageTitleText: PropTypes.string,
+  children: PropTypes.any,
 };
 
 BackButtonHeader.defaultProps = {

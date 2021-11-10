@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { BackButtonHeader } from '../components/common';
+import { BackButtonHeader, BottomFixedButton } from '../components/common';
 import { NewHabitPresetItem } from '../components/newHabit';
 
 import { useFetchCategoryPresets } from '../hooks';
@@ -58,7 +58,11 @@ const NewHabitPresetList = () => {
           </Hands>
         </Inner>
       </Wrapper>
-      <ChooseButton onClick={onSaveButtonClicked}>저장하기</ChooseButton>
+      <BottomFixedButton
+        text="저장하기"
+        condition={selectedPresetId}
+        onClick={onSaveButtonClicked}
+      />
     </>
   );
 };
@@ -69,6 +73,7 @@ const Wrapper = styled.div`
   position: relative;
   background: #070707;
 `;
+
 const Inner = styled.div`
   padding: 0 24px;
 `;
@@ -91,28 +96,11 @@ const Hands = styled.div`
   font-size: 18px;
   line-height: 22px;
   color: #f8f8f8;
+  cursor: pointer;
 
   & span {
     margin-left: 10px;
   }
-`;
-
-const ChooseButton = styled.button`
-  position: fixed;
-  bottom: 0;
-  z-index: 3;
-  width: 100%;
-  max-width: 360px;
-  height: 64px;
-  background: #3b0a9d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--weight-bold);
-  color: var(--color-white);
-  font-size: 20px;
-  line-height: 24px;
-  border: none;
 `;
 
 export default NewHabitPresetList;

@@ -169,7 +169,6 @@ export const toggleDay = (base, id) => {
       break;
     }
   }
-  console.log(index);
 
   return [...arr.slice(0, index), id, ...arr.slice(index)].join('');
 };
