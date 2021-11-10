@@ -11,8 +11,6 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import Avatar from '../pages/Avatar';
-import NewHabitForm from '../pages/NewHabitForm';
-import NewHabitPresetList from '../pages/NewHabitPresetList';
 
 function App() {
   return (
@@ -37,7 +35,7 @@ function App() {
 }
 
 const Layout = styled.div`
-  background: var(--color-white);
+  background: var(--bg-main);
   display: flex;
   max-width: 360px;
   width: 100%;
