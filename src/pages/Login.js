@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
+
 import { SocialLogin, LoginTitle } from '../components/login';
-import '../assets/fonts/font.css';
 import { loginPageBg } from '../assets/images/background';
 
+import '../assets/fonts/font.css';
+
 const Login = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('isFirstLogin') === 'true') {
+      return history.replace('/monster');
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <Wrapper>

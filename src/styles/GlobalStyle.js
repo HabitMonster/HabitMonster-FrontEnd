@@ -53,7 +53,7 @@ const GlobalStyle = createGlobalStyle`
 
     /* Size */
     --size-border-radius: 6px;
-    --border-radius-avatarItem: 2px;
+    --border-radius-monsterItem: 2px;
     --border-radius-progress: 10px;
     --border-radius-checkBtn: 20px;
     /* border-radius도 사이즈별로 정의하는건 어떨까요?  */

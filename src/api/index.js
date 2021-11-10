@@ -1,7 +1,7 @@
 import { auth } from './auth';
-import { avatarApis } from './avatar';
+import { monsterApis } from './monster';
 import { statisticApi } from './statistics';
 import { mainApis } from './main';
 import { habitApis, addHabitApis } from './habits';
 
-export { auth, avatarApis, statisticApi, mainApis, habitApis, addHabitApis };
+export { auth, monsterApis, statisticApi, mainApis, habitApis, addHabitApis };

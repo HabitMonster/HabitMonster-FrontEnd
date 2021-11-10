@@ -10,24 +10,27 @@ import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
-import Avatar from '../pages/Avatar';
+import { PrivateRoute } from './route';
+import Monster from '../pages/Monster';
 
 function App() {
   return (
     <Suspense fallback={<Loading />}>
       <RecoilRoot>
         <Layout>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/avatar" component={Avatar} />
-            <>
-              <Route exact path="/" component={Main} />
-              <Route path="/achievement" component={Achievement} />
-              <Route path="/new" component={New} />
-              <Route path="/mypage" component={MyPage} />
-              <Gnb />
-            </>
-          </Switch>
+          <Route>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <PrivateRoute path="/monster" component={Monster} />
+              <>
+                <PrivateRoute exact path="/" component={Main} />
+                <PrivateRoute path="/achievement" component={Achievement} />
+                <PrivateRoute path="/new" component={New} />
+                <PrivateRoute path="/mypage" component={MyPage} />
+                <Gnb />
+              </>
+            </Switch>
+          </Route>
         </Layout>
       </RecoilRoot>
     </Suspense>

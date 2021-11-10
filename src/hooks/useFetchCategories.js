@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { addHabitApis } from '../api';
-import { OK } from '../constants/statusCode';
+import { OK, FORBIDDEN } from '../constants/statusCode';
 
 export default function useFetchCategories() {
   const [categories, setCategories] = useState([]);
@@ -16,6 +16,9 @@ export default function useFetchCategories() {
         }
       } catch (error) {
         console.error(error);
+        if (error.response.status === FORBIDDEN) {
+          history.replace('/login');
+        }
         history.replace('/');
       }
     }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
+
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
 import { KakaoSymbol } from '../../assets/icons/loginSymbol';
@@ -25,10 +26,15 @@ const KakaoLogin = () => {
         setCookie('refreshToken', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
-          history.push('/avatar');
+          localStorage.setItem('isFirstLogin', data.isFirstLogin);
+          history.replace('/monster');
           return;
         }
-        history.push('/');
+
+        if (data.statusCode === OK && !data.isFirstLogin) {
+          history.replace('/');
+          return;
+        }
       } catch (err) {
         console.error(err);
       }

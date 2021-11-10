@@ -8,8 +8,7 @@ const asyncDefaultMonster = selector({
       const { data } = await mainApis.getMonsterInfo();
       return data.monster;
     } catch (error) {
-      console.error(error);
-      throw error;
+      return error.response;
     }
   },
 });
