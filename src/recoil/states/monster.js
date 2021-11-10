@@ -20,7 +20,6 @@ export const monsterState = atom({
 });
 
 // @jaekyung : character selection page
-
 const initiateMonsterSelector = selector({
   key: 'initiateMonster',
   get: async () => {

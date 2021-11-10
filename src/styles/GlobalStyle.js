@@ -22,8 +22,14 @@ const GlobalStyle = createGlobalStyle`
     --color-deemed2: #e8e8e8;
     --color-detail: #f7f5ff;
 
-    /* 추후 디자이너 답변에 따라 컬러 변수명 수정 */
+
+    /* @jaekyung : 추후 디자이너 답변에 따라 컬러 변수명 수정 */
     --color-statistics: #492cf1;
+    --color-background: #070707;
+    --color-deemed3: #f8f8f8;
+
+    /* opacity */
+    --opacity-text: 0.5;
 
 
     /* Font name */

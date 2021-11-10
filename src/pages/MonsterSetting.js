@@ -13,14 +13,14 @@ const MonsterSetting = () => {
   };
 
   const setMonsterInfo = async () => {
-    const avatarInfo = {
+    const monsterInfo = {
       monsterId: selectedAvatar.monsterId,
       monsterName: avatarName,
     };
 
     try {
-      console.log('avatarInfo', avatarInfo);
-      const { data } = await monsterApis.setMonster(avatarInfo);
+      console.log('monsterInfo', monsterInfo);
+      const { data } = await monsterApis.setMonster(monsterInfo);
       if (data.statusCode === OK) {
         history.push('/main');
       }
