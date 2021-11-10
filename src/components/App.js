@@ -12,7 +12,8 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import Monster from '../pages/Monster';
-import MonsterSetting from '../pages/MonsterSetting';
+import MonsterSetName from '../pages/MonsterSetName';
+import MonsterGuide from '../pages/MonsterGuide';
 import NewHabitForm from '../pages/NewHabitForm';
 import NewHabitPresetList from '../pages/NewHabitPresetList';
 
@@ -25,12 +26,13 @@ function App() {
             <Switch>
               <Route path="/login" component={Login} />
               <PrivateRoute path="/monster" component={Monster} />
-              <Route path="/select" component={MonsterSetting} />
+              <Route path="/select" component={MonsterSetName} />
               <>
                 <PrivateRoute exact path="/" component={Main} />
                 <PrivateRoute path="/achievement" component={Achievement} />
                 <PrivateRoute path="/new" component={New} />
                 <PrivateRoute path="/mypage" component={MyPage} />
+                <PrivateRoute path="/guide" component={MonsterGuide} />
                 <Gnb />
               </>
             </Switch>

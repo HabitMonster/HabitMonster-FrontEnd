@@ -8,7 +8,7 @@ import {
   selectedMonsterState,
 } from '../recoil/states/monster';
 
-import { AvatarThumbnail } from '../components/avatar';
+import { MonsterThumbnail } from '../components/monster';
 import { fontSize } from '../styles';
 
 const Monster = () => {
@@ -43,7 +43,7 @@ const Monster = () => {
           </Description>
         </TitleWrap>
         <ThumbnailWrap>
-          <AvatarThumbnail
+          <MonsterThumbnail
             imageUrl={selectedAvatar.monsterImage}
             imageAlt={selectedAvatar.monsterImage}
             imageSize={'large'}
@@ -57,7 +57,7 @@ const Monster = () => {
                 selected={selectedAvatar.monsterImage === monster.monsterImage}
                 onClick={() => selectAvatar(monster)}
               >
-                <AvatarThumbnail
+                <MonsterThumbnail
                   imageUrl={monster.monsterImage}
                   imageAlt={monster.monsterImage}
                   imageSize={'small'}

@@ -1,4 +1,4 @@
-import MonsterThumbnail from './Thumbnail';
+import MonsterThumbnail from './MonsterThumbnail';
 import MainMonster from './MainMonster';
 import MainMonsterExp from './MainMonsterExp';
 

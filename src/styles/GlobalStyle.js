@@ -81,7 +81,6 @@ const GlobalStyle = createGlobalStyle`
 
     --bg-active: #3b0a9d;
     --bg-deActive: #181819;
-    --color-main: #f8f8f8;
     }
 
     *, *::before, *::after {
