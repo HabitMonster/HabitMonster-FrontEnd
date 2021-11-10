@@ -89,7 +89,7 @@ const Chip = styled.div`
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & div {
-    ${whiteOpacity('0.8')}
+    ${whiteOpacity('0.8')};
     font-size: var(--font-xxs);
     line-height: 14px;
   }

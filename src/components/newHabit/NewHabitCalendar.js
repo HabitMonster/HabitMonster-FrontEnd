@@ -146,6 +146,10 @@ const CalenderWrapper = styled.div`
   text-align: center;
   background: var(--bg-primary);
   border-radius: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const CalendarMonthPicker = styled.div`

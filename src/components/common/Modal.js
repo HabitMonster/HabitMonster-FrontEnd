@@ -12,26 +12,28 @@ const Modal = ({ open, onClose, children }) => {
   useEffect(() => {
     const { current } = backdropReference;
     const handleTransitionEnd = () => setActive(open);
-    const handleBackdropClick = (e) => e.target === current && onClose();
 
     if (current) {
       current.addEventListener('transitionend', handleTransitionEnd);
-      current.addEventListener('click', handleBackdropClick);
     }
 
     if (open) {
-      setActive(open);
-      document.querySelector('#root').setAttribute('inert', 'true');
-      document.body.style.overflow = 'hidden';
+      window.setTimeout(() => {
+        document.activeElement.blur();
+        setActive(open);
+        document.querySelector('#root').setAttribute('inert', 'true');
+        document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+      }, 10);
     }
 
     return () => {
       if (current) {
         current.removeEventListener('transitionend', handleTransitionEnd);
-        current.removeEventListener('click', handleBackdropClick);
-        document.body.style.overflow = 'scroll';
       }
 
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = `position: ""; top: "";`;
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
       document.querySelector('#root').removeAttribute('inert');
     };
   }, [open, onClose]);
@@ -57,6 +59,11 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
+  closable: PropTypes.bool,
+};
+
+Modal.defaultProps = {
+  closable: true,
 };
 
 const Backdrop = styled.div`
@@ -69,12 +76,10 @@ const Backdrop = styled.div`
   opacity: 0;
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 200ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 10;
 
   & .modal-content {
+    height: 100%;
     transform: translateY(100px);
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
@@ -94,8 +99,6 @@ const Backdrop = styled.div`
   }
 `;
 
-const Content = styled.div`
-  margin: 0 16px;
-`;
+const Content = styled.div``;
 
 export default Modal;
