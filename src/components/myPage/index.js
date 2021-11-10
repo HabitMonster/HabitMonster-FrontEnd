@@ -1,4 +1,4 @@
-import Information from './UserInformation';
+import UserInformation from './UserInformation';
 import History from './History';
 
-export { Information, History };
+export { UserInformation, History };
