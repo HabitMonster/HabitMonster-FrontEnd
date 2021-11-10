@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
@@ -33,12 +33,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(
-    180deg,
-    var(--color-main) 0%,
-    var(--color-main) 50.52%,
-    #7f9ae6 100%
-  );
+  background: linear-gradient(0deg, #070707, #070707);
 `;
 
 export default Main;

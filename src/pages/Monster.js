@@ -153,6 +153,7 @@ const MonsterWrap = styled.div`
   background-color: var(--color-login-bg);
   padding: 6% 24px 10%;
   width: 100%;
+  height: 100vh;
   padding: 70px 24px 100px;
 `;
 
@@ -240,5 +241,5 @@ const FixedButton = styled.button`
   transform: translateX(-50%);
   height: 68px;
   width: 100%;
-  max-width: 375px;
+  max-width: 360px;
 `;
