@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 const BottomFixedButton = ({ onClick, text, condition }) => {
   return (
-    <Button disabled={!condition} onClick={onClick}>
+    <Button disabled={condition ? !condition : false} onClick={onClick}>
       {text}
     </Button>
   );
 };
 
 BottomFixedButton.propTypes = {
-  condition: PropTypes.bool.isRequired,
+  condition: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 };

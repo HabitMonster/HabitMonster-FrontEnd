@@ -50,16 +50,6 @@ const GlobalStyle = createGlobalStyle`
     --weight-regular: 500;
     --weight-semi-regular: 400;
 
-    /* SEMYUNG: Font Weight */
-    --font-weight-extraLight: 200;
-    --font-weight-light: 300;
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --font-weight-semiBold: 600;
-    --font-weight-bold: 700;
-    --font-weight-extraBold: 800;
-    --font-weight-heavy: 900;
-
 
     /* Size */
     --size-border-radius: 6px;
@@ -73,16 +63,15 @@ const GlobalStyle = createGlobalStyle`
     /* Animation Duration */
     --animation-duration: 200ms;
 
-    /* SEMYUNG */
-    --bg-wrapper: #070707;
-    --bg-main: #1e2025; // preset, category, mainPageList, popup.. etc.. this is main
-    --bg-disabled: #181819; // the background color of disabled button
-    --bg-active: #3b0a9d; // the background color of available button
-    --bg-done: #000000; // 습관 끝날때 사용되는 것 + 달력 모달
-
-    --color-main: #f8f8f8; // 허연거
-    --color-main-deemd: rgba(248, 248, 248, 0.5); // idle status, almost deemd color..
-    --color-danger: #ef2f68;
+    /* SEMYUNG: Font Weight */
+    --font-weight-extraLight: 200;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semiBold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extraBold: 800;
+    --font-weight-heavy: 900;
     }
 
     *, *::before, *::after {
