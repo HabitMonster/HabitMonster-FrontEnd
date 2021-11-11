@@ -9,11 +9,11 @@ import { UserInformation, History } from '../components/myPage';
 const MyPage = () => {
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('isFirstLogin') === 'true') {
+  //     return history.replace('/monster');
+  //   }
+  // }, []);
 
   return (
     <AcheiveContainer>

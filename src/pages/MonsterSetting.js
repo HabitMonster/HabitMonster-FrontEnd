@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 
 import { MonsterThumbnail } from '../components/monster';
+import { BottomFixedButton } from '../components/common';
+import { TextInput } from '../components/common';
 import { monsterApis } from '../api';
-import { getSelectedMonster } from '../recoil/states/monster';
+import { getSelectedMonster, monsterNameState } from '../recoil/states/monster';
 
 import { OK } from '../constants/statusCode';
 
-const MonsterSetName = () => {
+const MonsterSetting = () => {
   const history = useHistory();
   const selectedMonster = useRecoilValue(getSelectedMonster);
-  console.log('selectedMonster', selectedMonster);
-  const [monsterName, setMonsterName] = useState('');
+  const [monsterName, setMonsterName] = useRecoilState(monsterNameState);
 
   const changeMonsterName = (event) => {
     setMonsterName(event.target.value);
@@ -53,32 +54,41 @@ const MonsterSetName = () => {
             imageSize={'large'}
           />
         </ThumbnailWrap>
-        <InputWrap>
-          <NameInput
+
+        {/* <NameInput
             type="text"
             value={monsterName}
             onChange={changeMonsterName}
             placeholder="이름을 입력해 주세요"
             required
-          />
-        </InputWrap>
+          /> */}
+        <TextInput
+          text={monsterName}
+          placeholder="이름을 입력해 주세요"
+          onTextChanged={setMonsterName}
+          maxLength={10}
+          idleHelperText="한글, 영문, 숫자 공백없이 최대 10자 입력 가능해요"
+          errorMessage="최대 글자 수를 초과했어요"
+          lengthValidationMode={false}
+        />
       </AvatarWrap>
       <FixedButton onClick={setMonsterInfo}>시작하기</FixedButton>
+      {/* <BottomFixedButton text="시작하기" onClick={setMonsterInfo} /> */}
     </AvatarContainer>
   );
 };
 
-export default MonsterSetName;
+export default MonsterSetting;
 
 const AvatarContainer = styled.div`
-  background-color: var(--color-background);
+  background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 64px);
 `;
 
 const AvatarWrap = styled.div`
-  background-color: var(--color-background);
+  background-color: var(--bg-wrapper);
   width: 100%;
   padding: 75px 24px 100px;
 `;
@@ -141,4 +151,5 @@ const FixedButton = styled.button`
   height: 64px;
   width: 100%;
   max-width: 480px;
+  cursor: pointer;
 `;

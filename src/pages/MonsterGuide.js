@@ -1,61 +1,58 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { MonsterThumbnail } from '../components/monster';
+import { BottomFixedButton } from '../components/common';
 import { monsterApis } from '../api/index';
 import { fontSize } from '../styles';
+import {
+  getSelectedMonster,
+  monsterNameSelector,
+} from '../recoil/states/monster';
 
 const MonsterGuide = () => {
-  const [avatarName, setAvatarName] = useState('');
+  const history = useHistory();
+  const selectedMonster = useRecoilValue(getSelectedMonster);
+  const monsterName = useRecoilValue(monsterNameSelector);
 
-  const changeAvatarName = (event) => {
-    setAvatarName(event.target.value);
-  };
-
-  const setMonsterInfo = async () => {
-    const monsterInfo = {
-      monsterId: selectedAvatar.monsterId,
-      monsterName: avatarName,
-    };
-
-    try {
-      console.log('monsterInfo', monsterInfo);
-      const { data } = await monsterApis.setMonster(monsterInfo);
-      if (data.statusCode === OK) {
-        history.push('/main');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const moveToPage = (path) => {
+    history.push(`/${path}`);
+    // window.location.href = '/new';
   };
 
   return (
     <AvatarContainer>
       <TitleWrap>
-        <Title>몬스터를 뭐라고 부를까요?</Title>
+        <HeadText>안녕!</HeadText>
+        <HeadText> 난 {monsterName}라고 해.</HeadText>
       </TitleWrap>
       <ThumbnailWrap>
         <MonsterThumbnail
-          imageUrl={selectedAvatar.imageUrl}
-          imageAlt={selectedAvatar.imageAlt}
+          imageUrl={selectedMonster.monsterImage}
+          imageAlt={selectedMonster.monsterImage}
           imageSize={'large'}
         />
       </ThumbnailWrap>
-      <InputWrap>
-        <NameInput
-          type="text"
-          value={avatarName}
-          onChange={changeAvatarName}
-          placeholder="20자 이내로 적어주세요"
-        />
-      </InputWrap>
-      <FixedButton
-        onClick={() => {
-          window.location.href = '/select';
-        }}
-      >
-        시작하기
+      <TitleWrap>
+        <TextBox>
+          <SmallText>나는 다섯가지의 모습으로 변할 수 있어 </SmallText>
+          <BigText>네가 습관을 실천할 수록 나는 성장해!</BigText>
+        </TextBox>
+        <TextBox>
+          <SmallText>내가 성장하면서 너가 상상하지 못한 </SmallText>
+          <BigText>새로운 모습으로 변화 될거야</BigText>
+        </TextBox>
+        <TextBox>
+          <SmallText>점점 성장하는 모습 기대되지 않니?</SmallText>
+          <BigText>나와 함께 습관을 만들러 가자!</BigText>
+        </TextBox>
+      </TitleWrap>
+      <FixedButton onClick={() => moveToPage('new')}>
+        습관 작성하러 가기
       </FixedButton>
+      {/* <BottomFixedButton text="습관 작성하러 가기" onClick={moveMainPage} /> */}
     </AvatarContainer>
   );
 };
@@ -63,50 +60,67 @@ export default MonsterGuide;
 
 const AvatarContainer = styled.div`
   font-family: var(--font-name-apple);
+  background-color: var(--bg-wrapper);
+  padding-top: 80px;
   width: 100%;
   height: 100%;
 `;
 
-const TitleWrap = styled.div``;
+const TextBox = styled.div`
+  text-align: center;
+  margin: 24px 0;
+`;
 
-const Title = styled.h2`
+const TitleWrap = styled.div`
   color: var(--color-white);
-  font-size: var(--font-semi-medium);
-  font-weight: var(--weight-bold);
-  line-height: 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
 `;
 
 const ThumbnailWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 0 30px;
+  padding: 10px 0 10px;
 `;
 
-const InputWrap = styled.div`
-  border: 2px solid var(--color-white);
-  border-radius: var(--border-radius-mideum);
+const SmallText = styled.p`
+  ${fontSize('15px')};
+  color: var(--color-primary);
+  font-weight: var(--weight-semi-regular);
+  line-height: 32px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  max-width: 277px;
-  height: 46px;
-  margin: 50px auto;
+  text-align: center;
 `;
 
-const NameInput = styled.input`
-  border: 0;
-  background: none;
-  color: var(--color-white);
-  font-size: var(--font-regular);
-  font-weight: bold;
-  line-height: 22px;
-  outline: 0;
+const TextWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+`;
 
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-  }
+const BigText = styled.p`
+  font-weight: var(--weight-semi-bold);
+  ${fontSize('20px')};
+  line-height: 32px;
+  margin: 0 auto;
+`;
+
+const HeadText = styled.p`
+  font-size: var(--font-xxl);
+  font-weight: var(--font-weight-medium);
+  line-height: 32px;
+  margin-left: 24px;
+`;
+
+const HeaderName = styled.p`
+  font-size: var(--font-xxl);
+  font-weight: var(--font-weight-bold);
 `;
 
 const FixedButton = styled.button`

@@ -10,11 +10,11 @@ import '../assets/fonts/font.css';
 const Login = () => {
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('isFirstLogin') === 'true') {
+  //     return history.replace('/monster');
+  //   }
+  // }, []);
 
   return (
     <React.Fragment>

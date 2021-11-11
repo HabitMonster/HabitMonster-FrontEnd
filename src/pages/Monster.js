@@ -7,7 +7,7 @@ import {
   babyMonsterState,
   selectedMonsterState,
 } from '../recoil/states/monster';
-
+import { BottomFixedButton } from '../components/common';
 import { MonsterThumbnail } from '../components/monster';
 import { fontSize } from '../styles';
 
@@ -21,7 +21,6 @@ const Monster = () => {
   });
 
   const selectAvatar = (avatar) => {
-    console.log('selectedAvatar.monsterId', avatar);
     setSelectedAvatar(avatar);
   };
 
@@ -68,6 +67,7 @@ const Monster = () => {
         </SelectList>
       </AvatarWrap>
       <FixedButton onClick={() => moveToPage('select')}>선택하기</FixedButton>
+      {/* <BottomFixedButton text="선택하기" onClick= /> */}
     </AvatarContainer>
   );
 };
@@ -75,14 +75,14 @@ const Monster = () => {
 export default Monster;
 
 const AvatarContainer = styled.div`
-  background-color: var(--color-background);
+  background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 64px);
 `;
 
 const AvatarWrap = styled.div`
-  background-color: var(--color-background);
+  background-color: var(--bg-wrapper);
   width: 100%;
   padding: 75px 24px 100px;
 `;
