@@ -7,10 +7,17 @@ import { habitState } from '../../recoil/states/habit';
 import useFormatDuration from '../../hooks/useFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
+import { habitApis } from '../../api';
+
 const TodayHabit = ({ id }) => {
   const habit = useRecoilValue(habitState(id));
   const durationStart = useFormatDuration(habit.durationStart);
   const durationEnd = useFormatDuration(habit.durationEnd);
+
+  const clickHandler = async () => {
+    const response = await habitApis.checkHabit(id);
+    console.log(response);
+  };
 
   return (
     <>
@@ -29,7 +36,7 @@ const TodayHabit = ({ id }) => {
             </Count>
           </CountContainer>
         </DetailContainer>
-        <CheckBtn>완료하기</CheckBtn>
+        <CheckBtn onClick={clickHandler}>완료하기</CheckBtn>
       </Card>
     </>
   );
