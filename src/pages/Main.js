@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
@@ -8,13 +8,9 @@ import { TodayHabitList } from '../components/habit';
 import '../assets/fonts/font.css';
 
 const Main = () => {
-  const history = useHistory();
-
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   return (
     <>

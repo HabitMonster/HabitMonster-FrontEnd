@@ -1,24 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 import { SocialLogin, LoginTitle } from '../components/login';
-import { loginPageBg } from '../assets/images/background';
 
 import '../assets/fonts/font.css';
 
 const Login = () => {
-  const history = useHistory();
-
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   return (
     <React.Fragment>
-      <Wrapper>
+      <Wrapper className="titleContainer">
         <LoginTitle />
         <SocialLogin />
       </Wrapper>
@@ -29,14 +24,10 @@ const Login = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  background-image: url(${loginPageBg});
-  background-color: var(--color-login-bg);
-  background-repeat: no-repeat;
-  background-position: center;
+  background-color: var(--bg-wrapper);
 `;
 
 export default Login;

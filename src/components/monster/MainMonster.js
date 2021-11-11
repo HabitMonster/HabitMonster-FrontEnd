@@ -81,6 +81,9 @@ const MonsterImage = styled.div`
   width: 152px;
   height: 152px;
   background-image: ${(props) => `url(${props.image})`};
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
 
 const ExpContainer = styled.div`

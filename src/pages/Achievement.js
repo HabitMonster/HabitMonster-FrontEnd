@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import { Statistics, Monster } from '../components/achievment';
 
 const Achievement = () => {
-  const history = useHistory();
-
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   return (
     <AcheiveContainer>

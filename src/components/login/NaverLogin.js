@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { auth } from '../../api';
@@ -88,7 +88,7 @@ const LoginBtn = styled.div`
   width: 300px;
   height: 45px;
   background-color: var(--color-white);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-checkBtn);
   cursor: pointer;
   color: var(--color-white);
 

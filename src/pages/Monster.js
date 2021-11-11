@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { useHistory, Redirect } from 'react-router-dom';
 
 import { MonsterThumbnail } from '../components/monster';
 import { monsterApis } from '../api/index';
@@ -47,11 +47,9 @@ const Monster = () => {
   const [selectedMonster, setSelectedMonster] = useState(MONSTER_MOCK_LIST[0]);
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'false') {
-      return history.replace('/');
-    }
-  }, []);
+  if (localStorage.getItem('isFirstLogin') === 'false') {
+    return <Redirect to="/" />;
+  }
 
   const selectMonster = (monster) => {
     console.log('selectedMonster.monsterId', selectedMonster.monsterId);
