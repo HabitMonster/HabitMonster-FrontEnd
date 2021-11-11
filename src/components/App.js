@@ -22,6 +22,9 @@ function App() {
             <Switch>
               <Route path="/login" component={Login} />
               <PrivateRoute path="/monster" component={Monster} />
+              <PrivateRoute path="/monster" component={Monster} />
+              <PrivateRoute path="/select" component={MonsterSetting} />
+              <PrivateRoute path="/guide" component={MonsterGuide} />
               <>
                 <PrivateRoute exact path="/" component={Main} />
                 <PrivateRoute path="/achievement" component={Achievement} />
@@ -37,13 +40,14 @@ function App() {
   );
 }
 
+// 컨텐츠가 많지 않으면 아래쪽이 비는건 어쩔 수 없다 백그라운드를 채워 주어야 하는데 어쯔라고..
 const Layout = styled.div`
   background: var(--bg-main);
   display: flex;
   max-width: 360px;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   position: relative;
 `;
