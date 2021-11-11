@@ -1,37 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 
 import { GoogleLogin, KakaoLogin, NaverLogin } from './';
-
-import { getCookie } from '../../utils/cookie';
+import { useRecoilValue } from 'recoil';
+import { authState } from '../../recoil/states/auth';
 
 const SocialLogin = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const [isFirstLogin, setIsFirstLogin] = useState(false);
-
-  useEffect(() => {
-    const loginCheck = async () => {
-      try {
-        const response = await axios({
-          method: 'GET',
-          url: `${process.env.REACT_APP_BASE_URL}user/check`,
-          headers: {
-            'A-AUTH-TOKEN': `${getCookie('accessToken')}`,
-          },
-        });
-        setIsLogin(response.data.isLogin);
-        setIsFirstLogin(response.data.isFirstLogin);
-      } catch (error) {
-        setIsLogin(false);
-        setIsFirstLogin(false);
-        return;
-      }
-    };
-
-    loginCheck();
-  }, []);
+  const { isLogin, isFirstLogin } = useRecoilValue(authState);
 
   if (isLogin && isFirstLogin) {
     return <Redirect to="/monster" />;

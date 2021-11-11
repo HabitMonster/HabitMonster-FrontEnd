@@ -5,10 +5,6 @@ import styled from 'styled-components';
 import { Statistics, Monster } from '../components/achievment';
 
 const Achievement = () => {
-  if (localStorage.getItem('isFirstLogin') === 'true') {
-    return <Redirect to="/monster" />;
-  }
-
   return (
     <AcheiveContainer>
       <NavButtonWrap>

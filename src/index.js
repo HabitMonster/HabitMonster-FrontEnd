@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import Loading from './pages/Loading';
 import App from './components/App';
 
 import { GlobalStyle } from './styles/';
@@ -12,7 +13,9 @@ ReactDOM.render(
     <Router>
       <GlobalStyle />
       <RecoilRoot>
-        <App />
+        <Suspense fallback={<Loading />}>
+          <App />
+        </Suspense>
       </RecoilRoot>
     </Router>
   </React.StrictMode>,

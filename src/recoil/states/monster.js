@@ -25,7 +25,6 @@ const initiateMonsterSelector = selector({
   get: async ({ get }) => {
     try {
       const { data, status } = await monsterApis.loadStartMonster();
-      console.log('data', data);
       if (status === OK) {
         return data.monsters;
       }
@@ -56,6 +55,8 @@ export const getSelectedMonster = selector({
   },
 });
 
+// 세명
+// 플로우에 맞춰서 아톰을 만드신게 보이네요!
 export const monsterNameState = atom({
   key: 'monsterNameState',
   default: '',
