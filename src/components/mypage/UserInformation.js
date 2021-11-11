@@ -8,8 +8,7 @@ import { myPageDataState } from '../../recoil/states/user';
 import UserInfoItem from './UserInfoItem';
 
 const UserInformation = (props) => {
-  const myPageData = useRecoilValue(myPageDataState);
-  // 비동기요청
+  const myPageData = useRecoilValue(myPageDataState); // 비동기요청
   const userInfoList = [
     {
       title: '닉네임',
@@ -18,7 +17,7 @@ const UserInformation = (props) => {
     },
     {
       title: '몬스터 이름',
-      contents: mypageData.monsterName,
+      contents: '마미손',
       isPossibleEdit: true,
     },
     {

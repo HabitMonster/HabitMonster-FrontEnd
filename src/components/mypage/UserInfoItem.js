@@ -5,11 +5,12 @@ import { fontSize } from '../../styles';
 import { EditIcon } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
+  const { title, contents } = userInfoItem;
   return (
     <InfoListItem>
-      <DefaultTitle>{userInfoItem.title}</DefaultTitle>
+      <DefaultTitle>{title}</DefaultTitle>
       <PrivateText>
-        {userInfoItem.contents}
+        {contents}
         {userInfoItem && (
           <EditButton>
             <EditIcon />
