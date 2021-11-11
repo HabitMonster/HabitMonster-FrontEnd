@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import {
   NewHabitDetailTitle,
@@ -11,16 +12,17 @@ import { BackButtonHeader, BottomFixedButton } from '../components/common';
 
 import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
-import { Trash } from '../assets/icons/common';
 
 import { Modal } from '../components/common';
 import { BottomDialog } from '../components/dialog';
+
+import { habitsState } from '../recoil/states/habit';
 
 const HabitEdit = () => {
   const history = useHistory();
   const { state: habitDetail } = useLocation();
 
-  console.log(habitDetail);
+  const [habitList, setHabitList] = useRecoilState(habitsState);
 
   const [backModalOpen, setBackModalOpen] = useState(false);
   const [title, setTitle] = useState(habitDetail.habitDetail.title);
@@ -29,11 +31,7 @@ const HabitEdit = () => {
   );
   const [frequency, setFrequency] = useState(habitDetail.habitDetail.count);
 
-  // if (localStorage.getItem('isFirstLogin') === 'true') {
-  //   return <Redirect to="/monster" />;
-  // }
-
-  const handleSaveButtonClick = async () => {
+  const handleEditButtonClick = async () => {
     const body = {
       title,
       description,
@@ -47,9 +45,17 @@ const HabitEdit = () => {
       );
 
       if (data.statusCode === OK) {
-        // setHabits([...habits, data.habitDetail]);
+        const originHabitList = habitList.slice();
+        const editedHabitIndex = habitList.findIndex((habit) => {
+          return habit.habitId === habitDetail.habitDetail.habitId;
+        });
+        const editedHabitList = {
+          ...originHabitList[editedHabitIndex],
+          ...body,
+        };
+        originHabitList[editedHabitIndex] = { ...editedHabitList };
+        setHabitList(originHabitList);
         history.replace('/');
-        console.log(data);
       }
     } catch (error) {
       console.error(error);
@@ -93,7 +99,7 @@ const HabitEdit = () => {
       <BottomFixedButton
         condition={null}
         text="저장하기"
-        onClick={handleSaveButtonClick}
+        onClick={handleEditButtonClick}
       />
       {backModalOpen && (
         <Modal open={backModalOpen} onClose={() => setBackModalOpen(false)}>

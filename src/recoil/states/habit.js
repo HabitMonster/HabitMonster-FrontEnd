@@ -18,6 +18,16 @@ export const habitsState = atom({
   default: asyncDefaultHabitsState,
 });
 
+export const newHabitIdState = atom({
+  key: 'newHabitId',
+  default: 0,
+});
+
+export const newHabitKeyState = atom({
+  key: 'newHabitId',
+  default: 0,
+});
+
 export const habitIdListState = selector({
   key: 'habitIdList',
   get: ({ get }) => {
@@ -30,7 +40,6 @@ export const habitIdHashState = selector({
   get: ({ get }) => {
     return get(habitsState).reduce((hash, cur) => {
       hash[cur.habitId] = cur;
-      console.log(hash);
       return hash;
     }, {});
   },
@@ -42,18 +51,4 @@ export const habitState = selectorFamily({
     (habitId) =>
     ({ get }) =>
       get(habitIdHashState)[habitId],
-  set:
-    (habitId) =>
-    ({ set }) => {
-      // console.log(habitsState);
-      set(habitIdHashState, habitIdHash);
-    },
 });
-
-// export const habitCheckState = selectorFamily({
-//   key: 'habitCheck',
-//   get:
-//     (habitId) =>
-//     ({ get }) =>
-//       get(habitsState)[habitId],
-// });

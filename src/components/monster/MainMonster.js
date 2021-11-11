@@ -1,18 +1,11 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Redirect } from 'react-router-dom';
 
 import { monsterState } from '../../recoil/states/monster';
-import { NOT_FOUND } from '../../constants/statusCode';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
-
-  // if (monster.statusCode === NOT_FOUND) {
-  //   localStorage.setItem('isFirstLogin', true);
-  //   return <Redirect to="/monster" />;
-  // }
 
   const isEndWithConsonant = (name) => {
     const finalCharCode = name.charCodeAt(name.length - 1);

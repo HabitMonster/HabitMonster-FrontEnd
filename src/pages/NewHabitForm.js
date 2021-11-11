@@ -53,7 +53,13 @@ const NewHabitForm = () => {
       const { data } = await addHabitApis.saveHabitWithHands(body);
 
       if (data.statusCode === OK) {
-        setHabits([...habits, data.habitDetail]);
+        // @SangJoon
+        // TodayHabitList에서 일어나는 문제와 같은 문제가 발생합니다.
+        // 새로고침하여 HabitId가 반영된 습관 목록을 불러오지 않는 이상
+        // 해당 습관의 habitId는 undefined로 남아있습니다.
+        // 습관을 추가할 경우 habitIdListState의 getter에서
+        // 오류가 발생합니다.
+        // setHabits([...habits, data.habitDetail]);
         history.replace('/');
       }
     } catch (error) {

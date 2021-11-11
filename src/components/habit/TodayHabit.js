@@ -1,36 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { habitState } from '../../recoil/states/habit';
+import { habitState, habitsState } from '../../recoil/states/habit';
+import { setFormattedDuration } from '../../utils/setFormatDuration';
 import useFormatDuration from '../../hooks/useFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
 import { habitApis } from '../../api';
+import { OK } from '../../constants/statusCode';
+import habit from '../../assets/images/habit';
 
-const TodayHabit = ({ id }) => {
-  // const habit = useRecoilValue(habitState(id));
-  const [habitDetail, setHabitDetail] = useRecoilState(habitState(id));
-  const durationStart = useFormatDuration(habitDetail.durationStart, 'MD');
-  const durationEnd = useFormatDuration(habitDetail.durationEnd, 'MD');
+const TodayHabit = ({ habitId }) => {
   const history = useHistory();
+  const [targetIndex, setTargetIndex] = useState(0);
 
-  console.log(habitDetail);
+  const [habitList, setHabitList] = useRecoilState(habitsState);
+  const habitDetail = useRecoilValue(habitState(habitId));
+
+  // @SangJoon
+  // 모든 횟수를 다 채웠을 때 바로 사라지지가 않고 새로고침을 해야 사라지는 이슈가 있습니다.
+  // current가 count와 같아지면 페이지를 새로고침하도록 했습니다.
+  // 임시방편이라 생각되므로 추후 보완이 필요할 것 같습니다.
+  if (habitList[targetIndex].current === habitDetail.count) {
+    history.go(0);
+  }
+
+  // @SangJoon
+  // 기간, 형식(YMD, MD, D), 구분자 ('.' || '-' 등)
+  const durationStart = setFormattedDuration(
+    habitDetail.durationStart,
+    'MD',
+    '.',
+  );
+
+  const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
 
   const clickHandler = async (e) => {
     e.stopPropagation();
-    // const response = await habitApis.checkHabit(id);
-    setHabitDetail(id);
-    // console.log(response);
+    try {
+      const { data } = await habitApis.checkHabit(habitId);
+      if (data.statusCode === OK) {
+        const originHabitList = habitList.slice();
+        const targetHabitIndex = habitList.findIndex((habit) => {
+          return habit.habitId === habitId;
+        });
+
+        setTargetIndex(targetIndex);
+
+        const updatedHabit = {
+          ...originHabitList[targetHabitIndex],
+          current: originHabitList[targetHabitIndex].current + 1,
+        };
+        originHabitList[targetHabitIndex] = { ...updatedHabit };
+        setHabitList(originHabitList);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onHabitClicked = () => {
     history.push({
-      pathname: `/habit/${id}`,
+      pathname: `/habit/${habitId}`,
       state: {
-        habit: habit,
+        habit: habitDetail,
       },
     });
   };
@@ -59,7 +95,7 @@ const TodayHabit = ({ id }) => {
 };
 
 TodayHabit.propTypes = {
-  id: PropTypes.number.isRequired,
+  habitId: PropTypes.number,
 };
 
 const Card = styled.div`

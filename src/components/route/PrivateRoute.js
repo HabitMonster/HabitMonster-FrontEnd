@@ -4,8 +4,12 @@ import { Route, Redirect } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { authState } from '../../recoil/states/auth';
 
-const PrivateRoute = ({ comp: Component, ...rest }) => {
+const PrivateRoute = ({ Component, ...rest }) => {
   const { isLogin } = useRecoilValue(authState);
+
+  // @SangJoon
+  // 렌더링 5~6번 발생
+  // 확인 필요
 
   if (!isLogin) {
     return <Redirect to="/login" />;
@@ -15,7 +19,7 @@ const PrivateRoute = ({ comp: Component, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-  comp: PropTypes.elementType,
+  Component: PropTypes.elementType,
 };
 
 export default PrivateRoute;

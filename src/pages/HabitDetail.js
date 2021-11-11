@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { Redirect, useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useParams, useHistory } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import {
   SubTitleOuter,
   BottomFixedButton,
   BackButtonHeader,
+  Modal,
 } from '../components/common';
-import useFormatDuration from '../hooks/useFormatDuration';
-import { habitState } from '../recoil/states/habit';
+
+import { habitState, habitsState } from '../recoil/states/habit';
 import { renderDays } from '../utils/date';
 import { Trash } from '../assets/icons/common';
+import { setFormattedDuration } from '../utils/setFormatDuration';
 
-import { Modal } from '../components/common';
 import { BottomDialog } from '../components/dialog';
 
 import { habitApis } from '../api';
@@ -22,25 +23,32 @@ import { OK } from '../constants/statusCode';
 const HabitDetail = () => {
   const { habitId } = useParams();
   const history = useHistory();
+
+  const [habitList, setHabitList] = useRecoilState(habitsState);
   const habitDetail = useRecoilValue(habitState(habitId));
 
-  const durationStart = useFormatDuration(habitDetail.durationStart, 'YMD');
-  const durationEnd = useFormatDuration(habitDetail.durationEnd, 'YMD');
+  const durationStart = setFormattedDuration(
+    habitDetail.durationStart,
+    'YMD',
+    '.',
+  );
+  const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'YMD', '.');
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-
-  // if (localStorage.getItem('isFirstLogin') === 'true') {
-  //   return <Redirect to="/monster" />;
-  // }
 
   const handleDeleteButtonClick = async () => {
     try {
       const { data } = await habitApis.deleteHabit(habitId);
 
       if (data.statusCode === OK) {
-        // setHabits([...habits, data.habitDetail]);
+        const deletedHabitIndex = habitList.findIndex((habit) => {
+          return habit.habitId === Number(habitId);
+        });
+        const originHabitList = habitList.slice();
+        originHabitList.splice(deletedHabitIndex, 1);
+        setHabitList(originHabitList);
+
         history.replace('/');
-        console.log(data);
       }
     } catch (error) {
       console.error(error);
