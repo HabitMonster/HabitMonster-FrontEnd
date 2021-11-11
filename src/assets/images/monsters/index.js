@@ -2,19 +2,19 @@ import babyMonsters from './babymonsters.png';
 import babyMonsters2x from './babymonsters@2x.png';
 import babyMonsters3x from './babymonsters@3x.png';
 
-import babyMonOrange from './babymon1.png';
-import babyMonBlue from './babymon2.png';
-import babyMonGreen from './babymon3.png';
-import babyMonPurple from './babymon4.png';
-import babyMonYellow from './babymon5.png';
+import babyMonOrange from './Lv1_orange.png';
+import babyMonBlue from './Lv1_blue.png';
+import babyMonGreen from './Lv1_green.png';
+import babyMonPink from './Lv1_pink.png';
+import babyMonYellow from './Lv1_yellow.png';
+import babyMonRed from './Lv1_red.png';
 
 export {
   babyMonsters,
-  babyMonsters2x,
-  babyMonsters3x,
   babyMonOrange,
   babyMonBlue,
   babyMonGreen,
-  babyMonPurple,
+  babyMonPink,
+  babyMonRed,
   babyMonYellow,
 };

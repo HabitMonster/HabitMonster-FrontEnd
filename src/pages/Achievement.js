@@ -35,8 +35,9 @@ const Achievement = () => {
 export default Achievement;
 
 const AcheiveContainer = styled.div`
-  font-family: var(--font-name-apple);
   width: 100%;
+  height: calc(100% - 64px);
+  flex: 1 1 0;
 `;
 
 const NavButtonWrap = styled.ul`

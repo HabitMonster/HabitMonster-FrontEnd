@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil';
-import { mainApis } from '../../api';
+import { mainApis, monsterApis } from '../../api';
+import { OK } from '../../constants/statusCode';
 
 const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
