@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
@@ -8,13 +8,9 @@ import { TodayHabitList } from '../components/habit';
 import '../assets/fonts/font.css';
 
 const Main = () => {
-  const history = useHistory();
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('isFirstLogin') === 'true') {
-  //     return history.replace('/monster');
-  //   }
-  // }, []);
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   return (
     <>
@@ -33,12 +29,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(
-    180deg,
-    var(--color-main) 0%,
-    var(--color-main) 50.52%,
-    #7f9ae6 100%
-  );
+  background: linear-gradient(0deg, #070707, #070707);
 `;
 
 export default Main;

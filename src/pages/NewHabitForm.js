@@ -30,6 +30,10 @@ const NewHabitForm = () => {
   const [practiceDays, setPracticeDays] = useState('');
   const [frequency, setFrequency] = useState(0);
 
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
+
   const condition =
     title &&
     description &&
@@ -84,7 +88,10 @@ const NewHabitForm = () => {
           />
         </MarginInterval>
         <MarginInterval mb="24">
-          <NewHabitDetailDueDatePicker onDurationChecked={setDuration} />
+          <NewHabitDetailDueDatePicker
+            duration={duration}
+            onDurationChecked={setDuration}
+          />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDayPicker
@@ -100,7 +107,7 @@ const NewHabitForm = () => {
         </MarginInterval>
       </Inner>
       <BottomFixedButton
-        condition={condition}
+        condition={() => condition}
         text="저장하기"
         onClick={handleSaveButtonClick}
       />

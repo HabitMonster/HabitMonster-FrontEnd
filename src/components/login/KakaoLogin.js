@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { auth } from '../../api';
@@ -36,7 +36,7 @@ const KakaoLogin = () => {
           return;
         }
       } catch (err) {
-        console.error(err);
+        console.error(err.response);
       }
     }
     getTokenWithKakao();
@@ -65,7 +65,7 @@ const LoginBtn = styled.div`
   width: 300px;
   height: 45px;
   background-color: var(--color-white);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-checkBtn);
 
   &:hover {
     cursor: pointer;

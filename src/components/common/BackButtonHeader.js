@@ -16,7 +16,6 @@ const BackButtonHeader = ({ onButtonClick, pageTitleText }) => {
 BackButtonHeader.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   pageTitleText: PropTypes.string,
-  children: PropTypes.any,
 };
 
 BackButtonHeader.defaultProps = {
@@ -28,14 +27,18 @@ const Wrapper = styled.div`
   height: 44px;
   display: flex;
   align-items: center;
+
+  & svg {
+    cursor: pointer;
+  }
 `;
 
 const PageTitle = styled.h1`
   font-weight: var(--font-weight-medium);
-  font-size: 18px;
-  line-height: 22px;
+  font-size: var(--font-l);
+  line-height: 21.6px;
   margin-left: 4px;
-  color: #f8f8f8;
+  color: var(--color-primary);
 `;
 
 export default BackButtonHeader;

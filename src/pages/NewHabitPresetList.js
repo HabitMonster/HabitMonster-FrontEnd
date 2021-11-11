@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, useParams, useLocation, Redirect } from 'react-router-dom';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { BackButtonHeader, BottomFixedButton } from '../components/common';
@@ -15,6 +15,10 @@ const NewHabitPresetList = () => {
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useFetchCategoryPresets();
 
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
+
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
@@ -23,12 +27,12 @@ const NewHabitPresetList = () => {
     <>
       <Wrapper>
         <Inner>
-          <div style={{ marginTop: '24px', marginBottom: '12px' }}>
+          <Header>
             <BackButtonHeader
               pageTitleText={selectedHabitCategory.name}
               onButtonClick={() => history.replace('/new')}
             />
-          </div>
+          </Header>
           <HelperText>이런 습관은 어때요?</HelperText>
           {presetList.map(
             ({ count, description, period, practiceDays, title, presetId }) => (
@@ -46,6 +50,7 @@ const NewHabitPresetList = () => {
             ),
           )}
           <Hands
+            isSelected={Boolean(selectedPresetId)}
             onClick={() =>
               history.push({
                 pathname: 'detail',
@@ -53,8 +58,10 @@ const NewHabitPresetList = () => {
               })
             }
           >
-            <PencilIcon />
-            <span>직접 작성하기</span>
+            <span>
+              <PencilIcon />
+              직접 작성하기
+            </span>
           </Hands>
         </Inner>
       </Wrapper>
@@ -71,35 +78,53 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  background: #070707;
+  background: var(--bg-wrapper);
 `;
 
 const Inner = styled.div`
   padding: 0 24px;
+  background: inherit;
+`;
+
+const Header = styled.div`
+  margin-top: var(--font-xxl);
+  margin-bottom: 12px;
 `;
 
 const HelperText = styled.h2`
-  color: #f8f8f8;
-  font-size: 24px;
+  color: var(--color-primary);
+  font-size: var(--color-xxl);
   line-height: 32px;
   margin-bottom: 20px;
 `;
 
 const Hands = styled.div`
   width: 312px;
-  height: 64px;
-  background: #1e2025;
+  height: 52px;
+  background: var(--bg-primary);
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 80px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: var(--font-weight-medium);
-  font-size: 18px;
-  line-height: 22px;
-  color: #f8f8f8;
   cursor: pointer;
 
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+
   & span {
-    margin-left: 10px;
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-l);
+    line-height: 22px;
+    position: relative;
+
+    & svg {
+      position: absolute;
+      left: -30px;
+    }
   }
 `;
 

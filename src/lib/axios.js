@@ -15,7 +15,9 @@ const setToken = (config) => {
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
 
-  config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
+  // config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
+  config.headers['A-AUTH-TOKEN'] =
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0RyIsInR5cGUiOiJHT09HTEUiLCJpYXQiOjE2MzY2MTA5NzYsImV4cCI6MTYzOTIwMjk3Nn0.BWjWfcxqnbaIB8E55WfKJg6daaUacX4PG6j6mwrJOoY';
   config.headers.withCredentials = true;
   return config;
 };
@@ -29,6 +31,7 @@ instance.interceptors.response.use(
 
   async (error) => {
     const { data: responseData, config: originalRequest } = error.response;
+    console.log(error.response);
 
     if (
       responseData.statusCode === UNAUTHORIZED ||

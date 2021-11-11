@@ -5,79 +5,38 @@ import styled from 'styled-components';
 import { habitIdListState } from '../../recoil/states/habit';
 
 import { TodayHabit } from './';
-
 const TodayHabitList = () => {
-  const idList = useRecoilValue(habitIdListState);
+  const habitIdList = useRecoilValue(habitIdListState);
 
   return (
-    <Wrapper className="habitWrapper">
-      <TitleContainer className="titleContainer">
-        <Title className="title">오늘의 습관</Title>
-        <RemainHabit className="remainHabit">
-          아직 {idList.length}개가 남았어요!
-        </RemainHabit>
-      </TitleContainer>
-      <HabitContainer className="habitContainer">
-        <List className="habitList">
-          {idList.map((id) => (
-            <TodayHabit key={id} id={id} />
-          ))}
-        </List>
-      </HabitContainer>
-    </Wrapper>
+    <HabitContainer>
+      <HabitList>
+        {habitIdList.map((id) => (
+          <TodayHabit key={id} id={id} />
+        ))}
+      </HabitList>
+    </HabitContainer>
   );
 };
 
-const Wrapper = styled.div`
+const HabitContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 24px 24px 0px 0px;
-`;
-
-const TitleContainer = styled.div`
-  height: 88px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 24px;
-  padding-bottom: 14px;
-  box-sizing: border-box;
-`;
-
-const Title = styled.p`
-  font-family: var(--font-name-apple);
-  font-size: var(--font-semi-medium);
-  font-weight: var(--weight-semi-bold);
-`;
-
-const RemainHabit = styled.p`
-  font-family: var(--font-name-apple);
-  font-size: var(--font-micro);
-  font-weight: var(--weight-regular);
-`;
-
-const HabitContainer = styled.div`
-  height: 100%;
+  width: 312px;
   overflow-y: scroll;
-  padding-left: 16px;
-  padding-right: 16px;
+  border-radius: 4px;
 
-  /* Chrome */
   &::-webkit-scrollbar {
     display: none;
   }
 
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
-const List = styled.div`
+const HabitList = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;

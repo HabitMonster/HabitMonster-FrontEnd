@@ -2,16 +2,18 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SubTitleOuter } from '../common';
+import { whiteOpacity } from '../../styles/Mixin';
 
 const NewHabitFrequencySection = ({ frequency, onChange }) => {
   const increment = () =>
     onChange((prev) => (prev === 10 ? prev : Number(prev) + 1));
   const decrement = () =>
     onChange((prev) => (prev === 1 ? prev : Number(prev) - 1));
+
   const handleChange = (e) =>
     onChange(
       e.target.value.length >= 2
-        ? 0
+        ? Number(e.target.value[1])
         : Number(e.target.value) > 10
         ? 9
         : Number(e.target.value),
@@ -34,14 +36,14 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
 };
 
 NewHabitFrequencySection.propTypes = {
-  frequency: PropTypes.string,
+  frequency: PropTypes.number,
   onChange: PropTypes.func,
 };
 
 const Helper = styled.p`
-  font-size: 12px;
+  font-size: var(--font-xxs);
   line-height: 14px;
-  color: rgba(248, 248, 248, 0.4);
+  ${whiteOpacity('0.4')};
   margin-bottom: 6px;
 `;
 
@@ -54,11 +56,11 @@ const Wrapper = styled.div`
     width: 40px;
     height: 100%;
     border-radius: 50%;
-    background: #1e2025;
+    background: var(--bg-primary);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #f8f8f8;
+    color: var(--color-primary);
     margin-right: 11px;
     cursor: pointer;
   }
@@ -70,11 +72,11 @@ const NumberInput = styled.input`
 
   text-align: center;
   padding: 4px 8px;
-  background: #1e2025;
+  background: var(--bg-primary);
   border-radius: 4px;
   border: none;
-  color: #f8f8f8;
-  font-size: 15px;
+  color: var(--color-primary);
+  font-size: var(--font-s);
   line-height: 18px;
   font-weight: var(--font-weight-bold);
   margin-right: 13px;
@@ -90,4 +92,4 @@ const NumberInput = styled.input`
   }
 `;
 
-export default memo(NewHabitFrequencySection);
+export default NewHabitFrequencySection;

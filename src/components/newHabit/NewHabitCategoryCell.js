@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { whiteOpacity } from '../../styles/Mixin';
 
 const NewHabitCategoryCell = ({ src, name, onClick }) => {
   return (
@@ -29,7 +30,7 @@ const GategoryWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 19px 28px 14px;
-  background: #1e2025;
+  background: var(--bg-primary);
   border: 1px solid #3c4254;
   border-radius: 4px;
   cursor: pointer;
@@ -38,12 +39,11 @@ const GategoryWrapper = styled.div`
     width: 100%;
     min-width: 54px;
     margin-top: 8px;
-    font-size: 14px;
+    font-size: var(--font-xs);
     line-height: 17px;
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semiBold);
     text-align: center;
-    letter-spacing: 0.374px;
-    color: #999999;
+    ${whiteOpacity('0.8')};
   }
 `;
 
