@@ -6,12 +6,10 @@ import styled from 'styled-components';
 
 import { habitState, habitsState } from '../../recoil/states/habit';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
-import useFormatDuration from '../../hooks/useFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
 import { habitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
-import habit from '../../assets/images/habit';
 
 const TodayHabit = ({ habitId }) => {
   const history = useHistory();

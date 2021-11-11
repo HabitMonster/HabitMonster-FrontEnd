@@ -18,16 +18,6 @@ export const habitsState = atom({
   default: asyncDefaultHabitsState,
 });
 
-export const newHabitIdState = atom({
-  key: 'newHabitId',
-  default: 0,
-});
-
-export const newHabitKeyState = atom({
-  key: 'newHabitId',
-  default: 0,
-});
-
 export const habitIdListState = selector({
   key: 'habitIdList',
   get: ({ get }) => {
