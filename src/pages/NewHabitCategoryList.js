@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { Redirect, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -18,9 +18,12 @@ import { Modal } from '../components/common';
 import { BottomDialog } from '../components/dialog';
 
 const NewHabitCategoryList = () => {
-  const history = useHistory();
   const { path } = useRouteMatch();
   const categories = useFetchCategories();
+
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   // 화면나가기 모달 state
   const [modalOpen1, setModalOpen1] = useState(false);

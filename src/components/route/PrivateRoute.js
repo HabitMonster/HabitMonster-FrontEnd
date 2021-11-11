@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { getCookie } from '../../utils/cookie';
@@ -10,6 +10,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   if (!loginCheck) {
     return <Redirect to="/login" />;
   }
+
   return <Route {...rest} render={(props) => <Component {...props} />} />;
 };
 

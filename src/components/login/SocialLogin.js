@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -21,12 +21,12 @@ const SocialLogin = () => {
             'A-AUTH-TOKEN': `${getCookie('accessToken')}`,
           },
         });
-
         setIsLogin(response.data.isLogin);
         setIsFirstLogin(response.data.isFirstLogin);
       } catch (error) {
         setIsLogin(false);
         setIsFirstLogin(false);
+        return;
       }
     };
 
@@ -42,7 +42,7 @@ const SocialLogin = () => {
   }
 
   return (
-    <BtnContainer className="BtnContainer">
+    <BtnContainer>
       <KakaoLogin />
       <GoogleLogin />
       <NaverLogin />
@@ -57,8 +57,6 @@ const BtnContainer = styled.div`
   align-items: center;
   gap: 12px;
   width: 100%;
-  margin-top: 30px;
-  margin-bottom: 84px;
 `;
 
 export default SocialLogin;

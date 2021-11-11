@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MyPage = () => {
-  const history = useHistory();
-
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   return (
     <>

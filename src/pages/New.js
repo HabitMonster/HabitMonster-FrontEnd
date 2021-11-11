@@ -1,32 +1,29 @@
-import React, { useEffect } from 'react';
-import { Route, useRouteMatch } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import React from 'react';
+import { useRouteMatch, Redirect } from 'react-router-dom';
 
+import PrivateRoute from '../components/route/PrivateRoute';
 import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
 import NewHabitPresetList from './NewHabitPresetList';
 
 const New = () => {
   const { path } = useRouteMatch();
-  const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
 
   return (
     <>
-      <Route exact path={path}>
+      <PrivateRoute exact path={path}>
         <NewHabitCategoryList />
-      </Route>
-      <Route path={`${path}/:categoryId/preset`}>
+      </PrivateRoute>
+      <PrivateRoute path={`${path}/:categoryId/preset`}>
         <NewHabitPresetList />
-      </Route>
-      <Route path={`${path}/:categoryId/detail`}>
+      </PrivateRoute>
+      <PrivateRoute path={`${path}/:categoryId/detail`}>
         <NewHabitForm />
-      </Route>
+      </PrivateRoute>
     </>
   );
 };

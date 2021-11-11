@@ -15,6 +15,10 @@ const NewHabitPresetList = () => {
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useFetchCategoryPresets();
 
+  if (localStorage.getItem('isFirstLogin') === 'true') {
+    return <Redirect to="/monster" />;
+  }
+
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
