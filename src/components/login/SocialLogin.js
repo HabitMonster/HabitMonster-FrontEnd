@@ -8,8 +8,8 @@ import { GoogleLogin, KakaoLogin, NaverLogin } from './';
 import { getCookie } from '../../utils/cookie';
 
 const SocialLogin = () => {
-  const [isLogin, setIsLogin] = useState('');
-  const [isFirstLogin, setIsFirstLogin] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
+  const [isFirstLogin, setIsFirstLogin] = useState(false);
 
   useEffect(() => {
     const loginCheck = async () => {
