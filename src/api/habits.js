@@ -12,4 +12,7 @@ export const addHabitApis = {
 
 export const habitApis = {
   checkHabit: (habitId) => A.get(`/habits/check/${habitId}`),
+  getHabitDetail: (habitId) => A.get(`/habits/${habitId}`),
+  editHabitDetail: (habitId, body) => A.patch(`/habits/${habitId}`, body),
+  deleteHabit: (habitId) => A.delete(`/habits/${habitId}`),
 };

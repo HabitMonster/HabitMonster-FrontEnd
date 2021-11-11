@@ -30,6 +30,7 @@ export const habitIdHashState = selector({
   get: ({ get }) => {
     return get(habitsState).reduce((hash, cur) => {
       hash[cur.habitId] = cur;
+      console.log(hash);
       return hash;
     }, {});
   },
@@ -41,11 +42,18 @@ export const habitState = selectorFamily({
     (habitId) =>
     ({ get }) =>
       get(habitIdHashState)[habitId],
+  set:
+    (habitId) =>
+    ({ set }) => {
+      // console.log(habitsState);
+      set(habitIdHashState, habitIdHash);
+    },
 });
 
-export const habitAccomplishState = atom({
-  key: 'todayHabitState',
-  default: {
-    habitId: null,
-  },
-});
+// export const habitCheckState = selectorFamily({
+//   key: 'habitCheck',
+//   get:
+//     (habitId) =>
+//     ({ get }) =>
+//       get(habitsState)[habitId],
+// });

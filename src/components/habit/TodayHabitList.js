@@ -1,12 +1,15 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { habitIdListState } from '../../recoil/states/habit';
 
 import { TodayHabit } from './';
+
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
+  const history = useHistory();
 
   return (
     <HabitContainer>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -10,29 +11,44 @@ import CategoryImage from '../../assets/images/habit';
 import { habitApis } from '../../api';
 
 const TodayHabit = ({ id }) => {
-  const habit = useRecoilValue(habitState(id));
-  const durationStart = useFormatDuration(habit.durationStart);
-  const durationEnd = useFormatDuration(habit.durationEnd);
+  // const habit = useRecoilValue(habitState(id));
+  const [habitDetail, setHabitDetail] = useRecoilState(habitState(id));
+  const durationStart = useFormatDuration(habitDetail.durationStart, 'MD');
+  const durationEnd = useFormatDuration(habitDetail.durationEnd, 'MD');
+  const history = useHistory();
 
-  const clickHandler = async () => {
-    const response = await habitApis.checkHabit(id);
-    console.log(response);
+  console.log(habitDetail);
+
+  const clickHandler = async (e) => {
+    e.stopPropagation();
+    // const response = await habitApis.checkHabit(id);
+    setHabitDetail(id);
+    // console.log(response);
+  };
+
+  const onHabitClicked = () => {
+    history.push({
+      pathname: `/habit/${id}`,
+      state: {
+        habit: habit,
+      },
+    });
   };
 
   return (
     <>
-      <Card>
+      <Card onClick={onHabitClicked}>
         <DetailContainer>
-          <CategoryIcon category={habit.category} />
+          <CategoryIcon category={habitDetail.category} />
           <Info>
-            <HabitTitle>{habit.title}</HabitTitle>
+            <HabitTitle>{habitDetail.title}</HabitTitle>
             <Period>
               {durationStart}~{durationEnd}
             </Period>
           </Info>
           <CountContainer>
             <Count>
-              {habit.current}/{habit.count}
+              {habitDetail.current}/{habitDetail.count}
             </Count>
           </CountContainer>
         </DetailContainer>
@@ -57,6 +73,8 @@ const Card = styled.div`
   color: var(--color-primary);
   border-radius: 4px;
   box-sizing: border-box;
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const DetailContainer = styled.div`
@@ -121,6 +139,7 @@ const CheckBtn = styled.div`
   background-color: var(--bg-active);
   border-radius: 4px;
   box-sizing: border-box;
+  z-index: 5;
   cursor: pointer;
 `;
 

@@ -14,6 +14,8 @@ import { PrivateRoute } from './route';
 import Monster from '../pages/Monster';
 import MonsterSetting from '../pages/MonsterSetting';
 import MonsterGuide from '../pages/MonsterGuide';
+import HabitDetail from '../pages/HabitDetail';
+import HabitEdit from '../pages/HabitEdit';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -62,6 +64,8 @@ function App() {
           <PrivateRoute path="/guide" component={MonsterGuide} />
           <>
             <PrivateRoute exact path="/" component={Main} />
+            <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
+            <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
             <PrivateRoute path="/achievement" component={Achievement} />
             <PrivateRoute path="/new" component={New} />
             <PrivateRoute path="/mypage" component={MyPage} />
