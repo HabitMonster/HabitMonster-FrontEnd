@@ -25,7 +25,7 @@ const MonsterImage = styled.img`
 `;
 
 MonsterThumbnail.propTypes = {
-  imageUrl: PropTypes.string.required,
-  imageAlt: PropTypes.string.required,
+  imageUrl: PropTypes.string.isRequired,
+  imageAlt: PropTypes.string.isRequired,
   imageSize: PropTypes.string,
 };

@@ -4,13 +4,16 @@ import { Redirect } from 'react-router-dom';
 
 import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
-
+import { authState } from '../recoil/states/auth';
+import { useRecoilValue } from 'recoil';
 import '../assets/fonts/font.css';
 
 const Main = () => {
-  if (localStorage.getItem('isFirstLogin') === 'true') {
-    return <Redirect to="/monster" />;
-  }
+  // const auth = useRecoilValue(authState);
+
+  // if (auth.isFirstLogin) {
+  //   return <Redirect to="/monster" />;
+  // }
 
   return (
     <>

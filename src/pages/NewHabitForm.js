@@ -30,10 +30,6 @@ const NewHabitForm = () => {
   const [practiceDays, setPracticeDays] = useState('');
   const [frequency, setFrequency] = useState(0);
 
-  if (localStorage.getItem('isFirstLogin') === 'true') {
-    return <Redirect to="/monster" />;
-  }
-
   const condition =
     title &&
     description &&

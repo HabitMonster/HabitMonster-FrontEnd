@@ -99,7 +99,9 @@ const Input = styled.input`
   transition: all 150ms ease-out;
 
   &:focus {
-    border-bottom: 1px solid var(--bg-active);
+    border-bottom: 1px solid
+      ${({ isValidated }) =>
+        isValidated ? 'var(--bg-active)' : 'var(--color-danger)'};
     outline: none;
   }
 `;

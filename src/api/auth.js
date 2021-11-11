@@ -1,4 +1,5 @@
 import axios from 'axios';
+import tokenInstance from '../lib/axios';
 
 const instance = axios.create({
   baseURL: `${process.env.REACT_APP_BASE_URL}`,
@@ -10,4 +11,5 @@ const instance = axios.create({
 export const auth = {
   getSocialLogin: (socialName, code) =>
     instance.get(`/user/login/${socialName}?code=${code}`),
+  check: () => tokenInstance.get('/user/check'),
 };
