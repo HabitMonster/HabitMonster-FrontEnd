@@ -13,7 +13,7 @@ const SubTitleOuter = ({ subTitle, children }) => {
 
 SubTitleOuter.propTypes = {
   subTitle: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any,
 };
 
 const SubTitle = styled.p`
