@@ -23,8 +23,6 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(isFirstLogin);
-    console.log(isLogin);
     const monsterPath = ['select', 'guide', 'monster'];
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
