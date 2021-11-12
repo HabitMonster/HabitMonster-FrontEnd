@@ -1,22 +1,41 @@
-import React from 'react';
-import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { withTheme } from 'styled-components';
-import { fontSize } from '../../styles';
+import styled from 'styled-components';
+import { fontSize, whiteOpacity } from '../../styles';
 import { EditIcon } from '../../assets/icons/common';
-import { whiteOpacity } from '../../styles/Mixin';
-import { BottomPopup } from '../common';
+import { Modal } from '../common';
+import { BottomDialog } from '../dialog';
+import { getCookie, deleteCookie } from '../../utils/cookie';
 
 const UserInfoItem = ({ userInfoItem }) => {
+  const [logoutModal, setLogoutModal] = useState(false);
   const { title, contents, isPossibleEdit, handleClick, buttonType } =
     userInfoItem;
 
+  const logoutUser = () => {
+    const token = getCookie('accessToken');
+    if (!token) {
+      alert('로그인을 먼저 해주세요!');
+    }
+    deleteCookie(token);
+    console.log('로그아웃이다');
+  };
   if (buttonType) {
     return (
       <InfoListItem>
-        <ButtonWrap>
+        <ButtonWrap onClick={() => setLogoutModal(true)}>
           <DefaultTitle>{title}</DefaultTitle>
         </ButtonWrap>
+        {
+          <Modal open={logoutModal} onClose={() => setLogoutModal(false)}>
+            <BottomDialog
+              title="정말 로그아웃하시겠어요?"
+              activeButtonText="로그아웃하기"
+              onActive={() => logoutUser()}
+              onClose={() => setLogoutModal(false)}
+            />
+          </Modal>
+        }
       </InfoListItem>
     );
   }

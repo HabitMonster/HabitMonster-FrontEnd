@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import { Statistics, MonsterCollection } from '../components/achievment';
 
 const Achievement = () => {
-  const history = useHistory();
-
   return (
     <AcheiveContainer>
       <NavButtonWrap>
