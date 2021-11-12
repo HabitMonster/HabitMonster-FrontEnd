@@ -2,6 +2,8 @@ import React from 'react';
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
 
+import { fontSize } from '../../styles';
+
 import {
   currentDateState,
   currentListNameState,
@@ -34,16 +36,14 @@ const Statistics = () => {
   };
 
   // 현재 탭에 해당하는 리스트 세팅하기
-  const getCurrentList = (successList, failedList) => {
+  const getCurrentList = (habitList) => {
     switch (currentListName) {
-      case 'total':
-        return [...successList, ...failedList];
       case 'success':
-        return [...successList];
+        return habitList.filter((habit) => habit.success);
       case 'failed':
-        return [...failedList];
+        return habitList.filter((habit) => !habit.success);
       default:
-        return [];
+        return [...habitList];
     }
   };
 
@@ -52,14 +52,9 @@ const Statistics = () => {
       return <div>loading...</div>;
     case 'hasValue':
       console.log('statisticLoadable', statisticLoadable);
-      const {
-        totalCount,
-        succeededCount,
-        failedCount,
-        successList,
-        failedList,
-      } = statisticLoadable?.contents;
-      const currentList = getCurrentList(successList, failedList);
+      const { totalCount, succeededCount, failedCount, habitList } =
+        statisticLoadable?.contents;
+      const currentList = getCurrentList(habitList);
       const circleValue = totalCount > 0 ? succeededCount / totalCount : 0;
 
       return (
@@ -121,9 +116,10 @@ const Statistics = () => {
 export default Statistics;
 
 const DetailWrap = styled.div`
-  background-color: var(--color-white);
+  background-color: var(--bg-wrapper);
   padding: 0 34px 40px;
 `;
+
 const DateWrap = styled.div`
   color: var(--color-grey01);
   display: flex;
@@ -134,6 +130,7 @@ const DateWrap = styled.div`
 
 const DateButton = styled.button`
   background-color: transparent;
+  color: #999999;
   border: 0;
   cursor: pointer;
   outline: 0;
@@ -141,15 +138,15 @@ const DateButton = styled.button`
 `;
 
 const DateText = styled.p`
-  font-size: var(--font-small);
-  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  ${fontSize('18px')};
+  font-weight: var(--font-weight-medium);
   margin: 0 15px;
 `;
 
 const CircleWrap = styled.div`
   width: 130px;
   height: 130px;
-  margin: 0 auto;
 `;
 
 const DetailList = styled.ul`
@@ -191,12 +188,13 @@ const ListItem = styled.li`
 
 const ListContainer = styled.div`
   height: 100%;
+  padding: 24px 0;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-start;
-  padding: 24px 16px;
+  padding: 0 16px;
 `;
 
 const AchieveNavBtn = styled.button`

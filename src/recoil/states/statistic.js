@@ -3,6 +3,7 @@ import { atom, selector } from 'recoil';
 import { formatMonth } from '../../utils/date';
 
 import { statisticApi } from '../../api';
+import { OK } from '../../constants/statusCode';
 
 export const currentDateState = atom({
   key: 'currentDateState',
@@ -18,11 +19,12 @@ export const getStatistic = selector({
   key: 'getStatistic',
   get: async ({ get }) => {
     const currentDate = get(currentDateState); // currentDate가 바뀌면 비동기 요청 실행
-    if (!currentDate) return [];
+    if (!currentDate) return null;
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);
 
-      if (statisticResponse.status === 200) {
+      if (statisticResponse.status === OK) {
+        console.log(statisticResponse);
         return statisticResponse.data;
       }
     } catch (err) {

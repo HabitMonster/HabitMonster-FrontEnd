@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { fontSize } from '../../styles';
+import { fontSize, whiteOpacity } from '../../styles';
 
 // Reference: https://wit.nts-corp.com/2021/04/23/6338
 function CircleProgress({ width, height, strokeWidth = 12, title, value }) {
@@ -34,8 +34,10 @@ function CircleProgress({ width, height, strokeWidth = 12, title, value }) {
         />
       </CircleProgressWrap>
       <DetailContainer>
-        <DetailTitle>{title}</DetailTitle>
-        <DetailValue>{value * 100}</DetailValue>
+        <DetailValue>
+          {value * 100}
+          <DetailPer>%</DetailPer>
+        </DetailValue>
       </DetailContainer>
     </CircleProgressContainer>
   );
@@ -56,7 +58,7 @@ const CircleProgressWrap = styled.svg`
 
 const CircleSvg = styled.circle`
   fill: none;
-  stroke: ${({ type }) => (type === 'progress' ? '#492cf1' : '#efefef')};
+  stroke: ${({ type }) => (type === 'progress' ? '#492cf1' : '#393939')};
   stroke-linecap: round;
 `;
 
@@ -75,17 +77,20 @@ const DetailContainer = styled.div`
   z-index: 1;
 `;
 
-const DetailTitle = styled.p`
-  color: #9d95ca;
-  font-weight: var(--weight-regular);
-  font-size: var(--font-small);
-  margin-bottom: 5px;
+const DetailValue = styled.p`
+  color: var(--color-primary);
+  ${fontSize('44px')};
+  line-height: 52px;
+  font-weight: var(--font-weight-medium);
 `;
 
-const DetailValue = styled.p`
-  color: var(--color-statistics);
-  ${fontSize('36px')};
-  font-weight: bold;
+const DetailPer = styled.span`
+  ${whiteOpacity('0.6')};
+  font-weight: var(--weight-regular);
+  ${fontSize('14px')};
+  line-height: 16px;
+  margin-bottom: 5px;
+  padding-left: 1px;
 `;
 CircleProgress.propTypes = {
   width: PropTypes.number.isRequired,

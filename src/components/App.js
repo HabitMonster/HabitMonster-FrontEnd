@@ -12,6 +12,8 @@ import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import { PrivateRoute } from './route';
 import Monster from '../pages/Monster';
+import MonsterSetting from '../pages/MonsterSetting';
+import MonsterGuide from '../pages/MonsterGuide';
 
 function App() {
   return (

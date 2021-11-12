@@ -69,7 +69,7 @@ const MonsterSetting = () => {
           maxLength={10}
           idleHelperText="한글, 영문, 숫자 공백없이 최대 10자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"
-          lengthValidationMode={false}
+          lengthValidationMode={true}
         />
       </AvatarWrap>
       <FixedButton onClick={setMonsterInfo}>시작하기</FixedButton>

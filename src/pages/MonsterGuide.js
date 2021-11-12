@@ -56,6 +56,7 @@ const MonsterGuide = () => {
     </AvatarContainer>
   );
 };
+
 export default MonsterGuide;
 
 const AvatarContainer = styled.div`

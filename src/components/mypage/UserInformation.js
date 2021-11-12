@@ -17,7 +17,7 @@ const UserInformation = (props) => {
     },
     {
       title: '몬스터 이름',
-      contents: '마미손',
+      contents: myPageData.monsterName,
       isPossibleEdit: true,
     },
     {
@@ -50,7 +50,7 @@ const UserInformation = (props) => {
 export default UserInformation;
 
 const UserInfoList = styled.ul`
-  /* border: 1px solid white; */
+  color: var(--color-primary);
   margin: 0;
   padding: 0;
 `;

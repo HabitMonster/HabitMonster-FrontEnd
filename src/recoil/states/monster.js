@@ -55,3 +55,18 @@ export const getSelectedMonster = selector({
     return selectedMonster;
   },
 });
+
+export const monsterNameState = atom({
+  key: 'monsterNameState',
+  default: '',
+});
+
+export const monsterNameSelector = selector({
+  key: 'monsterNameSelector',
+  get: ({ get }) => {
+    const monsterName = get(monsterNameState);
+    console.log('getMonsterName', monsterName);
+
+    return monsterName;
+  },
+});
