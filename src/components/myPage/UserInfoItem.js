@@ -6,6 +6,7 @@ import { EditIcon } from '../../assets/icons/common';
 import { Modal } from '../common';
 import { BottomDialog } from '../dialog';
 import { getCookie, deleteCookie } from '../../utils/cookie';
+import { useRecoilValue } from 'recoil';
 
 const UserInfoItem = ({ userInfoItem }) => {
   const [logoutModal, setLogoutModal] = useState(false);
@@ -14,12 +15,14 @@ const UserInfoItem = ({ userInfoItem }) => {
 
   const logoutUser = () => {
     const token = getCookie('accessToken');
+
     if (!token) {
-      alert('로그인을 먼저 해주세요!');
+      <div>먼저 로그인을 해주세요!</div>;
     }
     deleteCookie(token);
-    console.log('로그아웃이다');
+    setLogoutModal(false);
   };
+
   if (buttonType) {
     return (
       <InfoListItem>

@@ -22,7 +22,6 @@ const Modal = ({ open, onClose, children, blurmode }) => {
         document.activeElement.blur();
         setActive(open);
         document.querySelector('#root').setAttribute('inert', 'true');
-        document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
       }, 10);
     }
 
@@ -30,10 +29,6 @@ const Modal = ({ open, onClose, children, blurmode }) => {
       if (current) {
         current.removeEventListener('transitionend', handleTransitionEnd);
       }
-
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = `position: ""; top: "";`;
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
       document.querySelector('#root').removeAttribute('inert');
     };
   }, [open, onClose]);

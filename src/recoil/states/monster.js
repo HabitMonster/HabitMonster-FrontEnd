@@ -54,7 +54,6 @@ export const getSelectedMonster = selector({
   key: 'getSelectedMonster',
   get: ({ get }) => {
     const selectedMonster = get(selectedMonsterState);
-    console.log('selectedMonster', selectedMonster);
 
     return selectedMonster;
   },
@@ -69,7 +68,6 @@ export const monsterNameSelector = selector({
   key: 'monsterNameSelector',
   get: ({ get }) => {
     const monsterName = get(monsterNameState);
-    console.log('getMonsterName', monsterName);
 
     return monsterName;
   },
