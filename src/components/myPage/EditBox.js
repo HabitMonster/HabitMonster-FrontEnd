@@ -10,6 +10,7 @@ import {
   Modal,
 } from '../common';
 import { myPageDataState } from '../../recoil/states/user';
+import { monsterState } from '../../recoil/states/monster';
 
 import { myPageApis } from '../../api';
 import { fontSize } from '../../styles';
@@ -26,6 +27,7 @@ const EditBox = ({
   const [originValue] = useState(editValue);
   const isEnabled = editValue && editValue.length <= 10;
   const setEditValue = useSetRecoilState(myPageDataState); // myPageData를 새로운 값으로 바꿔준다!
+  const setMonster = useSetRecoilState(monsterState);
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;
@@ -34,13 +36,19 @@ const EditBox = ({
       if (type === 'monsterName') {
         editRequest = myPageApis.editMonsterName;
       }
+      //userName, monsterName
 
       const { data } = await editRequest({ [type]: editValue });
-      console.log('editValue', editValue);
 
       if (data.statusCode === OK) {
         alert('변경되었습니다!');
         setEditValue((myPageData) => ({ ...myPageData, [type]: editValue }));
+
+        if (type === 'monsterName') {
+          //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
+          setMonster((prev) => ({ ...prev, [type]: editValue }));
+        }
+
         setTimeout(() => closeModal());
       }
     } catch (err) {
@@ -67,7 +75,7 @@ const EditBox = ({
           </EditTitle>
         )}
         <TextInput
-          text={editValue}
+          text={editValue || ''}
           placeholder={originValue}
           onTextChanged={handleChangeValue}
           maxLength={10}

@@ -26,7 +26,7 @@ const BottomDialog = ({
 
 BottomDialog.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   activeButtonText: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onActive: PropTypes.func.isRequired,
@@ -35,6 +35,7 @@ BottomDialog.propTypes = {
 
 BottomDialog.defaultProps = {
   height: '202px',
+  description: '',
 };
 
 const Wrapper = styled.div`
