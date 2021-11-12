@@ -8,12 +8,6 @@ import { Statistics, Monster } from '../components/achievment';
 const Achievement = () => {
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('isFirstLogin') === 'true') {
-      return history.replace('/monster');
-    }
-  }, []);
-
   return (
     <AcheiveContainer>
       <NavButtonWrap>
