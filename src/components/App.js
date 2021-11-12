@@ -43,7 +43,7 @@ function App() {
     <Layout>
       <Route>
         <Switch>
-          <Route path="/login" comp={Login} />
+          <Route path="/login" component={Login} />
           <PrivateRoute path="/monster" comp={Monster} />
           <PrivateRoute path="/select" comp={MonsterSetting} />
           <PrivateRoute path="/guide" comp={MonsterGuide} />
