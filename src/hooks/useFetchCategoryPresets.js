@@ -1,22 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
 import { habitsState } from '../recoil/states/habit';
-import {
-  getPresetDurationStart,
-  getPresetDurationEnd,
-} from '../utils/getDuration';
 
 export default function useFetchCategoryPresets() {
   const [presets, setPresets] = useState([]);
+  console.log(presets);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
   const history = useHistory();
 
-  const [habitList, setHabitList] = useRecoilState(habitsState);
+  const setHabitList = useSetRecoilState(habitsState);
 
   useEffect(() => {
     async function getHabitPresetFromServer() {
@@ -43,27 +40,19 @@ export default function useFetchCategoryPresets() {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
 
       if (data.statusCode === OK) {
-        const originHabitList = habitList.slice();
         const selectedPresetIndex = presets.findIndex((preset) => {
           return preset.presetId === selectedPresetId;
         });
-        const selectedPreset = presets[selectedPresetIndex];
-        const durationStart = getPresetDurationStart();
-        const durationEnd = getPresetDurationEnd();
-
-        setHabitList([
-          ...originHabitList,
-          {
-            ...selectedPreset,
-            durationStart,
-            durationEnd,
-            achievePercentage: 0,
-            current: 0,
-            isAccomplished: false,
-          },
-        ]);
-        history.replace('/');
+        const defaultSettings = {
+          category: presets[selectedPresetIndex].category,
+          current: 0,
+          isAccomplished: false,
+          achievePercentage: 0,
+        };
+        const newHabit = { ...data.habitDto, ...defaultSettings };
+        setHabitList((prev) => [newHabit, ...prev]);
       }
+      history.replace('/');
     } catch (error) {
       console.error(error);
     }

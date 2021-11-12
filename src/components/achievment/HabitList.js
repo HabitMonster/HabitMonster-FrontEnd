@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { HabitItems } from './index';
 
 const HabitList = ({ habitList }) => {
+  console.log(habitList);
   return (
     <>
       {/* <HabitItems /> */}
-      {habitList.map((habit) => {
-        return <HabitItems key={habit.habitId} habit={habit} />;
+      {habitList.map((habit, index) => {
+        return <HabitItems key={index} habit={habit} />;
       })}
     </>
   );

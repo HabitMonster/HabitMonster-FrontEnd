@@ -22,7 +22,7 @@ const Statistics = () => {
     failedCount: 0,
     habitList: [],
   });
-  // 현재 탭에 해당하는 리스트 세팅하기
+
   const getCurrentList = (habitList) => {
     switch (currentListName) {
       case 'success':
