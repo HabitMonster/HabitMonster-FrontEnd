@@ -25,7 +25,7 @@ const MonsterCollection = () => {
 
   return (
     <Wrapper>
-      {!collectionList.length ? (
+      {!collectionList?.length ? (
         <NoneTextWrapper>
           <NoneTextTitle>아직 수집한 몬스터가 없어요!😭</NoneTextTitle>
           <NoneTextDescription>
