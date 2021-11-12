@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
-import { Statistics, Monster } from '../components/achievment';
+import { Statistics, MonsterCollection } from '../components/achievment';
 
 const Achievement = () => {
   const history = useHistory();
@@ -24,7 +24,11 @@ const Achievement = () => {
       </NavButtonWrap>
       <Switch>
         <Route exact path="/achievement/statistics" component={Statistics} />
-        <Route exact path="/achievement/monster" component={Monster} />
+        <Route
+          exact
+          path="/achievement/monster"
+          component={MonsterCollection}
+        />
         <Redirect from="*" to="/achievement/statistics" />
       </Switch>
     </AcheiveContainer>

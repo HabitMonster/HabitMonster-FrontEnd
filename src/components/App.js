@@ -23,6 +23,8 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
+    console.log(isFirstLogin);
+    console.log(isLogin);
     const monsterPath = ['select', 'guide', 'monster'];
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
@@ -41,23 +43,21 @@ function App() {
 
   return (
     <Layout>
-      <Route>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/monster" comp={Monster} />
-          <PrivateRoute path="/select" comp={MonsterSetting} />
-          <PrivateRoute path="/guide" comp={MonsterGuide} />
-          <>
-            <PrivateRoute exact path="/" comp={Main} />
-            <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
-            <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
-            <PrivateRoute path="/achievement" comp={Achievement} />
-            <PrivateRoute path="/new" comp={New} />
-            <PrivateRoute path="/mypage" comp={MyPage} />
-            <Gnb />
-          </>
-        </Switch>
-      </Route>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <PrivateRoute path="/monster" comp={Monster} />
+        <PrivateRoute path="/select" comp={MonsterSetting} />
+        <PrivateRoute path="/guide" comp={MonsterGuide} />
+        <>
+          <PrivateRoute exact path="/" comp={Main} />
+          <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
+          <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
+          <PrivateRoute path="/achievement" comp={Achievement} />
+          <PrivateRoute path="/new" comp={New} />
+          <PrivateRoute path="/mypage" comp={MyPage} />
+          <Gnb />
+        </>
+      </Switch>
     </Layout>
   );
 }
