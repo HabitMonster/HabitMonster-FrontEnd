@@ -59,7 +59,7 @@ const MonsterCollection = () => {
               </span>
               <span>XXXX-XX-XX 생성</span>
             </MonsterInformationWrapper>
-            <TestWrapper>
+            <ImageScroller>
               {categorizedMonsterHash[monsterName].map((monster, i) => (
                 <MonsterImageWrapper key={`${monster.monsterName} ${i}`}>
                   <MonsterThumbnail
@@ -70,7 +70,7 @@ const MonsterCollection = () => {
                   <span>LV.{monster.monsterLevel + i}</span>
                 </MonsterImageWrapper>
               ))}
-            </TestWrapper>
+            </ImageScroller>
           </EachCollectionWrapper>
         ))
       )}
@@ -110,7 +110,7 @@ const MonsterInformationWrapper = styled.div`
   font-weight: var(--font-weight-semiBold);
 `;
 
-const TestWrapper = styled.div`
+const ImageScroller = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
