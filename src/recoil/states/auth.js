@@ -1,5 +1,4 @@
 import { atom, selector } from 'recoil';
-import { getCookie } from '../../utils/cookie';
 import { auth } from '../../api';
 
 export const loginState = atom({
@@ -14,10 +13,7 @@ export const asyncDefaultAuth = selector({
   get: async () => {
     const loginStatus = {};
 
-    // const accessToken = getCookie('accessToken');
     const accessToken = window.localStorage.getItem('habitAccess');
-    console.log('before');
-    console.log('accessToken: ', accessToken);
     if (!accessToken) {
       return loginStatus;
     }
