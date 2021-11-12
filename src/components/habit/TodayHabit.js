@@ -90,7 +90,6 @@ TodayHabit.propTypes = {
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  height: 146px;
   padding: 24px 24px 24px 17px;
   margin-bottom: 16px;
   font-family: var(--font-name-apple);
@@ -124,11 +123,10 @@ const Info = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 200px;
-  height: 42px;
+  /* height: 42px; */
 `;
 
 const HabitTitle = styled.span`
-  height: 16px;
   line-height: 19.2px;
   font-size: var(--font-m);
   font-weight: var(--weight-bold);

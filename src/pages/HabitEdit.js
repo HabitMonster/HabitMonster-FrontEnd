@@ -50,11 +50,11 @@ const HabitEdit = () => {
         const editedHabitIndex = habitList.findIndex((habit) => {
           return habit.habitId === habitDetail.habitDetail.habitId;
         });
-        const editedHabitList = {
+        const editedHabit = {
           ...originHabitList[editedHabitIndex],
           ...body,
         };
-        originHabitList[editedHabitIndex] = { ...editedHabitList };
+        originHabitList[editedHabitIndex] = { ...editedHabit };
         setHabitList(originHabitList);
         history.replace('/');
       }

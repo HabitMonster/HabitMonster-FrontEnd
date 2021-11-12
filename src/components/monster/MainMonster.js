@@ -3,21 +3,10 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { monsterState } from '../../recoil/states/monster';
+import { appendPostPosition } from '../../utils/appendPostPosition';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
-
-  const isEndWithConsonant = (name) => {
-    const finalCharCode = name.charCodeAt(name.length - 1);
-    const finalConsonantCode = (finalCharCode - 44032) % 28;
-    return finalConsonantCode !== 0;
-  };
-
-  const appendPostPosition = (name) => {
-    return name + (isEndWithConsonant(name) ? '은' : '는');
-  };
-
-  console.log(monster);
 
   return (
     <>
@@ -25,7 +14,11 @@ const MainMonster = () => {
         <TitleWrapper>
           <Title>
             오늘{' '}
-            <MonsterName>{appendPostPosition(monster.monsterName)}</MonsterName>
+            <MonsterName>
+              {appendPostPosition(monster.monsterName)
+                ? `${monster.monsterName}은`
+                : `${monster.monsterName}는`}
+            </MonsterName>
           </Title>
           <Title>얼마나 실천을 했을까요?</Title>
         </TitleWrapper>

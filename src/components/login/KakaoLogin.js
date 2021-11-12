@@ -24,8 +24,6 @@ const KakaoLogin = () => {
     async function getTokenWithKakao() {
       try {
         const { data } = await auth.getSocialLogin(socialName, kakaoAuthCode);
-        // setCookie('accessToken', data.accessToken);
-        // setCookie('refreshToken', data.refreshToken);
         window.localStorage.setItem('habitAccess', data.accessToken);
         window.localStorage.setItem('habitRefresh', data.refreshToken);
 
@@ -34,7 +32,6 @@ const KakaoLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          // history.replace('/monster');
           return;
         }
 
@@ -43,7 +40,6 @@ const KakaoLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          // history.replace('/');
           return;
         }
       } catch (err) {
