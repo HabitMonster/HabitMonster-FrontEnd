@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0deg, #070707, #070707);
+  background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
 `;
 
 export default Main;

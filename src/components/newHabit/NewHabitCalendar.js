@@ -88,12 +88,15 @@ const NewHabitCalendar = ({ onClick }) => {
       <CalendarMonthPicker>
         <div>
           {!isCurrentMonth && (
-            <LeftIcon stroke="#f8f8f8" onClick={movePreviousMonth} />
+            <LeftIcon
+              stroke="var(--color-primary)"
+              onClick={movePreviousMonth}
+            />
           )}
         </div>
         <span>{renderCurrentMonth(convertYMD(startDate))}</span>
         <div>
-          <RightIcon stroke="#f8f8f8" onClick={moveNextMonth} />
+          <RightIcon stroke="var(--color-primary)" onClick={moveNextMonth} />
         </div>
       </CalendarMonthPicker>
       <CalendarRow className="week">
@@ -145,7 +148,7 @@ const CalenderWrapper = styled.div`
   width: 312px;
   text-align: center;
   background: var(--bg-primary);
-  border-radius: 12px;
+  border-radius: var(--border-radius-mideum);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -167,7 +170,7 @@ const CalendarMonthPicker = styled.div`
 
   & span {
     font-weight: var(--weight-semi-regular);
-    font-size: 18px;
+    font-size: var(--font-l);
     line-height: 22px;
     color: var(--color-primary);
   }
@@ -190,7 +193,7 @@ const CalendarRow = styled.div`
 `;
 
 const Days = styled.div`
-  font-size: 12px;
+  font-size: var(--font-xxs);
   line-height: 14px;
   color: #b3b3b3;
 `;
@@ -209,17 +212,17 @@ const Calendarcell = styled.div`
     !isInRange && isStartDate
       ? 'none'
       : isStartDate
-      ? '-moz-linear-gradient(left, transparent 50%, #1c0054 50%)'
+      ? '-moz-linear-gradient(left, transparent 50%, var(--bg-selected) 50%)'
       : isEndDate
-      ? '-moz-linear-gradient(left, #1c0054 50%, transparent 50%)'
+      ? '-moz-linear-gradient(left, var(--bg-selected) 50%, transparent 50%)'
       : isInRange
       ? 'var(--bg-selected)'
       : 'none'};
   background: ${({ isStartDate, isEndDate, isInRange }) =>
     isStartDate
-      ? '-webkit-linear-gradient(left, transparent 50%, #1c0054 50%)'
+      ? '-webkit-linear-gradient(left, transparent 50%, var(--bg-selected) 50%)'
       : isEndDate
-      ? '-webkit-linear-gradient(left, #1c0054 50%, transparent 50%)'
+      ? '-webkit-linear-gradient(left, var(--bg-selected) 50%, transparent 50%)'
       : isInRange
       ? 'var(--bg-selected)'
       : 'none'};
@@ -227,12 +230,12 @@ const Calendarcell = styled.div`
     !isInRange
       ? 'none'
       : isStartDate
-      ? 'linear-gradient(left, transparent 50%, #1c0054 50%)'
+      ? 'linear-gradient(left, transparent 50%, var(--bg-selected) 50%)'
       : isEndDate
-      ? 'linear-gradient(left, #1c0054 50%, transparent 50%)'
+      ? 'linear-gradient(left, var(--bg-selected) 50%, transparent 50%)'
       : 'var(--bg-selected)'};
 
-  font-weight: var(--font-weight-semiBold);
+  font-weight: var(--weight-semi-bold);
 
   opacity: ${({ dimmed, disabled }) => (disabled ? '0.5' : dimmed ? '0.5' : 1)};
   cursor: pointer;
@@ -247,7 +250,7 @@ const Calendarcell = styled.div`
     align-items: center;
     border-radius: ${({ isTarget }) => (isTarget ? '50%' : '0px')};
     background: ${({ isTarget }) => (isTarget ? 'var(--bg-active)' : 'none')};
-    transition: all 200ms ease-in;
+    transition: all var(--animation-duration) ease-in;
   }
 `;
 
@@ -278,7 +281,7 @@ const SaveButtons = styled.div`
     justify-content: center;
     align-items: center;
     font-size: var(--font-m);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--weight-bold);
     line-height: 22px;
     color: var(--color-primary);
     cursor: pointer;

@@ -75,7 +75,7 @@ TextInput.defaultProps = {
 };
 
 const IdleHelperText = styled.span`
-  font-size: 12px;
+  font-size: var(--font-xxs);
   line-height: 14px;
   color: rgba(248, 248, 248, 0.5);
 `;
@@ -89,11 +89,11 @@ const Input = styled.input`
   display: flex;
   align-items: center;
   padding: 4px;
-  color: #f8f8f8;
+  color: var(--color-primary);
   border: none;
   border-bottom: 1px solid
     ${({ isValidated }) =>
-      isValidated ? 'rgba(248, 248, 248, 0.3)' : '#ef2f68'};
+      isValidated ? 'rgba(248, 248, 248, 0.3)' : 'var(--color-danger)'};
   margin-bottom: 4px;
 
   transition: all 150ms ease-out;
@@ -115,14 +115,14 @@ const HelperSection = styled.div`
 
 const ErrorHelperMessage = styled.span`
   color: #ef2f68;
-  font-size: 12px;
+  font-size: var(--font-xxs);
   line-height: 14px;
 `;
 
 const LengthHelperMessage = styled.span`
   color: #fff;
   opacity: 0.6;
-  font-size: 12px;
+  font-size: var(--font-xxs);
   line-height: 14px;
 `;
 

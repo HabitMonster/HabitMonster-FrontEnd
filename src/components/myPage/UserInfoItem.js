@@ -72,7 +72,7 @@ const InfoListItem = styled.li`
 const DefaultTitle = styled.p`
   ${fontSize('15px')};
   line-height: 18px;
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   ${whiteOpacity('0.8')};
 `;
 
@@ -86,7 +86,7 @@ const ButtonWrap = styled.button`
 const PrivateText = styled.p`
   ${fontSize('14px')};
   line-height: 16px;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--weight-regular);
   color: var(--color-primary);
   ${whiteOpacity('0.8')};
 `;

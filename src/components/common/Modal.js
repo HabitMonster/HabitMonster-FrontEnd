@@ -75,16 +75,18 @@ const Backdrop = styled.div`
   bottom: 0;
   left: 0;
   background-color: ${({ blurmode }) =>
-    blurmode ? 'linear-gradient(0deg, #070707, #070707)' : 'var(--bg-done)'};
+    blurmode
+      ? 'linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper))'
+      : 'var(--bg-done)'};
   opacity: 0;
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 200ms;
+  transition-delay: var(--animation-duration);
   z-index: 10;
 
   & .modal-content {
     height: 100%;
     transform: translateY(100px);
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
   }
 

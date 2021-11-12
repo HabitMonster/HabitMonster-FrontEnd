@@ -25,7 +25,6 @@ export const monsterState = atom({
   default: asyncDefaultMonster,
 });
 
-// @jaekyung : character selection page
 const initiateMonsterSelector = selector({
   key: 'initiateMonster',
   get: async ({ get }) => {
@@ -61,8 +60,6 @@ export const getSelectedMonster = selector({
   },
 });
 
-// 세명
-// 플로우에 맞춰서 아톰을 만드신게 보이네요!
 export const monsterNameState = atom({
   key: 'monsterNameState',
   default: '',

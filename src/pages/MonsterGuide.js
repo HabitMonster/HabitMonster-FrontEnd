@@ -5,28 +5,15 @@ import styled from 'styled-components';
 
 import { MonsterThumbnail } from '../components/monster';
 import { BottomFixedButton } from '../components/common';
-import { fontSize } from '../styles';
-import {
-  getSelectedMonster,
-  monsterNameSelector,
-} from '../recoil/states/monster';
-
+import { getSelectedMonster } from '../recoil/states/monster';
 import { userState } from '../recoil/states/user';
+import { fontSize } from '../styles';
 
 const MonsterGuide = () => {
   const history = useHistory();
   const selectedMonster = useRecoilValue(getSelectedMonster);
-
-  // *세명*
-  // monsterName이라는 아톰을 저는 써보지 않으려고 했어요!
-  // 왜냐하면, userState의 monsterName이라는 것이 있으면
-
-  // const monsterName = useRecoilValue(monsterNameSelector);
-
   const user = useRecoilValue(userState);
-  console.log(user);
 
-  // 세명: 지금 이게 필요하다고 느끼지 않으면 지우셔도 됩니다!
   if (!user.monsterName) {
     history.replace('/monster');
     return;
@@ -125,14 +112,14 @@ const BigText = styled.p`
 
 const HeadText = styled.p`
   font-size: var(--font-xxl);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--weight-regular);
   line-height: 32px;
   margin-left: 24px;
 `;
 
 const HeaderName = styled.p`
   font-size: var(--font-xxl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
 `;
 
 const FixedButton = styled.button`
@@ -141,7 +128,7 @@ const FixedButton = styled.button`
   border: 0;
   outline: 0;
   color: var(--color-white);
-  font-size: var(--font-regular);
+  font-size: var(--font-l);
   font-weight: var(--weight-bold);
   line-height: 22px;
   text-align: center;

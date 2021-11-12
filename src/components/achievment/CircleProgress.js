@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { fontSize, whiteOpacity } from '../../styles';
 
-// Reference: https://wit.nts-corp.com/2021/04/23/6338
-function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
+function CircleProgress({ width, height, strokeWidth = 12, title, value }) {
   const circleX = useMemo(() => width / 2, [width]);
   const circleY = useMemo(() => height / 2, [height]);
   const circleRadius = useMemo(() => circleX - strokeWidth, []);
@@ -52,13 +52,13 @@ const CircleProgressContainer = styled.div`
 `;
 
 const CircleProgressWrap = styled.svg`
-  /* rotate로 시작점을 12시로 바꿔준다 */
   transform: rotate(-90deg);
 `;
 
 const CircleSvg = styled.circle`
   fill: none;
-  stroke: ${({ type }) => (type === 'progress' ? '#492cf1' : '#393939')};
+  stroke: ${({ type }) =>
+    type === 'progress' ? 'var(--color-statistics)' : '#393939'};
   stroke-linecap: round;
 `;
 
@@ -81,7 +81,7 @@ const DetailValue = styled.p`
   color: var(--color-primary);
   ${fontSize('44px')};
   line-height: 52px;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--weight-regular);
 `;
 
 const DetailPer = styled.span`

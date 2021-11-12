@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 import { authState } from '../recoil/states/auth';
 
 import Login from '../pages/Login';
@@ -16,6 +16,7 @@ import MonsterSetting from '../pages/MonsterSetting';
 import MonsterGuide from '../pages/MonsterGuide';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
+import OnBoard from './onBoard/OnBoard';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
