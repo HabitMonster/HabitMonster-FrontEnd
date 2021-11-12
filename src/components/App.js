@@ -32,46 +32,47 @@ function App() {
     // 여러 방면으로 테스트 해봤는데 이 방법이 제일 좋아보입니다.
     // 의견 바랍니다.
 
-    if (isMonsterPath && isLogin && !isFirstLogin) {
+    if (isMonsterPath && login && !isFirstLogin) {
       history.replace('/');
       return;
     }
 
-    if (location.pathname.includes('login') && isLogin && !isFirstLogin) {
-      history.replace('/');
-    }
+    //*판단 해주세용
+    // if (location.pathname.includes('login') && isLogin && !isFirstLogin) {
+    //   history.replace('/');
+    // }
 
-    if (isMonsterPath && isFirstLogin) {
-      history.replace('/monster');
-      return;
-    }
-
-    // if (isFirstLogin) {
+    // if (isMonsterPath && isFirstLogin) {
     //   history.replace('/monster');
     //   return;
     // }
 
-    if (isMonsterPath && isLogin) {
-      history.replace('/');
+    if (isFirstLogin) {
+      history.replace('/monster');
       return;
     }
+
+    // if (isMonsterPath && isLogin) {
+    //   history.replace('/');
+    //   return;
+    // }
   }, []);
 
   return (
     <Layout>
       <Route>
         <Switch>
-          <Route path="/login" Component={Login} />
-          <PrivateRoute path="/monster" Component={Monster} />
-          <PrivateRoute path="/select" Component={MonsterSetting} />
-          <PrivateRoute path="/guide" Component={MonsterGuide} />
+          <Route path="/login" comp={Login} />
+          <PrivateRoute path="/monster" comp={Monster} />
+          <PrivateRoute path="/select" comp={MonsterSetting} />
+          <PrivateRoute path="/guide" comp={MonsterGuide} />
           <>
-            <PrivateRoute exact path="/" Component={Main} />
+            <PrivateRoute exact path="/" comp={Main} />
             <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
             <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
-            <PrivateRoute path="/achievement" Component={Achievement} />
-            <PrivateRoute path="/new" Component={New} />
-            <PrivateRoute path="/mypage" Component={MyPage} />
+            <PrivateRoute path="/achievement" comp={Achievement} />
+            <PrivateRoute path="/new" comp={New} />
+            <PrivateRoute path="/mypage" comp={MyPage} />
             <Gnb />
           </>
         </Switch>

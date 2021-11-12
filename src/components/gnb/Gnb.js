@@ -47,6 +47,7 @@ const TabBar = styled.nav`
   bottom: 0;
   background-color: var(--bg-wrapper);
   padding: 12px 29px;
+  z-index: 1;
 `;
 
 const Navigation = styled.ul`

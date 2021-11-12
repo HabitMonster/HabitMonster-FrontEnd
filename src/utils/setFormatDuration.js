@@ -8,7 +8,7 @@ export const setFormattedDuration = (duration, type, sep) => {
     }
 
     if (x === 'M') {
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const month = ('00' + (date.getMonth() + 1)).slice(-2);
       stack.push(month);
     }
 

@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { authState } from '../../recoil/states/auth';
 
-const PrivateRoute = ({ Component, ...rest }) => {
+const PrivateRoute = ({ comp: Component, ...rest }) => {
   const { isLogin } = useRecoilValue(authState);
 
   // @SangJoon
@@ -19,7 +19,7 @@ const PrivateRoute = ({ Component, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-  Component: PropTypes.elementType,
+  comp: PropTypes.elementType,
 };
 
 export default PrivateRoute;

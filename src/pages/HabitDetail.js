@@ -21,6 +21,8 @@ import { habitApis } from '../api';
 import { OK } from '../constants/statusCode';
 
 const HabitDetail = () => {
+  // 습관을 추가하고 새로고침 하지 않은 채 디테일 페이지로 넘어오면
+  // /habit/undefined 로 찍히게 됩니다.
   const { habitId } = useParams();
   const history = useHistory();
 

@@ -48,8 +48,8 @@ export default function useFetchCategoryPresets() {
           return preset.presetId === selectedPresetId;
         });
         const selectedPreset = presets[selectedPresetIndex];
-        const durationStart = getPresetDurationEnd();
-        const durationEnd = getPresetDurationStart();
+        const durationStart = getPresetDurationStart();
+        const durationEnd = getPresetDurationEnd();
 
         setHabitList([
           ...originHabitList,

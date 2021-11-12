@@ -11,20 +11,15 @@ import CategoryImage from '../../assets/images/habit';
 import { habitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-const TodayHabit = ({ habitId }) => {
+const TodayHabit = ({ id }) => {
   const history = useHistory();
   const [targetIndex, setTargetIndex] = useState(0);
 
   const [habitList, setHabitList] = useRecoilState(habitsState);
-  const habitDetail = useRecoilValue(habitState(habitId));
+  const habitDetail = useRecoilValue(habitState(id));
 
   // @SangJoon
   // 모든 횟수를 다 채웠을 때 바로 사라지지가 않고 새로고침을 해야 사라지는 이슈가 있습니다.
-  // current가 count와 같아지면 페이지를 새로고침하도록 했습니다.
-  // 임시방편이라 생각되므로 추후 보완이 필요할 것 같습니다.
-  if (habitList[targetIndex].current === habitDetail.count) {
-    history.go(0);
-  }
 
   // @SangJoon
   // 기간, 형식(YMD, MD, D), 구분자 ('.' || '-' 등)
@@ -39,11 +34,11 @@ const TodayHabit = ({ habitId }) => {
   const clickHandler = async (e) => {
     e.stopPropagation();
     try {
-      const { data } = await habitApis.checkHabit(habitId);
+      const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
         const originHabitList = habitList.slice();
         const targetHabitIndex = habitList.findIndex((habit) => {
-          return habit.habitId === habitId;
+          return habit.habitId === id;
         });
 
         setTargetIndex(targetIndex);
@@ -61,12 +56,7 @@ const TodayHabit = ({ habitId }) => {
   };
 
   const onHabitClicked = () => {
-    history.push({
-      pathname: `/habit/${habitId}`,
-      state: {
-        habit: habitDetail,
-      },
-    });
+    history.push(`/habit/${id}`);
   };
 
   return (
@@ -93,7 +83,7 @@ const TodayHabit = ({ habitId }) => {
 };
 
 TodayHabit.propTypes = {
-  habitId: PropTypes.number,
+  id: PropTypes.number,
 };
 
 const Card = styled.div`
