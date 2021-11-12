@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { habitsState } from '../recoil/states/habit';
 
 import {
@@ -19,7 +19,7 @@ import { addHabitApis } from '../api';
 const NewHabitForm = () => {
   const history = useHistory();
   const { state: categoryState } = useLocation();
-  const [habits, setHabits] = useRecoilState(habitsState);
+  const setHabits = useSetRecoilState(habitsState);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -53,13 +53,7 @@ const NewHabitForm = () => {
       const { data } = await addHabitApis.saveHabitWithHands(body);
 
       if (data.statusCode === OK) {
-        // @SangJoon
-        // TodayHabitList에서 일어나는 문제와 같은 문제가 발생합니다.
-        // 새로고침하여 HabitId가 반영된 습관 목록을 불러오지 않는 이상
-        // 해당 습관의 habitId는 undefined로 남아있습니다.
-        // 습관을 추가할 경우 habitIdListState의 getter에서
-        // 오류가 발생합니다.
-        // setHabits([...habits, data.habitDetail]);
+        setHabits((prev) => [data.habit, ...prev]);
         history.replace('/');
       }
     } catch (error) {

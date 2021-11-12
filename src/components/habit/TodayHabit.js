@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import React, { useState, memo } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -11,12 +11,14 @@ import CategoryImage from '../../assets/images/habit';
 import { habitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
+import { useRefetchMonsterInfo } from '../../hooks';
+
 const TodayHabit = ({ id }) => {
   const history = useHistory();
-  const [targetIndex, setTargetIndex] = useState(0);
-
-  const [habitList, setHabitList] = useRecoilState(habitsState);
   const habitDetail = useRecoilValue(habitState(id));
+  const setHabitList = useSetRecoilState(habitsState);
+  const updateMonster = useRefetchMonsterInfo();
+  console.log('render');
 
   // @SangJoon
   // 모든 횟수를 다 채웠을 때 바로 사라지지가 않고 새로고침을 해야 사라지는 이슈가 있습니다.
@@ -36,19 +38,19 @@ const TodayHabit = ({ id }) => {
     try {
       const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
-        const originHabitList = habitList.slice();
-        const targetHabitIndex = habitList.findIndex((habit) => {
-          return habit.habitId === id;
+        setHabitList((prev) => {
+          const copy = prev.slice();
+          const index = prev.findIndex((habit) => habit.habitId === id);
+          copy[index] = data.habit;
+          if (data.habit.isAccomplished) {
+            copy.splice(index, 1);
+          }
+          return copy;
         });
+      }
 
-        setTargetIndex(targetIndex);
-
-        const updatedHabit = {
-          ...originHabitList[targetHabitIndex],
-          current: originHabitList[targetHabitIndex].current + 1,
-        };
-        originHabitList[targetHabitIndex] = { ...updatedHabit };
-        setHabitList(originHabitList);
+      if (data.habit.isAccomplished) {
+        updateMonster();
       }
     } catch (error) {
       console.error(error);
@@ -83,7 +85,7 @@ const TodayHabit = ({ id }) => {
 };
 
 TodayHabit.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
 };
 
 const Card = styled.div`
@@ -167,4 +169,4 @@ const CheckBtn = styled.div`
   cursor: pointer;
 `;
 
-export default TodayHabit;
+export default memo(TodayHabit);
