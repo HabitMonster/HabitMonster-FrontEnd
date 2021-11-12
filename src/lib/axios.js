@@ -32,7 +32,7 @@ instance.interceptors.response.use(
 
   async (error) => {
     // const { data: responseData, config: originalRequest } = error.response;
-    // console.log(error.response);
+    console.log(error.response);
 
     // if (responseData.statusCode === BAD_REQUEST) {
     //   try {
