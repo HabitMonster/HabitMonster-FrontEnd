@@ -24,8 +24,10 @@ const KakaoLogin = () => {
     async function getTokenWithKakao() {
       try {
         const { data } = await auth.getSocialLogin(socialName, kakaoAuthCode);
-        setCookie('accessToken', data.accessToken);
-        setCookie('refreshToken', data.refreshToken);
+        // setCookie('accessToken', data.accessToken);
+        // setCookie('refreshToken', data.refreshToken);
+        window.localStorage.setItem('habitAccess', data.accessToken);
+        window.localStorage.setItem('habitRefresh', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
           setAuth({

@@ -90,6 +90,7 @@ const Container = styled.div`
   height: 100%;
   position: relative;
   background: var(--bg-wrapper);
+  margin: 0 auto;
 `;
 
 const BackWrap = styled.div`

@@ -16,14 +16,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: red;
   width: 100%;
   height: 100%;
   background-color: transparent;
 `;
 
 const Text = styled.p`
-  font-family: Retro Gaming;
-  font-size: var(--font-xxxl);
   color: var(--color-white);
   text-align: center;
 `;
