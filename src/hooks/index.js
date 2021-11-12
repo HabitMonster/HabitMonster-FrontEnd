@@ -1,9 +1,5 @@
 import useFetchCategories from './useFetchCategories';
 import useFetchCategoryPresets from './useFetchCategoryPresets';
-import useRefreshHabitAsyncState from './useRefreshHabitAsyncState';
+import useFormatDuration from './useFormatDuration';
 
-export {
-  useFetchCategories,
-  useFetchCategoryPresets,
-  useRefreshHabitAsyncState,
-};
+export { useFetchCategories, useFetchCategoryPresets, useFormatDuration };

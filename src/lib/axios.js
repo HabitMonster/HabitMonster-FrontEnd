@@ -31,6 +31,7 @@ instance.interceptors.response.use(
 
   async (error) => {
     const { data: responseData, config: originalRequest } = error.response;
+    console.log(error.response);
 
     if (
       responseData.statusCode === UNAUTHORIZED ||

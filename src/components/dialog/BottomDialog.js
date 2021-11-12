@@ -38,7 +38,6 @@ BottomDialog.defaultProps = {
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 360px;
   height: ${({ height }) => height};
   padding: 24px 24px 0 24px;
   background: var(--bg-primary);
@@ -48,10 +47,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  left: 50%;
-  right: 50%;
   bottom: 0;
-  transform: translate(-50%, 0);
 `;
 
 const Title = styled.h2`

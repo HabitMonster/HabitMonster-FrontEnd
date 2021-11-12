@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, Redirect } from 'react-router-dom';
 
 import PrivateRoute from '../components/route/PrivateRoute';
 import NewHabitCategoryList from './NewHabitCategoryList';

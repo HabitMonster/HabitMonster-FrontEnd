@@ -1,24 +1,15 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { mainApis } from '../../api';
 
-export const habitReqIdState = atom({
-  key: 'habitReqId',
-  default: 1,
-});
-
-export const asyncDefaultHabitsState = selector({
+const asyncDefaultHabitsState = selector({
   key: 'asyncDefaultHabits',
-  get: async ({ get }) => {
-    get(habitReqIdState);
+  get: async () => {
     try {
       const { data } = await mainApis.getHabitsInfo();
       return data.habits;
     } catch (error) {
       throw error;
     }
-  },
-  set: ({ set }) => {
-    set(habitReqIdState, (id) => id + 1);
   },
 });
 
@@ -50,4 +41,11 @@ export const habitState = selectorFamily({
     (habitId) =>
     ({ get }) =>
       get(habitIdHashState)[habitId],
+});
+
+export const habitAccomplishState = atom({
+  key: 'todayHabitState',
+  default: {
+    habitId: null,
+  },
 });
