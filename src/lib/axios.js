@@ -31,46 +31,38 @@ instance.interceptors.response.use(
   },
 
   async (error) => {
-    const { data: responseData, config: originalRequest } = error.response;
-    console.log(error.response);
+    // const { data: responseData, config: originalRequest } = error.response;
+    // console.log(error.response);
 
-    if (
-      responseData.statusCode === UNAUTHORIZED ||
-      responseData.statusCode === FORBIDDEN
-    ) {
-      window.location.href = '/login';
-      return;
-    }
+    // if (responseData.statusCode === BAD_REQUEST) {
+    //   try {
+    //     const { data } = await axios({
+    //       method: 'GET',
+    //       url: `${process.env.REACT_APP_BASE_URL}user/loginCheck`,
+    //       headers: {
+    //         'Content-Type': 'application/json;charset=UTF-8',
+    //         'R-AUTH-TOKEN': `${getCookie('refreshToken')}`,
+    //       },
+    //     });
 
-    if (responseData.statusCode === BAD_REQUEST) {
-      try {
-        const { data } = await axios({
-          method: 'GET',
-          url: `${process.env.REACT_APP_BASE_URL}user/loginCheck`,
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'R-AUTH-TOKEN': `${getCookie('refreshToken')}`,
-          },
-        });
+    //     if (data.statusCode === OK) {
+    //       setCookie('accessToken', data.accessToken);
 
-        if (data.statusCode === OK) {
-          setCookie('accessToken', data.accessToken);
-
-          try {
-            originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
-            return axios(originalRequest);
-          } catch (error) {
-            return error.response.data;
-          }
-        }
-      } catch (error) {
-        if (error.response.data.statusCode === BAD_REQUEST) {
-          console.log(error.response);
-          window.location.href = '/login';
-          return;
-        }
-      }
-    }
+    //       try {
+    //         originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
+    //         return axios(originalRequest);
+    //       } catch (error) {
+    //         return error.response.data;
+    //       }
+    //     }
+    //   } catch (error) {
+    //     if (error.response.data.statusCode === BAD_REQUEST) {
+    //       console.log(error.response);
+    //       window.location.href = '/login';
+    //       return;
+    //     }
+    //   }
+    // }
     return Promise.reject(error);
   },
 );
