@@ -42,6 +42,7 @@ const Button = styled.button`
   line-height: 22px;
   color: var(--color-primary);
   transition: all 150ms ease-out;
+  cursor: pointer;
 
   &:disabled {
     background: var(--bg-disabled);
