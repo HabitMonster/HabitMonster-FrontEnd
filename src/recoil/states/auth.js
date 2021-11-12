@@ -14,7 +14,8 @@ export const asyncDefaultAuth = selector({
   get: async () => {
     const loginStatus = {};
 
-    const accessToken = getCookie('accessToken');
+    // const accessToken = getCookie('accessToken');
+    const accessToken = window.localStorage.getItem('habitAccess');
     console.log('before');
     console.log('accessToken: ', accessToken);
     if (!accessToken) {

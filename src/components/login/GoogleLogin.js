@@ -43,8 +43,10 @@ const GoogleLogin = () => {
                 //   code: googleUser.getAuthResponse().id_token,
                 // });
                 console.log('성공');
-                setCookie('accessToken', data.accessToken);
-                setCookie('refreshToken', data.refreshToken);
+                // setCookie('accessToken', data.accessToken);
+                // setCookie('refreshToken', data.refreshToken);
+                window.localStorage.setItem('habitAccess', data.accessToken);
+                window.localStorage.setItem('habitRefresh', data.refreshToken);
 
                 if (data.statusCode === OK && data.isFirstLogin) {
                   setAuth({
