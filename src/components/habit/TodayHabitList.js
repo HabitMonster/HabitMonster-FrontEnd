@@ -8,7 +8,6 @@ import { TodayHabit } from './';
 
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
-
   // @SangJoon
   // 새로 추가한 Habit의 경우 새로고침하여 새로운 API 데이터를 받기 전까지는
   // 사용자가 추가한 값 만 갖고 있습니다.

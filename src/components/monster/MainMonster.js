@@ -17,6 +17,8 @@ const MainMonster = () => {
     return name + (isEndWithConsonant(name) ? '은' : '는');
   };
 
+  console.log('render');
+
   return (
     <>
       <MonsterContainer>

@@ -2,9 +2,15 @@ import { atom, selector } from 'recoil';
 import { mainApis, monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
+export const monsterRefetchToggler = atom({
+  key: 'monsterRefetchToggler',
+  default: 0,
+});
+
 const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
-  get: async () => {
+  get: async ({ get }) => {
+    get(monsterRefetchToggler);
     try {
       const { data } = await mainApis.getMonsterInfo();
       return data.monster;

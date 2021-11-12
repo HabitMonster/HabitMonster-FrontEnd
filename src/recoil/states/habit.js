@@ -1,15 +1,15 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { mainApis } from '../../api';
 
-export const habitReqIdState = atom({
-  key: 'habitReqId',
-  default: 1,
-});
+// export const habitReqIdState = atom({
+//   key: 'habitReqId',
+//   default: 1,
+// });
 
 export const asyncDefaultHabitsState = selector({
   key: 'asyncDefaultHabits',
-  get: async ({ get }) => {
-    get(habitReqIdState);
+  get: async () => {
+    // get(habitReqIdState);
     try {
       const { data } = await mainApis.getHabitsInfo();
       return data.habits;
@@ -17,13 +17,13 @@ export const asyncDefaultHabitsState = selector({
       throw error;
     }
   },
-  set: ({ set }) => {
-    set(habitReqIdState, (id) => id + 1);
-  },
+  // set: ({ set }) => {
+  //   set(habitReqIdState, (id) => id + 1);
+  // },
 });
 
 export const habitsState = atom({
-  key: 'habits',
+  key: 'habitList',
   default: asyncDefaultHabitsState,
 });
 
