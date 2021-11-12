@@ -54,14 +54,6 @@ const MonsterSetting = () => {
             imageSize={'large'}
           />
         </ThumbnailWrap>
-
-        {/* <NameInput
-            type="text"
-            value={monsterName}
-            onChange={changeMonsterName}
-            placeholder="이름을 입력해 주세요"
-            required
-          /> */}
         <TextInput
           text={monsterName}
           placeholder="이름을 입력해 주세요"

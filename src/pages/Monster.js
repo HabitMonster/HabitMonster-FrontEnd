@@ -75,7 +75,7 @@ const Monster = () => {
 export default Monster;
 
 const AvatarContainer = styled.div`
-  background-color: var(--color-background);
+  background-color: var(--bg-wrapper);
   width: 100%;
   height: calc(100% - 64px);
 `;
@@ -124,7 +124,7 @@ const SelectList = styled.ul`
 const SelectListItem = styled.li`
   border: 1px solid
     ${(props) => (props.selected ? 'var(--color-white)' : 'transparent')};
-  border-radius: var(--border-radius-avatarItem);
+  border-radius: var(--size-border-radius);
   cursor: pointer;
   transition: border 500ms;
 `;

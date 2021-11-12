@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Route, Switch } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { authState } from '../recoil/states/auth';
 
-import Loading from '../pages/Loading';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
@@ -16,29 +16,45 @@ import MonsterSetting from '../pages/MonsterSetting';
 import MonsterGuide from '../pages/MonsterGuide';
 
 function App() {
+  const { isFirstLogin, isLogin } = useRecoilValue(authState);
+  const location = useLocation();
+  const history = useHistory();
+
+  useEffect(() => {
+    const monsterPath = ['select', 'guide', 'monster'];
+    const isMonsterPath = monsterPath.some((path) =>
+      location.pathname.includes(path),
+    );
+
+    if (isMonsterPath && login && !isFirstLogin) {
+      history.replace('/');
+      return;
+    }
+
+    if (isFirstLogin) {
+      history.replace('/monster');
+      return;
+    }
+  }, []);
+
   return (
-    <Suspense fallback={<Loading />}>
-      <RecoilRoot>
-        <Layout>
-          <Route>
-            <Switch>
-              <Route path="/login" component={Login} />
-              <PrivateRoute path="/monster" component={Monster} />
-              <PrivateRoute path="/monster" component={Monster} />
-              <PrivateRoute path="/select" component={MonsterSetting} />
-              <PrivateRoute path="/guide" component={MonsterGuide} />
-              <>
-                <PrivateRoute exact path="/" component={Main} />
-                <PrivateRoute path="/achievement" component={Achievement} />
-                <PrivateRoute path="/new" component={New} />
-                <PrivateRoute path="/mypage" component={MyPage} />
-                <Gnb />
-              </>
-            </Switch>
-          </Route>
-        </Layout>
-      </RecoilRoot>
-    </Suspense>
+    <Layout>
+      <Route>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/monster" component={Monster} />
+          <PrivateRoute path="/select" component={MonsterSetting} />
+          <PrivateRoute path="/guide" component={MonsterGuide} />
+          <>
+            <PrivateRoute exact path="/" component={Main} />
+            <PrivateRoute path="/achievement" component={Achievement} />
+            <PrivateRoute path="/new" component={New} />
+            <PrivateRoute path="/mypage" component={MyPage} />
+            <Gnb />
+          </>
+        </Switch>
+      </Route>
+    </Layout>
   );
 }
 
