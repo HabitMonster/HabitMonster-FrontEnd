@@ -15,7 +15,7 @@ const getThumbnailSize = (size) => {
     case 'mideum':
       return { width: '105px', height: '105px' };
     case 'small':
-      return { width: '64px', height: '64px' };
+      return { width: '100%', height: '100%' };
     default:
       return { width: '52px', height: '52px' };
   }

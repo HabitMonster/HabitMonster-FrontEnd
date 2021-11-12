@@ -2,21 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { SampleCategory } from '../../assets/images/main';
+import { fontSize } from '../../styles';
 
 const HabitItems = () => {
   return (
     <CardWrap>
+      <span>{success ? '완료' : '미완료'}</span>
       <CategoryWrap>
-        <Icon />
-        <HabitTitles>30분씩 걷기! 운동하자!!</HabitTitles>
-        {/* <HabitTitles>{}</HabitTitles> */}
+        <p>{title}</p>
+        <p>{archievement}</p>
       </CategoryWrap>
       <ProgressBar>
         <ProgressBarGauge />
       </ProgressBar>
       <TextWrap>
-        <Period>40번 중 40번 완료</Period>
-        <Period>2021.10.21 - 2021.12.24</Period>
+        <Period>{`${accomplishCount}/`}</Period>
+        <Period>{`${startDate} - ${endUpDate}`}</Period>
       </TextWrap>
     </CardWrap>
   );
@@ -25,20 +26,35 @@ const HabitItems = () => {
 export default HabitItems;
 
 const CardWrap = styled.div`
-  justify-content: space-between;
-  width: 360px;
-  height: 80px;
-  padding: 14px 16px;
-  background-color: var(--color-white);
-  border-radius: calc(var(--size-border-radius) * 2);
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+  width: 312px;
+  height: 112px;
+  padding: 16px 20px;
+  background-color: #1e2025;
+  border-radius: 12px;
+  box-shadow: 0px 0px 4px rgba(125, 123, 138, 0.08);
   margin-bottom: 10px;
   box-sizing: border-box;
+  span {
+    ${fontSize('12px')};
+    line-height: 14px;
+  }
+`;
+
+const Result = styled.span`
+  ${fontSize('12px')};
+  line-height: 14px;
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  p {
+    ${fontSize('16px')};
+    line-height: 19px;
+    align-items: center;
+    font-weight: var(--font-weight-bold);
+  }
 `;
 
 const Icon = styled.div`
@@ -55,7 +71,8 @@ const HabitTitles = styled.p`
   width: 212px;
   height: 16px;
   font-family: var(--font-name-apple);
-  font-size: var(--font-micro);
+  ${fontSize('16px')};
+  line-height: 19px;
   font-weight: var(--weight-bold);
 `;
 

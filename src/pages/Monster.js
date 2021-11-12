@@ -63,7 +63,6 @@ const Monster = () => {
                 <MonsterThumbnail
                   imageUrl={monster.monsterImage}
                   imageAlt={monster.monsterImage}
-                  imageSize={'small'}
                 />
               </SelectListItem>
             );
@@ -126,6 +125,7 @@ const ThumbnailWrap = styled.div`
 const SelectList = styled.ul`
   display: flex;
   justify-content: center;
+  width: 100%;
 `;
 
 const SelectListItem = styled.li`
