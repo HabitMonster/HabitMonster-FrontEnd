@@ -16,6 +16,7 @@ const SocialLogin = () => {
   if (isLogin) {
     return <Redirect to="/" />;
   }
+  console.log('socialLogin render');
 
   return (
     <BtnContainer>

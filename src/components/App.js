@@ -22,6 +22,7 @@ function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
   const location = useLocation();
   const history = useHistory();
+  console.log('app render');
 
   useEffect(() => {
     const monsterPath = ['select', 'guide', 'monster'];
