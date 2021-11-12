@@ -1,13 +1,13 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import { getCookie } from '../../utils/cookie';
+import { Route, Redirect } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { authState } from '../../recoil/states/auth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const loginCheck = getCookie('accessToken');
+  const { isLogin } = useRecoilValue(authState);
 
-  if (!loginCheck) {
+  if (!isLogin) {
     return <Redirect to="/login" />;
   }
 

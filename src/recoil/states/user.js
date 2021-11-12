@@ -6,7 +6,7 @@ const asyncDefaultUserState = selector({
   key: 'asyncDefaultUser',
   get: async () => {
     try {
-      const { data } = await mainApis.loadUserData();
+      const { data } = await mainApis.getUserInfo();
       return data.userInfo;
     } catch (error) {
       throw error;

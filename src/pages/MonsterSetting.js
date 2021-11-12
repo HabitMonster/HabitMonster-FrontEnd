@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
 import { MonsterThumbnail } from '../components/monster';
 import { BottomFixedButton } from '../components/common';
 import { TextInput } from '../components/common';
 import { monsterApis } from '../api';
-import { getSelectedMonster, monsterNameState } from '../recoil/states/monster';
+
+import {
+  getSelectedMonster,
+  monsterNameState,
+  selectedMonsterState,
+} from '../recoil/states/monster';
+
+import { authState } from '../recoil/states/auth';
 
 import { OK } from '../constants/statusCode';
 
 const MonsterSetting = () => {
   const history = useHistory();
-  const selectedMonster = useRecoilValue(getSelectedMonster);
-  const [monsterName, setMonsterName] = useRecoilState(monsterNameState);
+  const selectedMonster = useRecoilValue(selectedMonsterState);
+  const setAuth = useSetRecoilState(authState);
 
-  const changeMonsterName = (event) => {
-    setMonsterName(event.target.value);
-  };
+  // 세명
+  // 이 친구는 전역적으로 관리할 필요는 없어보여요! 이 컴포넌트 내부에만 사용하기 떄문에!
+  // const [monsterName, setMonsterName] = useRecoilState(monsterNameState);
 
+  // 이 스테이트와 함수를 커스텀 훅으로 묶을 수 있을 것 같군요! 한번 묶어서 만들어보시는게 어떨까요 재경님!
+  const [monsterName, setMonsterName] = useState('');
   const setMonsterInfo = async () => {
     const monsterInfo = {
       monsterId: selectedMonster.monsterId,
@@ -28,9 +37,11 @@ const MonsterSetting = () => {
 
     try {
       console.log('monsterInfo', monsterInfo);
+
       const { data } = await monsterApis.setMonster(monsterInfo);
       if (data.statusCode === OK) {
-        history.push('/guide');
+        setAuth({ isLogin: true, isFirstLogin: false });
+        history.replace('/guide');
       }
     } catch (error) {
       console.error(error);
@@ -64,8 +75,11 @@ const MonsterSetting = () => {
           lengthValidationMode={true}
         />
       </AvatarWrap>
-      <FixedButton onClick={setMonsterInfo}>시작하기</FixedButton>
-      {/* <BottomFixedButton text="시작하기" onClick={setMonsterInfo} /> */}
+      <BottomFixedButton
+        text="시작하기"
+        onClick={setMonsterInfo}
+        condition={() => monsterName.length && monsterName.length < 10}
+      />
     </AvatarContainer>
   );
 };
@@ -99,49 +113,4 @@ const ThumbnailWrap = styled.div`
   align-items: center;
   justify-content: center;
   padding: 30px 0 30px;
-`;
-
-const InputWrap = styled.div`
-  border: 2px solid var(--color-white);
-  border-radius: var(--border-radius-mideum);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 277px;
-  height: 46px;
-  margin: 50px auto;
-`;
-
-const NameInput = styled.input`
-  border: 0;
-  background: none;
-  color: var(--color-white);
-  font-size: var(--font-regular);
-  font-weight: bold;
-  line-height: 22px;
-  outline: 0;
-  text-align: center;
-
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-  }
-`;
-
-const FixedButton = styled.button`
-  background-color: #4d0dcd;
-  border: 0;
-  outline: 0;
-  color: var(--color-white);
-  font-size: var(--font-regular);
-  font-weight: var(--weight-bold);
-  line-height: 22px;
-  text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 64px;
-  width: 100%;
-  max-width: 480px;
-  cursor: pointer;
 `;

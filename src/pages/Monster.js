@@ -1,35 +1,38 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
+  monsterState,
   babyMonsterState,
   selectedMonsterState,
 } from '../recoil/states/monster';
 
 import { MonsterThumbnail } from '../components/monster';
+import { BottomFixedButton } from '../components/common';
 import { fontSize } from '../styles';
+
+// 이쪽에서의 플로우
+// 유저가 아바타를 클릭하면
 
 const Monster = () => {
   const history = useHistory();
   const monsterList = useRecoilValue(babyMonsterState);
-  const [selectedMonster, setSelectedMonster] =
-    useRecoilState(selectedMonsterState);
+  const setSelectedMonster = useSetRecoilState(selectedMonsterState);
+
+  // const [selectedMonster, setSelectedMonster] =
+  //   useRecoilState(selectedMonsterState);
+
+  // (semyung)
+  // lazyInitializer 함수는 주로 리턴값이 computed costly할때 사용합니다!
   const [selectedAvatar, setSelectedAvatar] = useState(() => {
     return monsterList[0];
   });
 
-  const selectAvatar = (avatar) => {
-    console.log('selectedAvatar.monsterId', avatar);
-    setSelectedAvatar(avatar);
-  };
-
-  const moveToPage = (path) => {
-    if (selectedAvatar) {
-      setSelectedMonster(selectedAvatar);
-      history.push(`/${path}`);
-    }
+  const handleSelectMonster = () => {
+    setSelectedMonster(selectedAvatar);
+    history.push('/select');
   };
 
   return (
@@ -55,7 +58,7 @@ const Monster = () => {
               <SelectListItem
                 key={monster.monsterId}
                 selected={selectedAvatar.monsterImage === monster.monsterImage}
-                onClick={() => selectAvatar(monster)}
+                onClick={() => setSelectedAvatar(monster)}
               >
                 <MonsterThumbnail
                   imageUrl={monster.monsterImage}
@@ -67,7 +70,11 @@ const Monster = () => {
           })}
         </SelectList>
       </AvatarWrap>
-      <FixedButton onClick={() => moveToPage('select')}>선택하기</FixedButton>
+      <BottomFixedButton
+        text="선택하기"
+        condition={null}
+        onClick={handleSelectMonster}
+      />
     </AvatarContainer>
   );
 };

@@ -9,10 +9,6 @@ import NewHabitPresetList from './NewHabitPresetList';
 const New = () => {
   const { path } = useRouteMatch();
 
-  // if (localStorage.getItem('isFirstLogin') === 'true') {
-  //   return <Redirect to="/monster" />;
-  // }
-
   return (
     <>
       <PrivateRoute exact path={path}>

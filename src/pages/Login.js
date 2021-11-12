@@ -7,10 +7,6 @@ import { SocialLogin, LoginTitle } from '../components/login';
 import '../assets/fonts/font.css';
 
 const Login = () => {
-  if (localStorage.getItem('isFirstLogin') === 'true') {
-    return <Redirect to="/monster" />;
-  }
-
   return (
     <React.Fragment>
       <Wrapper className="titleContainer">

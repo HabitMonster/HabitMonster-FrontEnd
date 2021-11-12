@@ -5,28 +5,38 @@ import styled from 'styled-components';
 
 import { MonsterThumbnail } from '../components/monster';
 import { BottomFixedButton } from '../components/common';
-import { monsterApis } from '../api/index';
 import { fontSize } from '../styles';
 import {
   getSelectedMonster,
   monsterNameSelector,
 } from '../recoil/states/monster';
 
+import { userState } from '../recoil/states/user';
+
 const MonsterGuide = () => {
   const history = useHistory();
   const selectedMonster = useRecoilValue(getSelectedMonster);
-  const monsterName = useRecoilValue(monsterNameSelector);
 
-  const moveToPage = (path) => {
-    history.push(`/${path}`);
-    // window.location.href = '/new';
-  };
+  // *세명*
+  // monsterName이라는 아톰을 저는 써보지 않으려고 했어요!
+  // 왜냐하면, userState의 monsterName이라는 것이 있으면
+
+  // const monsterName = useRecoilValue(monsterNameSelector);
+
+  const user = useRecoilValue(userState);
+  console.log(user);
+
+  // 세명: 지금 이게 필요하다고 느끼지 않으면 지우셔도 됩니다!
+  if (!user.monsterName) {
+    history.replace('/monster');
+    return;
+  }
 
   return (
     <AvatarContainer>
       <TitleWrap>
         <HeadText>안녕!</HeadText>
-        <HeadText> 난 {monsterName}라고 해.</HeadText>
+        <HeadText> 난 {user.monsterName}라고 해.</HeadText>
       </TitleWrap>
       <ThumbnailWrap>
         <MonsterThumbnail
@@ -49,10 +59,11 @@ const MonsterGuide = () => {
           <BigText>나와 함께 습관을 만들러 가자!</BigText>
         </TextBox>
       </TitleWrap>
-      <FixedButton onClick={() => moveToPage('new')}>
-        습관 작성하러 가기
-      </FixedButton>
-      {/* <BottomFixedButton text="습관 작성하러 가기" onClick={moveMainPage} /> */}
+      <BottomFixedButton
+        text="습관 작성하러 가기"
+        onClick={() => history.replace('/new')}
+        condition={null}
+      />
     </AvatarContainer>
   );
 };

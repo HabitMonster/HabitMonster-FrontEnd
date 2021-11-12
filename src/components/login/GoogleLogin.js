@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../../recoil/states/auth';
 
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
@@ -11,6 +13,7 @@ const GoogleLogin = () => {
   const history = useHistory();
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
+  const setAuth = useSetRecoilState(authState);
 
   useEffect(() => {
     googleSDK();
@@ -36,6 +39,10 @@ const GoogleLogin = () => {
                 );
                 setCookie('accessToken', data.accessToken);
                 setCookie('refreshToken', data.refreshToken);
+                setAuth({
+                  isLogin: true,
+                  isFirstLogin: data.isFirstLogin,
+                });
 
                 if (data.statusCode === OK && data.isFirstLogin) {
                   localStorage.setItem('isFirstLogin', data.isFirstLogin);
