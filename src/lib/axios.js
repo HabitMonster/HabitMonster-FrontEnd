@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   BAD_REQUEST,
   OK,
@@ -18,8 +19,6 @@ const setToken = (config) => {
   config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
   // config.headers['A-AUTH-TOKEN'] =
   // 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0RyIsInR5cGUiOiJHT09HTEUiLCJpYXQiOjE2MzY2MTA5NzYsImV4cCI6MTYzOTIwMjk3Nn0.BWjWfcxqnbaIB8E55WfKJg6daaUacX4PG6j6mwrJOoY';
-  config.headers['A-AUTH-TOKEN'] =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0RyIsInR5cGUiOiJHT09HTEUiLCJpYXQiOjE2MzY2MTA5NzYsImV4cCI6MTYzOTIwMjk3Nn0.BWjWfcxqnbaIB8E55WfKJg6daaUacX4PG6j6mwrJOoY';
   config.headers.withCredentials = true;
   return config;
 };
@@ -65,6 +64,7 @@ instance.interceptors.response.use(
         }
       } catch (error) {
         if (error.response.data.statusCode === BAD_REQUEST) {
+          console.log(error.response);
           window.location.href = '/login';
           return;
         }

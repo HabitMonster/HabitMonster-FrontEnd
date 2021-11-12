@@ -17,7 +17,7 @@ SubTitleOuter.propTypes = {
 };
 
 const SubTitle = styled.p`
-  font-weight: var(--font-weight-semiBold);
+  font-weight: var(--weight-semi-bold);
   color: var(--bg-selected-light);
   font-size: var(--font-xs);
   line-height: 17px;

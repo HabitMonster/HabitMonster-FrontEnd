@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 
 const Text = styled.p`
   font-family: Retro Gaming;
-  font-size: var(--font-medium);
+  font-size: var(--font-xxxl);
   color: var(--color-white);
   text-align: center;
 `;

@@ -15,6 +15,7 @@
     "recoil": "^0.4.1",
     "styled-components": "^5.3.3",
     "styled-reset": "^4.3.4",
+    "swiper": "6.8.4",
     "web-vitals": "^1.0.1",
     "wicg-inert": "^3.1.1"
   },

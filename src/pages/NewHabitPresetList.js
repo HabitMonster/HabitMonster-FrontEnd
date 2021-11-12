@@ -107,12 +107,12 @@ const Hands = styled.div`
   align-items: center;
   cursor: pointer;
 
-  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all var(--animation-duration) cubic-bezier(0.42, 0, 0.58, 1);
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & span {
     color: var(--color-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--weight-regular);
     font-size: var(--font-l);
     line-height: 22px;
     position: relative;

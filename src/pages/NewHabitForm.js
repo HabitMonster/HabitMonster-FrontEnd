@@ -115,7 +115,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
-  background: #070707;
+  background: var(--bg-wrapper);
   padding-top: 24px;
   padding-bottom: 80px;
   overflow-y: scroll;

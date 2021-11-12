@@ -1,18 +1,17 @@
-import A from '../lib/axios';
-
-// TODO
-// 1. Refactor with tokenInstance.
+import tokenInstance from '../lib/axios';
 
 export const addHabitApis = {
-  getCategoryList: () => A.get('/categories'),
-  getHabitPreset: (categoryId) => A.get(`/categories/${categoryId}/presets`),
-  saveHabitWithPreset: (presetId) => A.post(`/presets/${presetId}`),
-  saveHabitWithHands: (body) => A.post('/habits', body),
+  getCategoryList: () => tokenInstance.get('/categories'),
+  getHabitPreset: (categoryId) =>
+    tokenInstance.get(`/categories/${categoryId}/presets`),
+  saveHabitWithPreset: (presetId) => tokenInstance.post(`/presets/${presetId}`),
+  saveHabitWithHands: (body) => tokenInstance.post('/habits', body),
 };
 
 export const habitApis = {
-  checkHabit: (habitId) => A.get(`/habits/check/${habitId}`),
-  getHabitDetail: (habitId) => A.get(`/habits/${habitId}`),
-  editHabitDetail: (habitId, body) => A.patch(`/habits/${habitId}`, body),
-  deleteHabit: (habitId) => A.delete(`/habits/${habitId}`),
+  checkHabit: (habitId) => tokenInstance.get(`/habits/check/${habitId}`),
+  getHabitDetail: (habitId) => tokenInstance.get(`/habits/${habitId}`),
+  editHabitDetail: (habitId, body) =>
+    tokenInstance.patch(`/habits/${habitId}`, body),
+  deleteHabit: (habitId) => tokenInstance.delete(`/habits/${habitId}`),
 };

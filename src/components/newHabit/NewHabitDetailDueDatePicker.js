@@ -148,13 +148,14 @@ const DueDatePreset = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${({ isSelected }) => (isSelected ? 'none' : '#333333')};
+  border: 1px solid
+    ${({ isSelected }) => (isSelected ? 'none' : 'var(--color-title)')};
   border-radius: 30px;
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected)' : 'inherit'};
   color: ${({ isSelected }) =>
     isSelected ? 'var(--color-primary)' : 'var(--color-primary-deemed)'};
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--weight-regular);
   font-size: var(--font-xs);
   line-height: 17px;
   cursor: pointer;

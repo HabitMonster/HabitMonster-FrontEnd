@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Redirect } from 'react-router-dom';
 
 import { SocialLogin, LoginTitle } from '../components/login';
 
@@ -8,12 +7,12 @@ import '../assets/fonts/font.css';
 
 const Login = () => {
   return (
-    <React.Fragment>
-      <Wrapper className="titleContainer">
+    <>
+      <Wrapper>
         <LoginTitle />
         <SocialLogin />
       </Wrapper>
-    </React.Fragment>
+    </>
   );
 };
 

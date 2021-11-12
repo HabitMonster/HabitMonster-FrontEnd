@@ -65,7 +65,7 @@ const NavButton = styled(NavLink)`
   border: 1px solid transparent;
   color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
-  font-size: var(--font-micro);
+  font-size: var(--font-xs);
   font-weight: var(--weight-bold);
   outline: 0;
   line-height: 19px;

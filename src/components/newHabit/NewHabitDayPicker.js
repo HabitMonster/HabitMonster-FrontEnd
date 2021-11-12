@@ -35,7 +35,11 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
         <ChoiceAllSection allSelected={days.length === 7}>
           <CheckIcon
             opacity={days.length === 7 ? '1' : '0.5'}
-            stroke={days.length === 7 ? '#7d3cff' : '#f8f8f8'}
+            stroke={
+              days.length === 7
+                ? 'var(--bg-selected-light)'
+                : 'var(--color-primary)'
+            }
             onClick={toggleAll}
           />
           <span onClick={toggleAll}>매일(모든 요일)</span>
@@ -73,9 +77,9 @@ const ChoiceAllSection = styled.div`
     margin-left: 4px;
     margin-bottom: 18px;
     color: ${({ allSelected }) =>
-      allSelected ? '#7D3CFF' : 'rgba(248, 248, 248, 0.5)'};
-    font-weight: var(--font-weight-medium);
-    font-size: 14px;
+      allSelected ? 'var(--bg-selected-light)' : 'rgba(248, 248, 248, 0.5)'};
+    font-weight: var(--weight-regular);
+    font-size: var (--font-xs);
     line-height: 17px;
     cursor: pointer;
     transition: all 150ms ease-out;
@@ -86,16 +90,17 @@ const Item = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 30px;
-  border: ${({ selected }) => (selected ? 'none' : '1px solid #333333')};
-  background: ${({ selected }) => (selected ? '#1c0054' : 'none')};
+  border: ${({ selected }) =>
+    selected ? 'none' : '1px solid var(--color-title)'};
+  background: ${({ selected }) => (selected ? 'var(--bg-selected)' : 'none')};
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: var(--font-xs);
   line-height: 17px;
   margin-right: 5px;
   color: ${({ selected }) =>
-    selected ? '#f8f8f8' : 'rgba(248, 248, 248, 0.5)'};
+    selected ? 'var(--color-primary)' : 'rgba(248, 248, 248, 0.5)'};
   cursor: pointer;
 
   transition: all 150ms ease-out;

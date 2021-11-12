@@ -9,7 +9,6 @@ const HabitItems = () => {
       <CategoryWrap>
         <Icon />
         <HabitTitles>30분씩 걷기! 운동하자!!</HabitTitles>
-        {/* <HabitTitles>{}</HabitTitles> */}
       </CategoryWrap>
       <ProgressBar>
         <ProgressBarGauge />
@@ -30,7 +29,7 @@ const CardWrap = styled.div`
   height: 80px;
   padding: 14px 16px;
   background-color: var(--color-white);
-  border-radius: calc(var(--size-border-radius) * 2);
+  border-radius: calc(var(--border-radius-small) * 2);
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 10px;
   box-sizing: border-box;
@@ -55,7 +54,7 @@ const HabitTitles = styled.p`
   width: 212px;
   height: 16px;
   font-family: var(--font-name-apple);
-  font-size: var(--font-micro);
+  font-size: var(--font-xs);
   font-weight: var(--weight-bold);
 `;
 
@@ -84,6 +83,6 @@ const Period = styled.p`
   height: 14px;
   margin-bottom: 7px;
   font-family: var(--font-name-apple);
-  font-size: var(--font-nano);
+  font-size: var(--font-xxs);
   font-weight: var(--weight-regular);
 `;

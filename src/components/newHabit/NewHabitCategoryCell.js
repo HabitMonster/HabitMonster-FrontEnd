@@ -41,7 +41,7 @@ const GategoryWrapper = styled.div`
     margin-top: 8px;
     font-size: var(--font-xs);
     line-height: 17px;
-    font-weight: var(--font-weight-semiBold);
+    font-weight: var(--weight-semi-bold);
     text-align: center;
     ${whiteOpacity('0.8')};
   }
