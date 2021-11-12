@@ -35,13 +35,13 @@ const GoogleLogin = () => {
             async function getTokenWithGoogle() {
               console.log(googleUser);
               try {
-                // const { data } = await auth.getSocialLogin(
-                //   socialName,
-                //   googleUser.getAuthResponse().id_token,
-                // );
-                const { data } = await auth.getSocialLoginTest(socialName, {
-                  code: googleUser.getAuthResponse().id_token,
-                });
+                const { data } = await auth.getSocialLogin(
+                  socialName,
+                  googleUser.getAuthResponse().id_token,
+                );
+                // const { data } = await auth.getSocialLoginTest(socialName, {
+                //   code: googleUser.getAuthResponse().id_token,
+                // });
                 console.log('성공');
                 setCookie('accessToken', data.accessToken);
                 setCookie('refreshToken', data.refreshToken);

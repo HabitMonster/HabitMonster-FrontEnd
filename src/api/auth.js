@@ -11,7 +11,5 @@ const instance = axios.create({
 export const auth = {
   getSocialLogin: (socialName, code) =>
     instance.get(`/user/login/${socialName}?code=${code}`),
-  getSocialLoginTest: (socialName, code) =>
-    instance.post(`/user/login/${socialName}`, body),
   check: () => tokenInstance.get('/user/check'),
 };
