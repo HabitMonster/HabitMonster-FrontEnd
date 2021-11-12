@@ -15,10 +15,13 @@ export const asyncDefaultAuth = selector({
     const loginStatus = {};
 
     const accessToken = getCookie('accessToken');
-
+    console.log('before');
+    console.log('accessToken: ', accessToken);
     if (!accessToken) {
       return loginStatus;
     }
+
+    console.log('after');
 
     try {
       const { data } = await auth.check();
