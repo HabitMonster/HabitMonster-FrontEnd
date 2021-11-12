@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { MonsterThumbnail } from '../monster';
-
 import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
@@ -93,7 +92,7 @@ const EachCollectionWrapper = styled.div`
     color: var(--color-primary);
     font-size: var(--font-m);
     line-height: 20px;
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--weight-regular);
     margin-bottom: 6px;
   }
 `;
@@ -107,7 +106,7 @@ const MonsterInformationWrapper = styled.div`
   ${whiteOpacity('0.6')}
   font-size: var(--font-xs);
   line-height: 20px;
-  font-weight: var(--font-weight-semiBold);
+  font-weight: var(--weight-semi-bold);
 `;
 
 const ImageScroller = styled.div`
@@ -155,7 +154,7 @@ const NoneTextTitle = styled.h2`
   ${whiteOpacity('0.8')};
   font-size: var(--font-xxl);
   line-height: 32px;
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   margin-bottom: 16px;
 `;
 

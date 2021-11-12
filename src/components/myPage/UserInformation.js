@@ -9,13 +9,13 @@ import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 
 const UserInformation = () => {
-  const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  const myPageData = useRecoilValue(myPageDataState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
     value: myPageData.username,
-  }); // 수정할 값 (닉네임, 몬스터이름, 모달 제목)
+  });
 
   const openModal = useCallback(
     (type) => {
@@ -33,7 +33,6 @@ const UserInformation = () => {
   );
 
   const closeModal = useCallback(() => {
-    // state 초기화
     setEditData({
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,

@@ -12,17 +12,13 @@ import {
 
 import { habitState, habitsState } from '../recoil/states/habit';
 import { renderDays } from '../utils/date';
-import { Trash } from '../assets/icons/common';
 import { setFormattedDuration } from '../utils/setFormatDuration';
-
+import { Trash } from '../assets/icons/common';
 import { BottomDialog } from '../components/dialog';
-
 import { habitApis } from '../api';
 import { OK } from '../constants/statusCode';
 
 const HabitDetail = () => {
-  // 습관을 추가하고 새로고침 하지 않은 채 디테일 페이지로 넘어오면
-  // /habit/undefined 로 찍히게 됩니다.
   const { habitId } = useParams();
   const history = useHistory();
 
@@ -147,9 +143,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #070707;
+  background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
-  color: #f8f8f8;
+  color: var(--color-primary);
 `;
 
 const Wrapper = styled.div`
@@ -159,15 +155,15 @@ const Wrapper = styled.div`
   margin-bottom: 22px;
 
   & .subTitle {
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: var(--weight-semi-bold);
+    font-size: var(--font-xs);
     line-height: 16.8px;
-    color: #7d3cff;
+    color: var(--bg-selected-light);
     margin-bottom: 6px;
   }
 
   & .content {
-    font-weight: 400;
+    font-weight: var(--weight-semi-regular);
   }
 `;
 

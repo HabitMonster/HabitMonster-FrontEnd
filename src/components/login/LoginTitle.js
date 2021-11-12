@@ -38,8 +38,8 @@ const TitleContainer = styled.div`
 
 const Title = styled.p`
   color: var(--color-white);
-  font-size: 48px;
-  font-weight: 800;
+  font-size: var(--font-maximum);
+  font-weight: var(--weight-extra-bold);
 `;
 
 const Wrapper = styled.div`
@@ -63,7 +63,7 @@ const Image = styled.div`
 const SubTitle = styled.p`
   width: 213px;
   height: 17px;
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--weight-semi-regular);
   font-size: var(--font-xs);
   line-height: 16.8px;
   color: var(--color-white);

@@ -242,14 +242,12 @@ const AchieveNavBtn = styled.button`
   cursor: pointer;
   margin: 10px 0;
   padding: 0 8px;
-
   span {
     color: ${(props) =>
       !props.isActive ? 'var(—color-statistics)' : 'var(—color-white)'};
     font-size: 15px;
     font-weight: var(—weight-bold);
   }
-
   & + button {
     margin-left: 6px;
   }

@@ -78,7 +78,7 @@ const NumberInput = styled.input`
   color: var(--color-primary);
   font-size: var(--font-s);
   line-height: 18px;
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   margin-right: 13px;
 
   &::-webkit-outer-spin-button,

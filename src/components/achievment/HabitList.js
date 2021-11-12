@@ -7,9 +7,8 @@ const HabitList = ({ habitList }) => {
   console.log(habitList);
   return (
     <>
-      {/* <HabitItems /> */}
-      {habitList.map((habit, index) => {
-        return <HabitItems key={index} habit={habit} />;
+      {habitList.map((habit) => {
+        return <HabitItems key={habit.habitId} habit={habit} />;
       })}
     </>
   );

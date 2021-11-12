@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { GoogleLogin, KakaoLogin, NaverLogin } from './';
-import { useRecoilValue } from 'recoil';
 import { authState } from '../../recoil/states/auth';
 
 const SocialLogin = () => {

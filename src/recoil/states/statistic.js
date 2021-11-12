@@ -1,7 +1,6 @@
 import { atom, selector } from 'recoil';
 
 import { formatMonth } from '../../utils/date';
-
 import { statisticApi } from '../../api';
 import { OK } from '../../constants/statusCode';
 
@@ -18,7 +17,7 @@ export const currentListNameState = atom({
 export const getStatistic = selector({
   key: 'getStatistic',
   get: async ({ get }) => {
-    const currentDate = get(currentDateState); // currentDate가 바뀌면 비동기 요청 실행
+    const currentDate = get(currentDateState);
     if (!currentDate) return null;
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);

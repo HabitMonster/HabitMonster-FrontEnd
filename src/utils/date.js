@@ -135,9 +135,6 @@ export const getRangeBetweenTwoDates = (previousDateString, nextDateString) => {
   return difference / ONE_DAY + 1;
 };
 
-// base: practiceDays<String>
-// id: the dayId<Number>
-
 export const toggleDay = (base, id) => {
   if (!base.length) {
     return String(id);
@@ -173,7 +170,6 @@ export const toggleDay = (base, id) => {
   return [...arr.slice(0, index), id, ...arr.slice(index)].join('');
 };
 
-// @semyung: days => practiceDays<string>
 export const renderDays = (days) => {
   if (days.length === 7) {
     return '매일';
@@ -183,7 +179,6 @@ export const renderDays = (days) => {
   return Array.from(days, (dayIndex) => week[dayIndex]).join(' ');
 };
 
-// @jaekyung: amount만큼 월을 더해주기
 export const addMonths = (date, amount) => {
   const tempDate = date ? date : new Date();
   const year = tempDate.getFullYear();
@@ -192,7 +187,7 @@ export const addMonths = (date, amount) => {
 
   return new Date(year, month + amount, day);
 };
-// @semyung
+
 export const addMonths2 = (date, months) => {
   const expectedMonth = (((date.getMonth() + months) % 12) + 12) % 12;
   let result = new Date(date);
@@ -204,7 +199,7 @@ export const addMonths2 = (date, months) => {
 
   return result;
 };
-// @jaekyung: amount만큼 월을 빼주기
+
 export const subMonths = (date, amount) => {
   const tempDate = date ? date : new Date();
   const year = tempDate.getFullYear();
@@ -214,7 +209,6 @@ export const subMonths = (date, amount) => {
   return new Date(year, month - amount, day);
 };
 
-// @jaekyung: format에 맞는 날짜 정해주기
 export const formatMonth = (date, format) => {
   const tempDate = new Date(date);
   const year = tempDate.getFullYear();

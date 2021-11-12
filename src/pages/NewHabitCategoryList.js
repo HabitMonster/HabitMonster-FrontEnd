@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -7,25 +7,18 @@ import {
   NewHabitCategoryGrid,
   NewHabitCategoryHelperText,
 } from '../components/newHabit';
-
-import CATEGORIES from '../assets/images/habit';
-
-import { useFetchCategories } from '../hooks';
-
-// 테스팅용 모달
-
 import { Modal } from '../components/common';
 import { BottomDialog } from '../components/dialog';
+import { useFetchCategories } from '../hooks';
+
+import CATEGORIES from '../assets/images/habit';
 
 const NewHabitCategoryList = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
   const categories = useFetchCategories();
 
-  // 화면나가기 모달 state
   const [modalOpen1, setModalOpen1] = useState(false);
-
-  // 삭제하기 모달 state
   const [modalOpen2, setModalOpen2] = useState(false);
 
   return (
@@ -55,9 +48,7 @@ const NewHabitCategoryList = () => {
             title="작성 중인 화면에서 나갈까요?"
             description="현재 작성한 내용은 저장되지 않아요. 저희가 더 노력해서 저장하기 만들어볼게요!"
             activeButtonText="나갈래요"
-            // 아니요 버튼을 클릭했을 때 실행할 함수를 onClose에 넣어주면 됩니다.
             onClose={() => setModalOpen1(false)}
-            // 보라색 버튼을 클릭했을 때 실행할 함수를 onActive에 넣어주면 됩니다.
             onActive={() => console.log('로그 확인')}
           />
         </Modal>

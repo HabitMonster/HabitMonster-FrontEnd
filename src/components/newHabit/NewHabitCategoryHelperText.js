@@ -20,22 +20,22 @@ const Wrapper = styled.div`
   margin-bottom: 32px;
 
   & h2 {
-    font-weight: var(--font-weight-medium);
-    font-size: var(--font-semi-medium);
+    font-weight: var(--weight-regular);
+    font-size: var(--font-xxl);
     line-height: 32px;
     letter-spacing: 0.374px;
     color: var(--color-white);
     margin-bottom: 8px;
 
     & b {
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--weight-bold);
     }
   }
 
   & p {
     color: var(--color-white);
     opacity: 0.8;
-    font-size: var(--font-micro);
+    font-size: var(--font-xs);
     line-height: 17px;
     letter-spacing: 0.374px;
   }

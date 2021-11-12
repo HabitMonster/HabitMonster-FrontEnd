@@ -7,7 +7,7 @@ import { Back } from '../../assets/icons/common';
 const BackButtonHeader = ({ onButtonClick, pageTitleText }) => {
   return (
     <Wrapper>
-      <Back fill="#f8f8f8" onClick={() => onButtonClick()} />
+      <Back fill="var(--color-primary)" onClick={() => onButtonClick()} />
       {pageTitleText && <PageTitle>{pageTitleText}</PageTitle>}
     </Wrapper>
   );
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 `;
 
 const PageTitle = styled.h1`
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--weight-regular);
   font-size: var(--font-l);
   line-height: 21.6px;
   margin-left: 4px;
