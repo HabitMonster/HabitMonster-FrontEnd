@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
+import {
+  BackButtonHeader,
+  TextInput,
+  BottomFixedButton,
+  Modal,
+} from '../common';
 import { myPageDataState } from '../../recoil/states/user';
 
 import { myPageApis } from '../../api';
 import { fontSize } from '../../styles';
 import { OK } from '../../constants/statusCode';
-import { fromUnixTime } from 'date-fns';
+import { BottomDialog } from '../dialog';
 
 const EditBox = ({
   type,
@@ -36,7 +41,7 @@ const EditBox = ({
       if (data.statusCode === OK) {
         alert('변경되었습니다!');
         setEditValue((myPageData) => ({ ...myPageData, [type]: editValue }));
-        closeModal();
+        setTimeout(() => closeModal());
       }
     } catch (err) {
       console.error(err);
@@ -47,10 +52,7 @@ const EditBox = ({
     <Container>
       <PositionWrap>
         <BackWrap>
-          <BackButtonHeader
-            onButtonClick={closeModal}
-            // pageTitleText={pageTitleText}
-          />
+          <BackButtonHeader onButtonClick={closeModal} />
         </BackWrap>
         {type === 'username' && (
           <EditTitle>
@@ -84,7 +86,7 @@ const EditBox = ({
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 360px;
   height: 100%;
   position: relative;
   background: var(--bg-wrapper);

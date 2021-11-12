@@ -6,7 +6,6 @@ import NavigationTab from './NavigationTab';
 import SubTitleOuter from './SubTitleOuter';
 import TextInput from './TextInput';
 import BottomFixedButton from './BottomFixedButton';
-import BottomPopup from './BottomPopup';
 
 export {
   BackButtonHeader,
@@ -16,5 +15,4 @@ export {
   SubTitleOuter,
   TextInput,
   BottomFixedButton,
-  BottomPopup,
 };

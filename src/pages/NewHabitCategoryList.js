@@ -49,11 +49,6 @@ const NewHabitCategoryList = () => {
           />
         ))}
       </NewHabitCategoryGrid>
-      {/* 이 클릭 핸들러로 모달 토글함. */}
-      {/* onClick Prop 자체를 복사하셔도 됨 */}
-      {/* <button onClick={() => setModalOpen1(true)}>
-        나가기 버튼 클릭하는거.
-      </button> */}
       {modalOpen1 && (
         <Modal open={modalOpen1} onClose={() => setModalOpen1(false)}>
           <BottomDialog
@@ -67,7 +62,6 @@ const NewHabitCategoryList = () => {
           />
         </Modal>
       )}
-      {/* <button onClick={() => setModalOpen2(true)}>이건 지우는 버튼임</button> */}
       {modalOpen2 && (
         <Modal open={modalOpen2} onClose={() => setModalOpen2(false)}>
           <BottomDialog
