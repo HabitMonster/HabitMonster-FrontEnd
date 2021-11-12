@@ -1,22 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { fontSize } from '../../styles';
 import { SampleCategory } from '../../assets/images/main';
+import { habitState } from '../../recoil/states/habit';
+import Achievement from '../../pages/Achievement';
 
-const HabitItems = () => {
+const HabitItems = ({ habit }) => {
+  const {
+    title,
+    startDate,
+    endUPDate,
+    success,
+    accomplishCount,
+    goalCount,
+    archievement,
+  } = habit;
+
   return (
     <CardWrap>
+      <ResultText>{success ? '완료' : '미완료'}</ResultText>
       <CategoryWrap>
-        <Icon />
-        <HabitTitles>30분씩 걷기! 운동하자!!</HabitTitles>
-        {/* <HabitTitles>{}</HabitTitles> */}
+        <HabitTitles>{title}</HabitTitles>
+        <HabitTitles>{archievement ? `${archievement}%` : '0%'}</HabitTitles>
       </CategoryWrap>
+
       <ProgressBar>
         <ProgressBarGauge />
       </ProgressBar>
       <TextWrap>
-        <Period>40번 중 40번 완료</Period>
-        <Period>2021.10.21 - 2021.12.24</Period>
+        <Period>
+          {!goalCount ? '0' : goalCount} / {accomplishCount}
+        </Period>
+        <Period>
+          {startDate} ~ {endUPDate}
+        </Period>
       </TextWrap>
     </CardWrap>
   );
@@ -25,38 +44,35 @@ const HabitItems = () => {
 export default HabitItems;
 
 const CardWrap = styled.div`
-  justify-content: space-between;
-  width: 360px;
-  height: 80px;
+  display: flex;
+  flex-direction: column;
+  width: 312px;
+  height: 128px;
   padding: 14px 16px;
-  background-color: var(--color-white);
-  border-radius: calc(var(--size-border-radius) * 2);
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
-  margin-bottom: 10px;
+  background-color: #1e2025;
+  border-radius: 12px;
+  margin: 6px auto;
   box-sizing: border-box;
+`;
+
+const ResultText = styled.span`
+  color: #8e72ca;
+  ${fontSize('12px')};
+  line-height: 14px;
+  font-weight: var(--weight-regular);
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
-const Icon = styled.div`
-  width: 32px;
-  height: 32px;
-  margin-right: 12px;
-  background-image: url(${SampleCategory});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
-
 const HabitTitles = styled.p`
-  width: 212px;
-  height: 16px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-micro);
-  font-weight: var(--weight-bold);
+  ${fontSize('16px')};
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: 19px;
 `;
 
 const TextWrap = styled.div`
@@ -66,24 +82,32 @@ const TextWrap = styled.div`
 `;
 
 const ProgressBar = styled.div`
-  width: 292px;
+  width: 280px;
   height: 8px;
   background-color: var(--color-progressbar);
   border-radius: var(--border-radius-progress);
+  margin: 15px 0;
 `;
 
 const ProgressBarGauge = styled.div`
   width: 39px;
   height: 8px;
-  background-color: var(--color-main);
+  background-color: #ef2f68;
   border-radius: var(--border-radius-progress);
 `;
 
 const Period = styled.p`
-  width: 256px;
-  height: 14px;
-  margin-bottom: 7px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-nano);
-  font-weight: var(--weight-regular);
+  ${fontSize('12px')};
+  line-height: 14px;
+  color: var(--color-primary);
 `;
+
+HabitItems.propTypes = {
+  habit: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endUPDate: PropTypes.string,
+  success: PropTypes.bool.isRequired,
+  accomplishCount: PropTypes.number.isRequired,
+  archievement: PropTypes.number.isRequired,
+};
