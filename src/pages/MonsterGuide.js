@@ -7,6 +7,7 @@ import { MonsterThumbnail } from '../components/monster';
 import { BottomFixedButton } from '../components/common';
 import { getSelectedMonster } from '../recoil/states/monster';
 import { userState } from '../recoil/states/user';
+import { appendPostPosition } from '../utils/appendPostPosition';
 import { fontSize } from '../styles';
 
 const MonsterGuide = () => {
@@ -23,7 +24,13 @@ const MonsterGuide = () => {
     <AvatarContainer>
       <TitleWrap>
         <HeadText>안녕!</HeadText>
-        <HeadText> 난 {user.monsterName}라고 해.</HeadText>
+        <HeadText>
+          난{' '}
+          {appendPostPosition(user.monsterName)
+            ? `${user.monsterName}이`
+            : `${user.monsterName}`}
+          라고 해.
+        </HeadText>
       </TitleWrap>
       <ThumbnailWrap>
         <MonsterThumbnail
