@@ -55,12 +55,12 @@ const Wrapper = styled.div`
   padding: 16px 24px;
   margin-bottom: 12px;
 
-  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all var(--animation-duration) cubic-bezier(0.42, 0, 0.58, 1);
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & p {
     color: var(--color-primary);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--weight-bold);
     font-size: var(--font-l);
     line-height: 22px;
     margin-bottom: 4px;
@@ -85,7 +85,7 @@ const Chip = styled.div`
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected-light)' : '#313339'};
   border-radius: 4px;
-  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all var(--animation-duration) cubic-bezier(0.42, 0, 0.58, 1);
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & div {

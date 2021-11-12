@@ -20,11 +20,6 @@ const TodayHabit = ({ id }) => {
   const updateMonster = useRefetchMonsterInfo();
   console.log('render');
 
-  // @SangJoon
-  // 모든 횟수를 다 채웠을 때 바로 사라지지가 않고 새로고침을 해야 사라지는 이슈가 있습니다.
-
-  // @SangJoon
-  // 기간, 형식(YMD, MD, D), 구분자 ('.' || '-' 등)
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
     'MD',
@@ -132,13 +127,13 @@ const HabitTitle = styled.span`
   height: 16px;
   line-height: 19.2px;
   font-size: var(--font-m);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
 `;
 
 const Period = styled.p`
   width: 256px;
   height: 14px;
-  font-size: var(--font-nano);
+  font-size: var(--font-xxs);
   font-weight: var(--weight-regular);
   opacity: 0.6;
 `;
@@ -152,7 +147,7 @@ const Count = styled.span`
   line-height: 16.8px;
   font-family: var(--font-name-apple);
   font-size: var(--font-xs);
-  font-weight: var(--font-weight-semiBold);
+  font-weight: var(--weight-semi-bold);
 `;
 
 const CheckBtn = styled.div`

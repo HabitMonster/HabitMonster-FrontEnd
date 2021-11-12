@@ -8,14 +8,15 @@ import {
   NewHabitDetailDescription,
   NewHabitFrequencySection,
 } from '../components/newHabit';
-import { BackButtonHeader, BottomFixedButton } from '../components/common';
+import {
+  BackButtonHeader,
+  BottomFixedButton,
+  Modal,
+} from '../components/common';
+import { BottomDialog } from '../components/dialog';
 
 import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
-
-import { Modal } from '../components/common';
-import { BottomDialog } from '../components/dialog';
-
 import { habitsState } from '../recoil/states/habit';
 
 const HabitEdit = () => {
@@ -121,7 +122,7 @@ const Wrapper = styled.div`
   height: 100vh;
   position: relative;
   font-family: var(--font-name-apple);
-  background: #070707;
+  background: var(--bg-wrapper);
   padding-top: 24px;
   padding-bottom: 80px;
   overflow-y: scroll;

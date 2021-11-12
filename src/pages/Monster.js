@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
-  monsterState,
   babyMonsterState,
   selectedMonsterState,
 } from '../recoil/states/monster';
@@ -13,19 +12,10 @@ import { MonsterThumbnail } from '../components/monster';
 import { BottomFixedButton } from '../components/common';
 import { fontSize } from '../styles';
 
-// 이쪽에서의 플로우
-// 유저가 아바타를 클릭하면
-
 const Monster = () => {
   const history = useHistory();
   const monsterList = useRecoilValue(babyMonsterState);
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);
-
-  // const [selectedMonster, setSelectedMonster] =
-  //   useRecoilState(selectedMonsterState);
-
-  // (semyung)
-  // lazyInitializer 함수는 주로 리턴값이 computed costly할때 사용합니다!
   const [selectedAvatar, setSelectedAvatar] = useState(() => {
     return monsterList[0];
   });
@@ -96,14 +86,14 @@ const TitleWrap = styled.div``;
 
 const Title = styled.h2`
   color: var(--color-white);
-  font-size: var(--font-semi-medium);
+  font-size: var(--font-xxl);
   font-weight: var(--weight-bold);
   line-height: 32px;
 `;
 
 const WeightText = styled.span`
   color: var(--color-white);
-  font-size: var(--font-semi-medium);
+  font-size: var(--font-xxl);
   font-weight: var(--weight-regular);
   line-height: 32px;
 `;
@@ -131,7 +121,7 @@ const SelectList = styled.ul`
 const SelectListItem = styled.li`
   border: 1px solid
     ${(props) => (props.selected ? 'var(--color-white)' : 'transparent')};
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-small);
   cursor: pointer;
   transition: border 500ms;
 `;
@@ -141,7 +131,7 @@ const FixedButton = styled.button`
   border: 0;
   outline: 0;
   color: var(--color-white);
-  font-size: var(--font-regular);
+  font-size: var(--font-l);
   font-weight: var(--weight-bold);
   line-height: 22px;
   text-align: center;

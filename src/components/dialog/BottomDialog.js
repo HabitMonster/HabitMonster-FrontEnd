@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { whiteOpacity } from '../../styles/Mixin';
 
 const BottomDialog = ({
@@ -55,7 +56,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   font-size: var(--font-l);
   line-height: 24px;
   color: var(--color-primary);
@@ -84,7 +85,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   font-size: var(--font-s);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   line-height: 18px;
   color: ${({ active }) =>
     active ? 'var(--color-white)' : 'rgba(255, 255, 255, 0.8)'};

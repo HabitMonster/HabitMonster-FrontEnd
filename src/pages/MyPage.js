@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
-
 import styled from 'styled-components';
 
 import { fontSize, whiteOpacity } from '../styles';
@@ -66,7 +65,7 @@ const NavButton = styled(NavLink)`
   cursor: pointer;
   ${fontSize('16px')};
   ${whiteOpacity('0.6')};
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--weight-semi-regular);
   outline: 0;
   line-height: 19px;
   text-decoration: none;

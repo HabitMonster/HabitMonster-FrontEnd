@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../../recoil/states/auth';
 
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
@@ -13,6 +15,7 @@ const NaverLogin = () => {
   const history = useHistory();
   const naverRef = useRef();
   const socialName = 'naver';
+  const setAuth = useSetRecoilState(authState);
 
   useEffect(() => {
     initializeNaverLogin();
@@ -49,12 +52,19 @@ const NaverLogin = () => {
         setCookie('refreshToken', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
-          localStorage.setItem('isFirstLogin', data.isFirstLogin);
+          setAuth({
+            isLogin: true,
+            isFirstLogin: data.isFirstLogin,
+          });
           history.replace('/monster');
           return;
         }
 
         if (data.statusCode === OK && !data.isFirstLogin) {
+          setAuth({
+            isLogin: true,
+            isFirstLogin: data.isFirstLogin,
+          });
           history.replace('/');
           return;
         }
@@ -109,7 +119,7 @@ const SocialTitle = styled.span`
   margin: 0 auto;
   line-height: 24px;
   font-family: Noto Sans KR Medium;
-  font-size: var(--font-small);
+  font-size: var(--font-m);
 `;
 
 export default NaverLogin;

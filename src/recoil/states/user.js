@@ -1,6 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import { mainApis } from '../../api';
-import { myPageApis } from '../../api';
+import { mainApis, myPageApis } from '../../api';
 
 const asyncDefaultUserState = selector({
   key: 'asyncDefaultUser',
@@ -18,8 +17,6 @@ export const userState = atom({
   key: 'user',
   default: asyncDefaultUserState,
 });
-
-//@jaekyung Mypage api
 
 const myPageDataSelector = selector({
   key: 'myPageDataSelector',

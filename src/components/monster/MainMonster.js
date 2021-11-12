@@ -17,7 +17,7 @@ const MainMonster = () => {
     return name + (isEndWithConsonant(name) ? '은' : '는');
   };
 
-  console.log('render');
+  console.log(monster);
 
   return (
     <>
@@ -65,7 +65,7 @@ const TitleWrapper = styled.div`
 const Title = styled.p`
   font-family: var(--font-name-apple);
   font-weight: var(--weight-regular);
-  font-size: var(--font-semi-medium);
+  font-size: var(--font-xxl);
   line-height: 32px;
   color: var(--color-primary);
 `;
@@ -100,7 +100,7 @@ const MonsterLevel = styled.span`
   left: 24px;
   margin-bottom: 6px;
   font-family: var(--font-name-apple);
-  font-size: var(--font-micro);
+  font-size: var(--font-xs);
   font-weight: var(--weight-semi-bold);
   line-height: 17px;
   color: var(--color-primary);
@@ -119,14 +119,14 @@ const ExpWrapper = styled.div`
 
 const Exp = styled.p`
   font-family: Apple SD Gothic Neo;
-  font-size: var(--font-xxxl);
+  font-size: var(--font-xxxxl);
   font-weight: var(--weight-regular);
   color: var(--color-primary);
   line-height: 53px;
 `;
 
 const Percentage = styled.span`
-  font-size: var(--font-micro);
+  font-size: var(--font-xs);
   line-height: 17px;
   margin-left: 4px;
   opacity: 0.8;

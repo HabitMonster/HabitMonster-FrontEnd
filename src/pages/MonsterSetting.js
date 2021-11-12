@@ -8,11 +8,7 @@ import { BottomFixedButton } from '../components/common';
 import { TextInput } from '../components/common';
 import { monsterApis } from '../api';
 
-import {
-  getSelectedMonster,
-  monsterNameState,
-  selectedMonsterState,
-} from '../recoil/states/monster';
+import { selectedMonsterState } from '../recoil/states/monster';
 
 import { authState } from '../recoil/states/auth';
 
@@ -23,12 +19,8 @@ const MonsterSetting = () => {
   const selectedMonster = useRecoilValue(selectedMonsterState);
   const setAuth = useSetRecoilState(authState);
 
-  // 세명
-  // 이 친구는 전역적으로 관리할 필요는 없어보여요! 이 컴포넌트 내부에만 사용하기 떄문에!
-  // const [monsterName, setMonsterName] = useRecoilState(monsterNameState);
-
-  // 이 스테이트와 함수를 커스텀 훅으로 묶을 수 있을 것 같군요! 한번 묶어서 만들어보시는게 어떨까요 재경님!
   const [monsterName, setMonsterName] = useState('');
+
   const setMonsterInfo = async () => {
     const monsterInfo = {
       monsterId: selectedMonster.monsterId,
@@ -36,8 +28,6 @@ const MonsterSetting = () => {
     };
 
     try {
-      console.log('monsterInfo', monsterInfo);
-
       const { data } = await monsterApis.setMonster(monsterInfo);
       if (data.statusCode === OK) {
         setAuth({ isLogin: true, isFirstLogin: false });
@@ -103,7 +93,7 @@ const TitleWrap = styled.div``;
 
 const Title = styled.h2`
   color: var(--color-white);
-  font-size: var(--font-semi-medium);
+  font-size: var(--font-xxl);
   font-weight: var(--weight-bold);
   line-height: 32px;
 `;

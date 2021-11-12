@@ -1,9 +1,9 @@
-import instance from '../lib/axios';
+import tokenInstance from '../lib/axios';
 
 export const mainApis = {
-  getMainInfo: () => instance.get('/main'),
-  getMonsterInfo: () => instance.get('/user/monster'),
-  getUserInfo: () => instance.get('/user/info'),
-  getHabitsInfo: () => instance.get('/user/habits'),
-  checkLogin: () => instance.get('/user/check'),
+  getMainInfo: () => tokenInstance.get('/main'),
+  getMonsterInfo: () => tokenInstance.get('/user/monster'),
+  getUserInfo: () => tokenInstance.get('/user/info'),
+  getHabitsInfo: () => tokenInstance.get('/user/habits'),
+  checkLogin: () => tokenInstance.get('/user/check'),
 };

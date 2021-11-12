@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../../recoil/states/auth';
 
 import { auth } from '../../api';
 import { setCookie } from '../../utils/cookie';
 import { KakaoSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 
-const { Kakao } = window;
-
 const KakaoLogin = () => {
   const history = useHistory();
   const socialName = 'kakao';
+  const setAuth = useSetRecoilState(authState);
 
   useEffect(() => {
     if (!window.location.search) {
       return;
     }
+
     const kakaoAuthCode = window.location.search.split('=')[1];
 
     async function getTokenWithKakao() {
@@ -26,13 +28,20 @@ const KakaoLogin = () => {
         setCookie('refreshToken', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
-          localStorage.setItem('isFirstLogin', data.isFirstLogin);
-          history.replace('/monster');
+          setAuth({
+            isLogin: true,
+            isFirstLogin: data.isFirstLogin,
+          });
+          // history.replace('/monster');
           return;
         }
 
         if (data.statusCode === OK && !data.isFirstLogin) {
-          history.replace('/');
+          setAuth({
+            isLogin: true,
+            isFirstLogin: data.isFirstLogin,
+          });
+          // history.replace('/');
           return;
         }
       } catch (err) {
@@ -42,10 +51,8 @@ const KakaoLogin = () => {
     getTokenWithKakao();
   }, []);
 
-  const loginWithKakao = async () => {
-    await Kakao.Auth.authorize({
-      redirectUri: process.env.REACT_APP_LOGIN_REDIRECT_URI,
-    });
+  const loginWithKakao = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_LOGIN_REDIRECT_URI}&response_type=code`;
   };
 
   return (
@@ -88,7 +95,7 @@ const SocialTitle = styled.span`
   margin: 0 auto;
   line-height: 24px;
   font-family: Noto Sans KR Medium;
-  font-size: var(--font-small);
+  font-size: var(--font-m);
 `;
 
 export default KakaoLogin;
