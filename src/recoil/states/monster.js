@@ -21,7 +21,7 @@ export const monsterState = atom({
 
 // @jaekyung : character selection page
 const initiateMonsterSelector = selector({
-  key: 'initialMonster',
+  key: 'initiateMonster',
   get: async ({ get }) => {
     try {
       const { data, status } = await monsterApis.loadStartMonster();

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import { Statistics, Monster } from '../components/achievment';
 
 const Achievement = () => {
+  const history = useHistory();
+
   return (
     <AcheiveContainer>
       <NavButtonWrap>
@@ -31,17 +34,18 @@ const Achievement = () => {
 export default Achievement;
 
 const AcheiveContainer = styled.div`
+  background-color: var(--bg-wrapper);
   width: 100%;
   height: calc(100% - 64px);
   flex: 1 1 0;
 `;
 
 const NavButtonWrap = styled.ul`
-  border-bottom: 1px solid var(--color-deemed2);
+  border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-top: 52px;
 `;
 
 const NavButtonItem = styled.li`
@@ -57,21 +61,21 @@ const NavButton = styled(NavLink)`
   background-color: transparent;
   border: 0;
   border: 1px solid transparent;
-  color: var(--color-deemed);
+  color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
   font-size: var(--font-micro);
   font-weight: var(--weight-bold);
   outline: 0;
-  line-height: 34px;
+  line-height: 19px;
   text-decoration: none;
 
   &:hover {
-    color: var(--color-main);
-    border-bottom: 3px solid var(--color-main);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
   }
 
   &.active {
-    color: var(--color-main);
-    border-bottom: 3px solid var(--color-main);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
   }
 `;

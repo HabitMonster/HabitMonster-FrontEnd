@@ -1,5 +1,5 @@
 import instance from '../lib/axios';
 
 export const statisticApi = {
-  getStatistics: (date) => A.get(`/statistics?date=${date}`),
+  getStatistics: (date) => instance.get(`/statistics?date=${date}`),
 };

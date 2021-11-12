@@ -28,41 +28,22 @@ function App() {
       location.pathname.includes(path),
     );
 
-    // @SangJoon
-    // 여러 방면으로 테스트 해봤는데 이 방법이 제일 좋아보입니다.
-    // 의견 바랍니다.
-
-    if (isMonsterPath && login && !isFirstLogin) {
+    if (isMonsterPath && isLogin && !isFirstLogin) {
       history.replace('/');
       return;
     }
-
-    //*판단 해주세용
-    // if (location.pathname.includes('login') && isLogin && !isFirstLogin) {
-    //   history.replace('/');
-    // }
-
-    // if (isMonsterPath && isFirstLogin) {
-    //   history.replace('/monster');
-    //   return;
-    // }
 
     if (isFirstLogin) {
       history.replace('/monster');
       return;
     }
-
-    // if (isMonsterPath && isLogin) {
-    //   history.replace('/');
-    //   return;
-    // }
   }, []);
 
   return (
     <Layout>
       <Route>
         <Switch>
-          <Route path="/login" comp={Login} />
+          <Route path="/login" component={Login} />
           <PrivateRoute path="/monster" comp={Monster} />
           <PrivateRoute path="/select" comp={MonsterSetting} />
           <PrivateRoute path="/guide" comp={MonsterGuide} />
@@ -81,7 +62,6 @@ function App() {
   );
 }
 
-// 컨텐츠가 많지 않으면 아래쪽이 비는건 어쩔 수 없다 백그라운드를 채워 주어야 하는데 어쯔라고..
 const Layout = styled.div`
   background: var(--bg-wrapper);
   display: flex;
