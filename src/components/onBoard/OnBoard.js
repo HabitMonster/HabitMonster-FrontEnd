@@ -15,8 +15,11 @@ import { BottomFixedButton } from '../common';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
+import { useHistory } from 'react-router';
 
 const OnBoard = () => {
+  const history = useHistory();
+
   return (
     <>
       <OnBoardContainer>
@@ -52,7 +55,10 @@ const OnBoard = () => {
         <BottomFixedButton
           text="시작하기"
           condition={null}
-          onClick={() => console.log('시작하기')}
+          onClick={() => {
+            history.replace('/login');
+            localStorage.setItem('isOnboarding', false);
+          }}
         />
       </OnBoardContainer>
     </>

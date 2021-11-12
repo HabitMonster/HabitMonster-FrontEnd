@@ -32,7 +32,7 @@ const KakaoLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          history.replace('/monster');
+          // history.replace('/monster');
           return;
         }
 
@@ -41,7 +41,7 @@ const KakaoLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          history.replace('/');
+          // history.replace('/');
           return;
         }
       } catch (err) {
