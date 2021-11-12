@@ -14,6 +14,7 @@ const GoogleLogin = () => {
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
   const setAuth = useSetRecoilState(authState);
+  console.log('googleLoginRender');
 
   useEffect(() => {
     googleSDK();
@@ -32,13 +33,20 @@ const GoogleLogin = () => {
           {},
           (googleUser) => {
             async function getTokenWithGoogle() {
+              console.log(googleUser);
               try {
                 const { data } = await auth.getSocialLogin(
                   socialName,
                   googleUser.getAuthResponse().id_token,
                 );
-                setCookie('accessToken', data.accessToken);
-                setCookie('refreshToken', data.refreshToken);
+                // const { data } = await auth.getSocialLoginTest(socialName, {
+                //   code: googleUser.getAuthResponse().id_token,
+                // });
+                console.log('성공');
+                // setCookie('accessToken', data.accessToken);
+                // setCookie('refreshToken', data.refreshToken);
+                window.localStorage.setItem('habitAccess', data.accessToken);
+                window.localStorage.setItem('habitRefresh', data.refreshToken);
 
                 if (data.statusCode === OK && data.isFirstLogin) {
                   setAuth({
