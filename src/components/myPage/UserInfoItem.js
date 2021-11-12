@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { fontSize } from '../../styles';
-import { EditIcon } from '../../assets/icons/common';
+// import { EditIcon } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
   return (
@@ -10,11 +10,7 @@ const UserInfoItem = ({ userInfoItem }) => {
       <DefaultTitle>{userInfoItem.title}</DefaultTitle>
       <PrivateText>
         {userInfoItem.contents}
-        {userInfoItem && (
-          <EditButton>
-            <EditIcon />
-          </EditButton>
-        )}
+        {userInfoItem && <EditButton>{/* <EditIcon /> */}</EditButton>}
       </PrivateText>
     </InfoListItem>
   );

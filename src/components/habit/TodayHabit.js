@@ -1,38 +1,78 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useState } from 'react';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { habitState } from '../../recoil/states/habit';
-import useFormatDuration from '../../hooks/useFormatDuration';
+import { habitState, habitsState } from '../../recoil/states/habit';
+import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
 import { habitApis } from '../../api';
+import { OK } from '../../constants/statusCode';
 
 const TodayHabit = ({ id }) => {
-  const habit = useRecoilValue(habitState(id));
-  const durationStart = useFormatDuration(habit.durationStart);
-  const durationEnd = useFormatDuration(habit.durationEnd);
+  const history = useHistory();
+  const [targetIndex, setTargetIndex] = useState(0);
 
-  const clickHandler = async () => {
-    const response = await habitApis.checkHabit(id);
-    console.log(response);
+  const [habitList, setHabitList] = useRecoilState(habitsState);
+  const habitDetail = useRecoilValue(habitState(id));
+
+  // @SangJoon
+  // 모든 횟수를 다 채웠을 때 바로 사라지지가 않고 새로고침을 해야 사라지는 이슈가 있습니다.
+
+  // @SangJoon
+  // 기간, 형식(YMD, MD, D), 구분자 ('.' || '-' 등)
+  const durationStart = setFormattedDuration(
+    habitDetail.durationStart,
+    'MD',
+    '.',
+  );
+
+  const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
+
+  const clickHandler = async (e) => {
+    e.stopPropagation();
+    try {
+      const { data } = await habitApis.checkHabit(id);
+      if (data.statusCode === OK) {
+        const originHabitList = habitList.slice();
+        const targetHabitIndex = habitList.findIndex((habit) => {
+          return habit.habitId === id;
+        });
+
+        setTargetIndex(targetIndex);
+
+        const updatedHabit = {
+          ...originHabitList[targetHabitIndex],
+          current: originHabitList[targetHabitIndex].current + 1,
+        };
+        originHabitList[targetHabitIndex] = { ...updatedHabit };
+        setHabitList(originHabitList);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onHabitClicked = () => {
+    history.push(`/habit/${id}`);
   };
 
   return (
     <>
-      <Card>
+      <Card onClick={onHabitClicked}>
         <DetailContainer>
-          <CategoryIcon category={habit.category} />
+          <CategoryIcon category={habitDetail.category} />
           <Info>
-            <HabitTitle>{habit.title}</HabitTitle>
+            <HabitTitle>{habitDetail.title}</HabitTitle>
             <Period>
               {durationStart}~{durationEnd}
             </Period>
           </Info>
           <CountContainer>
             <Count>
-              {habit.current}/{habit.count}
+              {habitDetail.current}/{habitDetail.count}
             </Count>
           </CountContainer>
         </DetailContainer>
@@ -43,7 +83,7 @@ const TodayHabit = ({ id }) => {
 };
 
 TodayHabit.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
 };
 
 const Card = styled.div`
@@ -57,6 +97,8 @@ const Card = styled.div`
   color: var(--color-primary);
   border-radius: 4px;
   box-sizing: border-box;
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const DetailContainer = styled.div`
@@ -121,6 +163,7 @@ const CheckBtn = styled.div`
   background-color: var(--bg-active);
   border-radius: 4px;
   box-sizing: border-box;
+  z-index: 5;
   cursor: pointer;
 `;
 

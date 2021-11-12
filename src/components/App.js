@@ -14,6 +14,8 @@ import { PrivateRoute } from './route';
 import Monster from '../pages/Monster';
 import MonsterSetting from '../pages/MonsterSetting';
 import MonsterGuide from '../pages/MonsterGuide';
+import HabitDetail from '../pages/HabitDetail';
+import HabitEdit from '../pages/HabitEdit';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -25,6 +27,10 @@ function App() {
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
     );
+
+    // @SangJoon
+    // 여러 방면으로 테스트 해봤는데 이 방법이 제일 좋아보입니다.
+    // 의견 바랍니다.
 
     if (isMonsterPath && login && !isFirstLogin) {
       history.replace('/');
@@ -56,15 +62,17 @@ function App() {
     <Layout>
       <Route>
         <Switch>
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/monster" component={Monster} />
-          <PrivateRoute path="/select" component={MonsterSetting} />
-          <PrivateRoute path="/guide" component={MonsterGuide} />
+          <Route path="/login" comp={Login} />
+          <PrivateRoute path="/monster" comp={Monster} />
+          <PrivateRoute path="/select" comp={MonsterSetting} />
+          <PrivateRoute path="/guide" comp={MonsterGuide} />
           <>
-            <PrivateRoute exact path="/" component={Main} />
-            <PrivateRoute path="/achievement" component={Achievement} />
-            <PrivateRoute path="/new" component={New} />
-            <PrivateRoute path="/mypage" component={MyPage} />
+            <PrivateRoute exact path="/" comp={Main} />
+            <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
+            <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
+            <PrivateRoute path="/achievement" comp={Achievement} />
+            <PrivateRoute path="/new" comp={New} />
+            <PrivateRoute path="/mypage" comp={MyPage} />
             <Gnb />
           </>
         </Switch>
