@@ -13,7 +13,7 @@ export default function useFetchCategoryPresets() {
   const { categoryId } = useParams();
   const history = useHistory();
 
-  const setHabitList = useSetRecoilState(habitsState);
+  const [habitList, setHabitList] = useRecoilState(habitsState);
 
   useEffect(() => {
     async function getHabitPresetFromServer() {
@@ -50,7 +50,8 @@ export default function useFetchCategoryPresets() {
           achievePercentage: 0,
         };
         const newHabit = { ...data.habitDto, ...defaultSettings };
-        setHabitList((prev) => [newHabit, ...prev]);
+        // setHabitList((prev) => [newHabit, ...prev]);
+        setHabitList([newHabit, ...habitList]);
       }
       history.replace('/');
     } catch (error) {
