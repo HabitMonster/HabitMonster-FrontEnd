@@ -40,6 +40,7 @@ const Modal = ({ open, onClose, children, blurmode }) => {
           <Backdrop
             ref={backdropReference}
             className={active && open && 'active'}
+            blurmode={blurmode}
           >
             <Content blurmode={blurmode} className="modal-content">
               {children}
