@@ -31,9 +31,9 @@ const Modal = ({ open, onClose, children, blurmode }) => {
         current.removeEventListener('transitionend', handleTransitionEnd);
       }
 
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = `position: ""; top: "";`;
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      // const scrollY = document.body.style.top;
+      // document.body.style.cssText = `position: ""; top: "";`;
+      // window.scrollTo(0, parseInt(scrollY || '0') * -1);
       document.querySelector('#root').removeAttribute('inert');
     };
   }, [open, onClose]);
