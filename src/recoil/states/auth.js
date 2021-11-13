@@ -1,5 +1,4 @@
 import { atom, selector } from 'recoil';
-import { getCookie } from '../../utils/cookie';
 import { auth } from '../../api';
 
 export const loginState = atom({
@@ -14,16 +13,20 @@ export const asyncDefaultAuth = selector({
   get: async () => {
     const loginStatus = {};
 
-    const accessToken = getCookie('accessToken');
-
+    const accessToken = window.localStorage.getItem('habitAccess');
     if (!accessToken) {
       return loginStatus;
     }
+
+    console.log('after');
 
     try {
       const { data } = await auth.check();
       loginStatus.isFirstLogin = data.isFirstLogin;
       loginStatus.isLogin = data.isLogin;
+      loginStatus.createdAt = data.createdAt;
+      console.log('createdAt', loginState);
+
       return loginStatus;
     } catch (error) {
       console.error(error);

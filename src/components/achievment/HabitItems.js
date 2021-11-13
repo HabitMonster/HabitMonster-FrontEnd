@@ -1,71 +1,99 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { fontSize } from '../../styles';
 
-import { SampleCategory } from '../../assets/images/main';
+const HabitItems = ({ habit }) => {
+  const goalTitle = habit.success ? '완료' : '미완료';
 
-const HabitItems = () => {
   return (
     <CardWrap>
-      <CategoryWrap>
-        <Icon />
-        <HabitTitles>30분씩 걷기! 운동하자!!</HabitTitles>
-      </CategoryWrap>
+      <CardHeader>
+        <GoalTitle success={habit.success}>{goalTitle}</GoalTitle>
+        <TitleWrap>
+          <Title>{habit.title}</Title>
+          <Percent success={habit.success}>{habit.achievement}%</Percent>
+        </TitleWrap>
+      </CardHeader>
+      {/* <ProgressBar>
+        <ProgressBarGauge rate={habit.achievement} />
+      </ProgressBar> */}
       <ProgressBar>
         <ProgressBarGauge />
       </ProgressBar>
       <TextWrap>
-        <Period>40번 중 40번 완료</Period>
-        <Period>2021.10.21 - 2021.12.24</Period>
+        <Period>
+          {habit?.accomplishCount ?? 0}/{habit?.goalCount ?? 0}
+        </Period>
+        <Period>
+          {habit.startDate} - {habit.endUPDate}
+        </Period>
       </TextWrap>
     </CardWrap>
   );
+};
+
+HabitItems.propTypes = {
+  habit: PropTypes.object.isRequired,
 };
 
 export default HabitItems;
 
 const CardWrap = styled.div`
   justify-content: space-between;
-  width: 360px;
-  height: 80px;
-  padding: 14px 16px;
-  background-color: var(--color-white);
-  border-radius: calc(var(--border-radius-small) * 2);
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+  width: 312px;
+  height: 128px;
+  padding: 16px 22px;
+  background-color: var(--bg-primary);
+  border-radius: 12px;
+  margin-bottom: 20px;
+`;
+
+const CardHeader = styled.div`
+  margin-bottom: 20px;
+`;
+
+const GoalTitle = styled.p`
+  color: ${(props) => (props.success ? '#8E72CA' : '#EF2F68')};
   margin-bottom: 10px;
-  box-sizing: border-box;
+  font-size: 14px;
 `;
-
-const CategoryWrap = styled.div`
+const TitleWrap = styled.div`
+  color: white;
   display: flex;
-  align-items: center;
-`;
-
-const Icon = styled.div`
-  width: 32px;
-  height: 32px;
-  margin-right: 12px;
-  background-image: url(${SampleCategory});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
-
-const HabitTitles = styled.p`
-  width: 212px;
-  height: 16px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xs);
-  font-weight: var(--weight-bold);
-`;
-
-const TextWrap = styled.div`
-  display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 24px;
 `;
+
+const Title = styled.p`
+  flex: 1 1 0;
+`;
+
+const Percent = styled.p`
+  ${fontSize('16px')};
+  font-weight: var(--weight-bold);
+  color: ${(props) =>
+    props.success ? 'var(--color-primary)' : 'var(--color-danger)'};
+`;
+
+// const ProgressBar = styled.div`
+//   width: 100%;
+//   height: 10px;
+//   background-color: var(--color-progressbar);
+//   border-radius: var(--border-radius-progress);
+// `;
+
+// const ProgressBarGauge = styled.div`
+//   width: ${(props) => `${props.rate}%`};
+//   height: 10px;
+//   background-color: var(--color-main);
+//   border-radius: var(--border-radius-progress);
+//`;
 
 const ProgressBar = styled.div`
-  width: 292px;
+  width: 268px;
   height: 8px;
   background-color: var(--color-progressbar);
   border-radius: var(--border-radius-progress);
@@ -78,11 +106,25 @@ const ProgressBarGauge = styled.div`
   border-radius: var(--border-radius-progress);
 `;
 
+const TextWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  p {
+    &:last-child {
+      text-align: right;
+    }
+  }
+`;
+
 const Period = styled.p`
-  width: 256px;
-  height: 14px;
+  color: var(--color-primary);
   margin-bottom: 7px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-regular);
+  font-family: var(—font-name-apple);
+  ${fontSize('12px')};
+  opacity: 0.6;
+  line-height: 14px;
+  flex: 1;
 `;

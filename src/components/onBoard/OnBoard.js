@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { titleMonster } from '../../assets/images/login';
-
 import {
   onboard01,
   onboard02,
@@ -35,8 +34,8 @@ const OnBoard = () => {
             spaceBetween={8}
             slidesPerView={1}
             centeredSlides={true}
-            initialSlide={1}
-            style={{ width: '360px', height: '500px', color: 'white' }}
+            initialSlide={0}
+            style={{ width: '360px' }}
           >
             <SwiperSlide>
               <Image bg={onboard01} />

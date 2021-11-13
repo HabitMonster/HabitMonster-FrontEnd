@@ -10,11 +10,17 @@ import { formatMonth, addMonths, subMonths } from '../../utils/date';
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
 import { HabitList, CircleProgress } from '.';
+import { authState } from '../../recoil/states/auth';
+import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
+  const setAuth = useRecoilValue(authState);
   const [currentDate, setCurrentDate] = useState(
     formatMonth(new window.Date(), '-'),
   );
+  const currentMonth = new Date(currentDate).getMonth() + 1;
+  const limitedMonth = new Date(setAuth.createdAt).getMonth() + 1;
+  console.log(currentMonth, limitedMonth);
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
     totalCount: 0,
@@ -80,9 +86,11 @@ const Statistics = () => {
     <>
       <DetailWrap>
         <DateWrap>
-          <DateButton onClick={() => handleClickChangeMonth('minus')}>
-            <AchieveLeft />
-          </DateButton>
+          {limitedMonth > currentMonth ? (
+            <DateButton onClick={() => handleClickChangeMonth('minus')}>
+              <AchieveLeft />
+            </DateButton>
+          ) : null}
           <DateText>{currentDate}</DateText>
           <DateButton onClick={() => handleClickChangeMonth('add')}>
             <AchieveRight />
@@ -104,27 +112,27 @@ const Statistics = () => {
           </GoalBox>
         </GoalWrap>
       </DetailWrap>
+      <HabitsList>{currentMonth}월의 습관 목록</HabitsList>
       <ListContainer>
-        <HabitsList>{}월의 습관 목록</HabitsList>
         <ButtonWrap>
           {/* TODO: onClick type 지정필요 */}
           <AchieveNavBtn
             isActive={currentListName === 'total'}
             onClick={() => handleClickChangeTabName('total')}
           >
-            전체 <span>{statisticData.totalCount}</span>
+            전체
           </AchieveNavBtn>
           <AchieveNavBtn
             isActive={currentListName === 'success'}
             onClick={() => handleClickChangeTabName('success')}
           >
-            완료 <span>{statisticData.succeededCount}</span>
+            완료
           </AchieveNavBtn>
           <AchieveNavBtn
             isActive={currentListName === 'failed'}
             onClick={() => handleClickChangeTabName('failed')}
           >
-            미완료 <span>{statisticData.failedCount}</span>
+            미완료
           </AchieveNavBtn>
         </ButtonWrap>
         {currentList.length > 0 ? (
@@ -142,6 +150,7 @@ export default Statistics;
 const DetailWrap = styled.div`
   background-color: var(--bg-wrapper);
   padding: 0 34px 24px;
+  margin-bottom: 24px;
   border-bottom: 1px solid rgba(248, 248, 248, 0.1);
 `;
 
@@ -209,7 +218,7 @@ const GoalText = styled.span`
 
 const ListContainer = styled.div`
   height: 100%;
-  padding: 24px 0;
+  padding: 12px 0;
 `;
 
 const ButtonWrap = styled.div`
@@ -220,9 +229,9 @@ const ButtonWrap = styled.div`
 
 const HabitsList = styled.p`
   ${fontSize('18px')};
-  font-weight: var(—weight-regular);
+  font-weight: var(--weight-regular);
   line-height: 22px;
-  color: var(—color-primary);
+  color: var(--color-primary);
   margin-left: 24px;
 `;
 
@@ -230,13 +239,11 @@ const AchieveNavBtn = styled.button`
   width: 78px;
   height: 32px;
   border: 1px solid rgba(248, 248, 248, 0.3);
-  /* border: 1px solid ${(props) =>
-    !props.isActive ? '#3B0A9D' : '#333333'}; */
   border-radius: 15px;
   background-color: ${(props) =>
-    !props.isActive ? 'transparent' : 'var(—bg-selected)'};
+    !props.isActive ? 'transparent' : 'var(--bg-selected)'};
   color: ${(props) =>
-    !props.isActive ? 'var(—color-primary)' : 'var(—color-white)'};
+    !props.isActive ? 'var(--color-primary)' : 'var(--color-primary)'};
   ${fontSize('14px')};
   line-height: 16px;
   cursor: pointer;

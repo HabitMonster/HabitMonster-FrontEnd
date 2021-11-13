@@ -1,24 +1,23 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { habitState, habitsState } from '../../recoil/states/habit';
+import { monsterState } from '../../recoil/states/monster';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
 import { habitApis } from '../../api';
+import { mainApis } from '../../api';
 import { OK } from '../../constants/statusCode';
-
-import { useRefetchMonsterInfo } from '../../hooks';
 
 const TodayHabit = ({ id }) => {
   const history = useHistory();
   const habitDetail = useRecoilValue(habitState(id));
   const setHabitList = useSetRecoilState(habitsState);
-  const updateMonster = useRefetchMonsterInfo();
-  console.log('render');
+  const setMonster = useSetRecoilState(monsterState);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -42,10 +41,15 @@ const TodayHabit = ({ id }) => {
           }
           return copy;
         });
-      }
 
-      if (data.habit.isAccomplished) {
-        updateMonster();
+        if (data.habit.isAccomplished) {
+          try {
+            const { data } = await mainApis.getMonsterInfo();
+            setMonster(data.monster);
+          } catch (error) {
+            console.error(error);
+          }
+        }
       }
     } catch (error) {
       console.error(error);
@@ -86,7 +90,6 @@ TodayHabit.propTypes = {
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  height: 146px;
   padding: 24px 24px 24px 17px;
   margin-bottom: 16px;
   font-family: var(--font-name-apple);
@@ -120,11 +123,10 @@ const Info = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 200px;
-  height: 42px;
+  /* height: 42px; */
 `;
 
 const HabitTitle = styled.span`
-  height: 16px;
   line-height: 19.2px;
   font-size: var(--font-m);
   font-weight: var(--weight-bold);

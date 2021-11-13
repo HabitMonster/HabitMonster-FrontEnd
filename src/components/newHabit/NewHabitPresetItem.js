@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected)' : 'var(--bg-primary)'};
   border: ${({ isSelected }) =>
-    isSelected ? '1px solid var(--bg-active)' : 'none'};
+    isSelected ? '1px solid var(--bg-active)' : '1px solid var(--bg-primary)'};
   border-radius: 4px;
   padding: 16px 24px;
   margin-bottom: 12px;

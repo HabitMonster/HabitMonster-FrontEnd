@@ -1,31 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilStateLoadable } from 'recoil';
 import styled from 'styled-components';
 
-import {
-  BackButtonHeader,
-  TextInput,
-  BottomFixedButton,
-  Modal,
-} from '../common';
+import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
 import { myPageDataState } from '../../recoil/states/user';
+import { asyncDefaultMonster } from '../../recoil/states/monster';
 
 import { myPageApis } from '../../api';
 import { fontSize } from '../../styles';
 import { OK } from '../../constants/statusCode';
-import { BottomDialog } from '../dialog';
 
-const EditBox = ({
-  type,
-  editValue,
-  handleChangeValue,
-  pageTitleText,
-  closeModal,
-}) => {
+const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
   const [originValue] = useState(editValue);
   const isEnabled = editValue && editValue.length <= 10;
   const setEditValue = useSetRecoilState(myPageDataState); // myPageData를 새로운 값으로 바꿔준다!
+  const [monster, refetchMonster] = useRecoilStateLoadable(asyncDefaultMonster); // 비동기 요청으로 담는 몬스터 값을 리페칭해주기!
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;
@@ -34,14 +24,25 @@ const EditBox = ({
       if (type === 'monsterName') {
         editRequest = myPageApis.editMonsterName;
       }
+      //userName, monsterName
 
       const { data } = await editRequest({ [type]: editValue });
-      console.log('editValue', editValue);
 
       if (data.statusCode === OK) {
         alert('변경되었습니다!');
-        setEditValue((myPageData) => ({ ...myPageData, [type]: editValue }));
-        setTimeout(() => closeModal());
+
+        if (type === 'monsterName') {
+          //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
+          // setMonster((prev) => ({ ...prev, [type]: editValue }));
+          // @jaekyung: default value가 비동기의 응답을 담고있는 아톰이기 때문에 useRecoilSet으로는 아직 지원하지 않는다고 에러가 나네요ㅠㅠ!
+          // 대신 api를 다시 리페칭하는 방법을 한 번 사용하겠습니다!
+          refetchMonster();
+        }
+        closeModal();
+        // myPageData가 먼저 갱신되면서 closeModal callback 의존성에 영향을 주기 때문에 모달을 닫고 EditValue를 하도록 한다
+        setTimeout(() =>
+          setEditValue((myPageData) => ({ ...myPageData, [type]: editValue })),
+        );
       }
     } catch (err) {
       console.error(err);
@@ -67,7 +68,7 @@ const EditBox = ({
           </EditTitle>
         )}
         <TextInput
-          text={editValue}
+          text={editValue || ''}
           placeholder={originValue}
           onTextChanged={handleChangeValue}
           maxLength={10}
@@ -90,6 +91,7 @@ const Container = styled.div`
   height: 100%;
   position: relative;
   background: var(--bg-wrapper);
+  margin: 0 auto;
 `;
 
 const BackWrap = styled.div`
