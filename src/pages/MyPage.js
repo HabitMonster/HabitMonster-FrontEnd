@@ -8,7 +8,7 @@ import { UserInformation, Notice } from '../components/myPage';
 const MyPage = () => {
   return (
     <AcheiveContainer>
-      <NavButtonWrap>
+      {/* <NavButtonWrap>
         <NavButtonItem>
           <NavButton to="/mypage/information" activeClassName="active">
             마이페이지
@@ -19,7 +19,7 @@ const MyPage = () => {
             히스토리
           </NavButton>
         </NavButtonItem>
-      </NavButtonWrap>
+      </NavButtonWrap> */}
       <Switch>
         <Route exact path="/mypage/information" component={UserInformation} />
         <Route exact path="/mypage/Notice" component={Notice} />
