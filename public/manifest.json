@@ -1,6 +1,16 @@
 {
-  "short_name": "Habit Monster",
   "name": "Habit Monster",
+  "short_name": "Habit Monster",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "dir": "ltr",
+  "orientation": "portrait",
+  "description": "Habit Monster Frontend",
+  "categories": [],
+  "screenshots": [],
+  "shortcuts": [],
+  "theme_color": "#000000",
+  "background_color": "#070707",
   "icons": [
     {
       "src": "favicon.ico",
@@ -17,15 +27,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": "/index.html",
-  "display": "standalone",
-  "dir": "ltr",
-  "orientation": "portrait",
-  "description": "Habit Monster Frontend",
-  "categories": [],
-  "screenshots": [],
-  "shortcuts": [],
-  "theme_color": "#000000",
-  "background_color": "#070707"
+  ]
 }
