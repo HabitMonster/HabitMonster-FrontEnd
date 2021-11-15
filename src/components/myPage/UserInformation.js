@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom';
 import { getCookie, deleteCookie } from '../../utils/cookie';
 
 // import { loginState } from '../../recoil/states/auth';
-import { userState } from '../../recoil/states/user';
+import { authState } from '../../recoil/states/auth';
 import { myPageDataState } from '../../recoil/states/user';
 
 import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
-import Notice from './Notice';
+// import Notice from './Notice';
 
 const UserInformation = () => {
   const resetAuth = useResetRecoilState(authState);
@@ -100,7 +100,7 @@ const UserInformation = () => {
     {
       title: '공지사항',
       contents: '',
-      handleClick: () => history.push('/notice'),
+      // handleClick: () => history.push('/'),
     },
     {
       title: '로그아웃',
