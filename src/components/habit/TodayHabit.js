@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { habitState, habitsState } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
@@ -18,17 +18,23 @@ const TodayHabit = ({ id }) => {
   const habitDetail = useRecoilValue(habitState(id));
   const setHabitList = useSetRecoilState(habitsState);
   const setMonster = useSetRecoilState(monsterState);
+  const [active, setActive] = useState(false);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
     'MD',
     '.',
   );
-
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
 
   const clickHandler = async (e) => {
     e.stopPropagation();
+    setActive((prev) => !prev);
+
+    setTimeout(() => {
+      setActive((prev) => !prev);
+    }, 300);
+
     try {
       const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
@@ -36,16 +42,15 @@ const TodayHabit = ({ id }) => {
           const copy = prev.slice();
           const index = prev.findIndex((habit) => habit.habitId === id);
           copy[index] = data.habit;
-          if (data.habit.isAccomplished) {
-            copy.splice(index, 1);
-          }
           return copy;
         });
 
         if (data.habit.isAccomplished) {
           try {
             const { data } = await mainApis.getMonsterInfo();
-            setMonster(data.monster);
+            setTimeout(() => {
+              setMonster(data.monster);
+            }, 500);
           } catch (error) {
             console.error(error);
           }
@@ -77,7 +82,14 @@ const TodayHabit = ({ id }) => {
             </Count>
           </CountContainer>
         </DetailContainer>
-        <CheckBtn onClick={clickHandler}>완료하기</CheckBtn>
+        <CheckBtn
+          active={active}
+          isDone={habitDetail.isAccomplished}
+          disabled={habitDetail.isAccomplished}
+          onClick={clickHandler}
+        >
+          {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
+        </CheckBtn>
       </Card>
     </>
   );
@@ -152,7 +164,28 @@ const Count = styled.span`
   font-weight: var(--weight-semi-bold);
 `;
 
-const CheckBtn = styled.div`
+const updateAnimation = keyframes`
+  0% {
+    background: #3B0A9D;
+  }
+  50% {
+    background: #2D1C50;
+  }
+  100% {
+    background: #3B0A9D;
+  }
+`;
+
+const finishAnimation = keyframes`
+  0% {
+    background: #3B0A9D;
+  }
+  100% {
+    background: #000;
+  }
+`;
+
+const CheckBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,10 +193,23 @@ const CheckBtn = styled.div`
   height: 40px;
   margin: 16px auto 0 auto;
   background-color: var(--bg-active);
+  font-size: var(--font-xs);
+  color: ${({ isDone }) =>
+    isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
+  border: none;
   border-radius: 4px;
-  box-sizing: border-box;
   z-index: 5;
   cursor: pointer;
+  animation: ${({ active, isDone }) =>
+    isDone
+      ? css`
+          ${finishAnimation} 300ms linear forwards
+        `
+      : active
+      ? css`
+          ${updateAnimation} 300ms linear forwards
+        `
+      : 'none'};
 `;
 
 export default memo(TodayHabit);
