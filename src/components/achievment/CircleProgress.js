@@ -95,7 +95,7 @@ const DetailPer = styled.span`
 CircleProgress.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  strokeWidth: PropTypes.strokeWidth,
-  title: PropTypes.string.isRequired,
+  strokeWidth: PropTypes.number,
+  title: PropTypes.string,
   value: PropTypes.number.isRequired,
 };

@@ -69,12 +69,10 @@ const NavButton = styled(NavLink)`
   outline: 0;
   line-height: 19px;
   text-decoration: none;
-
   &:hover {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
   }
-
   &.active {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);

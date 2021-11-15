@@ -1,23 +1,6 @@
 {
-  "short_name": "Habit Monster",
   "name": "Habit Monster",
-  "icons": [
-    {
-      "src": "habit_Mon.png",
-      "sizes": "128x128 96x96 72x72 48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "habit_Monx192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "habit_Monx512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
+  "short_name": "Habit Monster",
   "start_url": "/index.html",
   "display": "standalone",
   "dir": "ltr",
@@ -26,6 +9,23 @@
   "categories": [],
   "screenshots": [],
   "shortcuts": [],
-  "theme_color": "none",
-  "background_color": "var(--color-white)"
+  "theme_color": "#000000",
+  "background_color": "#070707",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "habitMon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "habitMon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }

@@ -1,20 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination, Navigation } from 'swiper';
 
-import { titleMonster } from '../../assets/images/login';
 import {
   onboard01,
   onboard02,
   onboard03,
   onboard04,
 } from '../../assets/images/onboard';
-
 import { BottomFixedButton } from '../common';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 import 'swiper/components/navigation/navigation.min.css';
-import { useHistory } from 'react-router';
+
+SwiperCore.use([Pagination, Navigation]);
 
 const OnBoard = () => {
   const history = useHistory();
@@ -24,18 +26,18 @@ const OnBoard = () => {
       <OnBoardContainer>
         <TitleContainer>
           <TitleWrapper>
-            <TitleImage />
             <Title>Habit</Title>
             <Title>Monster</Title>
           </TitleWrapper>
           <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
           <Swiper
             className="banner"
-            spaceBetween={8}
-            slidesPerView={1}
-            centeredSlides={true}
             initialSlide={0}
             style={{ width: '360px' }}
+            navigation
+            pagination={{
+              clickable: true,
+            }}
           >
             <SwiperSlide>
               <Image bg={onboard01} />
@@ -56,7 +58,7 @@ const OnBoard = () => {
           condition={null}
           onClick={() => {
             history.replace('/login');
-            localStorage.setItem('isOnboarding', false);
+            window.localStorage.setItem('isOnboarding', false);
           }}
         />
       </OnBoardContainer>
@@ -71,10 +73,14 @@ const OnBoardContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
-
-  & .swiper-button-next,
-  & .swiper-button-prev {
-    display: none;
+  & .swiper-container {
+    height: 200px;
+  }
+  & .swiper-pagination {
+    top: 150px;
+  }
+  & .swiper-pagination-bullet {
+    background: white;
   }
 `;
 
@@ -90,18 +96,6 @@ const TitleWrapper = styled.div`
   height: 90px;
   margin: 100px auto 18px auto;
   line-height: 43px;
-`;
-
-const TitleImage = styled.div`
-  position: absolute;
-  top: 100px;
-  left: 225px;
-  width: 38.8px;
-  height: 38.66px;
-  background-image: url(${titleMonster});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
 `;
 
 const Title = styled.p`
