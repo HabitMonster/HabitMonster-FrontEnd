@@ -1,4 +1,7 @@
 import SocialLogin from './SocialLogin';
-import Title from './Title';
+import LoginTitle from './LoginTitle';
+import KakaoLogin from './KakaoLogin';
+import GoogleLogin from './GoogleLogin';
+import NaverLogin from './NaverLogin';
 
-export { SocialLogin, Title };
+export { SocialLogin, LoginTitle, KakaoLogin, GoogleLogin, NaverLogin };

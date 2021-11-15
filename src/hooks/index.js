@@ -1,3 +1,4 @@
-import useInput from './useInput';
+import useFetchCategories from './useFetchCategories';
+import useFetchCategoryPresets from './useFetchCategoryPresets';
 
-export { useInput };
+export { useFetchCategories, useFetchCategoryPresets };

@@ -1,0 +1,7 @@
+export const DAY_MILLISECS = 24;
+export const HOUR_MILLISECS = 60;
+export const MIN_MILLISECS = 60;
+export const SECS_MILLISECS = 1000;
+
+export const ONE_DAY =
+  SECS_MILLISECS * MIN_MILLISECS * HOUR_MILLISECS * DAY_MILLISECS;

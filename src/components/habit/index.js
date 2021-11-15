@@ -1,4 +1,4 @@
-import AddDetail from './AddDetail';
-import CategoryList from './CategoryList';
+import TodayHabitList from './TodayHabitList';
+import TodayHabit from './TodayHabit';
 
-export { AddDetail, CategoryList };
+export { TodayHabitList, TodayHabit };
