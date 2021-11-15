@@ -24,6 +24,9 @@ export const asyncDefaultAuth = selector({
       const { data } = await auth.check();
       loginStatus.isFirstLogin = data.isFirstLogin;
       loginStatus.isLogin = data.isLogin;
+      loginStatus.createdAt = data.createdAt;
+      console.log('createdAt', loginState);
+
       return loginStatus;
     } catch (error) {
       console.error(error);

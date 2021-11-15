@@ -3,7 +3,7 @@ import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { fontSize, whiteOpacity } from '../styles';
-import { UserInformation, Notice } from '../components/myPage';
+import { UserInformation } from '../components/myPage';
 
 const MyPage = () => {
   return (
@@ -22,7 +22,7 @@ const MyPage = () => {
       </NavButtonWrap> */}
       <Switch>
         <Route exact path="/mypage/information" component={UserInformation} />
-        <Route exact path="/mypage/Notice" component={Notice} />
+        {/* <Route exact path="/mypage/history" component={History} /> */}
         <Redirect from="*" to="/mypage/information" />
       </Switch>
     </AcheiveContainer>

@@ -39,7 +39,8 @@ const GoogleLogin = () => {
                   socialName,
                   googleUser.getAuthResponse().id_token,
                 );
-                console.log('성공');
+
+                console.log('성공', data);
 
                 window.localStorage.setItem('habitAccess', data.accessToken);
                 window.localStorage.setItem('habitRefresh', data.refreshToken);
