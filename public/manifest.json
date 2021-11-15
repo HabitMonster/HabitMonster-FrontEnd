@@ -3,17 +3,17 @@
   "name": "Habit Monster",
   "icons": [
     {
-      "src": "images/128x128 96x96 72x72 48x48.png",
-      "sizes": "128x128 96x96 72x72 48x48",
-      "type": "image/png"
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
     },
     {
-      "src": "hMon129.png",
+      "src": "habitMon192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "hMon512.png",
+      "src": "habitMon512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -26,6 +26,6 @@
   "categories": [],
   "screenshots": [],
   "shortcuts": [],
-  "theme_color": "none",
-  "background_color": "var(--color-white)"
+  "theme_color": "#000000",
+  "background_color": "#070707"
 }

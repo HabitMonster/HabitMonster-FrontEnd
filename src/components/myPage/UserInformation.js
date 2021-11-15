@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 import { getCookie, deleteCookie } from '../../utils/cookie';
 
-import { authState } from '../../recoil/states/auth';
+// import { authState } from '../../recoil/states/auth';
+import { userState } from '../../recoil/states/user';
 import { myPageDataState } from '../../recoil/states/user';
 
 import UserInfoItem from './UserInfoItem';
@@ -15,7 +16,7 @@ import { BottomDialog } from '../dialog';
 import Notice from './Notice';
 
 const UserInformation = () => {
-  const resetAuth = useResetRecoilState(authState);
+  const resetAuth = useResetRecoilState(userState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -71,6 +72,7 @@ const UserInformation = () => {
     window.localStorage.removeItem('habitRefresh');
     window.localStorage.removeItem('isFirstLogin');
     window.localStorage.removeItem('isOnboarding');
+    deleteCookie(token);
     resetAuth();
     setIsLogoutModalOpen(false);
     history.replace('/login', null);
