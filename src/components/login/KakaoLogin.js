@@ -71,15 +71,12 @@ const LoginBtn = styled.div`
   height: 45px;
   background-color: var(--color-white);
   border-radius: var(--border-radius-checkBtn);
-
   &:hover {
     cursor: pointer;
   }
-
   &.kakaoLogin {
     background-color: var(--color-kakao);
   }
-
   & > svg {
     width: 20px;
     height: 20px;
