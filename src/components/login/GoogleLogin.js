@@ -14,7 +14,6 @@ const GoogleLogin = () => {
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
   const setAuth = useSetRecoilState(authState);
-  console.log('googleLoginRender');
 
   useEffect(() => {
     googleSDK();
@@ -39,7 +38,6 @@ const GoogleLogin = () => {
                   socialName,
                   googleUser.getAuthResponse().id_token,
                 );
-                console.log('성공');
 
                 window.localStorage.setItem('habitAccess', data.accessToken);
                 window.localStorage.setItem('habitRefresh', data.refreshToken);
