@@ -7,7 +7,7 @@ export const monsterRefetchToggler = atom({
   default: 0,
 });
 
-const asyncDefaultMonster = selector({
+export const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
   get: async ({ get }) => {
     get(monsterRefetchToggler);
@@ -17,6 +17,11 @@ const asyncDefaultMonster = selector({
     } catch (error) {
       return error.response;
     }
+  },
+  set: ({ set }) => {
+    // setter가 호출되면 트리거의 값을 1만큼 증가
+    // => 트리거 값 변경으로 인해 monsterInfo가 갱신됨
+    set(monsterRefetchToggler, (v) => v + 1);
   },
 });
 

@@ -3,56 +3,22 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { fontSize, whiteOpacity } from '../../styles';
 import { EditIcon } from '../../assets/icons/common';
-import { Modal } from '../common';
-import { BottomDialog } from '../dialog';
-import { getCookie, deleteCookie } from '../../utils/cookie';
-import { useRecoilValue } from 'recoil';
 
 const UserInfoItem = ({ userInfoItem }) => {
-  const [logoutModal, setLogoutModal] = useState(false);
-  const { title, contents, isPossibleEdit, handleClick, buttonType } =
-    userInfoItem;
+  const { title, contents, handleClick, isLogout } = userInfoItem;
+  const isPossibleEdit = !!handleClick;
 
-  const logoutUser = () => {
-    const token = getCookie('accessToken');
-
-    if (!token) {
-      <div>먼저 로그인을 해주세요!</div>;
-    }
-    deleteCookie(token);
-    setLogoutModal(false);
-  };
-
-  if (buttonType) {
-    return (
-      <InfoListItem>
-        <ButtonWrap onClick={() => setLogoutModal(true)}>
-          <DefaultTitle>{title}</DefaultTitle>
-        </ButtonWrap>
-        {
-          <Modal open={logoutModal} onClose={() => setLogoutModal(false)}>
-            <BottomDialog
-              title="정말 로그아웃하시겠어요?"
-              activeButtonText="로그아웃하기"
-              onActive={() => logoutUser()}
-              onClose={() => setLogoutModal(false)}
-            />
-          </Modal>
-        }
-      </InfoListItem>
-    );
-  }
   return (
-    <InfoListItem>
+    <InfoListItem isCursor={isPossibleEdit} onClick={handleClick}>
       <DefaultTitle>{title}</DefaultTitle>
-      <PrivateText>
-        {contents}
-        {isPossibleEdit && (
-          <EditButton onClick={handleClick}>
+      <PrivateTextWrap>
+        {contents && <PrivateText>{contents}</PrivateText>}
+        {isPossibleEdit && !isLogout && (
+          <EditButton>
             <EditIcon />
           </EditButton>
         )}
-      </PrivateText>
+      </PrivateTextWrap>
     </InfoListItem>
   );
 };
@@ -60,6 +26,7 @@ const UserInfoItem = ({ userInfoItem }) => {
 export default UserInfoItem;
 
 const InfoListItem = styled.li`
+  cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
   height: 64px;
   display: flex;
   justify-content: space-between;
@@ -79,27 +46,25 @@ const DefaultTitle = styled.p`
   ${whiteOpacity('0.8')};
 `;
 
-const ButtonWrap = styled.button`
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  outline: 0;
+const PrivateTextWrap = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const PrivateText = styled.p`
   ${fontSize('14px')};
-  line-height: 16px;
   font-weight: var(--font-weight-medium);
   color: var(--color-primary);
   ${whiteOpacity('0.8')};
+  height: 18px;
 `;
 
 const EditButton = styled.button`
   background-color: transparent;
   border: 0;
-  cursor: pointer;
+  /* cursor: pointer; */
+  height: 18px;
   outline: 0;
-  height: 12px;
   margin-left: 7px;
 `;
 
