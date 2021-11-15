@@ -4,18 +4,22 @@ import styled from 'styled-components';
 
 import { habitIdListState } from '../../recoil/states/habit';
 
-import { TodayHabit } from './';
+import { TodayHabit, NoHabitHelper } from './';
 
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
 
   return (
     <HabitContainer>
-      <HabitList>
-        {habitIdList.map((id) => (
-          <TodayHabit key={id} id={id} />
-        ))}
-      </HabitList>
+      {habitIdList.length ? (
+        <HabitList>
+          {habitIdList.map((id) => (
+            <TodayHabit key={id} id={id} />
+          ))}
+        </HabitList>
+      ) : (
+        <NoHabitHelper />
+      )}
     </HabitContainer>
   );
 };
