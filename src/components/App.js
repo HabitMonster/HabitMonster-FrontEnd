@@ -44,7 +44,7 @@ function App() {
   return (
     <Layout>
       <Switch>
-        {!localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
+        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
         <PrivateRoute path="/monster" comp={Monster} />
         <PrivateRoute path="/select" comp={MonsterSetting} />
