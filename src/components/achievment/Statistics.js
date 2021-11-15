@@ -10,11 +10,16 @@ import { formatMonth, addMonths, subMonths } from '../../utils/date';
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
 import { HabitList, CircleProgress } from '.';
+import { authState } from '../../recoil/states/auth';
+import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
+  const setAuth = useRecoilValue(authState);
   const [currentDate, setCurrentDate] = useState(
     formatMonth(new window.Date(), '-'),
   );
+  const currentMonth = new Date(currentDate).getMonth() + 1;
+  const limitedMonth = new Date(setAuth.createdAt).getMonth() + 1;
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
     totalCount: 0,
@@ -78,9 +83,11 @@ const Statistics = () => {
     <>
       <DetailWrap>
         <DateWrap>
-          <DateButton onClick={() => handleClickChangeMonth('minus')}>
-            <AchieveLeft />
-          </DateButton>
+          {limitedMonth > currentMonth ? (
+            <DateButton onClick={() => handleClickChangeMonth('minus')}>
+              <AchieveLeft />
+            </DateButton>
+          ) : null}
           <DateText>{currentDate}</DateText>
           <DateButton onClick={() => handleClickChangeMonth('add')}>
             <AchieveRight />
@@ -102,7 +109,7 @@ const Statistics = () => {
           </GoalBox>
         </GoalWrap>
       </DetailWrap>
-      <HabitsList>12월의 습관 목록</HabitsList>
+      <HabitsList>{currentMonth}월의 습관 목록</HabitsList>
       <ListContainer>
         <ButtonWrap>
           {/* TODO: onClick type 지정필요 */}

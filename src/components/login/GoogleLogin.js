@@ -39,12 +39,9 @@ const GoogleLogin = () => {
                   socialName,
                   googleUser.getAuthResponse().id_token,
                 );
-                // const { data } = await auth.getSocialLoginTest(socialName, {
-                //   code: googleUser.getAuthResponse().id_token,
-                // });
-                console.log('성공');
-                // setCookie('accessToken', data.accessToken);
-                // setCookie('refreshToken', data.refreshToken);
+
+                console.log('성공', data);
+
                 window.localStorage.setItem('habitAccess', data.accessToken);
                 window.localStorage.setItem('habitRefresh', data.refreshToken);
 

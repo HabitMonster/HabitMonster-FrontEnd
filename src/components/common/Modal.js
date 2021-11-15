@@ -22,7 +22,6 @@ const Modal = ({ open, onClose, children, blurmode }) => {
         document.activeElement.blur();
         setActive(open);
         document.querySelector('#root').setAttribute('inert', 'true');
-        document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
       }, 10);
     }
 
@@ -30,10 +29,6 @@ const Modal = ({ open, onClose, children, blurmode }) => {
       if (current) {
         current.removeEventListener('transitionend', handleTransitionEnd);
       }
-
-      // const scrollY = document.body.style.top;
-      // document.body.style.cssText = `position: ""; top: "";`;
-      // window.scrollTo(0, parseInt(scrollY || '0') * -1);
       document.querySelector('#root').removeAttribute('inert');
     };
   }, [open, onClose]);
@@ -45,6 +40,7 @@ const Modal = ({ open, onClose, children, blurmode }) => {
           <Backdrop
             ref={backdropReference}
             className={active && open && 'active'}
+            blurmode={blurmode}
           >
             <Content blurmode={blurmode} className="modal-content">
               {children}
@@ -82,19 +78,16 @@ const Backdrop = styled.div`
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: var(--animation-duration);
   z-index: 10;
-
   & .modal-content {
     height: 100%;
     transform: translateY(100px);
     transition: all var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
   }
-
   &.active {
     transition-duration: 250ms;
     transition-delay: 0ms;
     opacity: 1;
-
     & .modal-content {
       transform: translateY(0);
       opacity: 1;

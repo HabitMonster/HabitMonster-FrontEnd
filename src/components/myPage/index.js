@@ -1,5 +1,5 @@
 import UserInformation from './UserInformation';
-import History from './History';
+import Notice from './Notice';
 import EditBox from './EditBox';
 
-export { UserInformation, History, EditBox };
+export { UserInformation, Notice, EditBox };

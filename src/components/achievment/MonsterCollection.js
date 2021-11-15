@@ -5,23 +5,11 @@ import { MonsterThumbnail } from '../monster';
 import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
+import { MAX_LEVEL } from '../../constants/monster';
+import { QuestionIcon } from '../../assets/icons/achievement';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
-
-  const getCategorizedMonsterHash = (list) => {
-    if (!list.length) {
-      return {};
-    }
-
-    return list.reduce((hash, cur) => {
-      if (!hash[cur.monsterName]) {
-        hash[cur.monsterName] = [];
-      }
-      hash[cur.monsterName].push(cur);
-      return hash;
-    }, {});
-  };
 
   useEffect(() => {
     async function fetchList() {
@@ -35,11 +23,9 @@ const MonsterCollection = () => {
     fetchList();
   }, []);
 
-  const categorizedMonsterHash = getCategorizedMonsterHash(collectionList);
-
   return (
     <Wrapper>
-      {!collectionList.length ? (
+      {!collectionList?.length ? (
         <NoneTextWrapper>
           <NoneTextTitle>아직 수집한 몬스터가 없어요!😭</NoneTextTitle>
           <NoneTextDescription>
@@ -49,26 +35,31 @@ const MonsterCollection = () => {
           </NoneTextDescription>
         </NoneTextWrapper>
       ) : (
-        Object.keys(categorizedMonsterHash).map((monsterName) => (
-          <EachCollectionWrapper key={monsterName}>
-            <p>{monsterName}</p>
+        collectionList.map((monster) => (
+          <EachCollectionWrapper key={monster.monsterName}>
+            <p>{monster.monsterName}</p>
             <MonsterInformationWrapper>
-              <span>
-                최고 레벨 LV.{categorizedMonsterHash[monsterName].length}
-              </span>
-              <span>XXXX-XX-XX 생성</span>
+              <span>최고 레벨 LV.{monster.maxLevel}</span>
+              <span>{monster.createdAt} 생성</span>
             </MonsterInformationWrapper>
             <ImageScroller>
-              {categorizedMonsterHash[monsterName].map((monster, i) => (
-                <MonsterImageWrapper key={`${monster.monsterName} ${i}`}>
-                  <MonsterThumbnail
-                    imageUrl={monster.monsterImage}
-                    imageAlt={`The monster of ${monster.monsterName}`}
-                    imageSize="small"
-                  />
-                  <span>LV.{monster.monsterLevel + i}</span>
-                </MonsterImageWrapper>
-              ))}
+              {Array(MAX_LEVEL)
+                .fill(null)
+                .map((_, i) => (
+                  <MonsterImageWrapper key={`${monster.monsterName} ${i}`}>
+                    {monster.maxLevel <=
+                      monster.monsterDatabases[i]?.monsterLevel ?? i + 1 ? (
+                      <MonsterThumbnail
+                        imageUrl={monster.monsterDatabases[i].monsterImage}
+                        imageAlt={`The monster of ${monster.monsterName}`}
+                        imageSize="small"
+                      />
+                    ) : (
+                      <QuestionIcon />
+                    )}
+                    {/* <span> LV. {i + 1}</span> */}
+                  </MonsterImageWrapper>
+                ))}
             </ImageScroller>
           </EachCollectionWrapper>
         ))

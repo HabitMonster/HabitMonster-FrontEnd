@@ -17,6 +17,7 @@ import MonsterGuide from '../pages/MonsterGuide';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import OnBoard from './onBoard/OnBoard';
+import Notice from './myPage/Notice';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -43,7 +44,7 @@ function App() {
   return (
     <Layout>
       <Switch>
-        {!localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
+        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
         <PrivateRoute path="/monster" comp={Monster} />
         <PrivateRoute path="/select" comp={MonsterSetting} />
@@ -55,6 +56,7 @@ function App() {
           <PrivateRoute path="/achievement" comp={Achievement} />
           <PrivateRoute path="/new" comp={New} />
           <PrivateRoute path="/mypage" comp={MyPage} />
+          <PrivateRoute path="/notice" comp={Notice} />
           <Gnb />
         </>
       </Switch>
