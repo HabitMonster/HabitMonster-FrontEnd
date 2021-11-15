@@ -56,7 +56,7 @@ function App() {
           <PrivateRoute path="/achievement" comp={Achievement} />
           <PrivateRoute path="/new" comp={New} />
           <PrivateRoute path="/mypage" comp={MyPage} />
-          <PrivateRoute path="/mypage" comp={MyPage} />
+          <PrivateRoute path="/notice" comp={Notice} />
           <Gnb />
         </>
       </Switch>
