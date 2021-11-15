@@ -12,6 +12,7 @@ import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
+import Notice from './Notice';
 
 const UserInformation = () => {
   const resetAuth = useResetRecoilState(authState);
@@ -95,10 +96,20 @@ const UserInformation = () => {
       contents: 'V_1.0.0',
     },
     {
+      title: '공지사항',
+      contents: '',
+      handleClick: () => history.push('/notice'),
+    },
+    {
       title: '로그아웃',
       contents: '',
       handleClick: () => setIsLogoutModalOpen(true),
       isLogout: true,
+    },
+    {
+      title: '탈퇴하기',
+      contents: '',
+      // handleClick: () => setIsLogoutModalOpen(true),
     },
   ];
 

@@ -17,6 +17,7 @@ import MonsterGuide from '../pages/MonsterGuide';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import OnBoard from './onBoard/OnBoard';
+import Notice from './myPage/Notice';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -54,6 +55,7 @@ function App() {
           <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
           <PrivateRoute path="/achievement" comp={Achievement} />
           <PrivateRoute path="/new" comp={New} />
+          <PrivateRoute path="/mypage" comp={MyPage} />
           <PrivateRoute path="/mypage" comp={MyPage} />
           <Gnb />
         </>
