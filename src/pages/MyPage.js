@@ -3,12 +3,12 @@ import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { fontSize, whiteOpacity } from '../styles';
-import { UserInformation } from '../components/myPage';
+import { UserInformation, History } from '../components/myPage';
 
 const MyPage = () => {
   return (
     <AcheiveContainer>
-      {/* <NavButtonWrap>
+      <NavButtonWrap>
         <NavButtonItem>
           <NavButton to="/mypage/information" activeClassName="active">
             마이페이지
@@ -19,10 +19,10 @@ const MyPage = () => {
             히스토리
           </NavButton>
         </NavButtonItem>
-      </NavButtonWrap> */}
+      </NavButtonWrap>
       <Switch>
         <Route exact path="/mypage/information" component={UserInformation} />
-        {/* <Route exact path="/mypage/history" component={History} /> */}
+        <Route exact path="/mypage/history" component={History} />
         <Redirect from="*" to="/mypage/information" />
       </Switch>
     </AcheiveContainer>
@@ -69,12 +69,10 @@ const NavButton = styled(NavLink)`
   outline: 0;
   line-height: 19px;
   text-decoration: none;
-
   &:hover {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
   }
-
   &.active {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
