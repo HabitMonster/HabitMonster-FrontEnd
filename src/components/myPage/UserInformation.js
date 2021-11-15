@@ -108,11 +108,6 @@ const UserInformation = () => {
       handleClick: () => setIsLogoutModalOpen(true),
       isLogout: true,
     },
-    {
-      title: '탈퇴하기',
-      contents: '',
-      // handleClick: () => setIsLogoutModalOpen(true),
-    },
   ];
 
   return (

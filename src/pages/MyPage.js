@@ -22,7 +22,6 @@ const MyPage = () => {
       </NavButtonWrap>
       <Switch>
         <Route exact path="/mypage/information" component={UserInformation} />
-        {/* <Route exact path="/mypage/history" component={History} /> */}
         <Redirect from="*" to="/mypage/information" />
       </Switch>
     </AcheiveContainer>
