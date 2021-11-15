@@ -20,7 +20,6 @@ const Statistics = () => {
   );
   const currentMonth = new Date(currentDate).getMonth() + 1;
   const limitedMonth = new Date(setAuth.createdAt).getMonth() + 1;
-  console.log(currentMonth, limitedMonth);
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
     totalCount: 0,
@@ -56,7 +55,6 @@ const Statistics = () => {
   const getStatistic = async () => {
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);
-      console.log('statisticResponse', statisticResponse);
       if (statisticResponse.status === 200) {
         const { totalCount, succeededCount, failedCount, habitList } =
           statisticResponse.data;
@@ -78,7 +76,6 @@ const Statistics = () => {
       : 0;
 
   useEffect(() => {
-    // 날짜가 바뀔때마다 요청
     getStatistic();
   }, [currentDate]);
 

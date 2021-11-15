@@ -25,5 +25,3 @@
 - 노션
 
 ## Frontend TechSpec
-
-## Tro

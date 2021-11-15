@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Notice = (props) => {
+const Notice = () => {
   return (
     <Wrap>
-      <NotiText>
-        아직 새로운 <br /> 공지사항이 없어요!
-      </NotiText>
+      <NotiText>{/* 아직 새로운 <br /> 공지사항이 없어요! */}</NotiText>
     </Wrap>
   );
 };
