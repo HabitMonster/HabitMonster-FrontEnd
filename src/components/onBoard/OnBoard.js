@@ -73,15 +73,12 @@ const OnBoardContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
-
   & .swiper-container {
     height: 200px;
   }
-
   & .swiper-pagination {
     top: 150px;
   }
-
   & .swiper-pagination-bullet {
     background: white;
   }

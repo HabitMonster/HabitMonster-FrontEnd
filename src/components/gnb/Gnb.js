@@ -73,6 +73,11 @@ const NavigationItem = styled.li`
 
     &.active path {
       fill: var(--bg-selected-light);
+      stroke: var(--bg-selected-light);
+    }
+
+    &.active ellipse {
+      stroke: var(--bg-selected-light);
     }
   }
 `;
