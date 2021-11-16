@@ -64,7 +64,7 @@ const NumberInput = styled.input`
   text-align: center;
   padding: 4px 8px;
   background: var(--bg-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   border: none;
   color: var(--color-primary);
   font-size: var(--font-s);

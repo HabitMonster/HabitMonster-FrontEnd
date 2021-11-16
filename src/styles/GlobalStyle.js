@@ -47,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
     --weight-light: 300;
     --weight-extraLight: 200;
     /* Size */
+    --border-radius-semi: 4px;
     --border-radius-small: 6px;
     --border-radius-monsterItem: 2px;
     --border-radius-progress: 10px;

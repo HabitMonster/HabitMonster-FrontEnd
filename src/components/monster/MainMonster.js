@@ -131,14 +131,14 @@ const Exp = styled.p`
 const GuageBar = styled.div`
   height: 6px;
   background-color: rgb(90, 90, 90, 0.6);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 `;
 
 const Gauge = styled.div`
   width: ${(props) => `${props.percentage}%`};
   height: 6px;
   background-color: var(--color-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 `;
 
 export default MainMonster;

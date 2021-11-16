@@ -52,7 +52,7 @@ const HabitSection = styled.section`
   width: 100%;
   padding: 24px;
   overflow-y: scroll;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 `;
 
 const Wrapper = styled.div`
