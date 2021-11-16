@@ -17,6 +17,7 @@ const NoHabitHelper = () => {
 };
 
 const Wrapper = styled.div`
+  font-family: var(--font-name-apple);
   width: 100%;
   margin: 0 auto;
   padding: 24px;
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: var(--border-radius-semi);
   /* margin-bottom: 108px; */
 `;
 const HelperText = styled.div`
