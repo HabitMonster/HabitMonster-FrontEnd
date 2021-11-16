@@ -9,6 +9,7 @@ import { myPageDataState } from '../../recoil/states/user';
 import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
+import { fontSize } from '../../styles/Mixin';
 import { BottomDialog } from '../dialog';
 
 const UserInformation = () => {
@@ -115,6 +116,9 @@ const UserInformation = () => {
   return (
     <>
       <UserInfoList>
+        <TitleArea>
+          <PageTitle>마이페이지</PageTitle>
+        </TitleArea>
         {userInfoList.map((userInfoItem) => {
           return (
             <UserInfoItem
@@ -171,6 +175,20 @@ const UserInformation = () => {
 };
 
 export default UserInformation;
+
+const TitleArea = styled.div`
+  height: 44px;
+  margin: 24px 0 20px 24px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+`;
+
+const PageTitle = styled.p`
+  ${fontSize('18px')};
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
+`;
 
 const UserInfoList = styled.ul`
   color: var(--color-primary);

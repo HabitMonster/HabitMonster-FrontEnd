@@ -112,14 +112,14 @@ instance.interceptors.response.use(
           }
         }
 
-        window.alert('Unexpected Error Occured');
-        setMoveToLoginPage();
+        window.alert('Unexpected Error Occured1');
+        // setMoveToLoginPage();
         return Promise.reject(error);
       }
     }
 
-    window.alert('Unexpected Error Occured');
-    setMoveToLoginPage();
+    window.alert('Unexpected Error Occured2');
+    // setMoveToLoginPage();
     return Promise.reject(error);
   },
 );
