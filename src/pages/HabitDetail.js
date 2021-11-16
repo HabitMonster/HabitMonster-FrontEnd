@@ -55,68 +55,72 @@ const HabitDetail = () => {
     }
   };
 
+  // 백에서 나는 오류
+  // 총 달성해야하는 카운트 대비 실제로 수행한(하루치) 비율을 퍼센티지로 나타내는게 acheievePercentage
+  // 그런데 상세 페이지에서 총 카운트가 없음(오늘 수행한 카운트밖에 없음.)
+  // 따라서, 이 화면에서 보여줄 것이 오늘 하루치라면,
+  const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
+
   return (
     <Container>
-      <MenuBar>
-        <BackButtonHeader
-          onButtonClick={() => history.goBack()}
-          pageTitleText="작성한 습관"
-        />
-        <Trash onClick={() => setDeleteModalOpen(true)} />
-      </MenuBar>
-      <Wrapper>
-        <ProgressBarWrapper>
-          <ProgressBar achievePercentage={50}>
-            <div className="left" />
-            <div className="right" />
-            <div className="text">
-              <span>20%</span>
-              <span>
-                {habitDetail.count}번 중 {habitDetail.current}번 완료!
-              </span>
-            </div>
-            <ProgressBarOverflowSection>
-              <CircleProgressbar achievePercentage={10}></CircleProgressbar>
-            </ProgressBarOverflowSection>
-            <IconProgressbar achievePercentage={10}>
-              <GreenMonsterIcon />
-            </IconProgressbar>
-          </ProgressBar>
-        </ProgressBarWrapper>
-      </Wrapper>
-      <Wrapper>
-        <SubTitleOuter subTitle="제목" className="subTitle">
-          <p className="content">{habitDetail.title}</p>
-        </SubTitleOuter>
-      </Wrapper>
-      <Wrapper>
-        <SubTitleOuter subTitle="내용" className="subTitle">
-          <p className="content">{habitDetail.description}</p>
-        </SubTitleOuter>
-      </Wrapper>
-      <Wrapper>
-        <SubTitleOuter subTitle="기간" className="subTitle">
-          <p className="content">
-            {durationStart} ~ {durationEnd}
-          </p>
-        </SubTitleOuter>
-      </Wrapper>
-      <Wrapper>
-        <SubTitleOuter subTitle="요일" className="subTitle">
-          {habitDetail.practiceDays.length === 7 ? (
-            <p className="content">매주</p>
-          ) : (
+      <Inner>
+        <MenuBar>
+          <BackButtonHeader
+            onButtonClick={() => history.goBack()}
+            pageTitleText={habitDetail.title}
+          />
+          <Trash onClick={() => setDeleteModalOpen(true)} />
+        </MenuBar>
+        <Wrapper>
+          <ProgressBarWrapper>
+            <ProgressBar achievePercentage={habitDetail.achievePercentage}>
+              <div className="left" />
+              <div className="right" />
+              <div className="text">
+                <span>{habitDetail.achievePercentage}%</span>
+                <span>
+                  {habitDetail.count}번 중 {habitDetail.current}번 완료!
+                </span>
+              </div>
+              <ProgressBarOverflowSection>
+                <CircleProgressbar degree={progressbarRotationDegree} />
+              </ProgressBarOverflowSection>
+              <IconProgressbar degree={progressbarRotationDegree}>
+                <GreenMonsterIcon />
+              </IconProgressbar>
+            </ProgressBar>
+          </ProgressBarWrapper>
+        </Wrapper>
+
+        <Wrapper>
+          <SubTitleOuter subTitle="내용" className="subTitle">
+            <p className="content">{habitDetail.description}</p>
+          </SubTitleOuter>
+        </Wrapper>
+        <Wrapper>
+          <SubTitleOuter subTitle="기간" className="subTitle">
             <p className="content">
-              매일 {renderDays(habitDetail.practiceDays)}
+              {durationStart} ~ {durationEnd}
             </p>
-          )}
-        </SubTitleOuter>
-      </Wrapper>
-      <Wrapper>
-        <SubTitleOuter subTitle="빈도" clasName="subTitle">
-          <p className="content">{habitDetail.count}번 씩</p>
-        </SubTitleOuter>
-      </Wrapper>{' '}
+          </SubTitleOuter>
+        </Wrapper>
+        <Wrapper>
+          <SubTitleOuter subTitle="요일" className="subTitle">
+            {habitDetail.practiceDays.length === 7 ? (
+              <p className="content">매주</p>
+            ) : (
+              <p className="content">
+                매일 {renderDays(habitDetail.practiceDays)}
+              </p>
+            )}
+          </SubTitleOuter>
+        </Wrapper>
+        <Wrapper>
+          <SubTitleOuter subTitle="빈도" clasName="subTitle">
+            <p className="content">하루에 {habitDetail.count}번</p>
+          </SubTitleOuter>
+        </Wrapper>
+      </Inner>
       <BottomFixedButton
         condition={null}
         text="수정하기"
@@ -143,16 +147,53 @@ const HabitDetail = () => {
     </Container>
   );
 };
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--bg-wrapper);
+  font-family: var(--font-name-apple);
+  color: var(--color-primary);
+`;
+
+const Inner = styled.div`
+  padding: 0 24px;
+`;
+
+const MenuBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+`;
+const Wrapper = styled.div`
+  margin-bottom: 22px;
+
+  & .subTitle {
+    font-weight: var(--weight-semi-bold);
+    font-size: var(--font-xs);
+    line-height: 16.8px;
+    color: var(--bg-selected-light);
+    margin-bottom: 6px;
+  }
+
+  & .content {
+    font-weight: var(--weight-semi-regular);
+  }
+`;
 
 const ProgressBarWrapper = styled.section`
   width: 100%;
+  height: 154px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   background: var(--bg-primary);
   position: relative;
-  padding: 20px;
+  padding: 24px;
 `;
 
 const ProgressBar = styled.div`
@@ -191,6 +232,7 @@ const ProgressBar = styled.div`
     font-size: var(--font-xs);
     line-height: 17px;
     color: var(--color-primary-deemed);
+    text-align: center;
 
     & > span:first-child {
       font-size: 36px;
@@ -219,9 +261,7 @@ const CircleProgressbar = styled.div`
   border-radius: 50%;
   border-bottom-color: var(--bg-selected-light);
   border-right-color: var(--bg-selected-light);
-  transform: rotate(
-    ${({ achievePercentage }) => achievePercentage * 1.8 + 45}deg
-  );
+  transform: ${({ degree }) => `rotate(${degree}deg)`};
 `;
 
 const IconProgressbar = styled(CircleProgressbar)`
@@ -235,45 +275,6 @@ const IconProgressbar = styled(CircleProgressbar)`
     height: 24px;
     transform: rotate(270deg);
     z-index: 10;
-  }
-`;
-
-const MenuBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 44px;
-  margin-top: 24px;
-  margin-bottom: 40px;
-  padding-left: 16px;
-  padding-right: 12.43px;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: var(--bg-wrapper);
-  font-family: var(--font-name-apple);
-  color: var(--color-primary);
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  width: 304px;
-  margin-left: 28px;
-  margin-bottom: 22px;
-
-  & .subTitle {
-    font-weight: var(--weight-semi-bold);
-    font-size: var(--font-xs);
-    line-height: 16.8px;
-    color: var(--bg-selected-light);
-    margin-bottom: 6px;
-  }
-
-  & .content {
-    font-weight: var(--weight-semi-regular);
   }
 `;
 
