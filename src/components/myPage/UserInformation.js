@@ -12,7 +12,6 @@ import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
-import Notice from './Notice';
 
 const UserInformation = () => {
   const resetAuth = useResetRecoilState(authState);
@@ -20,6 +19,7 @@ const UserInformation = () => {
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
@@ -109,7 +109,8 @@ const UserInformation = () => {
     {
       title: '탈퇴하기',
       contents: '',
-      // handleClick: () => setIsLogoutModalOpen(true),
+      handleClick: () => setdeleteAccountModalOpen(true),
+      isDeleteAccount: true,
     },
   ];
 
@@ -147,6 +148,23 @@ const UserInformation = () => {
             activeButtonText="로그아웃하기"
             onActive={() => logoutUser()}
             onClose={() => setIsLogoutModalOpen(false)}
+          />
+        </Modal>
+      )}
+      {deleteAccountModalOpen && (
+        <Modal
+          open={deleteAccountModalOpen}
+          onClose={() => setdeleteAccountModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            title="정말 탈퇴하시겠어요?"
+            description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
+            activeButtonText="탈퇴하기"
+            onActive={() => {
+              console.log('탈퇴는 못참지');
+            }}
+            onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
       )}

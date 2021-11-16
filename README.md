@@ -25,3 +25,5 @@
 - 노션
 
 ## Frontend TechSpec
+
+https://lucid-brahmagupta-c0fb60.netlify.app/
