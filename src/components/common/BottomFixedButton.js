@@ -25,7 +25,7 @@ const Button = styled.button`
   width: 100%;
   max-width: 360px;
   margin: 0 auto;
-  height: 64px;
+  height: 68px;
 
   position: fixed;
   bottom: 0;

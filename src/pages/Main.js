@@ -22,7 +22,7 @@ const Main = () => {
         setShrinked(true);
         current.removeEventListener('scroll', handleScroll);
       }
-    }, 200);
+    }, 150);
 
     current.addEventListener('scroll', handleScroll);
 
@@ -50,7 +50,6 @@ const TestSection = styled.section`
 
 const HabitSection = styled.section`
   width: 100%;
-  height: 100%;
   padding: 24px;
   overflow-y: scroll;
   border-radius: 4px;

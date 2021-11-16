@@ -6,7 +6,7 @@ import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
 import { habitsState } from '../recoil/states/habit';
 
-export default function useFetchCategoryPresets() {
+export default function useHabitPresets() {
   const [presets, setPresets] = useState([]);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
@@ -40,6 +40,7 @@ export default function useFetchCategoryPresets() {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
 
+      // if the presets starts from now on(includes today in practiceDays)
       if (
         data.statusCode === OK &&
         data.habitDto.practiceDays.includes(String(currentDay))
@@ -47,14 +48,15 @@ export default function useFetchCategoryPresets() {
         const selectedPresetIndex = presets.findIndex((preset) => {
           return preset.presetId === selectedPresetId;
         });
+
         const defaultSettings = {
           category: presets[selectedPresetIndex].category,
           current: 0,
           isAccomplished: false,
           achievePercentage: 0,
         };
+
         const newHabit = { ...data.habitDto, ...defaultSettings };
-        // setHabitList((prev) => [newHabit, ...prev]);
         setHabitList([newHabit, ...habitList]);
       }
       history.replace('/');

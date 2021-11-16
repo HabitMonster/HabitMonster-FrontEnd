@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { habitsState } from '../recoil/states/habit';
 
 import {
@@ -19,7 +19,7 @@ import { addHabitApis } from '../api';
 const NewHabitForm = () => {
   const history = useHistory();
   const { state: categoryState } = useLocation();
-  const setHabits = useSetRecoilState(habitsState);
+  const [habits, setHabits] = useRecoilState(habitsState);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -49,13 +49,18 @@ const NewHabitForm = () => {
       practiceDays: practiceDays,
     };
 
+    const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
+
     try {
       const { data } = await addHabitApis.saveHabitWithHands(body);
 
-      if (data.statusCode === OK) {
-        setHabits((prev) => [data.habit, ...prev]);
-        history.replace('/');
+      if (
+        data.statusCode === OK &&
+        data.habit.practiceDays.includes(String(currentDay))
+      ) {
+        setHabits([data.habit, ...habits]);
       }
+      history.replace('/');
     } catch (error) {
       console.error(error);
     }
@@ -111,14 +116,14 @@ const NewHabitForm = () => {
   );
 };
 
+// Wrapper에 패딩 바텀 줌.
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
   background: var(--bg-wrapper);
-  padding-top: 24px;
-  padding-bottom: 80px;
   overflow-y: scroll;
+  padding-bottom: 108px;
 `;
 
 const Inner = styled.div`
@@ -126,7 +131,7 @@ const Inner = styled.div`
 `;
 
 const Header = styled.section`
-  height: 44px;
+  margin-top: 24px;
   margin-bottom: 40px;
 `;
 

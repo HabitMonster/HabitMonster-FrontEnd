@@ -16,6 +16,7 @@ import { OK } from '../../constants/statusCode';
 const TodayHabit = ({ id }) => {
   const history = useHistory();
   const habitDetail = useRecoilValue(habitState(id));
+  console.log(habitDetail);
   const setHabitList = useSetRecoilState(habitsState);
   const setMonster = useSetRecoilState(monsterState);
   const [active, setActive] = useState(false);

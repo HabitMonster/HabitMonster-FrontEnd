@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { BackButtonHeader, BottomFixedButton } from '../components/common';
 import { NewHabitPresetItem } from '../components/newHabit';
 
-import { useFetchCategoryPresets } from '../hooks';
+import { useHabitPresets } from '../hooks';
 import { PencilIcon } from '../assets/icons/habits';
 
 const NewHabitPresetList = () => {
@@ -13,7 +13,7 @@ const NewHabitPresetList = () => {
   const history = useHistory();
 
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
-    useFetchCategoryPresets();
+    useHabitPresets();
 
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
@@ -74,7 +74,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  background: var(--bg-wrapper);
+  background: var(--bg-wrapper-gradient);
 `;
 
 const Inner = styled.div`
@@ -83,34 +83,33 @@ const Inner = styled.div`
 `;
 
 const Header = styled.div`
-  margin-top: var(--font-xxl);
+  margin-top: 24px;
   margin-bottom: 12px;
 `;
 
 const HelperText = styled.h2`
   color: var(--color-primary);
-  font-size: var(--color-xxl);
+  font-size: var(--font-xxl);
+  font-weight: var(--weight-semi-regular);
   line-height: 32px;
   margin-bottom: 20px;
 `;
 
 const Hands = styled.div`
   width: 312px;
-  height: 52px;
   background: var(--bg-primary);
   border: none;
   border-radius: 4px;
   margin-bottom: 80px;
-
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
   transition: all var(--animation-duration) cubic-bezier(0.42, 0, 0.58, 1);
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & span {
+    padding: 14px 0px;
     color: var(--color-primary);
     font-weight: var(--weight-regular);
     font-size: var(--font-l);

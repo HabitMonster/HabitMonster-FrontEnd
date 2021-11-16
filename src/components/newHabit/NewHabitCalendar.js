@@ -130,7 +130,10 @@ const NewHabitCalendar = ({ onClick }) => {
       <HelperText>{renderHelperText()}</HelperText>
       <SaveButtons>
         <button onClick={() => onClick({ type: 'cancel' })}>취소</button>
-        <button onClick={() => onClick({ type: 'save', value: selectedDate })}>
+        <button
+          disabled={!Boolean(selectedDate)}
+          onClick={() => onClick({ type: 'save', value: selectedDate })}
+        >
           완료
         </button>
       </SaveButtons>
@@ -290,7 +293,10 @@ const SaveButtons = styled.div`
     &:first-child {
       border-right: 1px solid rgba(248, 248, 248, 0.1);
     }
-  }
+    
+    &:disabled {
+      color: var(--color-primary-deemed);
+    }
 `;
 
 export default memo(NewHabitCalendar);
