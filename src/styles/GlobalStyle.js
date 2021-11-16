@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --color-deemed2: #e8e8e8;
     --color-detail: #f7f5ff;
     --color-statistics: #492cf1;
+    --color-onboard: #7d3bff;
     /* Font name */
     --font-name-apple: 'Apple SD Gothic Neo';
     /* Font size */

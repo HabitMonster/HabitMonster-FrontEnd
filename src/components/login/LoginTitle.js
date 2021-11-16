@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { loginMonster, titleMonster } from '../../assets/images/login';
+import { loginMonster } from '../../assets/images/login';
 
 const LoginTitle = () => {
   return (
     <Wrapper>
       <TitleContainer>
-        <TitleImage />
         <Title>Habit</Title>
         <Title>Monster</Title>
       </TitleContainer>
@@ -16,18 +15,6 @@ const LoginTitle = () => {
     </Wrapper>
   );
 };
-
-const TitleImage = styled.div`
-  position: absolute;
-  top: 100px;
-  left: 225px;
-  width: 38.8px;
-  height: 38.66px;
-  background-image: url(${titleMonster});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
 
 const TitleContainer = styled.div`
   width: 187px;

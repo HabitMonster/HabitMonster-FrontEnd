@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 
-import { getCookie, deleteCookie } from '../../utils/cookie';
-
 import { authState } from '../../recoil/states/auth';
 import { myPageDataState } from '../../recoil/states/user';
 
@@ -62,18 +60,18 @@ const UserInformation = () => {
   );
 
   const logoutUser = () => {
-    const token = getCookie('accessToken');
+    const token = window.localStorage.getItem('habitAccessToken');
 
     if (!token) {
       <div>먼저 로그인을 해주세요!</div>;
     }
-    window.localStorage.removeItem('habitAccess');
-    window.localStorage.removeItem('habitRefresh');
-    window.localStorage.removeItem('isFirstLogin');
-    window.localStorage.removeItem('isOnboarding');
+
+    window.localStorage.removeItem('habitAccessToken');
+    window.localStorage.removeItem('habitRefreshToken');
     resetAuth();
     setIsLogoutModalOpen(false);
-    history.replace('/login', null);
+
+    history.push('/login', null);
   };
 
   const userInfoList = [
