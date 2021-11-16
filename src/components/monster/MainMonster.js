@@ -81,7 +81,9 @@ const MonsterImage = styled.div`
   width: 128px;
   height: 128px;
   margin: auto;
-  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '68px' : '0px')};
+  // 아래 항목 주석처리 한 이유: 뷰가 640 기준으로 안나왔기 때문
+  /* margin-top: ${({ heightShrinked }) =>
+    !heightShrinked ? '68px' : '0px'}; */
   background-image: ${(props) => `url(${props.image})`};
   background-position: center;
   background-repeat: no-repeat;

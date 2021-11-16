@@ -17,7 +17,7 @@ const NoHabitHelper = () => {
 };
 
 const Wrapper = styled.div`
-  width: 312px;
+  width: 100%;
   margin: 0 auto;
   padding: 24px;
   background: var(--bg-primary);
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 108px;
+  /* margin-bottom: 108px; */
 `;
 const HelperText = styled.div`
   width: 100%;
