@@ -15,7 +15,6 @@ const Feedback = () => {
 };
 
 const FeedbackLink = styled.a`
-  width: 87px;
   height: 32px;
   z-index: 3;
 
@@ -27,7 +26,6 @@ const FeedbackLink = styled.a`
   border-radius: var(--border-radius-checkBtn);
 
   & div {
-    width: 63px;
     height: 24px;
     display: flex;
     justify-content: center;
