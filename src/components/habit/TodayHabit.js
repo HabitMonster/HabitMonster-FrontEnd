@@ -66,32 +66,32 @@ const TodayHabit = ({ id }) => {
   };
 
   return (
-    <>
-      <Card onClick={onHabitClicked}>
-        <DetailContainer>
+    <Card onClick={onHabitClicked}>
+      <DetailContainer>
+        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <CategoryIcon category={habitDetail.category} />
           <Info>
-            <HabitTitle>{habitDetail.title}</HabitTitle>
+            <div style={{ marginBottom: '8px' }}>
+              <HabitTitle>{habitDetail.title}</HabitTitle>
+              <Count>
+                <b>{habitDetail.current}</b>/{habitDetail.count}
+              </Count>
+            </div>
             <Period>
               {durationStart}~{durationEnd}
             </Period>
           </Info>
-          <CountContainer>
-            <Count>
-              {habitDetail.current}/{habitDetail.count}
-            </Count>
-          </CountContainer>
-        </DetailContainer>
-        <CheckBtn
-          active={active}
-          isDone={habitDetail.isAccomplished}
-          disabled={habitDetail.isAccomplished}
-          onClick={clickHandler}
-        >
-          {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
-        </CheckBtn>
-      </Card>
-    </>
+        </div>
+      </DetailContainer>
+      <CheckBtn
+        active={active}
+        isDone={habitDetail.isAccomplished}
+        disabled={habitDetail.isAccomplished}
+        onClick={clickHandler}
+      >
+        {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
+      </CheckBtn>
+    </Card>
   );
 };
 
@@ -102,22 +102,18 @@ TodayHabit.propTypes = {
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 24px 24px 24px 17px;
+  padding: 24px;
   margin-bottom: 16px;
   font-family: var(--font-name-apple);
   background-color: var(--bg-primary);
   color: var(--color-primary);
   border-radius: 4px;
-  box-sizing: border-box;
   cursor: pointer;
-  z-index: 1;
 `;
 
 const DetailContainer = styled.div`
   display: flex;
-  align-self: flex-start;
   width: 100%;
-  box-sizing: border-box;
 `;
 
 const CategoryIcon = styled.div`
@@ -131,37 +127,40 @@ const CategoryIcon = styled.div`
 `;
 
 const Info = styled.div`
+  width: calc(100% - 43px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 200px;
-  /* height: 42px; */
+
+  & div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const HabitTitle = styled.span`
-  line-height: 19.2px;
   font-size: var(--font-m);
+  line-height: 19.2px;
   font-weight: var(--weight-bold);
 `;
 
 const Period = styled.p`
-  width: 256px;
-  height: 14px;
   font-size: var(--font-xxs);
   font-weight: var(--weight-regular);
   opacity: 0.6;
-`;
-
-const CountContainer = styled.div`
-  width: 28px;
-  height: 17px;
 `;
 
 const Count = styled.span`
   line-height: 16.8px;
   font-family: var(--font-name-apple);
   font-size: var(--font-xs);
-  font-weight: var(--weight-semi-bold);
+  font-weight: var(--weight-regular);
+  color: var(--color-primary-deemed);
+
+  & b {
+    font-weight: var(--weight-semi-bold);
+    color: var(--color-primary);
+  }
 `;
 
 const updateAnimation = keyframes`
@@ -198,7 +197,6 @@ const CheckBtn = styled.button`
     isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
   border: none;
   border-radius: 4px;
-  z-index: 5;
   cursor: pointer;
   animation: ${({ active, isDone }) =>
     isDone

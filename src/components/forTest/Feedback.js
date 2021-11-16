@@ -17,6 +17,7 @@ const Feedback = () => {
 const FeedbackLink = styled.a`
   width: 87px;
   height: 32px;
+  z-index: 3;
 
   position: absolute;
   right: 24px;
