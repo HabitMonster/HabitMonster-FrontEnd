@@ -23,7 +23,6 @@ const myPageDataSelector = selector({
   get: async () => {
     try {
       const { data } = await myPageApis.loadUserData();
-      console.log('userInfo', data, data.userInfo);
       return data.userInfo;
     } catch (error) {
       throw error;
@@ -42,7 +41,6 @@ export const updateUserSelector = selectorFamily({
     if (!userName) return null;
 
     const { data } = await myPageApis.editUserName(userName);
-    console.log('updateUser', data);
     return data;
   },
 });
