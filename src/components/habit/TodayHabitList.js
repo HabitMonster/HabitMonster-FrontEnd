@@ -32,7 +32,7 @@ const HabitContainer = styled.div`
   height: 100%;
   /* padding: 24px;
   overflow-y: scroll; */
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 
   &::-webkit-scrollbar {
     display: none;

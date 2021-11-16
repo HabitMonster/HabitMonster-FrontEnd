@@ -99,7 +99,7 @@ const Hands = styled.div`
   width: 312px;
   background: var(--bg-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   margin-bottom: 80px;
   display: flex;
   justify-content: center;

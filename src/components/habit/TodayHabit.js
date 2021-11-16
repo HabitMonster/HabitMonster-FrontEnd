@@ -109,7 +109,7 @@ const Card = styled.div`
   font-family: var(--font-name-apple);
   background-color: var(--bg-primary);
   color: var(--color-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   cursor: pointer;
 `;
 
@@ -198,7 +198,7 @@ const CheckBtn = styled.button`
   color: ${({ isDone }) =>
     isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   cursor: pointer;
   animation: ${({ active, isDone }) =>
     isDone

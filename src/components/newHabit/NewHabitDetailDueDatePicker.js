@@ -225,7 +225,7 @@ const ModalToggler = styled.div`
   align-items: center;
   padding: 4px 8px;
   margin-bottom: 12px;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   cursor: pointer;
 
   & span {
