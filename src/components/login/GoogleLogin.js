@@ -5,7 +5,6 @@ import { useSetRecoilState } from 'recoil';
 import { authState } from '../../recoil/states/auth';
 
 import { auth } from '../../api';
-import { setCookie } from '../../utils/cookie';
 import { GoogleSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 
@@ -14,7 +13,6 @@ const GoogleLogin = () => {
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
   const setAuth = useSetRecoilState(authState);
-  console.log('googleLoginRender');
 
   useEffect(() => {
     googleSDK();
@@ -33,17 +31,20 @@ const GoogleLogin = () => {
           {},
           (googleUser) => {
             async function getTokenWithGoogle() {
-              console.log(googleUser);
               try {
                 const { data } = await auth.getSocialLogin(
                   socialName,
                   googleUser.getAuthResponse().id_token,
                 );
 
-                console.log('성공', data);
-
-                window.localStorage.setItem('habitAccess', data.accessToken);
-                window.localStorage.setItem('habitRefresh', data.refreshToken);
+                window.localStorage.setItem(
+                  'habitAccessToken',
+                  data.accessToken,
+                );
+                window.localStorage.setItem(
+                  'habitRefreshToken',
+                  data.refreshToken,
+                );
 
                 if (data.statusCode === OK && data.isFirstLogin) {
                   setAuth({
@@ -63,7 +64,7 @@ const GoogleLogin = () => {
                   return;
                 }
               } catch (err) {
-                console.error(err);
+                console.error(err.response);
               }
             }
 
@@ -92,12 +93,16 @@ const GoogleLogin = () => {
   };
 
   return (
-    <React.Fragment>
-      <LoginBtn ref={googleLoginBtn} id="gSignInWrapper">
+    <>
+      <LoginBtn
+        ref={googleLoginBtn}
+        id="gSignInWrapper"
+        className="googleLogin"
+      >
         <GoogleSymbol />
         <SocialTitle>Google로 시작하기</SocialTitle>
       </LoginBtn>
-    </React.Fragment>
+    </>
   );
 };
 

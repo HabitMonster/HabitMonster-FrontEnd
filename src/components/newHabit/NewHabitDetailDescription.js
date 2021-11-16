@@ -5,16 +5,18 @@ import { SubTitleOuter, TextInput } from '../common';
 const NewHabitDetailDescription = ({
   description,
   update,
-  isEdit,
+  isEditMode,
   originDescription,
 }) => {
+  // isEditMode === true  :  해당 컴포넌트를 "습관 수정" 페이지에서 사용합니다. 따라서 placeholder가 수정 전 습관의 값으로 출력됩니다.
+  // isEditMode === false : 해당 컴포넌트를 "습관 작성" 페이지에서 사용합니다. 따라서 placeholder가 default 값으로 출력됩니다.
   return (
     <SubTitleOuter subTitle="내용">
       <TextInput
         text={description}
         onTextChanged={update}
         placeholder={
-          isEdit ? originDescription : '예) 100일이면 10만원이다 이말이야'
+          isEditMode ? originDescription : '예) 100일이면 10만원이다 이말이야'
         }
         lengthValidationMode={false}
       />
@@ -25,7 +27,7 @@ const NewHabitDetailDescription = ({
 NewHabitDetailDescription.propTypes = {
   description: PropTypes.string.isRequired,
   update: PropTypes.func.isRequired,
-  isEdit: PropTypes.bool,
+  isEditMode: PropTypes.bool.isRequired,
   originDescription: PropTypes.string,
 };
 

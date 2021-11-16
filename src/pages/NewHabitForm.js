@@ -80,22 +80,29 @@ const NewHabitForm = () => {
           />
         </Header>
         <MarginInterval mb="24">
-          <NewHabitDetailTitle title={title} update={setTitle} />
+          <NewHabitDetailTitle
+            isEditMode={false}
+            title={title}
+            update={setTitle}
+          />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDetailDescription
+            isEditMode={false}
             description={description}
             update={setDescription}
           />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDetailDueDatePicker
+            isEditMode={false}
             duration={duration}
             onDurationChecked={setDuration}
           />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDayPicker
+            isEditMode={false}
             days={practiceDays}
             onDayPicked={setPracticeDays}
           />

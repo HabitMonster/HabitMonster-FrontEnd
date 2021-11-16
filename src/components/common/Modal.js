@@ -54,7 +54,7 @@ const Modal = ({ open, onClose, children, blurmode }) => {
 
 Modal.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
   blurmode: PropTypes.bool,
