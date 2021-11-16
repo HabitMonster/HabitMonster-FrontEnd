@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
 import Feedback from '../components/forTest/Feedback';
+import { miniThrottle } from '../utils/event';
 import '../assets/fonts/font.css';
 
 //TODOS
@@ -16,14 +17,17 @@ const Main = () => {
   useEffect(() => {
     const { current } = habitSection;
 
-    const handleScroll = () => {
+    const handleScroll = miniThrottle(() => {
+      console.log('trigger');
       if (current.scrollTop >= 24) {
         setTest(true);
         current.removeEventListener('scroll', handleScroll);
       }
-    };
+    }, 200);
 
     current.addEventListener('scroll', handleScroll);
+
+    return () => current.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
