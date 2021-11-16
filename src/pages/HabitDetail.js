@@ -58,7 +58,6 @@ const HabitDetail = () => {
   // 백에서 나는 오류
   // 총 달성해야하는 카운트 대비 실제로 수행한(하루치) 비율을 퍼센티지로 나타내는게 acheievePercentage
   // 그런데 상세 페이지에서 총 카운트가 없음(오늘 수행한 카운트밖에 없음.)
-  // 따라서, 이 화면에서 보여줄 것이 오늘 하루치라면,
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
 
   return (
@@ -79,7 +78,8 @@ const HabitDetail = () => {
               <div className="text">
                 <span>{habitDetail.achievePercentage}%</span>
                 <span>
-                  {habitDetail.count}번 중 {habitDetail.current}번 완료!
+                  {habitDetail.totalCount}번 중 {habitDetail.achieveCount}번
+                  완료!
                 </span>
               </div>
               <ProgressBarOverflowSection>
@@ -222,7 +222,7 @@ const ProgressBar = styled.div`
 
   & > .text {
     position: absolute;
-    bottom: 0;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
 
@@ -239,6 +239,7 @@ const ProgressBar = styled.div`
       line-height: 43.2px;
       font-weight: var(--weight-bold);
       color: var(--color-white);
+      margin-bottom: 6px;
     }
   }
 `;
