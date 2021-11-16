@@ -44,7 +44,7 @@ NewHabitPresetItem.propTypes = {
 };
 
 const Wrapper = styled.div`
-  width: 312px;
+  width: 100%;
   cursor: pointer;
 
   background: ${({ isSelected }) =>
@@ -76,7 +76,6 @@ const Wrapper = styled.div`
 `;
 
 const Chip = styled.div`
-  height: 22px;
   padding: 4px 8px;
   margin-right: 8px;
   display: flex;

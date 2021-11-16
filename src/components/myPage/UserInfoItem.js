@@ -13,11 +13,7 @@ const UserInfoItem = ({ userInfoItem }) => {
       <DefaultTitle>{title}</DefaultTitle>
       <PrivateTextWrap>
         {contents && <PrivateText>{contents}</PrivateText>}
-        {isPossibleEdit && !isLogout && (
-          <EditButton>
-            <EditIcon />
-          </EditButton>
-        )}
+        {isPossibleEdit && !isLogout && <EditIcon />}
       </PrivateTextWrap>
     </InfoListItem>
   );
@@ -33,6 +29,7 @@ const InfoListItem = styled.li`
   align-items: center;
   padding: 0 24px;
   border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
+
   & :nth-child(4) {
     margin-right: 6px;
     border-bottom: none;
@@ -49,6 +46,12 @@ const DefaultTitle = styled.p`
 const PrivateTextWrap = styled.div`
   display: flex;
   align-items: center;
+
+  & > svg {
+    display: block;
+
+    margin-left: 8px;
+  }
 `;
 
 const PrivateText = styled.p`
@@ -57,15 +60,6 @@ const PrivateText = styled.p`
   color: var(--color-primary);
   ${whiteOpacity('0.8')};
   height: 18px;
-`;
-
-const EditButton = styled.button`
-  background-color: transparent;
-  border: 0;
-  /* cursor: pointer; */
-  height: 18px;
-  outline: 0;
-  margin-left: 7px;
 `;
 
 const LogoutButton = styled.button`

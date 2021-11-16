@@ -1,4 +1,4 @@
 import useFetchCategories from './useFetchCategories';
-import useFetchCategoryPresets from './useFetchCategoryPresets';
+import useHabitPresets from './useHabitPresets';
 
-export { useFetchCategories, useFetchCategoryPresets };
+export { useFetchCategories, useHabitPresets };

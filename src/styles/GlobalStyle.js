@@ -56,6 +56,7 @@ const GlobalStyle = createGlobalStyle`
     --animation-duration: 200ms;
     /* Background Color */
     --bg-wrapper: #070707;
+    --bg-wrapper-gradient: linear-gradient(0deg, #070707, #070707);
     --bg-primary: #1e2025;
     --bg-disabled: #181819;
     --bg-active: #3b0a9d;

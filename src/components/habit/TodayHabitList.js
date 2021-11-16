@@ -4,18 +4,22 @@ import styled from 'styled-components';
 
 import { habitIdListState } from '../../recoil/states/habit';
 
-import { TodayHabit } from './';
+import { TodayHabit, NoHabitHelper } from './';
 
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
 
   return (
     <HabitContainer>
-      <HabitList>
-        {habitIdList.map((id) => (
-          <TodayHabit key={id} id={id} />
-        ))}
-      </HabitList>
+      {habitIdList.length ? (
+        <HabitList>
+          {habitIdList.map((id) => (
+            <TodayHabit key={id} id={id} />
+          ))}
+        </HabitList>
+      ) : (
+        <NoHabitHelper />
+      )}
     </HabitContainer>
   );
 };
@@ -24,8 +28,10 @@ const HabitContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 312px;
-  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  /* padding: 24px;
+  overflow-y: scroll; */
   border-radius: 4px;
 
   &::-webkit-scrollbar {
@@ -37,10 +43,9 @@ const HabitContainer = styled.div`
 `;
 
 const HabitList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 50px;
+  &:last-child {
+    padding-bottom: 108px;
+  }
 `;
 
 export default TodayHabitList;
