@@ -92,6 +92,7 @@ const DetailPer = styled.span`
   margin-bottom: 5px;
   padding-left: 1px;
 `;
+
 CircleProgress.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,

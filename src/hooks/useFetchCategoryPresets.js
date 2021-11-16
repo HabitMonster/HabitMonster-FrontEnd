@@ -8,7 +8,6 @@ import { habitsState } from '../recoil/states/habit';
 
 export default function useFetchCategoryPresets() {
   const [presets, setPresets] = useState([]);
-  console.log(presets);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
   const history = useHistory();

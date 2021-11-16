@@ -5,7 +5,6 @@ import { useSetRecoilState } from 'recoil';
 import { authState } from '../../recoil/states/auth';
 
 import { auth } from '../../api';
-import { setCookie } from '../../utils/cookie';
 import { NaverSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 
@@ -48,8 +47,8 @@ const NaverLogin = () => {
     async function getTokenWithNaver() {
       try {
         const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
-        setCookie('accessToken', data.accessToken);
-        setCookie('refreshToken', data.refreshToken);
+        window.localStorage.setItem('habitAccessToken', data.accessToken);
+        window.localStorage.setItem('habitRefreshToken', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
           setAuth({
@@ -81,15 +80,19 @@ const NaverLogin = () => {
   };
 
   return (
-    <React.Fragment>
-      <div ref={naverRef} id="naverIdLogin"></div>
+    <>
+      <HideNaverButon ref={naverRef} id="naverIdLogin"></HideNaverButon>
       <LoginBtn className="naverLogin" onClick={handleClick}>
         <NaverSymbol />
         <SocialTitle>네이버로 시작하기</SocialTitle>
       </LoginBtn>
-    </React.Fragment>
+    </>
   );
 };
+
+const HideNaverButon = styled.div`
+  display: none;
+`;
 
 const LoginBtn = styled.div`
   display: flex;

@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Pagination, Navigation } from 'swiper';
+import SwiperCore, { Pagination } from 'swiper';
+
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 
 import {
   onboard01,
@@ -12,11 +15,7 @@ import {
 } from '../../assets/images/onboard';
 import { BottomFixedButton } from '../common';
 
-import 'swiper/swiper.min.css';
-import 'swiper/components/pagination/pagination.min.css';
-import 'swiper/components/navigation/navigation.min.css';
-
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination]);
 
 const OnBoard = () => {
   const history = useHistory();
@@ -33,7 +32,9 @@ const OnBoard = () => {
           <Swiper
             className="banner"
             initialSlide={0}
-            style={{ width: '360px' }}
+            style={{
+              width: '360px',
+            }}
             navigation
             pagination={{
               clickable: true,
@@ -73,14 +74,22 @@ const OnBoardContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
+
   & .swiper-container {
     height: 200px;
   }
+
   & .swiper-pagination {
     top: 150px;
   }
+
   & .swiper-pagination-bullet {
-    background: white;
+    background: var(--color-title);
+    opacity: 1;
+
+    &.swiper-pagination-bullet-active {
+      background: var(--color-onboard);
+    }
   }
 `;
 
