@@ -8,7 +8,7 @@ import { CheckIcon } from '../../assets/icons/habits';
 
 import { toggleDay } from '../../utils/date';
 
-const NewHabitDayPicker = ({ days, onDayPicked }) => {
+const NewHabitDayPicker = ({ days, onDayPicked, isEditMode }) => {
   const handleDayClick = (id) => {
     const newDays = toggleDay(days, id);
     onDayPicked(newDays);
@@ -18,19 +18,31 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
     onDayPicked(days.length === 7 ? '' : '1234567');
   };
 
+  // isEditMode === true  :  해당 컴포넌트를 "습관 수정" 페이지에서 사용합니다. 따라서 요일 선택이 "불가능"합니다.
+  // isEditMode === false : 해당 컴포넌트를 "습관 작성" 페이지에서 사용합니다. 따라서 요일 선택이 "가능"합니다.
   return (
     <SubTitleOuter subTitle="요일 설정">
       <Wrapper>
         <PresetList>
-          {WEEK.map(({ id, day }) => (
-            <Item
-              onClick={() => handleDayClick(id)}
-              key={id}
-              selected={days.includes(String(id))}
-            >
-              {day}
-            </Item>
-          ))}
+          {isEditMode
+            ? WEEK.map(({ id, day }) => (
+                <Item
+                  onClick={null}
+                  key={id}
+                  selected={days.includes(String(id))}
+                >
+                  {day}
+                </Item>
+              ))
+            : WEEK.map(({ id, day }) => (
+                <Item
+                  onClick={() => handleDayClick(id)}
+                  key={id}
+                  selected={days.includes(String(id))}
+                >
+                  {day}
+                </Item>
+              ))}
         </PresetList>
         <ChoiceAllSection allSelected={days.length === 7}>
           <CheckIcon
@@ -40,9 +52,9 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
                 ? 'var(--bg-selected-light)'
                 : 'var(--color-primary)'
             }
-            onClick={toggleAll}
+            onClick={isEditMode ? null : toggleAll}
           />
-          <span onClick={toggleAll}>매일(모든 요일)</span>
+          <span onClick={isEditMode ? null : toggleAll}>매일(모든 요일)</span>
         </ChoiceAllSection>
       </Wrapper>
     </SubTitleOuter>
@@ -50,8 +62,9 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
 };
 
 NewHabitDayPicker.propTypes = {
+  isEditMode: PropTypes.bool,
   days: PropTypes.string.isRequired,
-  onDayPicked: PropTypes.func.isRequired,
+  onDayPicked: PropTypes.func,
 };
 
 const Wrapper = styled.div`
