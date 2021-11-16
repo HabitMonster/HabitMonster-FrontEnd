@@ -12,15 +12,14 @@ import '../assets/fonts/font.css';
 
 const Main = () => {
   const habitSection = useRef(null);
-  const [test, setTest] = useState(false);
+  const [shrinked, setShrinked] = useState(false);
 
   useEffect(() => {
     const { current } = habitSection;
 
     const handleScroll = miniThrottle(() => {
-      console.log('trigger');
       if (current.scrollTop >= 24) {
-        setTest(true);
+        setShrinked(true);
         current.removeEventListener('scroll', handleScroll);
       }
     }, 200);
@@ -34,7 +33,7 @@ const Main = () => {
     <Wrapper>
       <Feedback />
       <TestSection>
-        <MainMonster aa={test} />
+        <MainMonster heightShrinked={shrinked} />
       </TestSection>
       <HabitSection ref={habitSection}>
         <TodayHabitList />

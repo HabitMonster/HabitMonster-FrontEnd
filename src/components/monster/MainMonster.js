@@ -7,12 +7,12 @@ import { monsterState } from '../../recoil/states/monster';
 import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 
-const MainMonster = ({ aa }) => {
+const MainMonster = ({ heightShrinked }) => {
   const monster = useRecoilValue(monsterState);
 
   return (
     <MonsterContainer>
-      <TitleWrapper aa={aa}>
+      <TitleWrapper heightShrinked={heightShrinked}>
         <Title>
           오늘{' '}
           <span>
@@ -23,7 +23,10 @@ const MainMonster = ({ aa }) => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-      <MonsterImage aa={aa} image={monster.monsterImage} />
+      <MonsterImage
+        heightShrinked={heightShrinked}
+        image={monster.monsterImage}
+      />
       <ExpContainer>
         <ExpText>
           <MonsterLevel>lv.{monster.monsterLevel}</MonsterLevel>
@@ -41,7 +44,7 @@ const MainMonster = ({ aa }) => {
 };
 
 MainMonster.propTypes = {
-  aa: PropTypes.bool,
+  heightShrinked: PropTypes.bool,
 };
 
 const MonsterContainer = styled.div`
@@ -56,9 +59,9 @@ const MonsterContainer = styled.div`
 
 const TitleWrapper = styled.div`
   display: block;
-  margin-top: ${({ aa }) => (!aa ? '56px' : '0px')};
-  height: ${({ aa }) => (!aa ? '64px' : '0px')};
-  opacity: ${({ aa }) => (!aa ? '1' : '0')};
+  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '56px' : '0px')};
+  height: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
+  opacity: ${({ heightShrinked }) => (!heightShrinked ? '1' : '0')};
   transition: all 350ms linear;
 `;
 
@@ -78,7 +81,7 @@ const MonsterImage = styled.div`
   width: 128px;
   height: 128px;
   margin: auto;
-  margin-top: ${({ aa }) => (!aa ? '68px' : '0px')};
+  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '68px' : '0px')};
   background-image: ${(props) => `url(${props.image})`};
   background-position: center;
   background-repeat: no-repeat;
