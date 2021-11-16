@@ -24,6 +24,7 @@ const HabitDetail = () => {
 
   const [habitList, setHabitList] = useRecoilState(habitsState);
   const habitDetail = useRecoilValue(habitState(habitId));
+  console.log(habitDetail);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,

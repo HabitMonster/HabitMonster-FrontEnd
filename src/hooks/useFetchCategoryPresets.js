@@ -8,7 +8,6 @@ import { habitsState } from '../recoil/states/habit';
 
 export default function useFetchCategoryPresets() {
   const [presets, setPresets] = useState([]);
-  console.log(presets);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
   const history = useHistory();
@@ -35,11 +34,16 @@ export default function useFetchCategoryPresets() {
     setSelectedPresetId(presetId);
   }, []);
 
+  const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
+
   const onPresetSaved = useCallback(async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
 
-      if (data.statusCode === OK) {
+      if (
+        data.statusCode === OK &&
+        data.habitDto.practiceDays.includes(String(currentDay))
+      ) {
         const selectedPresetIndex = presets.findIndex((preset) => {
           return preset.presetId === selectedPresetId;
         });

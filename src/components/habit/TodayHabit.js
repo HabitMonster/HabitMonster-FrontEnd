@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -37,6 +37,7 @@ const TodayHabit = ({ id }) => {
 
     try {
       const { data } = await habitApis.checkHabit(id);
+      console.log(data);
       if (data.statusCode === OK) {
         setHabitList((prev) => {
           const copy = prev.slice();
