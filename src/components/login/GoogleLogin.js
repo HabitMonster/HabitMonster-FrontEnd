@@ -94,7 +94,11 @@ const GoogleLogin = () => {
 
   return (
     <>
-      <LoginBtn ref={googleLoginBtn} id="gSignInWrapper">
+      <LoginBtn
+        ref={googleLoginBtn}
+        id="gSignInWrapper"
+        className="googleLogin"
+      >
         <GoogleSymbol />
         <SocialTitle>Google로 시작하기</SocialTitle>
       </LoginBtn>
