@@ -25,6 +25,11 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
+    if (!isLogin) {
+      history.replace('/login');
+      return;
+    }
+
     const monsterPath = ['select', 'guide', 'monster'];
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
@@ -39,12 +44,12 @@ function App() {
       history.replace('/monster');
       return;
     }
-  }, []);
+  }, [isFirstLogin, isLogin, location.pathname]);
 
   return (
     <Layout>
+      {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
       <Switch>
-        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
         <Route path="/monster" component={Monster} />
         <Route path="/select" component={MonsterSetting} />
