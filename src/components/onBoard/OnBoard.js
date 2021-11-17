@@ -33,7 +33,8 @@ const OnBoard = () => {
             className="banner"
             initialSlide={0}
             style={{
-              width: '360px',
+              width: '100%',
+              maxWidth: '414px',
             }}
             navigation
             pagination={{

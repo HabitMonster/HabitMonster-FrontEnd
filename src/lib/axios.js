@@ -23,8 +23,10 @@ const setToken = (config) => {
   config.headers['Content-Type'] = 'application/json; charset=utf-8';
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
+  // config.headers['A-AUTH-TOKEN'] =
+  //   window.localStorage.getItem('habitAccessToken');
   config.headers['A-AUTH-TOKEN'] =
-    window.localStorage.getItem('habitAccessToken');
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0RyIsInR5cGUiOiJHT09HTEUiLCJpYXQiOjE2MzcxNzcyODYsImV4cCI6MTYzOTc2OTI4Nn0.M562E66GqRG-eKC1pQl05kjoPv6xx-thf8BGZ6xaWDc';
   config.headers.withCredentials = true;
   return config;
 };

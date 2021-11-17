@@ -11,11 +11,15 @@ export const monsterRefetchToggler = atom({
 export const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
   get: async ({ get }) => {
-    const { isLogin } = get(authState);
-    if (!isLogin) {
+    const { isLogin, isFirstLogin } = get(authState);
+
+    if (!isLogin || isFirstLogin) {
       return null;
     }
     get(monsterRefetchToggler);
+
+    if (isFirstLogin) {
+    }
 
     try {
       const { data } = await mainApis.getMonsterInfo();

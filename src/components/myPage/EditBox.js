@@ -87,7 +87,8 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
 };
 
 const Container = styled.div`
-  width: 360px;
+  max-width: 414px;
+  width: 100%;
   height: 100%;
   /* position: relative; */
   background: var(--bg-wrapper);

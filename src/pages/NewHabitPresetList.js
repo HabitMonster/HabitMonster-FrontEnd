@@ -96,7 +96,7 @@ const HelperText = styled.h2`
 `;
 
 const Hands = styled.div`
-  width: 312px;
+  width: 100%;
   background: var(--bg-primary);
   border: none;
   border-radius: var(--border-radius-semi);

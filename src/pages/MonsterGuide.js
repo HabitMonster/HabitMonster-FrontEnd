@@ -102,14 +102,6 @@ const SmallText = styled.p`
   text-align: center;
 `;
 
-const TextWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
-
 const BigText = styled.p`
   font-weight: var(--weight-semi-bold);
   ${fontSize('20px')};
@@ -122,28 +114,4 @@ const HeadText = styled.p`
   font-weight: var(--weight-regular);
   line-height: 32px;
   margin-left: 24px;
-`;
-
-const HeaderName = styled.p`
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-`;
-
-const FixedButton = styled.button`
-  /* background-color: var(--color-main); */
-  background-color: #4d0dcd;
-  border: 0;
-  outline: 0;
-  color: var(--color-white);
-  font-size: var(--font-l);
-  font-weight: var(--weight-bold);
-  line-height: 22px;
-  text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 64px;
-  width: 100%;
-  max-width: 375px;
 `;
