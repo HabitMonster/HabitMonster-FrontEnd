@@ -26,6 +26,6 @@
   "categories": [],
   "screenshots": [],
   "shortcuts": [],
-  "theme_color": "none",
-  "background_color": "var(--color-white)"
+  "theme_color": "#000000",
+  "background_color": "#070707"
 }

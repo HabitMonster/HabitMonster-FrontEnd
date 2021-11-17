@@ -10,9 +10,9 @@ import { habitIdListState } from '../../recoil/states/habit';
 import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
-import { fontSize } from '../../styles/Mixin';
 import { BottomDialog } from '../dialog';
 import { myPageApis } from '../../api';
+import { fontSize } from '../../styles/Mixin';
 
 import { USER_DELETED } from '../../constants/statusMessage';
 
@@ -52,6 +52,7 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
+
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -65,14 +66,34 @@ const UserInformation = () => {
     [editData.value],
   );
 
-  const logoutUser = () => {
-    const token = window.localStorage.getItem('habitAccessToken');
-
-    // 아무런 기능을 하지 않는 분기처리입니다!
-    if (!token) {
-      <div>먼저 로그인을 해주세요!</div>;
+  const copyCode = (contents) => {
+    // 흐름 1.
+    if (!document.queryCommandSupported('copy')) {
+      return alert('복사하기가 지원되지 않는 브라우저입니다.');
     }
 
+    // 흐름 2.
+    const textarea = document.createElement('textarea');
+    textarea.value = contents;
+    textarea.style.top = 0;
+    textarea.style.left = 0;
+    textarea.style.position = 'fixed';
+
+    // 흐름 3.
+    document.body.appendChild(textarea);
+    // focus() -> 사파리 브라우저 서포팅
+    textarea.focus();
+    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+    textarea.select();
+    // 흐름 4.
+    document.execCommand('copy');
+    // 흐름 5.
+    document.body.removeChild(textarea);
+    console.log('복사된거 맞나', contents, textarea.value);
+    alert('클립보드에 복사되었습니다.');
+  };
+
+  const logoutUser = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
     setAuth({ isFirstLogin: null, isLogin: false });
@@ -112,6 +133,13 @@ const UserInformation = () => {
         {
           title: '몬스터 코드',
           contents: myPageData.monsterCode,
+          isCopy: true,
+          handleClipBoard: () => copyCode(myPageData.monsterCode),
+        },
+        {
+          title: '팔로워 목록보기',
+          contents: '',
+          handleClick: () => history.push('/follow'),
         },
         {
           title: '현재 버전',
@@ -203,7 +231,7 @@ export default UserInformation;
 
 const TitleArea = styled.div`
   height: 44px;
-  margin: 24px 0 20px 24px;
+  margin: 20px 0 20px 24px;
   align-items: center;
   display: flex;
   align-items: center;
@@ -219,4 +247,5 @@ const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
+  height: 100%;
 `;

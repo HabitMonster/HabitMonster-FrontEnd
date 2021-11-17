@@ -1,6 +1,6 @@
 import { authState } from './auth';
 import { atom, selector, selectorFamily } from 'recoil';
-import { mainApis, myPageApis } from '../../api';
+import { userApis, mainApis, myPageApis } from '../../api';
 
 const asyncDefaultUserState = selector({
   key: 'asyncDefaultUser',
@@ -60,4 +60,38 @@ export const updateUserSelector = selectorFamily({
     const { data } = await myPageApis.editUserName(userName);
     return data;
   },
+});
+
+const followerDataSelector = selector({
+  key: 'followerDataSelector',
+  get: async () => {
+    try {
+      const { data } = await userApis.loadFollowers();
+      return data.followers;
+    } catch (error) {
+      throw error;
+    }
+  },
+});
+
+export const followerDataState = atom({
+  key: 'followerDataState',
+  default: followerDataSelector,
+});
+
+const followingDataSelector = selector({
+  key: 'followingDataSelector',
+  get: async () => {
+    try {
+      const { data } = await userApis.loadFollowings();
+      return data.followings;
+    } catch (error) {
+      throw error;
+    }
+  },
+});
+
+export const followingDataState = atom({
+  key: 'followingDataState',
+  default: followingDataSelector,
 });

@@ -27,7 +27,7 @@ const MonsterGuide = () => {
         <HeadText>
           난{' '}
           {appendPostPosition(user.monsterName)
-            ? `${user.monsterName}이`
+            ? `${user.monsterName} 이`
             : `${user.monsterName}`}
           라고 해.
         </HeadText>
@@ -85,6 +85,13 @@ const TitleWrap = styled.div`
   justify-items: flex-start;
 `;
 
+const HeadText = styled.p`
+  ${fontSize('24px')};
+  font-weight: var(--weight-regular);
+  line-height: 32px;
+  margin-left: 24px;
+`;
+
 const ThumbnailWrap = styled.div`
   display: flex;
   align-items: center;
@@ -115,18 +122,6 @@ const BigText = styled.p`
   ${fontSize('20px')};
   line-height: 32px;
   margin: 0 auto;
-`;
-
-const HeadText = styled.p`
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-regular);
-  line-height: 32px;
-  margin-left: 24px;
-`;
-
-const HeaderName = styled.p`
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
 `;
 
 const FixedButton = styled.button`
