@@ -32,9 +32,9 @@ const Main = () => {
   return (
     <Wrapper>
       <Feedback />
-      <TestSection>
+      <MonsterSection>
         <MainMonster heightShrinked={shrinked} />
-      </TestSection>
+      </MonsterSection>
       <HabitSection ref={habitSection}>
         <TodayHabitList />
       </HabitSection>
@@ -42,7 +42,7 @@ const Main = () => {
   );
 };
 
-const TestSection = styled.section`
+const MonsterSection = styled.section`
   width: 100%;
   max-height: 434px;
   z-index: 2;

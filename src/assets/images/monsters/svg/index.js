@@ -13,3 +13,24 @@ export {
   RedMonsterIcon,
   YellowMonsterIcon,
 };
+
+export default {
+  1: {
+    component: GreenMonsterIcon,
+  },
+  2: {
+    component: PinkMonsterIcon,
+  },
+  3: {
+    component: BlueMonsterIcon,
+  },
+  4: {
+    component: YellowMonsterIcon,
+  },
+  5: {
+    component: OrangeMonsterIcon,
+  },
+  6: {
+    component: RedMonsterIcon,
+  },
+};

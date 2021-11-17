@@ -124,7 +124,12 @@ instance.interceptors.response.use(
 
     window.alert('Unexpected Error Occured. Please Check Your Console.');
     console.log(error.response.data);
-    return Promise.reject(error);
+
+    const err = new Error();
+    err.statusCode = error.response.data.statusCode;
+    err.message = error.response.data.responseMessage;
+
+    return Promise.reject(err);
   },
 );
 
