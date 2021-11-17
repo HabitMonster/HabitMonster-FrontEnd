@@ -55,7 +55,6 @@ instance.interceptors.response.use(
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
         window.alert(ACCESS_TOKEN_MALFORMED);
         setMoveToLoginPage();
-        window.location.href = '/login';
         return Promise.reject(error);
       }
     }
