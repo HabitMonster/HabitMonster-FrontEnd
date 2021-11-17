@@ -97,7 +97,7 @@ const UserInformation = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
     setAuth({ isFirstLogin: null, isLogin: false });
-    window.location.href = '/login';
+    history.push('/login');
   };
 
   const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
