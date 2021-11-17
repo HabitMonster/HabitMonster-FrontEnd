@@ -6,3 +6,6 @@ export const REFRESH_TOKEN_EXPIRED = 'refreshToken Expired';
 export const REFRESH_TOKEN_SIGNATURE_EXCEPTION =
   'refreshToken SignatureException';
 export const REFRESH_TOKEN_MALFORMED = 'refreshToken Malformed';
+
+// About MonsterCode
+export const NOT_FOUND_MONSTER_CODE = 'NotFound MonsterCode';
