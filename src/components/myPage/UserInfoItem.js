@@ -59,6 +59,9 @@ const DefaultTitle = styled.p`
 const PrivateTextWrap = styled.div`
   display: flex;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   & > svg {
     display: block;

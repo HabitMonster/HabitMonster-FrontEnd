@@ -101,7 +101,6 @@ const UserInformation = () => {
   };
 
   // const DeleteUser = async() => {
-
   // };
 
   const userInfoList = [
@@ -214,7 +213,7 @@ export default UserInformation;
 
 const TitleArea = styled.div`
   height: 44px;
-  margin: 24px 0 20px 24px;
+  margin: 20px 0 20px 24px;
   align-items: center;
   display: flex;
   align-items: center;
@@ -230,4 +229,5 @@ const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
+  height: 100%;
 `;
