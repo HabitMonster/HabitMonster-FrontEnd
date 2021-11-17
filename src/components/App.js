@@ -19,6 +19,7 @@ import OnBoard from './onBoard/OnBoard';
 import Notice from './myPage/Notice';
 import FollowList from '../pages/FollowList';
 import Search from '../pages/Search';
+import SearchDetail from '../pages/SearchDetail';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -57,7 +58,8 @@ function App() {
         <Route path="/guide" component={MonsterGuide} />
         <>
           <Route exact path="/" component={Main} />
-          <Route path="/search" component={Search} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/search/:code" component={SearchDetail} />
           <Route exact path="/habit/:habitId" component={HabitDetail} />
           <Route exact path="/habit/:habitId/edit" component={HabitEdit} />
           <Route path="/achievement" component={Achievement} />

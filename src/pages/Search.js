@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
 import { OK } from '../constants/statusCode';
 import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
 
+import { isFollowState, monsterCodeState } from '../recoil/states/follow';
+
 const Search = () => {
+  const history = useHistory();
+  const { path } = useRouteMatch();
   const [monsterId, setMonsterId] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [failMessage, setFailMessage] = useState('');
+
+  const [isFollow, setIsFollow] = useRecoilState(isFollowState);
 
   const handleButtonClick = async () => {
     try {
       setFailMessage('');
       const { data } = await userApis.searchUser(monsterId);
-
+      console.log(data);
       if (data.statusCode === OK) {
         setSearchResult(data.searchResult);
+        setIsFollow(data.searchResult.isFollowed);
+        setMonsterCodeState(monsterId);
         setMonsterId('');
       }
     } catch (error) {
@@ -31,10 +41,12 @@ const Search = () => {
     try {
       const { data } = await userApis.follow(
         searchResult.monsterCode,
-        searchResult.isFollowed,
+        isFollow,
       );
+      console.log(data);
 
       if (data.statusCode === OK) {
+        setIsFollow(data.isFollowed);
         setSearchResult((prev) => ({ ...prev, isFollowed: data.isFollowed }));
       }
     } catch (error) {
@@ -42,21 +54,20 @@ const Search = () => {
     }
   };
 
-  console.log(
-    '검색결과, 이 페이지에서 팔로우 버튼을 누르면 리코일 로직으로 가야합니다.',
-    searchResult,
-  );
+  // console.log(
+  //   '검색결과, 이 페이지에서 팔로우 버튼을 누르면 리코일 로직으로 가야합니다.',
+  //   searchResult,
+  // );
 
-  console.log(
-    `검색 결과의 팔로우 상태 isFollowed가 ${searchResult?.isFollowed} 일 때 ${
-      searchResult?.isFollowed === undefined
-        ? '검색을 해야합니다'
-        : searchResult.isFollowed
-        ? '언팔로우 버튼이 보입니다.'
-        : '팔로우 버튼이 보입니다.'
-    }`,
-  );
-
+  // console.log(
+  //   `검색 결과의 팔로우 상태 isFollowed가 ${searchResult?.isFollowed} 일 때 ${
+  //     searchResult?.isFollowed === undefined
+  //       ? '검색을 해야합니다'
+  //       : searchResult.isFollowed
+  //       ? '언팔로우 버튼이 보입니다.'
+  //       : '팔로우 버튼이 보입니다.'
+  //   }`,
+  // );
   return (
     <Wrapper>
       <Title>search Page</Title>
@@ -83,7 +94,7 @@ const Search = () => {
             <div>
               팔로우를 했나요?{' '}
               <span style={{ color: 'yellow' }}>
-                {searchResult.isFollowed ? '네' : '아니요'}
+                {isFollow ? '네' : '아니요'}
               </span>
             </div>
             <div>
@@ -91,7 +102,19 @@ const Search = () => {
                 onClick={handleRelationship}
                 style={{ marginTop: '16px' }}
               >
-                {searchResult.isFollowed ? '언팔로우' : '팔로우'}
+                {isFollow ? '언팔로우' : '팔로우'}
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={() =>
+                  history.push({
+                    pathname: `${path}/${searchResult.monsterCode}`,
+                    state: searchResult,
+                  })
+                }
+              >
+                상세페이지 이동
               </button>
             </div>
           </Result>
