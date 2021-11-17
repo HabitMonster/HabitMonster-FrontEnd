@@ -13,5 +13,4 @@ export const userApis = {
     tokenInstance.get(`/followers/${monsterCode}`),
   getUserFollowing: (monsterCode) =>
     tokenInstance.get(`/followings/${monsterCode}`),
-  deleteUserAccount: () => tokenInstance.delete('/user'),
 };
