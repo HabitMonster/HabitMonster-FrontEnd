@@ -293,10 +293,11 @@ const SaveButtons = styled.div`
     &:first-child {
       border-right: 1px solid rgba(248, 248, 248, 0.1);
     }
-    
+
     &:disabled {
       color: var(--color-primary-deemed);
     }
+  }
 `;
 
 export default memo(NewHabitCalendar);

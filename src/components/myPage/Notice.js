@@ -42,7 +42,7 @@ const Notice = () => {
       <PageTitle>
         <BackButtonHeader
           onButtonClick={() => {
-            history.goback();
+            history.push('/mypage');
           }}
           pageTitleText="공지사항"
         />
