@@ -1,6 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -10,19 +8,19 @@ import {
   NaverLogin,
 } from '../components/login';
 
-import { authState } from '../recoil/states/auth';
 import '../assets/fonts/font.css';
 
 const Login = () => {
-  const { isLogin, isFirstLogin } = useRecoilValue(authState);
+  // 만약을 대비해서 남겨놓습니다.
 
-  if (isLogin && isFirstLogin) {
-    return <Redirect to="/monster" />;
-  }
+  // const { isLogin, isFirstLogin } = useRecoilValue(authState);
+  // if (isLogin && isFirstLogin) {
+  //   return <Redirect to="/monster" />;
+  // }
 
-  if (isLogin) {
-    return <Redirect to="/" />;
-  }
+  // if (isLogin) {
+  //   return <Redirect to="/" />;
+  // }
 
   return (
     <>
