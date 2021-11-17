@@ -72,11 +72,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 310px;
+  width: 100%;
 `;
 
 const PresetList = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin-bottom: 12px;
 `;
 

@@ -22,7 +22,6 @@ import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
 
 function App() {
-  const test = useRecoilValue(authState);
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
   const location = useLocation();
   const history = useHistory();
@@ -78,8 +77,9 @@ function App() {
 const Layout = styled.div`
   background: var(--bg-wrapper);
   display: flex;
-  max-width: 360px;
+  max-width: 414px;
   width: 100%;
+  min-width: 280px;
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;

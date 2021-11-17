@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SubTitleOuter } from '../common';
-import { whiteOpacity } from '../../styles/Mixin';
 
 const NewHabitFrequencySection = ({ frequency, onChange }) => {
   const increment = () =>
@@ -58,8 +57,8 @@ const Wrapper = styled.div`
 `;
 
 const NumberInput = styled.input`
-  width: 208px;
   height: 100%;
+  flex: 1;
 
   text-align: center;
   padding: 4px 8px;

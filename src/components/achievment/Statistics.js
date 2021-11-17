@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { fontSize } from '../../styles';
+import { whiteOpacity } from '../../styles/Mixin';
 
 import { statisticApi } from '../../api';
 
@@ -15,11 +16,13 @@ import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
   const setAuth = useRecoilValue(authState);
+  console.log(setAuth);
   const [currentDate, setCurrentDate] = useState(
     formatMonth(new window.Date(), '-'),
   );
   const currentMonth = new Date(currentDate).getMonth() + 1;
   const limitedMonth = new Date(setAuth.createdAt).getMonth() + 1;
+
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
     totalCount: 0,
@@ -142,8 +145,6 @@ const Statistics = () => {
   );
 };
 
-export default Statistics;
-
 const DetailWrap = styled.div`
   background-color: var(--bg-wrapper);
   padding: 0 34px 24px;
@@ -156,7 +157,9 @@ const DateWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  /* padding: 20px 0; */
+  margin-top: 24px;
+  margin-bottom: 32px;
 `;
 
 const DateButton = styled.button`
@@ -190,10 +193,14 @@ const GoalBox = styled.div`
   color: white;
   margin-left: 35px;
   flex: 1;
+  & > div:first-child {
+    padding-bottom: 19.5px;
+  }
 `;
 
 const GoalCount = styled.div`
   padding: 12px 0;
+  padding-left: 4px;
   span {
     &:last-child {
       text-align: right;
@@ -215,13 +222,13 @@ const GoalText = styled.span`
 
 const ListContainer = styled.div`
   height: 100%;
-  padding: 12px 0;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 0 16px;
+  margin: 16px 0px;
 `;
 
 const HabitsList = styled.p`
@@ -229,7 +236,7 @@ const HabitsList = styled.p`
   font-weight: var(--weight-regular);
   line-height: 22px;
   color: var(--color-primary);
-  margin-left: 24px;
+  margin: 0 24px;
 `;
 
 const AchieveNavBtn = styled.button`
@@ -256,3 +263,4 @@ const AchieveNavBtn = styled.button`
     margin-left: 6px;
   }
 `;
+export default Statistics;

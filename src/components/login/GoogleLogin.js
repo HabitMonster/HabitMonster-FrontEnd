@@ -9,7 +9,6 @@ import { GoogleSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 
 const GoogleLogin = () => {
-  console.log('googleLoginRender');
   const history = useHistory();
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
