@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { habitsState } from '../recoil/states/habit';
+import { useRecoilState, useRecoilCallback } from 'recoil';
+import { habitStateWithId, habitIdListState } from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,
@@ -19,7 +19,6 @@ import { addHabitApis } from '../api';
 const NewHabitForm = () => {
   const history = useHistory();
   const { state: categoryState } = useLocation();
-  const [habits, setHabits] = useRecoilState(habitsState);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -38,32 +37,35 @@ const NewHabitForm = () => {
     practiceDays &&
     frequency;
 
-  const handleSaveButtonClick = async () => {
-    const body = {
-      title,
-      description,
-      durationStart: duration.start,
-      durationEnd: duration.end,
-      count: frequency,
-      categoryId: categoryState.id,
-      practiceDays: practiceDays,
-    };
-
+  const handleSaveButtonClick = useRecoilCallback(({ set }) => async (body) => {
     const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
 
     try {
       const { data } = await addHabitApis.saveHabitWithHands(body);
+      console.log(data);
 
       if (
         data.statusCode === OK &&
         data.habit.practiceDays.includes(String(currentDay))
       ) {
-        setHabits([data.habit, ...habits]);
+        set(habitIdListState, (prev) => [data.habit.habitId, ...prev]);
+        set(habitStateWithId(data.habit.habitId), data.habit);
+        // setHabits([data.habit, ...habits]);
       }
       history.replace('/');
     } catch (error) {
       console.error(error);
     }
+  });
+
+  const body = {
+    title,
+    description,
+    durationStart: duration.start,
+    durationEnd: duration.end,
+    count: frequency,
+    categoryId: categoryState.id,
+    practiceDays: practiceDays,
   };
 
   if (!categoryState) {
@@ -117,7 +119,7 @@ const NewHabitForm = () => {
       <BottomFixedButton
         condition={() => condition}
         text="저장하기"
-        onClick={handleSaveButtonClick}
+        onClick={() => handleSaveButtonClick(body)}
       />
     </Wrapper>
   );

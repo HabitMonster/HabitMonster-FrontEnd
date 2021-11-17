@@ -13,7 +13,6 @@ import { BottomFixedButton } from '../components/common';
 import { fontSize } from '../styles';
 
 const Monster = () => {
-  console.log('hi');
   const history = useHistory();
   const monsterList = useRecoilValue(babyMonsterState);
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);

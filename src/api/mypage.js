@@ -8,4 +8,5 @@ export const myPageApis = {
   loadNoticeData: () => tokenInstance.get('/notice'),
   loadFollowers: () => tokenInstance.get('/followers'),
   loadFollowings: () => tokenInstance.get('/followings'),
+  deleteUser: () => tokenInstance.delete('/user'),
 };

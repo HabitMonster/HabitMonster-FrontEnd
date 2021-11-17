@@ -1,10 +1,10 @@
 import React, { memo, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
 
-import { habitState, habitsState } from '../../recoil/states/habit';
+import { habitStateWithId } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';
@@ -15,9 +15,8 @@ import { OK } from '../../constants/statusCode';
 
 const TodayHabit = ({ id }) => {
   const history = useHistory();
-  const habitDetail = useRecoilValue(habitState(id));
-  const setHabitList = useSetRecoilState(habitsState);
   const setMonster = useSetRecoilState(monsterState);
+  const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
   const [active, setActive] = useState(false);
 
   const durationStart = setFormattedDuration(
@@ -25,6 +24,7 @@ const TodayHabit = ({ id }) => {
     'MD',
     '.',
   );
+
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
 
   const clickHandler = async (e) => {
@@ -38,12 +38,7 @@ const TodayHabit = ({ id }) => {
     try {
       const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
-        setHabitList((prev) => {
-          const copy = prev.slice();
-          const index = prev.findIndex((habit) => habit.habitId === id);
-          copy[index] = data.habit;
-          return copy;
-        });
+        setHabitDetail(data.habit);
 
         if (data.habit.isAccomplished) {
           try {

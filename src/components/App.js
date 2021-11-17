@@ -22,6 +22,7 @@ import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
 
 function App() {
+  const test = useRecoilValue(authState);
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
   const location = useLocation();
   const history = useHistory();
