@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
 
-import { habitStateWithId } from '../../recoil/states/test';
+import { habitStateWithId } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useRecoilCallback } from 'recoil';
-import { habitStateWithId } from '../recoil/states/test';
+import { habitStateWithId } from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useRecoilState, useRecoilCallback } from 'recoil';
-import { habitsState } from '../recoil/states/habit';
-import { habitStateWithId, habitIdListState } from '../recoil/states/test';
+import { habitStateWithId, habitIdListState } from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,
@@ -20,7 +19,6 @@ import { addHabitApis } from '../api';
 const NewHabitForm = () => {
   const history = useHistory();
   const { state: categoryState } = useLocation();
-  const [habits, setHabits] = useRecoilState(habitsState);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

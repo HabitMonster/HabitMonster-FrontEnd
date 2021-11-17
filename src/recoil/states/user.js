@@ -8,7 +8,7 @@ const asyncDefaultUserState = selector({
     const { isLogin } = get(authState);
 
     if (!isLogin) {
-      return null;
+      return {};
     }
 
     try {
@@ -27,7 +27,13 @@ export const userState = atom({
 
 const myPageDataSelector = selector({
   key: 'myPageDataSelector',
-  get: async () => {
+  get: async ({ get }) => {
+    const { isLogin } = get(authState);
+
+    if (!isLogin) {
+      return {};
+    }
+
     try {
       const { data } = await myPageApis.loadUserData();
       return data.userInfo;
@@ -42,10 +48,14 @@ export const myPageDataState = atom({
   default: myPageDataSelector,
 });
 
+// 안쓰는 셀렉터
 export const updateUserSelector = selectorFamily({
   key: 'updateUser',
   get: (userName) => async () => {
-    if (!userName) return null;
+    // 신경써주세용!
+    if (!userName) {
+      return null;
+    }
 
     const { data } = await myPageApis.editUserName(userName);
     return data;

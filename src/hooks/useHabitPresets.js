@@ -1,11 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState, useRecoilCallback } from 'recoil';
-import {
-  defaultHabitsState,
-  habitIdListState,
-  habitStateWithId,
-} from '../recoil/states/test';
+import { useRecoilCallback } from 'recoil';
+import { habitIdListState, habitStateWithId } from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';

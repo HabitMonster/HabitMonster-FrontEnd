@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useRecoilCallback } from 'recoil';
+import { useRecoilValue, useRecoilCallback } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -11,8 +11,7 @@ import {
 } from '../components/common';
 import leveloneMonsters from '../assets/images/monsters/svg';
 
-import { habitState, habitsState } from '../recoil/states/habit';
-import { habitIdListState, habitStateWithId } from '../recoil/states/test';
+import { habitIdListState, habitStateWithId } from '../recoil/states/habit';
 import { userLevelOneMonsterSelector } from '../recoil/states/monster';
 import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
@@ -25,18 +24,9 @@ const HabitDetail = () => {
   const { habitId } = useParams();
   const history = useHistory();
 
-  const [habitList, setHabitList] = useRecoilState(habitsState);
   const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
-  const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
-  console.log(`---------------------HabitDetail--------------------------`);
-  console.log(
-    `--------------------------in ${habitId} start--------------------------`,
-  );
   console.log(habitDetail);
-  console.log(
-    `--------------------------in ${habitId} end--------------------------`,
-  );
-  console.log(`---------------------HabitDetailEnd--------------------------`);
+  const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,

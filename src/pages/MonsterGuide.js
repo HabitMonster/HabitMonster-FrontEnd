@@ -15,10 +15,10 @@ const MonsterGuide = () => {
   const selectedMonster = useRecoilValue(getSelectedMonster);
   const user = useRecoilValue(userState);
 
-  if (!user.monsterName) {
-    history.replace('/monster');
-    return;
-  }
+  // if (!user.monsterName) {
+  //   history.replace('/monster');
+  //   return;
+  // }
 
   return (
     <AvatarContainer>
