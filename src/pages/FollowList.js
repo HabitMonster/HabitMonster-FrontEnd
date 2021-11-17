@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
+import { Followers, Followings } from '../components/follow';
+
 import { userApis } from '../api';
 
 const FollowList = () => {
+  const [followers, setFollowers] = useState([]);
+
   const getFollowerList = async () => {
     try {
       const { data } = await userApis.loadFollowers();
       if (data.statusCode === 200) {
         console.log('followerdata', data, data.followers);
+        setFollowers(data.followers);
       }
     } catch (error) {
       console.log(error);
@@ -35,7 +40,9 @@ const FollowList = () => {
 
   return (
     <Container>
-      <div></div>
+      <div>
+        팔로워 :<p>{setFollowers.monsterName}</p>
+      </div>
     </Container>
   );
 };
@@ -53,4 +60,5 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: var(--color-primary);
 `;

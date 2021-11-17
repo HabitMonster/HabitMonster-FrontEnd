@@ -9,27 +9,22 @@ const NoticeItem = ({ notice, active, onToggle }) => {
   const { title, content, createdAt } = notice;
   const contentArea = useRef();
 
+  console.log('contentArea', contentArea?.current?.scrollHeight);
+  console.log('contentArea', contentArea?.current?.style?.padding);
+
   return (
-    <NotiListItem>
-      <NotiTitleWrap>
-        <NotiTitle>{title}</NotiTitle>
-        <NotiDate>{createdAt}</NotiDate>
-      </NotiTitleWrap>
-      <ToggleButton onClick={onToggle}>
-        {active ? <ToggleUp /> : <ToggleDown />}
-      </ToggleButton>
-      {/* <ContentsWrap ref={contentArea}>
-        <NotiBox>{content}</NotiBox>
-      </ContentsWrap> */}
-      <ContentsWrap
-        ref={contentArea}
-        style={
-          active
-            ? { height: contentArea.current.scrollHeight }
-            : { height: '0px' }
-        }
-      >
-        <NotiBox>{content}</NotiBox>
+    <NotiListItem active={active}>
+      <HeaderWrap>
+        <NotiTitleWrap>
+          <NotiTitle>{title}</NotiTitle>
+          <NotiDate>{createdAt}</NotiDate>
+        </NotiTitleWrap>
+        <ToggleButton onClick={onToggle}>
+          {active ? <ToggleUp /> : <ToggleDown />}
+        </ToggleButton>
+      </HeaderWrap>
+      <ContentsWrap ref={contentArea} contentArea={contentArea} active={active}>
+        <NotiBox active={active}>{content}</NotiBox>
       </ContentsWrap>
     </NotiListItem>
   );
@@ -39,24 +34,21 @@ export default NoticeItem;
 
 const NotiListItem = styled.li`
   cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
-  padding: 0 24px;
   border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
-  height: 75px;
+`;
+
+const HeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* & :nth-child(4) {
-    margin-right: 6px;
-    border-bottom: none;
-  } */
+  padding: 0 24px;
+  margin: 0 16px;
+  height: 75px;
 `;
 
 const NotiTitleWrap = styled.div`
   display: flex;
   flex-direction: column;
-  align-content: baseline;
-  justify-content: flex-start;
-  margin: 0 16px;
 `;
 
 const NotiTitle = styled.p`
@@ -80,23 +72,24 @@ const ToggleButton = styled.button`
   cursor: pointer;
   height: 18px;
   outline: 0;
-  /* margin-left: 7px; */
 `;
 
 const ContentsWrap = styled.div`
-  display: ${({ active }) => (active ? 'block' : 'none')};
-  height: 0;
+  background-color: var(--bg-primary);
+  padding: 0 40px;
+  height: ${({ active, contentArea }) =>
+    active ? `${contentArea.current.scrollHeight}px` : '0px'};
   overflow: hidden;
-  transition: height ease 0.2s;
+  transition: all 0.35s;
 `;
 
-const NotiBox = styled.div`
-  background-color: var(—bg-primary);
-  ${fontSize('14px')}
+const NotiBox = styled.p`
+  color: var(--color-primary);
+  ${fontSize('14px')};
   ${whiteOpacity('0.8')};
   font-weight: var(—weight-semi-regular);
   line-height: 20px;
-  color: var(—color-primary);
+  padding: 16px 0;
 `;
 
 NoticeItem.propTypes = {

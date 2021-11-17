@@ -6,5 +6,4 @@ export const myPageApis = {
   editMonsterName: (monsterName) =>
     tokenInstance.patch('/monster/nameChange', monsterName),
   loadNoticeData: () => tokenInstance.get('/notice'),
-  deleteAccount: () => tokenInstance.delete('/user/quit'),
 };

@@ -8,4 +8,5 @@ export const userApis = {
       : tokenInstance.patch(`/follow/${monsterCode}`),
   loadFollowers: () => tokenInstance.get('/followers'),
   loadFollowings: () => tokenInstance.get('/followings'),
+  deleteUserAccount: () => tokenInstance.delete('/user'),
 };
