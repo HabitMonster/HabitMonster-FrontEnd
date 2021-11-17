@@ -1,16 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
 import { useHistory } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
-import { myPageDataState } from '../../recoil/states/user';
+import { myPageDataState, userState } from '../../recoil/states/user';
+import { habitIdListState } from '../../recoil/states/habit';
 
 import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { fontSize } from '../../styles/Mixin';
 import { BottomDialog } from '../dialog';
+import { myPageApis } from '../../api';
+
+import { USER_DELETED } from '../../constants/statusMessage';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
@@ -19,6 +23,7 @@ const UserInformation = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
@@ -63,6 +68,7 @@ const UserInformation = () => {
   const logoutUser = () => {
     const token = window.localStorage.getItem('habitAccessToken');
 
+    // 아무런 기능을 하지 않는 분기처리입니다!
     if (!token) {
       <div>먼저 로그인을 해주세요!</div>;
     }
@@ -70,46 +76,66 @@ const UserInformation = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
     setAuth({ isFirstLogin: null, isLogin: false });
-    history.push('/login', null);
+    window.location.href = '/login';
   };
 
-  const userInfoList = [
-    {
-      title: '닉네임',
-      contents: myPageData.username,
-      handleClick: () => openModal('username'),
-    },
-    {
-      title: '몬스터 이름',
-      contents: myPageData.monsterName,
-      handleClick: () => openModal('monsterName'),
-    },
-    {
-      title: '몬스터 코드',
-      contents: myPageData.monsterCode,
-    },
-    {
-      title: '현재 버전',
-      contents: 'V_1.0.0',
-    },
-    {
-      title: '공지사항',
-      contents: '',
-      handleClick: () => history.push('/notice'),
-    },
-    {
-      title: '로그아웃',
-      contents: '',
-      handleClick: () => setIsLogoutModalOpen(true),
-      isLogout: true,
-    },
-    {
-      title: '탈퇴하기',
-      contents: '',
-      handleClick: () => setdeleteAccountModalOpen(true),
-      isDeleteAccount: true,
-    },
-  ];
+  const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
+    try {
+      const { data } = await myPageApis.deleteUser();
+
+      if (data.responseMessage === USER_DELETED) {
+        window.localStorage.removeItem('habitAccessToken');
+        window.localStorage.removeItem('habitRefreshToken');
+        set(authState, { isFirstLogin: null, isLogin: false });
+        set(habitIdListState, []);
+        set(myPageDataState, {});
+        set(userState, {});
+        window.location.href = '/login';
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  const userInfoList = Object.keys(myPageData).length
+    ? [
+        {
+          title: '닉네임',
+          contents: myPageData.username,
+          handleClick: () => openModal('username'),
+        },
+        {
+          title: '몬스터 이름',
+          contents: myPageData.monsterName,
+          handleClick: () => openModal('monsterName'),
+        },
+        {
+          title: '몬스터 코드',
+          contents: myPageData.monsterCode,
+        },
+        {
+          title: '현재 버전',
+          contents: 'V_1.0.0',
+        },
+        {
+          title: '공지사항',
+          contents: '',
+          handleClick: () => history.push('/notice'),
+        },
+        {
+          title: '로그아웃',
+          contents: '',
+          handleClick: () => setIsLogoutModalOpen(true),
+          isLogout: true,
+        },
+        {
+          title: '탈퇴하기',
+          contents: '',
+          handleClick: () => setdeleteAccountModalOpen(true),
+          isDeleteAccount: true,
+        },
+      ]
+    : [];
 
   return (
     <>
@@ -163,6 +189,7 @@ const UserInformation = () => {
             activeButtonText="탈퇴하기"
             onActive={() => {
               console.log('탈퇴는 못참지');
+              deleteUserAccount();
             }}
             onClose={() => setdeleteAccountModalOpen(false)}
           />
