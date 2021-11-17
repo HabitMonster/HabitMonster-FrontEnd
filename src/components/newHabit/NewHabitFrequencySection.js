@@ -20,7 +20,6 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
     );
   return (
     <SubTitleOuter subTitle="빈도">
-      <Helper>숫자 영역을 클릭하여 직접 입력할 수 있어요</Helper>
       <Wrapper>
         <div onClick={decrement}>-</div>
         <NumberInput
@@ -40,13 +39,6 @@ NewHabitFrequencySection.propTypes = {
   onChange: PropTypes.func,
 };
 
-const Helper = styled.p`
-  font-size: var(--font-xxs);
-  line-height: 14px;
-  ${whiteOpacity('0.4')};
-  margin-bottom: 6px;
-`;
-
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
@@ -61,7 +53,6 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     color: var(--color-primary);
-    margin-right: 11px;
     cursor: pointer;
   }
 `;
@@ -73,13 +64,13 @@ const NumberInput = styled.input`
   text-align: center;
   padding: 4px 8px;
   background: var(--bg-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   border: none;
   color: var(--color-primary);
   font-size: var(--font-s);
   line-height: 18px;
   font-weight: var(--weight-bold);
-  margin-right: 13px;
+  margin: 0 11px;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

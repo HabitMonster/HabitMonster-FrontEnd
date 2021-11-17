@@ -81,18 +81,14 @@ const NaverLogin = () => {
 
   return (
     <>
-      <HideNaverButon ref={naverRef} id="naverIdLogin"></HideNaverButon>
       <LoginBtn className="naverLogin" onClick={handleClick}>
+        <div ref={naverRef} id="naverIdLogin" className="hide"></div>
         <NaverSymbol />
         <SocialTitle>네이버로 시작하기</SocialTitle>
       </LoginBtn>
     </>
   );
 };
-
-const HideNaverButon = styled.div`
-  display: none;
-`;
 
 const LoginBtn = styled.div`
   display: flex;
@@ -107,6 +103,10 @@ const LoginBtn = styled.div`
 
   &.naverLogin {
     background-color: var(--color-naver);
+  }
+
+  & .hide {
+    display: none;
   }
 
   & > svg {

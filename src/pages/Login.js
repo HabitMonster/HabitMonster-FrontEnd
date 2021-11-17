@@ -1,16 +1,36 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { SocialLogin, LoginTitle } from '../components/login';
+import {
+  LoginTitle,
+  GoogleLogin,
+  KakaoLogin,
+  NaverLogin,
+} from '../components/login';
 
+import { authState } from '../recoil/states/auth';
 import '../assets/fonts/font.css';
 
 const Login = () => {
+  const { isLogin, isFirstLogin } = useRecoilValue(authState);
+
+  if (isLogin && isFirstLogin) {
+    return <Redirect to="/monster" />;
+  }
+
+  if (isLogin) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
       <Wrapper>
         <LoginTitle />
-        <SocialLogin />
+        <KakaoLogin />
+        <GoogleLogin />
+        <NaverLogin />
       </Wrapper>
     </>
   );
@@ -23,6 +43,12 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
+
+  & .kakaoLogin,
+  & .googleLogin,
+  & .naverLogin {
+    margin-bottom: 12px;
+  }
 `;
 
 export default Login;

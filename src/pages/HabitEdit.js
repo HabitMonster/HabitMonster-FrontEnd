@@ -6,6 +6,8 @@ import { useRecoilState } from 'recoil';
 import {
   NewHabitDetailTitle,
   NewHabitDetailDescription,
+  NewHabitDetailDueDatePicker,
+  NewHabitDayPicker,
   NewHabitFrequencySection,
 } from '../components/newHabit';
 import {
@@ -22,7 +24,6 @@ import { habitsState } from '../recoil/states/habit';
 const HabitEdit = () => {
   const history = useHistory();
   const { state: habitDetail } = useLocation();
-
   const [habitList, setHabitList] = useRecoilState(habitsState);
 
   const [backModalOpen, setBackModalOpen] = useState(false);
@@ -76,18 +77,35 @@ const HabitEdit = () => {
       <Inner>
         <MarginInterval mb="24">
           <NewHabitDetailTitle
+            isEditMode={true}
             title={title}
             update={setTitle}
-            isEdit={true}
             originTitle={title}
           />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDetailDescription
+            isEditMode={true}
             description={description}
             update={setDescription}
-            isEdit={true}
             originDescription={description}
+          />
+        </MarginInterval>
+        <MarginInterval mb="24">
+          <NewHabitDetailDueDatePicker
+            isEditMode={true}
+            duration={{
+              start: habitDetail.habitDetail.durationStart,
+              end: habitDetail.habitDetail.durationEnd,
+            }}
+            onDurationChecked={null}
+          />
+        </MarginInterval>
+        <MarginInterval mb="24">
+          <NewHabitDayPicker
+            isEditMode={true}
+            days={habitDetail.habitDetail.practiceDays}
+            onDayPicked={null}
           />
         </MarginInterval>
         <MarginInterval>

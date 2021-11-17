@@ -79,10 +79,12 @@ instance.interceptors.response.use(
         });
 
         if (data.statusCode === OK) {
-          window.alert('AccessToken Reissued Successfully');
+          window.alert(
+            'AccessToken Reissued Successfully. Press OK to Continue.',
+          );
           window.localStorage.setItem('habitAccessToken', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
-          window.alert('Resend Original Request');
+          window.alert('Resend Original Request. Press OK to Continue.');
           return axios(originalRequest);
         }
       } catch (error) {
@@ -112,14 +114,16 @@ instance.interceptors.response.use(
           }
         }
 
-        window.alert('Unexpected Error Occured1');
-        // setMoveToLoginPage();
+        window.alert(
+          'Unexpected Token Error Occured. Press OK to Move to Login Page.',
+        );
+        setMoveToLoginPage();
         return Promise.reject(error);
       }
     }
 
-    window.alert('Unexpected Error Occured2');
-    // setMoveToLoginPage();
+    window.alert('Unexpected Error Occured. Please Check Your Console.');
+    console.log(error.response.data);
     return Promise.reject(error);
   },
 );

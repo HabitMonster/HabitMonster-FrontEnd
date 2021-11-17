@@ -10,7 +10,6 @@ import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
-import { PrivateRoute } from './route';
 import Monster from '../pages/Monster';
 import MonsterSetting from '../pages/MonsterSetting';
 import MonsterGuide from '../pages/MonsterGuide';
@@ -46,17 +45,17 @@ function App() {
       <Switch>
         {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/monster" comp={Monster} />
-        <PrivateRoute path="/select" comp={MonsterSetting} />
-        <PrivateRoute path="/guide" comp={MonsterGuide} />
+        <Route path="/monster" component={Monster} />
+        <Route path="/select" component={MonsterSetting} />
+        <Route path="/guide" component={MonsterGuide} />
         <>
-          <PrivateRoute exact path="/" comp={Main} />
-          <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
-          <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
-          <PrivateRoute path="/achievement" comp={Achievement} />
-          <PrivateRoute path="/new" comp={New} />
-          <PrivateRoute path="/mypage" comp={MyPage} />
-          <PrivateRoute path="/notice" comp={Notice} />
+          <Route exact path="/" component={Main} />
+          <Route exact path="/habit/:habitId" component={HabitDetail} />
+          <Route exact path="/habit/:habitId/edit" component={HabitEdit} />
+          <Route path="/achievement" component={Achievement} />
+          <Route path="/new" component={New} />
+          <Route path="/mypage" component={MyPage} />
+          <Route path="/notice" component={Notice} />
           <Gnb />
         </>
       </Switch>
