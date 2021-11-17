@@ -2,8 +2,8 @@ import { authState } from './auth';
 import { atom, selector, selectorFamily } from 'recoil';
 import { mainApis } from '../../api';
 
-export const asyncDefaultHabitsState = selector({
-  key: 'asyncDefaultHabits',
+export const asyncDefaultHabitsSelector = selector({
+  key: 'asyncDefaultHabitsSelector',
   get: async ({ get }) => {
     const { isLogin } = get(authState);
 
@@ -22,7 +22,7 @@ export const asyncDefaultHabitsState = selector({
 
 export const habitsState = atom({
   key: 'habitList',
-  default: asyncDefaultHabitsState,
+  default: asyncDefaultHabitsSelector,
 });
 
 export const habitIdListState = selector({

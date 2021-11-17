@@ -1,18 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState, useRecoilCallback } from 'recoil';
+import {
+  defaultHabitsState,
+  habitIdListState,
+  habitStateWithId,
+} from '../recoil/states/test';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
-import { habitsState } from '../recoil/states/habit';
 
 export default function useHabitPresets() {
   const [presets, setPresets] = useState([]);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
   const history = useHistory();
-
-  const [habitList, setHabitList] = useRecoilState(habitsState);
 
   useEffect(() => {
     async function getHabitPresetFromServer() {
@@ -36,6 +38,11 @@ export default function useHabitPresets() {
 
   const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
 
+  const createHabit = useRecoilCallback(({ set }) => (newHabitId, newHabit) => {
+    set(habitIdListState, (prev) => [newHabitId, ...prev]);
+    set(habitStateWithId(newHabitId), newHabit);
+  });
+
   const onPresetSaved = useCallback(async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
@@ -55,9 +62,8 @@ export default function useHabitPresets() {
           isAccomplished: false,
           achievePercentage: 0,
         };
-
         const newHabit = { ...data.habitDto, ...defaultSettings };
-        setHabitList([newHabit, ...habitList]);
+        createHabit(newHabit.habitId, newHabit);
       }
       history.replace('/');
     } catch (error) {

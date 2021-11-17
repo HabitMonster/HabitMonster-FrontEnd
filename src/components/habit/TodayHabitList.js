@@ -1,8 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
-import { habitIdListState } from '../../recoil/states/habit';
+import { habitIdListState } from '../../recoil/states/test';
 
 import { TodayHabit, NoHabitHelper } from './';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useRecoilCallback } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -12,6 +12,7 @@ import {
 import leveloneMonsters from '../assets/images/monsters/svg';
 
 import { habitState, habitsState } from '../recoil/states/habit';
+import { habitIdListState, habitStateWithId } from '../recoil/states/test';
 import { userLevelOneMonsterSelector } from '../recoil/states/monster';
 import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
@@ -25,8 +26,17 @@ const HabitDetail = () => {
   const history = useHistory();
 
   const [habitList, setHabitList] = useRecoilState(habitsState);
-  const habitDetail = useRecoilValue(habitState(habitId));
+  const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
+  console.log(`---------------------HabitDetail--------------------------`);
+  console.log(
+    `--------------------------in ${habitId} start--------------------------`,
+  );
+  console.log(habitDetail);
+  console.log(
+    `--------------------------in ${habitId} end--------------------------`,
+  );
+  console.log(`---------------------HabitDetailEnd--------------------------`);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -36,6 +46,21 @@ const HabitDetail = () => {
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'YMD', '.');
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const deleteHabit = useRecoilCallback(({ set }) => async (id) => {
+    history.replace('/');
+    try {
+      const { data } = await habitApis.deleteHabit(id);
+      if (data.statusCode === OK) {
+        set(habitIdListState, (prev) =>
+          prev.filter((habitId) => habitId !== id),
+        );
+        set(habitStateWithId(id), null);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   const handleDeleteButtonClick = async () => {
     try {
@@ -58,6 +83,8 @@ const HabitDetail = () => {
 
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
   const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;
+
+  // return null;
 
   return (
     <Container>
@@ -139,7 +166,8 @@ const HabitDetail = () => {
             description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"
             activeButtonText="삭제할래요"
             onClose={() => setDeleteModalOpen(false)}
-            onActive={() => handleDeleteButtonClick()}
+            // onActive={() => handleDeleteButtonClick()}
+            onActive={() => deleteHabit(Number(habitId))}
           />
         </Modal>
       )}
