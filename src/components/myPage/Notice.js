@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { myPageApis } from '../../api';
 import styled from 'styled-components';
 
+import { myPageApis } from '../../api';
 import NoticeItem from './NoticeItem';
 import { fontSize } from '../../styles/Mixin';
 import { BackButtonHeader } from '../common';
@@ -46,7 +46,7 @@ const Notice = () => {
         />
       </PageTitle>
       <NotiList>
-        {noticeList?.length &&
+        {noticeList.length > 0 &&
           noticeList.map((notiInfo, index) => {
             return (
               <NoticeItem

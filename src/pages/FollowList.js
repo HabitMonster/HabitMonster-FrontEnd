@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
+import { userApis } from '../api';
+
 const FollowList = () => {
+  const getFollowerList = async () => {
+    try {
+      const { data } = await userApis.loadFollowers();
+      if (data.statusCode === 200) {
+        console.log('followerdata', data, data.followers);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getFollowingList = async () => {
+    try {
+      const { data } = await userApis.loadFollowings();
+      if (data.statusCode === 200) {
+        console.log('followingdata', data, data.followings);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFollowerList();
+    getFollowingList();
+  }, []);
+
   return (
     <Container>
       <div></div>
