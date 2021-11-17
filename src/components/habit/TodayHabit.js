@@ -16,7 +16,6 @@ import { OK } from '../../constants/statusCode';
 const TodayHabit = ({ id }) => {
   const history = useHistory();
   const habitDetail = useRecoilValue(habitState(id));
-  console.log(habitDetail);
   const setHabitList = useSetRecoilState(habitsState);
   const setMonster = useSetRecoilState(monsterState);
   const [active, setActive] = useState(false);
@@ -38,7 +37,6 @@ const TodayHabit = ({ id }) => {
 
     try {
       const { data } = await habitApis.checkHabit(id);
-      console.log(data);
       if (data.statusCode === OK) {
         setHabitList((prev) => {
           const copy = prev.slice();
@@ -70,10 +68,10 @@ const TodayHabit = ({ id }) => {
   return (
     <Card onClick={onHabitClicked}>
       <DetailContainer>
-        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+        <div>
           <CategoryIcon category={habitDetail.category} />
           <Info>
-            <div style={{ marginBottom: '8px' }}>
+            <div>
               <HabitTitle>{habitDetail.title}</HabitTitle>
               <Count>
                 <b>{habitDetail.current}</b>/{habitDetail.count}
@@ -116,6 +114,12 @@ const Card = styled.div`
 const DetailContainer = styled.div`
   display: flex;
   width: 100%;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 const CategoryIcon = styled.div`
@@ -137,6 +141,7 @@ const Info = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 8px;
   }
 `;
 

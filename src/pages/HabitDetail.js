@@ -9,9 +9,10 @@ import {
   BackButtonHeader,
   Modal,
 } from '../components/common';
-import { GreenMonsterIcon } from '../assets/images/monsters/svg';
+import leveloneMonsters from '../assets/images/monsters/svg';
 
 import { habitState, habitsState } from '../recoil/states/habit';
+import { userLevelOneMonsterSelector } from '../recoil/states/monster';
 import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import { Trash } from '../assets/icons/common';
@@ -25,7 +26,7 @@ const HabitDetail = () => {
 
   const [habitList, setHabitList] = useRecoilState(habitsState);
   const habitDetail = useRecoilValue(habitState(habitId));
-  console.log(habitDetail);
+  const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -55,10 +56,8 @@ const HabitDetail = () => {
     }
   };
 
-  // 백에서 나는 오류
-  // 총 달성해야하는 카운트 대비 실제로 수행한(하루치) 비율을 퍼센티지로 나타내는게 acheievePercentage
-  // 그런데 상세 페이지에서 총 카운트가 없음(오늘 수행한 카운트밖에 없음.)
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
+  const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;
 
   return (
     <Container>
@@ -86,7 +85,7 @@ const HabitDetail = () => {
                 <CircleProgressbar degree={progressbarRotationDegree} />
               </ProgressBarOverflowSection>
               <IconProgressbar degree={progressbarRotationDegree}>
-                <GreenMonsterIcon />
+                <MonsterIcon />
               </IconProgressbar>
             </ProgressBar>
           </ProgressBarWrapper>
@@ -107,10 +106,10 @@ const HabitDetail = () => {
         <Wrapper>
           <SubTitleOuter subTitle="요일" className="subTitle">
             {habitDetail.practiceDays.length === 7 ? (
-              <p className="content">매주</p>
+              <p className="content">매일</p>
             ) : (
               <p className="content">
-                매일 {renderDays(habitDetail.practiceDays)}
+                매주 {renderDays(habitDetail.practiceDays)}
               </p>
             )}
           </SubTitleOuter>

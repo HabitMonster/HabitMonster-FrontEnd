@@ -25,7 +25,6 @@ const Wrapper = styled.div`
     font-weight: var(--weight-regular);
     font-size: var(--font-xl);
     line-height: 32px;
-    letter-spacing: 0.374px;
     color: var(--color-primary);
     margin-bottom: 10px;
 
