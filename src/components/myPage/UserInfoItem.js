@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { fontSize, whiteOpacity } from '../../styles';
-import { EditIcon } from '../../assets/icons/common';
+import { EditIcon, Copy } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
-  const { title, contents, handleClick, isLogout } = userInfoItem;
+  const {
+    title,
+    contents,
+    handleClick,
+    handleClipBoard,
+    isLogout,
+    isDeleteAccount,
+    isCopy,
+  } = userInfoItem;
   const isPossibleEdit = !!handleClick;
 
   return (
@@ -13,7 +21,12 @@ const UserInfoItem = ({ userInfoItem }) => {
       <DefaultTitle>{title}</DefaultTitle>
       <PrivateTextWrap>
         {contents && <PrivateText>{contents}</PrivateText>}
-        {isPossibleEdit && !isLogout && <EditIcon />}
+        {isPossibleEdit && !isLogout && !isDeleteAccount && <EditIcon />}
+        {isCopy && (
+          <CopyWrap onClick={handleClipBoard}>
+            <Copy />
+          </CopyWrap>
+        )}
       </PrivateTextWrap>
     </InfoListItem>
   );
@@ -53,20 +66,16 @@ const PrivateTextWrap = styled.div`
     margin-left: 8px;
   }
 `;
-
+const CopyWrap = styled.div`
+  padding-left: 8px;
+  cursor: pointer;
+`;
 const PrivateText = styled.p`
   ${fontSize('14px')};
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--weight-medium);
   color: var(--color-primary);
   ${whiteOpacity('0.8')};
   height: 18px;
-`;
-
-const LogoutButton = styled.button`
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  outline: 0;
 `;
 
 UserInfoItem.propTypes = {

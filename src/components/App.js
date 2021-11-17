@@ -17,6 +17,7 @@ import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import OnBoard from './onBoard/OnBoard';
 import Notice from './myPage/Notice';
+import FollowList from '../pages/FollowList';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -56,6 +57,7 @@ function App() {
           <Route path="/new" component={New} />
           <Route path="/mypage" component={MyPage} />
           <Route path="/notice" component={Notice} />
+          <Route path="/follow" component={FollowList} />
           <Gnb />
         </>
       </Switch>

@@ -60,6 +60,33 @@ const UserInformation = () => {
     [editData.value],
   );
 
+  const copyCode = (contents) => {
+    // 흐름 1.
+    if (!document.queryCommandSupported('copy')) {
+      return alert('복사하기가 지원되지 않는 브라우저입니다.');
+    }
+
+    // 흐름 2.
+    const textarea = document.createElement('textarea');
+    textarea.value = contents;
+    textarea.style.top = 0;
+    textarea.style.left = 0;
+    textarea.style.position = 'fixed';
+
+    // 흐름 3.
+    document.body.appendChild(textarea);
+    // focus() -> 사파리 브라우저 서포팅
+    textarea.focus();
+    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+    textarea.select();
+    // 흐름 4.
+    document.execCommand('copy');
+    // 흐름 5.
+    document.body.removeChild(textarea);
+    console.log('복사된거 맞나', contents, textarea.value);
+    alert('클립보드에 복사되었습니다.');
+  };
+
   const logoutUser = () => {
     const token = window.localStorage.getItem('habitAccessToken');
 
@@ -75,6 +102,10 @@ const UserInformation = () => {
     history.push('/login', null);
   };
 
+  // const DeleteUser = async() => {
+
+  // };
+
   const userInfoList = [
     {
       title: '닉네임',
@@ -89,6 +120,13 @@ const UserInformation = () => {
     {
       title: '몬스터 코드',
       contents: myPageData.monsterCode,
+      isCopy: true,
+      handleClipBoard: () => copyCode(myPageData.monsterCode),
+    },
+    {
+      title: '팔로워 목록보기',
+      contents: '',
+      handleClick: () => history.push('/follow'),
     },
     {
       title: '현재 버전',

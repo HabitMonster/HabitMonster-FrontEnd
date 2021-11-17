@@ -9,23 +9,22 @@ import { BackButtonHeader } from '../common';
 
 const Notice = () => {
   const history = useHistory();
-  const [noticeData, setNoticeList] = useState();
-  const [isToggleOpen, setIsToggleOpen] = useState('0');
+  const [noticeList, setNoticeList] = useState([]);
+  const [isToggleOpen, setIsToggleOpen] = useState(-1);
 
   const handleToggle = (index) => {
     if (isToggleOpen === index) {
-      return setIsToggleOpen('0');
+      return setIsToggleOpen(-1);
     }
     setIsToggleOpen(index);
   };
 
   const getNoticeList = async () => {
     try {
-      const noticeResponses = await myPageApis.loadNoticeData();
-      if (noticeResponses.data.statusCode === 200) {
-        console.log('noticeResponses.data', noticeResponses.data.noticeVoList);
-        setNoticeList(noticeResponses.data.noticeVoList);
-        console.log(noticeData);
+      const { data } = await myPageApis.loadNoticeData();
+      if (data.statusCode === 200) {
+        console.log('noticeResponses.data', data, data.noticeVoList);
+        setNoticeList(data.noticeVoList);
       }
     } catch (error) {
       console.log(error);
@@ -34,7 +33,6 @@ const Notice = () => {
 
   useEffect(() => {
     getNoticeList();
-    console.log('noticeData', noticeData);
   }, []);
 
   return (
@@ -48,16 +46,17 @@ const Notice = () => {
         />
       </PageTitle>
       <NotiList>
-        {/* {noticeData.map((index, notiInfo) => {
-          return (
-            <NoticeItem
-              key={index}
-              notiInfo={notiInfo}
-              active={isToggleOpen === index}
-              onToggle={() => handleToggle(index)}
-            />
-          );
-        })} */}
+        {noticeList?.length &&
+          noticeList.map((notiInfo, index) => {
+            return (
+              <NoticeItem
+                key={index}
+                notiInfo={notiInfo}
+                active={isToggleOpen === index}
+                onToggle={() => handleToggle(index)}
+              />
+            );
+          })}
       </NotiList>
     </Container>
   );

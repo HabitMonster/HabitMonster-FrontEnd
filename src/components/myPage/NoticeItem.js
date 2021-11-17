@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { fontSize, whiteOpacity } from '../../styles/Mixin';
-import { UpIcon, DownIcon } from '../../assets/icons/common';
+import { ToggleUp, ToggleDown } from '../../assets/icons/common';
 
-const NoticeItem = ({ notiInfoItem, onToggle, active }) => {
-  const { title, contents, createdAt } = notiInfoItem;
+const NoticeItem = ({ notiInfo, onToggle, active }) => {
+  const { title, contents, createdAt } = notiInfo;
   const contentArea = useRef();
+
   return (
     <NotiListItem>
-      <NotiTitle>{title}</NotiTitle>
-      <NotiDate>{createdAt}</NotiDate>
+      <TitleWrap>
+        <NotiTitle>{title}</NotiTitle>
+        <NotiDate>{createdAt}</NotiDate>
+      </TitleWrap>
       <ToggleButton onClick={onToggle}>
-        {active ? <UpIcon /> : <DownIcon />}
+        {active ? <ToggleUp /> : <ToggleDown />}
       </ToggleButton>
       <ContentsWrap ref={contentArea}>
         <NotiBox>{contents}</NotiBox>
@@ -25,6 +28,7 @@ const NoticeItem = ({ notiInfoItem, onToggle, active }) => {
 export default NoticeItem;
 
 const NotiListItem = styled.li`
+  flex-wrap: wrap;
   cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
   height: 75px;
   display: flex;
@@ -38,23 +42,32 @@ const NotiListItem = styled.li`
   } */
 `;
 
+const TitleWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+`;
+
 const NotiTitle = styled.p`
   ${fontSize('16px')};
   line-height: 19px;
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   ${whiteOpacity('0.8')};
+  padding-top: 16px;
 `;
 
 const NotiDate = styled.p`
   ${fontSize('13px')};
   line-height: 16px;
   ${whiteOpacity('0.6')};
+  margin-top: 7px;
+  padding-bottom: 16px;
 `;
 
 const ToggleButton = styled.button`
   background-color: transparent;
   border: 0;
-  /* cursor: pointer; */
+  cursor: pointer;
   height: 18px;
   outline: 0;
   /* margin-left: 7px; */
@@ -62,15 +75,16 @@ const ToggleButton = styled.button`
 
 const ContentsWrap = styled.div`
   height: ${({ active }) =>
-    active ? 'contentArea.current.scrollHeight' : '0px'};
-  height: 0;
+    active ? `${contentArea.current.scrollHeight}` : '0px'};
+  /* height: 0; */
+  width: 100%;
   overflow: hidden;
   transition: height ease 0.2s;
 `;
 
 const NotiBox = styled.div`
   background-color: var(--bg-primary);
-  ${fontSize('14px')}
+  ${fontSize('14px')};
   ${whiteOpacity('0.8')};
   font-weight: var(--weight-semi-regular);
   line-height: 20px;
@@ -78,7 +92,7 @@ const NotiBox = styled.div`
 `;
 
 NoticeItem.propTypes = {
-  notiInfoItem: PropTypes.object.isRequired,
+  notiInfo: PropTypes.object.isRequired,
   onToggle: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
