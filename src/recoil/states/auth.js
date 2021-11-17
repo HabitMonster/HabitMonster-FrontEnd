@@ -1,19 +1,16 @@
 import { atom, selector } from 'recoil';
 import { mainApis } from '../../api';
 
-export const loginState = atom({
-  key: 'loginState',
-  default: {
-    isFirstLogin: false,
-  },
-});
-
 export const asyncDefaultAuth = selector({
   key: 'asyncDefaultAuth',
   get: async () => {
-    const loginStatus = {};
+    const loginStatus = {
+      isLogin: false,
+      isFirstLogin: null,
+    };
 
     const accessToken = window.localStorage.getItem('habitAccessToken');
+
     if (!accessToken) {
       return loginStatus;
     }
@@ -22,7 +19,6 @@ export const asyncDefaultAuth = selector({
       const { data } = await mainApis.checkLogin();
       loginStatus.isFirstLogin = data.isFirstLogin;
       loginStatus.isLogin = data.isLogin;
-      loginStatus.createdAt = data.createdAt;
 
       return loginStatus;
     } catch (error) {

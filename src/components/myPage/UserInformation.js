@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
@@ -13,7 +13,7 @@ import { fontSize } from '../../styles/Mixin';
 import { BottomDialog } from '../dialog';
 
 const UserInformation = () => {
-  const resetAuth = useResetRecoilState(authState);
+  const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -96,9 +96,7 @@ const UserInformation = () => {
 
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    resetAuth();
-    setIsLogoutModalOpen(false);
-
+    setAuth({ isFirstLogin: null, isLogin: false });
     history.push('/login', null);
   };
 
