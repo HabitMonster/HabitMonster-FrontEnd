@@ -9,6 +9,7 @@ import { myPageDataState } from '../../recoil/states/user';
 import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
+import { fontSize } from '../../styles/Mixin';
 import { BottomDialog } from '../dialog';
 
 const UserInformation = () => {
@@ -17,6 +18,7 @@ const UserInformation = () => {
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
@@ -106,13 +108,17 @@ const UserInformation = () => {
     {
       title: '탈퇴하기',
       contents: '',
-      // handleClick: () => setIsLogoutModalOpen(true),
+      handleClick: () => setdeleteAccountModalOpen(true),
+      isDeleteAccount: true,
     },
   ];
 
   return (
     <>
       <UserInfoList>
+        <TitleArea>
+          <PageTitle>마이페이지</PageTitle>
+        </TitleArea>
         {userInfoList.map((userInfoItem) => {
           return (
             <UserInfoItem
@@ -147,11 +153,42 @@ const UserInformation = () => {
           />
         </Modal>
       )}
+      {deleteAccountModalOpen && (
+        <Modal
+          open={deleteAccountModalOpen}
+          onClose={() => setdeleteAccountModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            title="정말 탈퇴하시겠어요?"
+            description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
+            activeButtonText="탈퇴하기"
+            onActive={() => {
+              console.log('탈퇴는 못참지');
+            }}
+            onClose={() => setdeleteAccountModalOpen(false)}
+          />
+        </Modal>
+      )}
     </>
   );
 };
 
 export default UserInformation;
+
+const TitleArea = styled.div`
+  height: 44px;
+  margin: 24px 0 20px 24px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+`;
+
+const PageTitle = styled.p`
+  ${fontSize('18px')};
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
+`;
 
 const UserInfoList = styled.ul`
   color: var(--color-primary);
