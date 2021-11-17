@@ -5,14 +5,14 @@ import styled from 'styled-components';
 
 import { Followers, Followings } from '../components/follow';
 
-import { userApis } from '../api';
+import { myPageApis } from '../api';
 
 const FollowList = () => {
   const [followers, setFollowers] = useState([]);
 
   const getFollowerList = async () => {
     try {
-      const { data } = await userApis.loadFollowers();
+      const { data } = await myPageApis.loadFollowers();
       if (data.statusCode === 200) {
         console.log('followerdata', data, data.followers);
         setFollowers(data.followers);
@@ -24,7 +24,7 @@ const FollowList = () => {
 
   const getFollowingList = async () => {
     try {
-      const { data } = await userApis.loadFollowings();
+      const { data } = await myPageApis.loadFollowings();
       if (data.statusCode === 200) {
         console.log('followingdata', data, data.followings);
       }

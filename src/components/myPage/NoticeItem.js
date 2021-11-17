@@ -41,8 +41,8 @@ const HeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
-  margin: 0 16px;
+  /* padding: 0 24px; */
+  margin: 0 24px;
   height: 75px;
 `;
 
@@ -76,7 +76,6 @@ const ToggleButton = styled.button`
 
 const ContentsWrap = styled.div`
   background-color: var(--bg-primary);
-  padding: 0 40px;
   height: ${({ active, contentArea }) =>
     active ? `${contentArea.current.scrollHeight}px` : '0px'};
   overflow: hidden;
@@ -87,9 +86,9 @@ const NotiBox = styled.p`
   color: var(--color-primary);
   ${fontSize('14px')};
   ${whiteOpacity('0.8')};
-  font-weight: var(—weight-semi-regular);
-  line-height: 20px;
-  padding: 16px 0;
+  font-weight: var(--weight-semi-regular);
+  line-height: 22px;
+  padding: 18px;
 `;
 
 NoticeItem.propTypes = {

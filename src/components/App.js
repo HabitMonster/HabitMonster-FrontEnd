@@ -46,7 +46,7 @@ function App() {
       history.replace('/monster');
       return;
     }
-  }, [isFirstLogin, isLogin, location.pathname]);
+  }, []);
 
   return (
     <Layout>
