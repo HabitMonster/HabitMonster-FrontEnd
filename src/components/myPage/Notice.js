@@ -25,7 +25,6 @@ const Notice = () => {
       if (data.statusCode === 200) {
         console.log('noticeResponses.data', data, data.notices);
         setNoticeList(data.notices);
-        console.log('noticeResponses.data', data, data.noticeVoList);
       }
     } catch (error) {
       console.log(error);
