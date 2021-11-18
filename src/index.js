@@ -8,6 +8,8 @@ import App from './components/App';
 
 import { GlobalStyle } from './styles/';
 
+import './assets/fonts/font.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
