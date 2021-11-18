@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { userApis } from '../api/user';
 import { OK } from '../constants/statusCode';
 import styled from 'styled-components';
 
-import {
-  followerListSelector,
-  followingListSelector,
-  isFollowState,
-  userInfoSelector,
-} from '../recoil/states/follow';
+import { isFollowState } from '../recoil/states/follow';
 
 const SearchDetail = () => {
   const { state: searchResultState } = useLocation();
@@ -65,6 +60,7 @@ const SearchDetail = () => {
           <Text>이메일 주소 : {searchResult.email}</Text>
           <img
             src={searchResult.monsterImg}
+            alt="user monster"
             style={{ width: '50px', height: '50px' }}
           />
           <Text>몬스터 코드 : {searchResult.monsterCode}</Text>

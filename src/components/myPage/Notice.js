@@ -9,7 +9,7 @@ import { BackButtonHeader } from '../common';
 
 const Notice = () => {
   const history = useHistory();
-  const [noticeList, setNoticeList] = useState([]);
+  // const [noticeList, setNoticeList] = useState([]);
   const [isToggleOpen, setIsToggleOpen] = useState(-1);
   const list = [
     {
@@ -40,7 +40,7 @@ const Notice = () => {
       const { data } = await myPageApis.loadNoticeData();
       if (data.statusCode === 200) {
         console.log('noticeResponses.data', data, data.noticeVoList);
-        setNoticeList(data.noticeVoList);
+        // setNoticeList(data.noticeVoList);
       }
     } catch (error) {
       console.log(error);
