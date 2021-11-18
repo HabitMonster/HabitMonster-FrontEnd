@@ -15,7 +15,7 @@ const Statistics = () => {
     formatMonth(new window.Date(), '-'),
   );
   const currentMonth = new Date(currentDate).getMonth() + 1;
-  const limitedMonth = new Date(setAuth.createdAt).getMonth() + 1;
+  const createdAtMonth = new Date(setAuth.createdAt).getMonth() + 1;
 
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
@@ -80,11 +80,19 @@ const Statistics = () => {
     <>
       <DetailWrap>
         <DateWrap>
-          {limitedMonth > currentMonth ? (
+          {createdAtMonth === currentMonth ? (
+            <DateButton
+              onClick={() => {
+                console.log('응안돼돌아가수정할거야', currentMonth);
+              }}
+            >
+              <AchieveLeft />
+            </DateButton>
+          ) : (
             <DateButton onClick={() => handleClickChangeMonth('minus')}>
               <AchieveLeft />
             </DateButton>
-          ) : null}
+          )}
           <DateText>{currentDate}</DateText>
           <DateButton onClick={() => handleClickChangeMonth('add')}>
             <AchieveRight />

@@ -52,7 +52,6 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
-
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -136,11 +135,11 @@ const UserInformation = () => {
           isCopy: true,
           handleClipBoard: () => copyCode(myPageData.monsterCode),
         },
-        {
-          title: '팔로워 목록보기',
-          contents: '',
-          handleClick: () => history.push('/follow'),
-        },
+        // {
+        //   title: '팔로워 목록보기',
+        //   contents: '',
+        //   handleClick: () => history.push('/follow'),
+        // },
         {
           title: '현재 버전',
           contents: 'V_1.0.0',
