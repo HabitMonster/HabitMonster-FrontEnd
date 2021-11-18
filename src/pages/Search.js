@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
 import { OK } from '../constants/statusCode';
 import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
 
-import { isFollowState, monsterCodeState } from '../recoil/states/follow';
+import { isFollowState } from '../recoil/states/follow';
 
 const Search = () => {
   const history = useHistory();
@@ -22,11 +22,10 @@ const Search = () => {
     try {
       setFailMessage('');
       const { data } = await userApis.searchUser(monsterId);
-      console.log(data);
+      // console.log(data);
       if (data.statusCode === OK) {
         setSearchResult(data.searchResult);
         setIsFollow(data.searchResult.isFollowed);
-        setMonsterCodeState(monsterId);
         setMonsterId('');
       }
     } catch (error) {
@@ -54,20 +53,6 @@ const Search = () => {
     }
   };
 
-  // console.log(
-  //   '검색결과, 이 페이지에서 팔로우 버튼을 누르면 리코일 로직으로 가야합니다.',
-  //   searchResult,
-  // );
-
-  // console.log(
-  //   `검색 결과의 팔로우 상태 isFollowed가 ${searchResult?.isFollowed} 일 때 ${
-  //     searchResult?.isFollowed === undefined
-  //       ? '검색을 해야합니다'
-  //       : searchResult.isFollowed
-  //       ? '언팔로우 버튼이 보입니다.'
-  //       : '팔로우 버튼이 보입니다.'
-  //   }`,
-  // );
   return (
     <Wrapper>
       <Title>search Page</Title>
@@ -88,7 +73,7 @@ const Search = () => {
             <div>유저 몬스터이름: {searchResult.monsterName}</div>
             <img
               src={searchResult.monsterImg}
-              alt="user monster image"
+              alt="user monster"
               style={{ width: '128px', height: '128px' }}
             />
             <div>

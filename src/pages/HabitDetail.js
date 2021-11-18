@@ -52,24 +52,24 @@ const HabitDetail = () => {
     }
   });
 
-  const handleDeleteButtonClick = async () => {
-    try {
-      const { data } = await habitApis.deleteHabit(habitId);
+  // const handleDeleteButtonClick = async () => {
+  //   try {
+  //     const { data } = await habitApis.deleteHabit(habitId);
 
-      if (data.statusCode === OK) {
-        const deletedHabitIndex = habitList.findIndex((habit) => {
-          return habit.habitId === Number(habitId);
-        });
-        const originHabitList = habitList.slice();
-        originHabitList.splice(deletedHabitIndex, 1);
-        setHabitList(originHabitList);
+  //     if (data.statusCode === OK) {
+  //       const deletedHabitIndex = habitList.findIndex((habit) => {
+  //         return habit.habitId === Number(habitId);
+  //       });
+  //       const originHabitList = habitList.slice();
+  //       originHabitList.splice(deletedHabitIndex, 1);
+  //       setHabitList(originHabitList);
 
-        history.replace('/');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //       history.replace('/');
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
   const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;

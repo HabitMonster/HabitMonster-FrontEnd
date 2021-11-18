@@ -19,6 +19,7 @@ const NaverLogin = () => {
   useEffect(() => {
     initializeNaverLogin();
     getNaverAuthCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initializeNaverLogin = () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilCallback } from 'recoil';
-import { habitIdListState, habitStateWithId } from '../recoil/states/habit';
+import { useRecoilState } from 'recoil';
+import { habitIdListState, defaultHabitsState } from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
@@ -9,6 +9,8 @@ import { OK } from '../constants/statusCode';
 export default function useHabitPresets() {
   const [presets, setPresets] = useState([]);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
+  const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
+  const [habits, setHabits] = useRecoilState(defaultHabitsState);
   const { categoryId } = useParams();
   const history = useHistory();
 
@@ -26,7 +28,7 @@ export default function useHabitPresets() {
     }
 
     getHabitPresetFromServer();
-  }, []);
+  }, [categoryId]);
 
   const onPresetChosen = useCallback((presetId) => {
     setSelectedPresetId(presetId);
@@ -34,12 +36,12 @@ export default function useHabitPresets() {
 
   const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
 
-  const createHabit = useRecoilCallback(({ set }) => (newHabitId, newHabit) => {
-    set(habitIdListState, (prev) => [newHabitId, ...prev]);
-    set(habitStateWithId(newHabitId), newHabit);
-  });
+  // const createHabit = useRecoilCallback(({ set }) => (newHabitId, newHabit) => {
+  //   set(habitIdListState, (prev) => [newHabitId, ...prev]);
+  //   set(habitStateWithId(newHabitId), newHabit);
+  // });
 
-  const onPresetSaved = useCallback(async () => {
+  const onPresetSaved = async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
 
@@ -59,13 +61,15 @@ export default function useHabitPresets() {
           achievePercentage: 0,
         };
         const newHabit = { ...data.habitDto, ...defaultSettings };
-        createHabit(newHabit.habitId, newHabit);
+        setHabitIdList([newHabit.habitId, ...habitIdList]);
+        setHabits([newHabit, ...habits]);
+        // createHabit(newHabit.habitId, newHabit);
       }
       history.replace('/');
     } catch (error) {
       console.error(error);
     }
-  }, [selectedPresetId]);
+  };
 
   return {
     presetList: presets,

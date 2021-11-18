@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import { Statistics, MonsterCollection } from '../components/achievment';

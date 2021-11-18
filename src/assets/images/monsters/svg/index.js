@@ -14,7 +14,7 @@ export {
   YellowMonsterIcon,
 };
 
-export default {
+const levelOneMonsters = {
   1: {
     component: GreenMonsterIcon,
   },
@@ -34,3 +34,5 @@ export default {
     component: RedMonsterIcon,
   },
 };
+
+export default levelOneMonsters;

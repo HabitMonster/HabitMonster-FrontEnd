@@ -27,7 +27,7 @@ const GoogleLogin = () => {
           // 성공적으로 초기화했을 경우, gapi.auth2는 GoogleAuth 객체를 반환합니다.
           // GoogleAuth 객체를 통해서 실제로 로그인, 로그아웃 등등의 기능을 실행할 수 있습니다.
           // 이 객체를 변수 googleAuth2에 저장합니다.
-          const googleAuth2 = await gapi.auth2.init({
+          const googleAuth2 = await window.gapi.auth2.init({
             client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
             scope: 'profile email',
           });
@@ -104,7 +104,7 @@ const GoogleLogin = () => {
     // 구글 API 스크립트가 성공적으로 로드되는 즉시, 앞서 정의한 과정이 이어서 진행됩니다.
     // useEffect를 통해 로그인 창에 들어올 때마다 앞의 과정이 실행됩니다.
     loadGoogleScript();
-  }, []);
+  }, [setAuth, history]);
 
   return (
     <>

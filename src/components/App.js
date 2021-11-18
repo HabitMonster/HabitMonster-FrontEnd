@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -25,8 +25,11 @@ function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
   const location = useLocation();
   const history = useHistory();
+  const r = useRef(1);
 
   useEffect(() => {
+    r.current += 1;
+
     if (!isLogin) {
       history.replace('/login');
       return;
@@ -42,11 +45,11 @@ function App() {
       return;
     }
 
-    if (isFirstLogin) {
+    if (isFirstLogin && location.pathname !== '/select') {
       history.replace('/monster');
       return;
     }
-  }, []);
+  }, [history, location.pathname, isFirstLogin, isLogin]);
 
   return (
     <Layout>
@@ -56,7 +59,7 @@ function App() {
         <Route path="/monster" component={Monster} />
         <Route path="/select" component={MonsterSetting} />
         <Route path="/guide" component={MonsterGuide} />
-        <>
+        <Route>
           <Route exact path="/" component={Main} />
           <Route exact path="/search" component={Search} />
           <Route exact path="/search/:code" component={SearchDetail} />
@@ -68,7 +71,7 @@ function App() {
           <Route path="/notice" component={Notice} />
           <Route path="/follow" component={FollowList} />
           <Gnb />
-        </>
+        </Route>
       </Switch>
     </Layout>
   );

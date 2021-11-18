@@ -63,8 +63,6 @@ const TitleWrap = styled.div`
   font-size: 24px;
 `;
 
-const Title = styled.p``;
-
 const Percent = styled.p`
   ${fontSize('16px')};
   font-weight: var(--weight-bold);

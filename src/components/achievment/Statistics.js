@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
 import { fontSize } from '../../styles';
-import { whiteOpacity } from '../../styles/Mixin';
 
 import { statisticApi } from '../../api';
 
@@ -16,7 +15,6 @@ import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
   const setAuth = useRecoilValue(authState);
-  console.log(setAuth);
   const [currentDate, setCurrentDate] = useState(
     formatMonth(new window.Date(), '-'),
   );
@@ -55,7 +53,7 @@ const Statistics = () => {
     setCurrentListName(listName);
   };
 
-  const getStatistic = async () => {
+  const getStatistic = useCallback(async () => {
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);
       if (statisticResponse.status === 200) {
@@ -68,10 +66,11 @@ const Statistics = () => {
           habitList,
         });
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }, [currentDate]);
+
   const currentList = getCurrentList(statisticData?.habitList ?? []);
   const circleValue =
     statisticData?.totalCount > 0
@@ -80,7 +79,7 @@ const Statistics = () => {
 
   useEffect(() => {
     getStatistic();
-  }, [currentDate]);
+  }, [getStatistic]);
 
   return (
     <>
