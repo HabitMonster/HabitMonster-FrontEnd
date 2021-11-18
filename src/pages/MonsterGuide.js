@@ -15,21 +15,21 @@ const MonsterGuide = () => {
   const selectedMonster = useRecoilValue(getSelectedMonster);
   const user = useRecoilValue(userState);
 
-  // if (!user.monsterName) {
-  //   history.replace('/monster');
-  //   return;
-  // }
+  if (!user.monsterName) {
+    history.replace('/monster');
+    return;
+  }
 
   return (
     <AvatarContainer>
       <TitleWrap>
         <HeadText>안녕!</HeadText>
         <HeadText>
-          난{' '}
-          {appendPostPosition(user.monsterName)
-            ? `${user.monsterName} 이`
-            : `${user.monsterName}`}
-          라고 해.
+          <span>
+            난 <b>{user.monsterName} </b>{' '}
+            {appendPostPosition(user.monsterName) && '이'}
+            라고 해.
+          </span>
         </HeadText>
       </TitleWrap>
       <ThumbnailWrap>
@@ -41,12 +41,12 @@ const MonsterGuide = () => {
       </ThumbnailWrap>
       <TitleWrap>
         <TextBox>
-          <SmallText>나는 다섯가지의 모습으로 변할 수 있어 </SmallText>
+          <SmallText>나는 레벨 5까지 있어! </SmallText>
           <BigText>네가 습관을 실천할 수록 나는 성장해!</BigText>
         </TextBox>
         <TextBox>
           <SmallText>내가 성장하면서 너가 상상하지 못한 </SmallText>
-          <BigText>새로운 모습으로 변화 될거야</BigText>
+          <BigText>새로운 모습으로 변화될거야</BigText>
         </TextBox>
         <TextBox>
           <SmallText>점점 성장하는 모습 기대되지 않니?</SmallText>
@@ -65,11 +65,12 @@ const MonsterGuide = () => {
 export default MonsterGuide;
 
 const AvatarContainer = styled.div`
+  margin-top: 80px;
   font-family: var(--font-name-apple);
   background-color: var(--bg-wrapper);
-  padding-top: 80px;
   width: 100%;
   height: 100%;
+  margin-bottom: 108px;
 `;
 
 const TextBox = styled.div`
@@ -85,13 +86,6 @@ const TitleWrap = styled.div`
   justify-items: flex-start;
 `;
 
-// const HeadText = styled.p`
-//   ${fontSize('24px')};
-//   font-weight: var(--weight-regular);
-//   line-height: 32px;
-//   margin-left: 24px;
-// `;
-
 const ThumbnailWrap = styled.div`
   display: flex;
   align-items: center;
@@ -104,6 +98,16 @@ const HeadText = styled.p`
   font-weight: var(--weight-regular);
   line-height: 32px;
   margin-left: 24px;
+
+  & > span {
+    vertical-align: text-bottom;
+  }
+
+  & > span > b {
+    text-decoration: underline;
+    font-weight: var(--weight-bold);
+    display: inline-block;
+  }
 `;
 
 const SmallText = styled.p`
@@ -113,7 +117,10 @@ const SmallText = styled.p`
   line-height: 32px;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   text-align: center;
+  vertical-align: bottom;
+  display: flex;
 `;
 
 const BigText = styled.p`

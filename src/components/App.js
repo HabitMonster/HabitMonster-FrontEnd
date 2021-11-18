@@ -35,7 +35,7 @@ function App() {
       return;
     }
 
-    const monsterPath = ['select', 'guide', 'monster'];
+    const monsterPath = ['select', 'monster'];
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
     );
