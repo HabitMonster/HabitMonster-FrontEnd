@@ -7,6 +7,7 @@ import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
+import { None } from '../../assets/images/placeholder';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
@@ -27,11 +28,11 @@ const MonsterCollection = () => {
     <Wrapper>
       {!collectionList?.length ? (
         <NoneTextWrapper>
-          <NoneTextTitle>아직 수집한 몬스터가 없어요!😭</NoneTextTitle>
+          <None />
           <NoneTextDescription>
-            습관을 실천해 몬스터를 레벨업하고
+            아직 수집한 몬스터가 없어요.
             <br />
-            새로운 몬스터를 수집해 보세요!
+            습관을 실천해 몬스터를 모아보세요!
           </NoneTextDescription>
         </NoneTextWrapper>
       ) : (
@@ -139,20 +140,20 @@ const NoneTextWrapper = styled.section`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 0 24px;
-`;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-const NoneTextTitle = styled.h2`
-  ${whiteOpacity('0.8')};
-  font-size: var(--font-xxl);
-  line-height: 32px;
-  font-weight: var(--weight-bold);
-  margin-bottom: 16px;
+  & svg {
+    margin-bottom: 32px;
+  }
 `;
 
 const NoneTextDescription = styled.p`
   ${whiteOpacity('0.6')};
-  font-size: var(--font-l);
-  line-height: 27px;
+  font-size: var(--font-xs);
+  line-height: 21px;
+  text-align: center;
 `;
 
 export default MonsterCollection;

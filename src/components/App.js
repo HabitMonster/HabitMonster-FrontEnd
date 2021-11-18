@@ -29,6 +29,7 @@ function App() {
 
   useEffect(() => {
     r.current += 1;
+    console.log(location.pathname);
 
     if (!isLogin) {
       history.replace('/login');
