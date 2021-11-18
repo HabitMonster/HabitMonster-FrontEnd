@@ -56,15 +56,12 @@ const UserInformation = () => {
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
-  const handleChangeValue = useCallback(
-    (value) => {
-      setEditData((editData) => ({
-        ...editData,
-        value,
-      }));
-    },
-    [editData.value],
-  );
+  const handleChangeValue = useCallback((value) => {
+    setEditData((editData) => ({
+      ...editData,
+      value,
+    }));
+  }, []);
 
   const copyCode = (contents) => {
     // 흐름 1.

@@ -42,7 +42,6 @@ export const habitsHashSelector = selector({
     }, {}),
 });
 
-//! 습관 지울때에는 어떻게 하면 되나 ?
 export const habitStateWithId = atomFamily({
   key: 'habitState',
   default: selectorFamily({
@@ -53,28 +52,3 @@ export const habitStateWithId = atomFamily({
         get(habitsHashSelector)[habitId],
   }),
 });
-
-// export const habitIdListState = selector({
-//   key: 'habitIdList',
-//   get: ({ get }) => {
-//     return get(habitsState).map(({ habitId }) => habitId);
-//   },
-// });
-
-// export const habitIdHashState = selector({
-//   key: 'habitIdHash',
-//   get: ({ get }) => {
-//     return get(habitsState).reduce((hash, cur) => {
-//       hash[cur.habitId] = cur;
-//       return hash;
-//     }, {});
-//   },
-// });
-
-// export const habitState = selectorFamily({
-//   key: 'habit',
-//   get:
-//     (habitId) =>
-//     ({ get }) =>
-//       get(habitIdHashState)[habitId],
-// });

@@ -48,7 +48,7 @@ const KakaoLogin = () => {
       }
     }
     getTokenWithKakao();
-  }, []);
+  }, [history, setAuth]);
 
   const loginWithKakao = () => {
     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_LOGIN_REDIRECT_URI}&response_type=code`;

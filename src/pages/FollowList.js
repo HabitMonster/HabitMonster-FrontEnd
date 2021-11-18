@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import React, { useEffect } from 'react';
+// import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+// import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
-import { Followers, Followings } from '../components/follow';
+// import { Followers, Followings } from '../components/follow';
 
 import { myPageApis } from '../api';
 
 const FollowList = () => {
-  const [followers, setFollowers] = useState([]);
+  // const [followers, setFollowers] = useState([]);
 
   const getFollowerList = async () => {
     try {
       const { data } = await myPageApis.loadFollowers();
       if (data.statusCode === 200) {
         console.log('followerdata', data, data.followers);
-        setFollowers(data.followers);
+        // setFollowers(data.followers);
       }
     } catch (error) {
       console.log(error);
@@ -41,7 +41,8 @@ const FollowList = () => {
   return (
     <Container>
       <div>
-        팔로워 :<p>{setFollowers.monsterName}</p>
+        {/* 세명: ???? */}
+        {/* 팔로워 :<p>{setFollowers.monsterName}</p> */}
       </div>
     </Container>
   );

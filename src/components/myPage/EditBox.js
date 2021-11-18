@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSetRecoilState, useRecoilStateLoadable } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
@@ -15,7 +15,8 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
   const [originValue] = useState(editValue);
   const isEnabled = editValue && editValue.length <= 10;
   const setEditValue = useSetRecoilState(myPageDataState); // myPageData를 새로운 값으로 바꿔준다!
-  const [monster, refetchMonster] = useRecoilStateLoadable(asyncDefaultMonster); // 비동기 요청으로 담는 몬스터 값을 리페칭해주기!
+  // const [monster, refetchMonster] = useRecoilStateLoadable(asyncDefaultMonster); // 비동기 요청으로 담는 몬스터 값을 리페칭해주기!
+  const refetchMonster = useSetRecoilState(asyncDefaultMonster);
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;
