@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -9,11 +9,18 @@ import { asyncDefaultMonster } from '../../recoil/states/monster';
 
 import { myPageApis } from '../../api';
 import { fontSize } from '../../styles';
+import { validateMonsterName } from '../../utils/validation';
 import { OK } from '../../constants/statusCode';
 
 const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
-  const [originValue] = useState(editValue);
-  const isEnabled = editValue && editValue.length <= 10;
+  //* PROP을 STATE의 DEFAULT 값으로 주는 것은 안티패턴입니다 선생님!!!!!!!!!!
+  //* 이 부분 다시 체크 부탁드립니다!!!!!!!!!!!!!!!!
+  // const [originValue] = useState(editValue);
+  const isEnabled =
+    type === 'monsterName'
+      ? editValue && validateMonsterName(editValue)
+      : editValue && editValue.length <= 10;
+
   const setEditValue = useSetRecoilState(myPageDataState); // myPageData를 새로운 값으로 바꿔준다!
   // const [monster, refetchMonster] = useRecoilStateLoadable(asyncDefaultMonster); // 비동기 요청으로 담는 몬스터 값을 리페칭해주기!
   const refetchMonster = useSetRecoilState(asyncDefaultMonster);
@@ -70,10 +77,10 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
         )}
         <TextInput
           text={editValue || ''}
-          placeholder={originValue}
+          placeholder={editValue}
           onTextChanged={handleChangeValue}
-          maxLength={10}
-          idleHelperText="한글, 영문, 숫자 공백없이 최대 10자 입력 가능해요"
+          maxLength={12}
+          idleHelperText="한글, 영문, 숫자 공백없이 최대 12자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"
           lengthValidationMode={true}
         />
