@@ -35,7 +35,7 @@ const Monster = () => {
             한 번 고른 몬스터는 변경이 어려우니 신중히 골라주세요.
           </Description>
         </TitleWrap>
-        <ThumbnailWrap>
+        {/* <ThumbnailWrap>
           <MonsterThumbnail
             imageUrl={selectedAvatar.monsterImage}
             imageAlt={selectedAvatar.monsterImage}
@@ -57,7 +57,7 @@ const Monster = () => {
               </SelectListItem>
             );
           })}
-        </SelectList>
+        </SelectList> */}
       </AvatarWrap>
       <BottomFixedButton
         text="선택하기"
@@ -123,5 +123,5 @@ const SelectListItem = styled.li`
     ${(props) => (props.selected ? 'var(--color-white)' : 'transparent')};
   border-radius: var(--border-radius-small);
   cursor: pointer;
-  transition: border 500ms;
+  /* transition: border 500ms; */
 `;

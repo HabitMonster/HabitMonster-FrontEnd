@@ -2,11 +2,12 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import NotiContent from './NotiContent';
 import { fontSize, whiteOpacity } from '../../styles/Mixin';
 import { ToggleUp, ToggleDown } from '../../assets/icons/common';
 
 const NoticeItem = ({ notice, active, onToggle }) => {
-  const { title, content, createdAt } = notice;
+  const { title, createdAt, id } = notice;
   const contentArea = useRef();
 
   console.log('contentArea', contentArea?.current?.scrollHeight);
@@ -24,7 +25,8 @@ const NoticeItem = ({ notice, active, onToggle }) => {
         </ToggleButton>
       </HeaderWrap>
       <ContentsWrap ref={contentArea} contentArea={contentArea} active={active}>
-        <NotiBox active={active}>{content}</NotiBox>
+        {/* <NotiBox active={active}>{content}</NotiBox> */}
+        <NotiContent active={active} id={id} />
       </ContentsWrap>
     </NotiListItem>
   );
@@ -82,7 +84,7 @@ const ContentsWrap = styled.div`
   transition: all 0.35s;
 `;
 
-const NotiBox = styled.p`
+const NotiBox = styled.div`
   color: var(--color-primary);
   ${fontSize('14px')};
   ${whiteOpacity('0.8')};
