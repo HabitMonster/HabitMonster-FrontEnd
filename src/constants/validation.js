@@ -1,0 +1,1 @@
+export const MAX_MONSTER_NAME_LENGTH = 12;

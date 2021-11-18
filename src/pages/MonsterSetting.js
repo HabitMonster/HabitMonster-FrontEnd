@@ -13,6 +13,7 @@ import { selectedMonsterState } from '../recoil/states/monster';
 import { authState } from '../recoil/states/auth';
 
 import { OK } from '../constants/statusCode';
+import { validateMonsterName } from '../utils/validation';
 
 const MonsterSetting = () => {
   const history = useHistory();
@@ -59,8 +60,8 @@ const MonsterSetting = () => {
           text={monsterName}
           placeholder="이름을 입력해 주세요"
           onTextChanged={setMonsterName}
-          maxLength={10}
-          idleHelperText="한글, 영문, 숫자 공백없이 최대 10자 입력 가능해요"
+          maxLength={12}
+          idleHelperText="한글, 영문, 숫자 공백없이 최대 12자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"
           lengthValidationMode={true}
         />
@@ -68,7 +69,7 @@ const MonsterSetting = () => {
       <BottomFixedButton
         text="시작하기"
         onClick={setMonsterInfo}
-        condition={() => monsterName.length && monsterName.length < 10}
+        condition={() => monsterName && validateMonsterName(monsterName)}
       />
     </AvatarContainer>
   );

@@ -33,6 +33,7 @@ const NewHabitForm = () => {
 
   const condition =
     title &&
+    title.length <= 10 &&
     description &&
     duration.start &&
     duration.end &&
