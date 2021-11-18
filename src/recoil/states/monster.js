@@ -1,3 +1,4 @@
+import { authState } from './auth';
 import { atom, selector } from 'recoil';
 import { mainApis, monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
@@ -10,7 +11,16 @@ export const monsterRefetchToggler = atom({
 export const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
   get: async ({ get }) => {
+    const { isLogin, isFirstLogin } = get(authState);
+
+    if (!isLogin || isFirstLogin) {
+      return null;
+    }
     get(monsterRefetchToggler);
+
+    if (isFirstLogin) {
+    }
+
     try {
       const { data } = await mainApis.getMonsterInfo();
       return data.monster;
@@ -28,6 +38,13 @@ export const asyncDefaultMonster = selector({
 export const monsterState = atom({
   key: 'monster',
   default: asyncDefaultMonster,
+});
+
+export const userLevelOneMonsterSelector = selector({
+  key: 'userLevelOneMonster',
+  get: ({ get }) => {
+    return get(monsterState).levelOneId;
+  },
 });
 
 const initiateMonsterSelector = selector({

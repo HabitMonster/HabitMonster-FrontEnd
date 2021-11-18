@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import { useRecoilCallback } from 'recoil';
+import { habitStateWithId } from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,
   NewHabitDetailDescription,
+  NewHabitDetailDueDatePicker,
+  NewHabitDayPicker,
   NewHabitFrequencySection,
 } from '../components/newHabit';
 import {
@@ -17,13 +20,10 @@ import { BottomDialog } from '../components/dialog';
 
 import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
-import { habitsState } from '../recoil/states/habit';
 
 const HabitEdit = () => {
   const history = useHistory();
   const { state: habitDetail } = useLocation();
-
-  const [habitList, setHabitList] = useRecoilState(habitsState);
 
   const [backModalOpen, setBackModalOpen] = useState(false);
   const [title, setTitle] = useState(habitDetail.habitDetail.title);
@@ -32,7 +32,7 @@ const HabitEdit = () => {
   );
   const [frequency, setFrequency] = useState(habitDetail.habitDetail.count);
 
-  const handleEditButtonClick = async () => {
+  const handleEditButtonClick = useRecoilCallback(({ set }) => async () => {
     const body = {
       title,
       description,
@@ -46,22 +46,17 @@ const HabitEdit = () => {
       );
 
       if (data.statusCode === OK) {
-        const originHabitList = habitList.slice();
-        const editedHabitIndex = habitList.findIndex((habit) => {
-          return habit.habitId === habitDetail.habitDetail.habitId;
-        });
-        const editedHabit = {
-          ...originHabitList[editedHabitIndex],
-          ...body,
-        };
-        originHabitList[editedHabitIndex] = { ...editedHabit };
-        setHabitList(originHabitList);
+        set(habitStateWithId(data.habit.habitId), data.habit);
         history.replace('/');
       }
     } catch (error) {
       console.error(error);
     }
-  };
+  });
+
+  if (!Object.keys(habitDetail).length) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Wrapper>
@@ -76,18 +71,35 @@ const HabitEdit = () => {
       <Inner>
         <MarginInterval mb="24">
           <NewHabitDetailTitle
+            isEditMode={true}
             title={title}
             update={setTitle}
-            isEdit={true}
             originTitle={title}
           />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDetailDescription
+            isEditMode={true}
             description={description}
             update={setDescription}
-            isEdit={true}
             originDescription={description}
+          />
+        </MarginInterval>
+        <MarginInterval mb="24">
+          <NewHabitDetailDueDatePicker
+            isEditMode={true}
+            duration={{
+              start: habitDetail.habitDetail.durationStart,
+              end: habitDetail.habitDetail.durationEnd,
+            }}
+            onDurationChecked={null}
+          />
+        </MarginInterval>
+        <MarginInterval mb="24">
+          <NewHabitDayPicker
+            isEditMode={true}
+            days={habitDetail.habitDetail.practiceDays}
+            onDayPicked={null}
           />
         </MarginInterval>
         <MarginInterval>

@@ -23,9 +23,9 @@ BottomFixedButton.propTypes = {
 
 const Button = styled.button`
   width: 100%;
-  max-width: 360px;
+  max-width: 414px;
   margin: 0 auto;
-  height: 64px;
+  height: 68px;
 
   position: fixed;
   bottom: 0;

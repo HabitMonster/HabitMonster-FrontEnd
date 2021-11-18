@@ -125,21 +125,3 @@ const SelectListItem = styled.li`
   cursor: pointer;
   transition: border 500ms;
 `;
-
-const FixedButton = styled.button`
-  background-color: #4d0dcd;
-  border: 0;
-  outline: 0;
-  color: var(--color-white);
-  font-size: var(--font-l);
-  font-weight: var(--weight-bold);
-  line-height: 22px;
-  text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 64px;
-  width: 100%;
-  max-width: 480px;
-`;

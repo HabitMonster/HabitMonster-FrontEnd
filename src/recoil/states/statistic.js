@@ -23,7 +23,6 @@ export const getStatistic = selector({
       const statisticResponse = await statisticApi.getStatistics(currentDate);
 
       if (statisticResponse.status === OK) {
-        console.log(statisticResponse);
         return statisticResponse.data;
       }
     } catch (err) {

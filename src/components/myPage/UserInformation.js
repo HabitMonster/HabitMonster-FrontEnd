@@ -1,24 +1,29 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
 import { useHistory } from 'react-router-dom';
 
-import { getCookie, deleteCookie } from '../../utils/cookie';
-
 import { authState } from '../../recoil/states/auth';
-import { myPageDataState } from '../../recoil/states/user';
+import { myPageDataState, userState } from '../../recoil/states/user';
+import { habitIdListState } from '../../recoil/states/habit';
 
 import UserInfoItem from './UserInfoItem';
 import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
+import { myPageApis } from '../../api';
+import { fontSize } from '../../styles/Mixin';
+
+import { USER_DELETED } from '../../constants/statusMessage';
 
 const UserInformation = () => {
-  const resetAuth = useResetRecoilState(authState);
+  const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
@@ -47,6 +52,7 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
+
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -60,51 +66,111 @@ const UserInformation = () => {
     [editData.value],
   );
 
-  const logoutUser = () => {
-    const token = getCookie('accessToken');
-
-    if (!token) {
-      <div>먼저 로그인을 해주세요!</div>;
+  const copyCode = (contents) => {
+    // 흐름 1.
+    if (!document.queryCommandSupported('copy')) {
+      return alert('복사하기가 지원되지 않는 브라우저입니다.');
     }
-    window.localStorage.removeItem('habitAccess');
-    window.localStorage.removeItem('habitRefresh');
-    window.localStorage.removeItem('isFirstLogin');
-    window.localStorage.removeItem('isOnboarding');
-    resetAuth();
-    setIsLogoutModalOpen(false);
-    history.replace('/login', null);
+
+    // 흐름 2.
+    const textarea = document.createElement('textarea');
+    textarea.value = contents;
+    textarea.style.top = 0;
+    textarea.style.left = 0;
+    textarea.style.position = 'fixed';
+
+    // 흐름 3.
+    document.body.appendChild(textarea);
+    // focus() -> 사파리 브라우저 서포팅
+    textarea.focus();
+    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+    textarea.select();
+    // 흐름 4.
+    document.execCommand('copy');
+    // 흐름 5.
+    document.body.removeChild(textarea);
+    console.log('복사된거 맞나', contents, textarea.value);
+    alert('클립보드에 복사되었습니다.');
   };
 
-  const userInfoList = [
-    {
-      title: '닉네임',
-      contents: myPageData.username,
-      handleClick: () => openModal('username'),
-    },
-    {
-      title: '몬스터 이름',
-      contents: myPageData.monsterName,
-      handleClick: () => openModal('monsterName'),
-    },
-    {
-      title: '몬스터 코드',
-      contents: myPageData.monsterCode,
-    },
-    {
-      title: '현재 버전',
-      contents: 'V_1.0.0',
-    },
-    {
-      title: '로그아웃',
-      contents: '',
-      handleClick: () => setIsLogoutModalOpen(true),
-      isLogout: true,
-    },
-  ];
+  const logoutUser = () => {
+    window.localStorage.removeItem('habitAccessToken');
+    window.localStorage.removeItem('habitRefreshToken');
+    setAuth({ isFirstLogin: null, isLogin: false });
+    history.push('/login');
+  };
+
+  const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
+    try {
+      const { data } = await myPageApis.deleteUser();
+
+      if (data.responseMessage === USER_DELETED) {
+        window.localStorage.removeItem('habitAccessToken');
+        window.localStorage.removeItem('habitRefreshToken');
+        set(authState, { isFirstLogin: null, isLogin: false });
+        set(habitIdListState, []);
+        set(myPageDataState, {});
+        set(userState, {});
+        window.location.href = '/login';
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  const userInfoList = Object.keys(myPageData).length
+    ? [
+        {
+          title: '닉네임',
+          contents: myPageData.username,
+          handleClick: () => openModal('username'),
+        },
+        {
+          title: '몬스터 이름',
+          contents: myPageData.monsterName,
+          handleClick: () => openModal('monsterName'),
+        },
+        {
+          title: '몬스터 코드',
+          contents: myPageData.monsterCode,
+          isCopy: true,
+          handleClipBoard: () => copyCode(myPageData.monsterCode),
+        },
+        {
+          title: '팔로워 목록보기',
+          contents: '',
+          handleClick: () => history.push('/follow'),
+        },
+        {
+          title: '현재 버전',
+          contents: 'V_1.0.0',
+        },
+        {
+          title: '공지사항',
+          contents: '',
+          handleClick: () => history.push('/notice'),
+        },
+        {
+          title: '로그아웃',
+          contents: '',
+          handleClick: () => setIsLogoutModalOpen(true),
+          isLogout: true,
+        },
+        {
+          title: '탈퇴하기',
+          contents: '',
+          handleClick: () => setdeleteAccountModalOpen(true),
+          isDeleteAccount: true,
+        },
+      ]
+    : [];
 
   return (
     <>
       <UserInfoList>
+        <TitleArea>
+          <PageTitle>마이페이지</PageTitle>
+        </TitleArea>
         {userInfoList.map((userInfoItem) => {
           return (
             <UserInfoItem
@@ -139,14 +205,47 @@ const UserInformation = () => {
           />
         </Modal>
       )}
+      {deleteAccountModalOpen && (
+        <Modal
+          open={deleteAccountModalOpen}
+          onClose={() => setdeleteAccountModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            title="정말 탈퇴하시겠어요?"
+            description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
+            activeButtonText="탈퇴하기"
+            onActive={() => {
+              console.log('탈퇴는 못참지');
+              deleteUserAccount();
+            }}
+            onClose={() => setdeleteAccountModalOpen(false)}
+          />
+        </Modal>
+      )}
     </>
   );
 };
 
 export default UserInformation;
 
+const TitleArea = styled.div`
+  height: 44px;
+  margin: 20px 0 20px 24px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+`;
+
+const PageTitle = styled.p`
+  ${fontSize('18px')};
+  font-weight: var(--weight-regular);
+  color: var(--color-primary);
+`;
+
 const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
+  height: 100%;
 `;

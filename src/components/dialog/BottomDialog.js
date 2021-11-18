@@ -91,7 +91,7 @@ const Button = styled.button`
   color: ${({ active }) =>
     active ? 'var(--color-white)' : 'rgba(255, 255, 255, 0.8)'};
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   cursor: pointer;
 `;
 

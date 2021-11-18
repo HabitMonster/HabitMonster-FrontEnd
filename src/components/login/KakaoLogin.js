@@ -5,7 +5,6 @@ import { useSetRecoilState } from 'recoil';
 import { authState } from '../../recoil/states/auth';
 
 import { auth } from '../../api';
-import { setCookie } from '../../utils/cookie';
 import { KakaoSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 
@@ -24,14 +23,15 @@ const KakaoLogin = () => {
     async function getTokenWithKakao() {
       try {
         const { data } = await auth.getSocialLogin(socialName, kakaoAuthCode);
-        window.localStorage.setItem('habitAccess', data.accessToken);
-        window.localStorage.setItem('habitRefresh', data.refreshToken);
+        window.localStorage.setItem('habitAccessToken', data.accessToken);
+        window.localStorage.setItem('habitRefreshToken', data.refreshToken);
 
         if (data.statusCode === OK && data.isFirstLogin) {
           setAuth({
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
+          history.replace('/monster');
           return;
         }
 
@@ -40,6 +40,7 @@ const KakaoLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
+          history.replace('/');
           return;
         }
       } catch (err) {
@@ -54,12 +55,12 @@ const KakaoLogin = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <LoginBtn className="kakaoLogin" onClick={loginWithKakao}>
         <KakaoSymbol />
         <SocialTitle>카카오로 시작하기</SocialTitle>
       </LoginBtn>
-    </React.Fragment>
+    </>
   );
 };
 

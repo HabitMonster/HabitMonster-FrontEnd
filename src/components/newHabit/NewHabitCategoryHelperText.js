@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { whiteOpacity } from '../../styles/Mixin';
 
 const NewHabitCategoryHelperText = () => {
   return (
@@ -13,7 +14,8 @@ const NewHabitCategoryHelperText = () => {
 };
 
 const Wrapper = styled.div`
-  margin-top: 80px;
+  /* margin-top: 80px; */
+  margin-top: 43px; //현재 640기준아님. 640 + 37 = 677기준.
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -23,9 +25,8 @@ const Wrapper = styled.div`
     font-weight: var(--weight-regular);
     font-size: var(--font-xl);
     line-height: 32px;
-    letter-spacing: 0.374px;
-    color: var(--color-white);
-    margin-bottom: 8px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
 
     & b {
       font-weight: var(--weight-bold);
@@ -33,11 +34,10 @@ const Wrapper = styled.div`
   }
 
   & p {
-    color: var(--color-white);
-    opacity: 0.8;
+    ${whiteOpacity('0.8')};
     font-size: var(--font-xs);
     line-height: 17px;
-    letter-spacing: 0.374px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 `;
 

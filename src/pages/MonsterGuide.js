@@ -15,10 +15,10 @@ const MonsterGuide = () => {
   const selectedMonster = useRecoilValue(getSelectedMonster);
   const user = useRecoilValue(userState);
 
-  if (!user.monsterName) {
-    history.replace('/monster');
-    return;
-  }
+  // if (!user.monsterName) {
+  //   history.replace('/monster');
+  //   return;
+  // }
 
   return (
     <AvatarContainer>
@@ -27,7 +27,7 @@ const MonsterGuide = () => {
         <HeadText>
           난{' '}
           {appendPostPosition(user.monsterName)
-            ? `${user.monsterName}이`
+            ? `${user.monsterName} 이`
             : `${user.monsterName}`}
           라고 해.
         </HeadText>
@@ -85,11 +85,25 @@ const TitleWrap = styled.div`
   justify-items: flex-start;
 `;
 
+// const HeadText = styled.p`
+//   ${fontSize('24px')};
+//   font-weight: var(--weight-regular);
+//   line-height: 32px;
+//   margin-left: 24px;
+// `;
+
 const ThumbnailWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px 0 10px;
+`;
+
+const HeadText = styled.p`
+  font-size: var(--font-xxl);
+  font-weight: var(--weight-regular);
+  line-height: 32px;
+  margin-left: 24px;
 `;
 
 const SmallText = styled.p`
@@ -102,48 +116,9 @@ const SmallText = styled.p`
   text-align: center;
 `;
 
-const TextWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
-
 const BigText = styled.p`
   font-weight: var(--weight-semi-bold);
   ${fontSize('20px')};
   line-height: 32px;
   margin: 0 auto;
-`;
-
-const HeadText = styled.p`
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-regular);
-  line-height: 32px;
-  margin-left: 24px;
-`;
-
-const HeaderName = styled.p`
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-`;
-
-const FixedButton = styled.button`
-  /* background-color: var(--color-main); */
-  background-color: #4d0dcd;
-  border: 0;
-  outline: 0;
-  color: var(--color-white);
-  font-size: var(--font-l);
-  font-weight: var(--weight-bold);
-  line-height: 22px;
-  text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 64px;
-  width: 100%;
-  max-width: 375px;
 `;

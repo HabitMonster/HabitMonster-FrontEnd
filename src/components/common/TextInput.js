@@ -81,7 +81,7 @@ const IdleHelperText = styled.span`
 `;
 
 const Input = styled.input`
-  width: 312px;
+  width: 100%;
   height: 32px;
   background: inherit;
   font-size: var(--font-s);
