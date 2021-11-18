@@ -50,8 +50,8 @@ function App() {
 
   return (
     <Layout>
-      {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
       <Switch>
+        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
         <Route path="/monster" component={Monster} />
         <Route path="/select" component={MonsterSetting} />

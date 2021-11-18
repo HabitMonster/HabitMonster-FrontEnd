@@ -85,12 +85,12 @@ const TitleWrap = styled.div`
   justify-items: flex-start;
 `;
 
-const HeadText = styled.p`
-  ${fontSize('24px')};
-  font-weight: var(--weight-regular);
-  line-height: 32px;
-  margin-left: 24px;
-`;
+// const HeadText = styled.p`
+//   ${fontSize('24px')};
+//   font-weight: var(--weight-regular);
+//   line-height: 32px;
+//   margin-left: 24px;
+// `;
 
 const ThumbnailWrap = styled.div`
   display: flex;
