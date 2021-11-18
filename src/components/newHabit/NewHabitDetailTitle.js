@@ -11,7 +11,7 @@ const NewHabitDetailTitle = ({ title, update, isEditMode, originTitle }) => {
         text={title}
         onTextChanged={update}
         placeholder={isEditMode ? originTitle : '예) 하루에 1000원씩 저금하기'}
-        maxLength={20}
+        maxLength={10}
         lengthValidationMode
         errorMessage="최대 글자 수를 초과했어요"
       />
