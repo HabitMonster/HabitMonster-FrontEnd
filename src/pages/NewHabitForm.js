@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { habitsState } from '../recoil/states/habit';
+import { useRecoilState, useRecoilCallback } from 'recoil';
+import { habitStateWithId, habitIdListState } from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,
@@ -19,7 +19,6 @@ import { addHabitApis } from '../api';
 const NewHabitForm = () => {
   const history = useHistory();
   const { state: categoryState } = useLocation();
-  const setHabits = useSetRecoilState(habitsState);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -38,27 +37,35 @@ const NewHabitForm = () => {
     practiceDays &&
     frequency;
 
-  const handleSaveButtonClick = async () => {
-    const body = {
-      title,
-      description,
-      durationStart: duration.start,
-      durationEnd: duration.end,
-      count: frequency,
-      categoryId: categoryState.id,
-      practiceDays: practiceDays,
-    };
+  const handleSaveButtonClick = useRecoilCallback(({ set }) => async (body) => {
+    const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
 
     try {
       const { data } = await addHabitApis.saveHabitWithHands(body);
+      console.log(data);
 
-      if (data.statusCode === OK) {
-        setHabits((prev) => [data.habit, ...prev]);
-        history.replace('/');
+      if (
+        data.statusCode === OK &&
+        data.habit.practiceDays.includes(String(currentDay))
+      ) {
+        set(habitIdListState, (prev) => [data.habit.habitId, ...prev]);
+        set(habitStateWithId(data.habit.habitId), data.habit);
+        // setHabits([data.habit, ...habits]);
       }
+      history.replace('/');
     } catch (error) {
       console.error(error);
     }
+  });
+
+  const body = {
+    title,
+    description,
+    durationStart: duration.start,
+    durationEnd: duration.end,
+    count: frequency,
+    categoryId: categoryState.id,
+    practiceDays: practiceDays,
   };
 
   if (!categoryState) {
@@ -75,22 +82,29 @@ const NewHabitForm = () => {
           />
         </Header>
         <MarginInterval mb="24">
-          <NewHabitDetailTitle title={title} update={setTitle} />
+          <NewHabitDetailTitle
+            isEditMode={false}
+            title={title}
+            update={setTitle}
+          />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDetailDescription
+            isEditMode={false}
             description={description}
             update={setDescription}
           />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDetailDueDatePicker
+            isEditMode={false}
             duration={duration}
             onDurationChecked={setDuration}
           />
         </MarginInterval>
         <MarginInterval mb="24">
           <NewHabitDayPicker
+            isEditMode={false}
             days={practiceDays}
             onDayPicked={setPracticeDays}
           />
@@ -105,20 +119,20 @@ const NewHabitForm = () => {
       <BottomFixedButton
         condition={() => condition}
         text="저장하기"
-        onClick={handleSaveButtonClick}
+        onClick={() => handleSaveButtonClick(body)}
       />
     </Wrapper>
   );
 };
 
+// Wrapper에 패딩 바텀 줌.
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
   background: var(--bg-wrapper);
-  padding-top: 24px;
-  padding-bottom: 80px;
   overflow-y: scroll;
+  padding-bottom: 108px;
 `;
 
 const Inner = styled.div`
@@ -126,7 +140,7 @@ const Inner = styled.div`
 `;
 
 const Header = styled.section`
-  height: 44px;
+  margin-top: 24px;
   margin-bottom: 40px;
 `;
 

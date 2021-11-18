@@ -1,19 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilCallback } from 'recoil';
+import { habitIdListState, habitStateWithId } from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
-import { habitsState } from '../recoil/states/habit';
 
-export default function useFetchCategoryPresets() {
+export default function useHabitPresets() {
   const [presets, setPresets] = useState([]);
-  console.log(presets);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const { categoryId } = useParams();
   const history = useHistory();
-
-  const [habitList, setHabitList] = useRecoilState(habitsState);
 
   useEffect(() => {
     async function getHabitPresetFromServer() {
@@ -35,14 +32,26 @@ export default function useFetchCategoryPresets() {
     setSelectedPresetId(presetId);
   }, []);
 
+  const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
+
+  const createHabit = useRecoilCallback(({ set }) => (newHabitId, newHabit) => {
+    set(habitIdListState, (prev) => [newHabitId, ...prev]);
+    set(habitStateWithId(newHabitId), newHabit);
+  });
+
   const onPresetSaved = useCallback(async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
 
-      if (data.statusCode === OK) {
+      // if the presets starts from now on(includes today in practiceDays)
+      if (
+        data.statusCode === OK &&
+        data.habitDto.practiceDays.includes(String(currentDay))
+      ) {
         const selectedPresetIndex = presets.findIndex((preset) => {
           return preset.presetId === selectedPresetId;
         });
+
         const defaultSettings = {
           category: presets[selectedPresetIndex].category,
           current: 0,
@@ -50,8 +59,7 @@ export default function useFetchCategoryPresets() {
           achievePercentage: 0,
         };
         const newHabit = { ...data.habitDto, ...defaultSettings };
-        // setHabitList((prev) => [newHabit, ...prev]);
-        setHabitList([newHabit, ...habitList]);
+        createHabit(newHabit.habitId, newHabit);
       }
       history.replace('/');
     } catch (error) {

@@ -119,7 +119,7 @@ const MonsterImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: var(--bg-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 
   & img {
     margin-bottom: 14px;

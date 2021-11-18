@@ -23,7 +23,7 @@ NewHabitCategoryCell.propTypes = {
 };
 
 const GategoryWrapper = styled.div`
-  width: 150px;
+  width: 100%;
   height: 92px;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ const GategoryWrapper = styled.div`
   padding: 19px 28px 14px;
   background: var(--bg-primary);
   border: 1px solid #3c4254;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   cursor: pointer;
 
   & span {

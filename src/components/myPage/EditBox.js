@@ -87,11 +87,16 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
 };
 
 const Container = styled.div`
-  width: 360px;
+  max-width: 414px;
+  width: 100%;
   height: 100%;
-  position: relative;
+  /* position: relative; */
   background: var(--bg-wrapper);
   margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const BackWrap = styled.div`

@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --color-deemed2: #e8e8e8;
     --color-detail: #f7f5ff;
     --color-statistics: #492cf1;
+    --color-onboard: #7d3bff;
     /* Font name */
     --font-name-apple: 'Apple SD Gothic Neo';
     /* Font size */
@@ -46,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
     --weight-light: 300;
     --weight-extraLight: 200;
     /* Size */
+    --border-radius-semi: 4px;
     --border-radius-small: 6px;
     --border-radius-monsterItem: 2px;
     --border-radius-progress: 10px;
@@ -55,6 +57,7 @@ const GlobalStyle = createGlobalStyle`
     --animation-duration: 200ms;
     /* Background Color */
     --bg-wrapper: #070707;
+    --bg-wrapper-gradient: linear-gradient(0deg, #070707, #070707);
     --bg-primary: #1e2025;
     --bg-disabled: #181819;
     --bg-active: #3b0a9d;

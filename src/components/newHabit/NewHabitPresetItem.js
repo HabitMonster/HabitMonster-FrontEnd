@@ -44,14 +44,14 @@ NewHabitPresetItem.propTypes = {
 };
 
 const Wrapper = styled.div`
-  width: 312px;
+  width: 100%;
   cursor: pointer;
 
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected)' : 'var(--bg-primary)'};
   border: ${({ isSelected }) =>
     isSelected ? '1px solid var(--bg-active)' : '1px solid var(--bg-primary)'};
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   padding: 16px 24px;
   margin-bottom: 12px;
 
@@ -76,7 +76,6 @@ const Wrapper = styled.div`
 `;
 
 const Chip = styled.div`
-  height: 22px;
   padding: 4px 8px;
   margin-right: 8px;
   display: flex;
@@ -84,7 +83,7 @@ const Chip = styled.div`
   justify-content: center;
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected-light)' : '#313339'};
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   transition: all var(--animation-duration) cubic-bezier(0.42, 0, 0.58, 1);
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 

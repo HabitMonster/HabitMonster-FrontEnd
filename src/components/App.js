@@ -10,13 +10,16 @@ import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
-import { PrivateRoute } from './route';
 import Monster from '../pages/Monster';
 import MonsterSetting from '../pages/MonsterSetting';
 import MonsterGuide from '../pages/MonsterGuide';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import OnBoard from './onBoard/OnBoard';
+import Notice from './myPage/Notice';
+import FollowList from '../pages/FollowList';
+import Search from '../pages/Search';
+import SearchDetail from '../pages/SearchDetail';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -24,6 +27,11 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
+    if (!isLogin) {
+      history.replace('/login');
+      return;
+    }
+
     const monsterPath = ['select', 'guide', 'monster'];
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
@@ -43,18 +51,22 @@ function App() {
   return (
     <Layout>
       <Switch>
-        {!localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
+        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/monster" comp={Monster} />
-        <PrivateRoute path="/select" comp={MonsterSetting} />
-        <PrivateRoute path="/guide" comp={MonsterGuide} />
+        <Route path="/monster" component={Monster} />
+        <Route path="/select" component={MonsterSetting} />
+        <Route path="/guide" component={MonsterGuide} />
         <>
-          <PrivateRoute exact path="/" comp={Main} />
-          <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
-          <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
-          <PrivateRoute path="/achievement" comp={Achievement} />
-          <PrivateRoute path="/new" comp={New} />
-          <PrivateRoute path="/mypage" comp={MyPage} />
+          <Route exact path="/" component={Main} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/search/:code" component={SearchDetail} />
+          <Route exact path="/habit/:habitId" component={HabitDetail} />
+          <Route exact path="/habit/:habitId/edit" component={HabitEdit} />
+          <Route path="/achievement" component={Achievement} />
+          <Route path="/new" component={New} />
+          <Route path="/mypage" component={MyPage} />
+          <Route path="/notice" component={Notice} />
+          <Route path="/follow" component={FollowList} />
           <Gnb />
         </>
       </Switch>
@@ -65,8 +77,9 @@ function App() {
 const Layout = styled.div`
   background: var(--bg-wrapper);
   display: flex;
-  max-width: 360px;
+  max-width: 414px;
   width: 100%;
+  min-width: 280px;
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;

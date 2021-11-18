@@ -11,5 +11,4 @@ const instance = axios.create({
 export const auth = {
   getSocialLogin: (socialName, code) =>
     instance.get(`/user/login/${socialName}?code=${code}`),
-  check: () => tokenInstance.get('/user/check'),
 };
