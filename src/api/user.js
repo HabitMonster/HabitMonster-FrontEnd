@@ -1,7 +1,7 @@
 import tokenInstance from '../lib/axios';
 
 export const userApis = {
-  searchUser: (monsterCode) => tokenInstance.get(`/monsterCode/${monsterCode}`),
+  searchUser: (monsterCode) => tokenInstance.get(`/user/${monsterCode}`),
   follow: (monsterCode, isFollowed = false) =>
     isFollowed
       ? tokenInstance.delete(`/unFollow/${monsterCode}`)

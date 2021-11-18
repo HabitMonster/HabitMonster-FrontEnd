@@ -1,39 +1,41 @@
 @font-face {
-  font-family: 'Retro Gaming';
-  src: url('./Retro\ Gaming.ttf');
-  font-style: normal;
-  font-weight: normal;
-  line-height: 61px;
-}
-
-@font-face {
   font-family: 'Noto Sans KR Medium';
-  src: url('./NotoSansKR-Medium.otf');
+  src: url('./NotoSansKR-Medium.woff') format('woff'),
+    url('./NotoSansKR-Medium.woff2') format('woff2');
   line-height: 24px;
 }
 
 @font-face {
   font-family: 'Apple SD Gothic Neo';
-  src: url('./AppleSDGothicNeoL.ttf');
+  src: url('./AppleSDGothicNeoL.woff') format('woff'),
+    url('./AppleSDGothicNeoL.woff2') format('woff2');
   font-weight: 500;
 }
+
 @font-face {
   font-family: 'Apple SD Gothic Neo';
-  src: url('./AppleSDGothicNeoM.ttf');
+  src: url('./AppleSDGothicNeoM.woff') format('woff'),
+    url('./AppleSDGothicNeoM.woff2') format('woff2');
   font-weight: 600;
 }
+
 @font-face {
   font-family: 'Apple SD Gothic Neo';
-  src: url('./AppleSDGothicNeoB.ttf');
+  src: url('./AppleSDGothicNeoB.woff') format('woff'),
+    url('./AppleSDGothicNeoB.woff2') format('woff2');
   font-weight: 700;
 }
+
 @font-face {
   font-family: 'Apple SD Gothic Neo';
-  src: url('./AppleSDGothicNeoEB.ttf');
+  src: url('./AppleSDGothicNeoEB.woff') format('woff'),
+    url('./AppleSDGothicNeoEB.woff2') format('woff2');
   font-weight: 800;
 }
+
 @font-face {
   font-family: 'Apple SD Gothic Neo';
-  src: url('./AppleSDGothicNeoH.ttf');
+  src: url('./AppleSDGothicNeoH.woff') format('woff'),
+    url('./AppleSDGothicNeoH.woff2') format('woff2');
   font-weight: 900;
 }

@@ -81,7 +81,8 @@ const Layout = styled.div`
   width: 100%;
   min-width: 280px;
   min-height: 100vh;
-  height: 100%;
+  height: -webkit-fill-available;
+  /* height: calc(100vh - calc(100vh - 100%)); */
   margin: 0 auto;
   position: relative;
 `;
