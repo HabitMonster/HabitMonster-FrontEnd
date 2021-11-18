@@ -71,9 +71,7 @@ const Backdrop = styled.div`
   bottom: 0;
   left: 0;
   background-color: ${({ blurmode }) =>
-    blurmode
-      ? 'linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper))'
-      : 'var(--bg-done)'};
+    blurmode ? 'rgba(0,0,0,0.7)' : 'var(--bg-done)'};
   opacity: 0;
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: var(--animation-duration);
