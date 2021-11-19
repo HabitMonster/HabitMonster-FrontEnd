@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { authState } from '../recoil/states/auth';
 
+import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
@@ -61,8 +62,8 @@ function App() {
         <Route path="/select" component={MonsterSetting} />
         <Route path="/guide" component={MonsterGuide} />
         <Route>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/search" component={Search} />
+          {/* <Route exact path="/" component={Main} /> */}
+          {/* <Route exact path="/search" component={Search} /> */}
           <Route exact path="/search/:code" component={SearchDetail} />
           <Route exact path="/habit/:habitId" component={HabitDetail} />
           <Route exact path="/habit/:habitId/edit" component={HabitEdit} />
@@ -71,6 +72,12 @@ function App() {
           <Route path="/mypage" component={MyPage} />
           <Route path="/notice" component={Notice} />
           <Route path="/follow" component={FollowList} />
+          <PrivateRoute exact path="/">
+            <Main />
+          </PrivateRoute>
+          {/* <PrivateRoute>
+
+          </PrivateRoute> */}
           <Gnb />
         </Route>
       </Switch>
