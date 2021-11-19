@@ -1,4 +1,4 @@
-import { atom, atomFamily, selectorFamily } from 'recoil';
+import { atom, selectorFamily } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { userApis } from '../../api';
 
@@ -31,7 +31,6 @@ export const searchUserInfoState = selectorFamily({
     },
 });
 
-// 전용 API 요청하는게 어떨지? [ Request : 몬스터코드, 습관ID  /  Response : 해당 유저의 해당 습관 상세 정보]
 export const searchUserHabitSelector = selectorFamily({
   key: 'searchUserInfoSelector',
   get:
