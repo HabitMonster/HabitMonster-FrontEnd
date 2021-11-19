@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -37,6 +37,7 @@ const TodayHabit = ({ id }) => {
 
     try {
       const { data } = await habitApis.checkHabit(id);
+      console.log(data);
       if (data.statusCode === OK) {
         setHabitDetail(data.habit);
 
@@ -212,4 +213,6 @@ const CheckBtn = styled.button`
       : 'none'};
 `;
 
-export default memo(TodayHabit);
+// export default memo(TodayHabit);
+
+export default TodayHabit;

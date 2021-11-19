@@ -1,15 +1,16 @@
 import React from 'react';
-import { useRouteMatch, Route } from 'react-router-dom';
+import { Switch, useRouteMatch, Route } from 'react-router-dom';
 
 import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
 import NewHabitPresetList from './NewHabitPresetList';
 
+// import PrivateRoute from '../components/PrivateRoute';
+
 const New = () => {
   const { path } = useRouteMatch();
-
   return (
-    <>
+    <Switch>
       <Route exact path={path}>
         <NewHabitCategoryList />
       </Route>
@@ -19,7 +20,7 @@ const New = () => {
       <Route path={`${path}/:categoryId/detail`}>
         <NewHabitForm />
       </Route>
-    </>
+    </Switch>
   );
 };
 
