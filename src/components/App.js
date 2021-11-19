@@ -70,7 +70,7 @@ function App() {
             <PrivateRoute exact path="/search" component={<Search />} />
             <PrivateRoute
               exact
-              path="/search/:code"
+              path="/search/:monsterCode"
               component={<SearchDetail />}
             />
             <PrivateRoute

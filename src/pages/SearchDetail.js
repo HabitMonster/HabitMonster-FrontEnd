@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { userApis } from '../api/user';
 import { OK } from '../constants/statusCode';
-import { monsterCodeState, searchUserInfoState } from '../recoil/states/follow';
+import { searchUserInfoState, refreshInfoState } from '../recoil/states/follow';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
@@ -13,7 +13,8 @@ const SearchDetail = () => {
   const [checkFollow, setCheckFollow] = useState(null);
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
-  const setMonsterCodeState = useSetRecoilState(monsterCodeState);
+
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const { habits, monster, userInfo } = searchResult;
   const [isFollwed, setIsFollowed] = useState(userInfo.followed);
@@ -100,7 +101,7 @@ const SearchDetail = () => {
                   제목 : {habit.title}{' '}
                   <button
                     onClick={() => {
-                      setMonsterCodeState(monsterCode);
+                      setRefreshInfo((id) => id + 1);
                       history.push(`${monsterCode}/${habit.habitId}`);
                     }}
                   >

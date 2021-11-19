@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
@@ -15,7 +15,7 @@ const Search = () => {
   const [searchResult, setSearchResult] = useState('');
   const [failMessage, setFailMessage] = useState(null);
 
-  const [refreshInfo, setRefreshInfo] = useRecoilState(refreshInfoState);
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const handleButtonClick = async () => {
     if (!monsterId) {
@@ -28,7 +28,7 @@ const Search = () => {
       const { data } = await userApis.searchUser(monsterId);
       if (data.statusCode === OK) {
         setSearchResult(data.userInfo);
-        setRefreshInfo(refreshInfo + 1);
+        setRefreshInfo((id) => id + 1);
       }
     } catch (error) {
       if (
@@ -52,7 +52,7 @@ const Search = () => {
           ...prev,
           isFollowed: data.isFollowed,
         }));
-        setRefreshInfo(refreshInfo + 1);
+        setRefreshInfo((id) => id + 1);
       }
     } catch (error) {
       console.error(error);

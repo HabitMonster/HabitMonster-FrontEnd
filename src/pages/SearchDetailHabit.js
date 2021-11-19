@@ -16,10 +16,12 @@ import { renderDays } from '../utils/date';
 import { searchUserHabitSelector } from '../recoil/states/follow';
 
 const SearchDetailHabit = () => {
-  const { habitId } = useParams();
+  const { monsterCode, habitId } = useParams();
   const history = useHistory();
+  const habitDetail = useRecoilValue(
+    searchUserHabitSelector({ habitId, monsterCode }),
+  );
 
-  const habitDetail = useRecoilValue(searchUserHabitSelector(habitId));
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
 
   const durationStart = setFormattedDuration(
