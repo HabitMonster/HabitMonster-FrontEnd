@@ -1,67 +1,52 @@
-import { atom, selector } from 'recoil';
+import { atom, atomFamily, selectorFamily } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { userApis } from '../../api';
-import { OK } from '../../constants/statusCode';
+
+const { persistAtom } = recoilPersist();
 
 export const monsterCodeState = atom({
   key: 'monsterCodeState',
-  default: '',
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
 });
 
-export const isFollowState = atom({
-  key: 'isFollowState',
-  default: false,
+export const refreshInfoState = atom({
+  key: 'refreshInfoState',
+  default: 0,
 });
 
-// 특정 유저 정보
-export const userInfoSelector = selector({
-  key: 'userInfoSelector',
-  get: async ({ get }) => {
-    // get(isFollowState);
-    try {
-      const monsterCode = get(monsterCodeState);
-      console.log(monsterCode);
-      const data = await userApis.getUserInfo(monsterCode);
-      console.log(data);
-      // if (data.statusCode === OK) {
-      //   return data;
-      // }
-    } catch (error) {
-      console.log(error.response);
-    }
-  },
-});
-
-export const followerListSelector = selector({
-  key: 'followerListSelector',
-  get: async ({ get }) => {
-    // get(isFollowState);
-    try {
-      const monsterCode = get(monsterCodeState);
-      console.log(monsterCode);
-      const { data } = await userApis.getUserFollower(monsterCode);
-
-      if (data.statusCode === OK) {
+export const searchUserInfoState = selectorFamily({
+  key: 'searchUserInfoSelector',
+  get:
+    (monsterCode) =>
+    async ({ get }) => {
+      try {
+        get(refreshInfoState);
+        const { data } = await userApis.getUserInfo(monsterCode);
         return data;
+      } catch (error) {
+        console.log(error.response);
+        return;
       }
-    } catch (error) {
-      console.log(error.response);
-    }
-  },
+    },
 });
 
-export const followingListSelector = selector({
-  key: 'followingListSelector',
-  get: async ({ get }) => {
-    // get(isFollowState);
-    try {
+// 전용 API 요청하는게 어떨지? [ Request : 몬스터코드, 습관ID  /  Response : 해당 유저의 해당 습관 상세 정보]
+export const searchUserHabitSelector = selectorFamily({
+  key: 'searchUserInfoSelector',
+  get:
+    (habitId) =>
+    async ({ get }) => {
       const monsterCode = get(monsterCodeState);
-      console.log(monsterCode);
-      const { data } = await userApis.getUserFollowing(monsterCode);
-      if (data.statusCode === OK) {
-        return data;
+      try {
+        const { data } = await userApis.getUserInfo(monsterCode);
+        const habit = data.habits.find((habit) => {
+          return habit.habitId === Number(habitId);
+        });
+        return habit;
+      } catch (error) {
+        console.log(error.response);
+        return;
       }
-    } catch (error) {
-      console.log(error.response);
-    }
-  },
+    },
 });

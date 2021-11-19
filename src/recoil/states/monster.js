@@ -52,6 +52,7 @@ const initiateMonsterSelector = selector({
   get: async ({ get }) => {
     try {
       const { data, status } = await monsterApis.loadStartMonster();
+      console.log(data);
       if (status === OK) {
         return data.monsters;
       }

@@ -9,6 +9,8 @@ import { GoogleSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 import { loadGoogleScript } from '../../utils/loadGoogleScript';
 
+import { loginBtnStyle } from '../../styles/Mixin';
+
 const GoogleLogin = () => {
   const history = useHistory();
   const googleLoginBtn = useRef(null);
@@ -117,21 +119,15 @@ const GoogleLogin = () => {
 };
 
 const LoginBtn = styled.div`
-  display: flex;
+  ${loginBtnStyle('white')}
+  /* display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 300px;
   height: 45px;
   background-color: var(--color-white);
   border-radius: var(--border-radius-checkBtn);
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.googleLogin {
-    background-color: var(--color-white);
-  }
+  cursor: pointer; */
 
   & > svg {
     width: 20px;
@@ -144,9 +140,6 @@ const LoginBtn = styled.div`
 const SocialTitle = styled.span`
   height: 24px;
   margin: 0 auto;
-  line-height: 24px;
-  font-family: Noto Sans KR Medium;
-  font-size: var(--font-m);
 `;
 
 export default GoogleLogin;

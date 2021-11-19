@@ -7,6 +7,7 @@ import { authState } from '../../recoil/states/auth';
 import { auth } from '../../api';
 import { NaverSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
+import { loginBtnStyle } from '../../styles/Mixin';
 
 const { naver } = window;
 
@@ -19,7 +20,6 @@ const NaverLogin = () => {
   useEffect(() => {
     initializeNaverLogin();
     getNaverAuthCode();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initializeNaverLogin = () => {
@@ -92,7 +92,10 @@ const NaverLogin = () => {
 };
 
 const LoginBtn = styled.div`
-  display: flex;
+  ${loginBtnStyle('naver')}
+  color: var(--color-white);
+
+  /* display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 300px;
@@ -101,10 +104,7 @@ const LoginBtn = styled.div`
   border-radius: var(--border-radius-checkBtn);
   cursor: pointer;
   color: var(--color-white);
-
-  &.naverLogin {
-    background-color: var(--color-naver);
-  }
+  background-color: var(--color-naver); */
 
   & .hide {
     display: none;
@@ -121,9 +121,6 @@ const LoginBtn = styled.div`
 const SocialTitle = styled.span`
   height: 24px;
   margin: 0 auto;
-  line-height: 24px;
-  font-family: Noto Sans KR Medium;
-  font-size: var(--font-m);
 `;
 
 export default NaverLogin;

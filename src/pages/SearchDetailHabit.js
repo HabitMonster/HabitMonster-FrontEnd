@@ -1,38 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import {
   SubTitleOuter,
   BottomFixedButton,
   BackButtonHeader,
-  Modal,
 } from '../components/common';
 import leveloneMonsters from '../assets/images/monsters/svg';
 
-import {
-  habitIdListState,
-  habitStateWithId,
-  defaultHabitsState,
-} from '../recoil/states/habit';
 import { userLevelOneMonsterSelector } from '../recoil/states/monster';
-import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
-import { Trash } from '../assets/icons/common';
-import { BottomDialog } from '../components/dialog';
-import { habitApis } from '../api';
-import { OK } from '../constants/statusCode';
+import { renderDays } from '../utils/date';
+import { searchUserHabitSelector } from '../recoil/states/follow';
 
-const HabitDetail = () => {
+const SearchDetailHabit = () => {
   const { habitId } = useParams();
   const history = useHistory();
 
-  const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
+  const habitDetail = useRecoilValue(searchUserHabitSelector(habitId));
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
-
-  const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
-  const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -40,21 +28,6 @@ const HabitDetail = () => {
     '.',
   );
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'YMD', '.');
-
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-
-  const deleteHabit = async (id) => {
-    try {
-      const { data } = await habitApis.deleteHabit(id);
-      if (data.statusCode === OK) {
-        history.replace('/');
-        setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
-        setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
   const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;
@@ -67,10 +40,6 @@ const HabitDetail = () => {
             onButtonClick={() => history.goBack()}
             pageTitleText={habitDetail.title}
           />
-          <Trash
-            onClick={() => setDeleteModalOpen(true)}
-            className="deleteBtn"
-          />
         </MenuBar>
         <Wrapper>
           <ProgressBarWrapper>
@@ -78,11 +47,11 @@ const HabitDetail = () => {
               <div className="left" />
               <div className="right" />
               <div className="text">
-                <p>{habitDetail.achievePercentage}%</p>
-                <p>
+                <span>{habitDetail.achievePercentage}%</span>
+                <span>
                   {habitDetail.totalCount}번 중 {habitDetail.achieveCount}번
                   완료!
-                </p>
+                </span>
               </div>
               <ProgressBarOverflowSection>
                 <CircleProgressbar degree={progressbarRotationDegree} />
@@ -125,27 +94,9 @@ const HabitDetail = () => {
       </Inner>
       <BottomFixedButton
         condition={null}
-        text="수정하기"
-        onClick={() => {
-          history.push({
-            pathname: `/habit/${habitId}/edit`,
-            state: {
-              habitDetail,
-            },
-          });
-        }}
+        text="가져오기"
+        onClick={() => console.log('가져오기')}
       />
-      {deleteModalOpen && (
-        <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
-          <BottomDialog
-            title="습관을 정말 삭제할까요?"
-            description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"
-            activeButtonText="삭제할래요"
-            onClose={() => setDeleteModalOpen(false)}
-            onActive={() => deleteHabit(Number(habitId))}
-          />
-        </Modal>
-      )}
     </Container>
   );
 };
@@ -193,16 +144,17 @@ const Wrapper = styled.div`
 const ProgressBarWrapper = styled.section`
   width: 100%;
   height: 154px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
-  position: relative;
   background: var(--bg-primary);
+  position: relative;
+  padding: 24px;
 `;
 
 const ProgressBar = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
 
   & > .left,
   & > .right {
@@ -229,22 +181,22 @@ const ProgressBar = styled.div`
     position: absolute;
     bottom: -10px;
     left: 50%;
-
     transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: var(--font-xs);
     line-height: 17px;
     color: var(--color-primary-deemed);
     text-align: center;
 
-    & > p:first-child {
+    & > span:first-child {
       font-size: 36px;
       line-height: 43.2px;
       font-weight: var(--weight-bold);
       color: var(--color-white);
-    }
-
-    & > p:last-child {
-      margin-top: 6px;
+      margin-bottom: 6px;
     }
   }
 `;
@@ -284,4 +236,4 @@ const IconProgressbar = styled(CircleProgressbar)`
   }
 `;
 
-export default HabitDetail;
+export default SearchDetailHabit;

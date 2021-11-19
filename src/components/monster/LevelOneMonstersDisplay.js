@@ -27,6 +27,8 @@ const LevelOneMonstersDisplay = ({ go }) => {
     go();
   };
 
+  console.log(monsterList);
+
   return (
     <AvatarContainer>
       <AvatarWrap>
