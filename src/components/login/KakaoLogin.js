@@ -67,15 +67,6 @@ const KakaoLogin = () => {
 
 const LoginBtn = styled.div`
   ${loginBtnStyle('kakao')}
-  /* display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 45px;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-checkBtn);
-  cursor: pointer;
-  background-color: var(--color-kakao); */
 
   & > svg {
     width: 20px;
@@ -87,7 +78,7 @@ const LoginBtn = styled.div`
 
 const SocialTitle = styled.span`
   height: 24px;
-  margin: 0 auto;
+  margin: 0px 83px 0px 103px;
 `;
 
 export default KakaoLogin;

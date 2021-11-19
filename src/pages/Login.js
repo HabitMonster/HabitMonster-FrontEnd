@@ -11,17 +11,6 @@ import {
 import '../assets/fonts/font.css';
 
 const Login = () => {
-  // 만약을 대비해서 남겨놓습니다.
-
-  // const { isLogin, isFirstLogin } = useRecoilValue(authState);
-  // if (isLogin && isFirstLogin) {
-  //   return <Redirect to="/monster" />;
-  // }
-
-  // if (isLogin) {
-  //   return <Redirect to="/" />;
-  // }
-
   return (
     <>
       <Wrapper>

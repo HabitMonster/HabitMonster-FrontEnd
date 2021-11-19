@@ -17,4 +17,5 @@ export const loginBtnStyle = (colorType) => css`
   background-color: var(--color-${colorType});
   border-radius: var(--border-radius-checkBtn);
   cursor: pointer;
+  font-size: var(--font-s);
 `;
