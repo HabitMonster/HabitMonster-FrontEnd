@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { fontSize, whiteOpacity } from '../../styles';
-import { EditIcon, Copy } from '../../assets/icons/common';
+import { EditIcon, CopyIcon } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
   const {
@@ -24,7 +24,7 @@ const UserInfoItem = ({ userInfoItem }) => {
         {isPossibleEdit && !isLogout && !isDeleteAccount && <EditIcon />}
         {isCopy && (
           <CopyWrap onClick={handleClipBoard}>
-            <Copy />
+            <CopyIcon />
           </CopyWrap>
         )}
       </PrivateTextWrap>

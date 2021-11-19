@@ -196,6 +196,7 @@ const UserInformation = () => {
         >
           <BottomDialog
             title="정말 로그아웃하시겠어요?"
+            height="141px"
             activeButtonText="로그아웃하기"
             onActive={() => logoutUser()}
             onClose={() => setIsLogoutModalOpen(false)}
@@ -209,6 +210,7 @@ const UserInformation = () => {
           blurmode={true}
         >
           <BottomDialog
+            height="182px"
             title="정말 탈퇴하시겠어요?"
             description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
             activeButtonText="탈퇴하기"

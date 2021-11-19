@@ -14,7 +14,7 @@ const BottomDialog = ({
 }) => (
   <Wrapper height={height}>
     <Title>{title}</Title>
-    <Description>{description}</Description>
+    {description && <Description>{description}</Description>}
     <ButtonGrid>
       <Button onClick={onClose}>아니요</Button>
       <Button onClick={onActive} active>
@@ -40,15 +40,12 @@ BottomDialog.defaultProps = {
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 360px;
+  max-width: 414px;
   height: ${({ height }) => height};
   padding: 24px 24px 0 24px;
   background: var(--bg-primary);
   border-radius: 24px 24px 0px 0px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   position: absolute;
   left: 50%;
   right: 50%;
@@ -75,6 +72,7 @@ const ButtonGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 12px;
+  margin-top: 21px;
 `;
 
 const Button = styled.button`
