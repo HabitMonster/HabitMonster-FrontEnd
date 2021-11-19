@@ -7,6 +7,7 @@ export const REFRESH_TOKEN_SIGNATURE_EXCEPTION =
   'refreshToken SignatureException';
 export const REFRESH_TOKEN_MALFORMED = 'refreshToken Malformed';
 export const USER_DELETED = 'User Droped';
+export const INTERNAL_SERVER_ERROR_MESSAGE = 'Internal Server Error';
 
 // About MonsterCode
-export const NOT_FOUND_MONSTER_CODE = 'NotFound MonsterCode';
+export const NOT_FOUND_MONSTER_CODE = 'Not Found MonsterCode';

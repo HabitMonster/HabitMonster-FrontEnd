@@ -11,17 +11,6 @@ import {
 import '../assets/fonts/font.css';
 
 const Login = () => {
-  // 만약을 대비해서 남겨놓습니다.
-
-  // const { isLogin, isFirstLogin } = useRecoilValue(authState);
-  // if (isLogin && isFirstLogin) {
-  //   return <Redirect to="/monster" />;
-  // }
-
-  // if (isLogin) {
-  //   return <Redirect to="/" />;
-  // }
-
   return (
     <>
       <Wrapper>
@@ -41,6 +30,10 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
+  font-family: var(--font-name-apple);
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
+  line-height: 25px;
 
   & .kakaoLogin,
   & .googleLogin,

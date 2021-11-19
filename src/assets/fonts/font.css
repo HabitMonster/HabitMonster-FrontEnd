@@ -1,11 +1,4 @@
 @font-face {
-  font-family: 'Noto Sans KR Medium';
-  src: url('./NotoSansKR-Medium.woff') format('woff'),
-    url('./NotoSansKR-Medium.woff2') format('woff2');
-  line-height: 24px;
-}
-
-@font-face {
   font-family: 'Apple SD Gothic Neo';
   src: url('./AppleSDGothicNeoL.woff') format('woff'),
     url('./AppleSDGothicNeoL.woff2') format('woff2');

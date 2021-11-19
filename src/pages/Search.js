@@ -1,37 +1,41 @@
 import React, { useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
-import { OK } from '../constants/statusCode';
+import { OK, NOT_FOUND } from '../constants/statusCode';
 import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
-
-import { isFollowState } from '../recoil/states/follow';
+import { refreshInfoState } from '../recoil/states/follow';
 
 const Search = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
   const [monsterId, setMonsterId] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
-  const [failMessage, setFailMessage] = useState('');
+  const [searchResult, setSearchResult] = useState('');
+  const [failMessage, setFailMessage] = useState(null);
 
-  const [isFollow, setIsFollow] = useRecoilState(isFollowState);
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const handleButtonClick = async () => {
+    if (!monsterId) {
+      window.alert('몬스터코드를 입력해주세요!');
+      return;
+    }
+
     try {
       setFailMessage('');
       const { data } = await userApis.searchUser(monsterId);
-      // console.log(data);
       if (data.statusCode === OK) {
-        setSearchResult(data.searchResult);
-        setIsFollow(data.searchResult.isFollowed);
-        setMonsterId('');
+        setSearchResult(data.userInfo);
+        setRefreshInfo((id) => id + 1);
       }
     } catch (error) {
-      if (error.message === NOT_FOUND_MONSTER_CODE) {
+      if (
+        error.response.data.statusCode === NOT_FOUND &&
+        error.response.data.responseMessage === NOT_FOUND_MONSTER_CODE
+      ) {
         setFailMessage('등록되지 않은 사용자의 정보입니다.');
-        setMonsterId('');
       }
     }
   };
@@ -40,13 +44,15 @@ const Search = () => {
     try {
       const { data } = await userApis.follow(
         searchResult.monsterCode,
-        isFollow,
+        searchResult.isFollowed,
       );
-      console.log(data);
 
       if (data.statusCode === OK) {
-        setIsFollow(data.isFollowed);
-        setSearchResult((prev) => ({ ...prev, isFollowed: data.isFollowed }));
+        setSearchResult((prev) => ({
+          ...prev,
+          isFollowed: data.isFollowed,
+        }));
+        setRefreshInfo((id) => id + 1);
       }
     } catch (error) {
       console.error(error);
@@ -79,7 +85,7 @@ const Search = () => {
             <div>
               팔로우를 했나요?{' '}
               <span style={{ color: 'yellow' }}>
-                {isFollow ? '네' : '아니요'}
+                {searchResult.isFollowed ? '네' : '아니요'}
               </span>
             </div>
             <div>
@@ -87,16 +93,13 @@ const Search = () => {
                 onClick={handleRelationship}
                 style={{ marginTop: '16px' }}
               >
-                {isFollow ? '언팔로우' : '팔로우'}
+                {searchResult.isFollowed ? '언팔로우' : '팔로우'}
               </button>
             </div>
             <div>
               <button
                 onClick={() =>
-                  history.push({
-                    pathname: `${path}/${searchResult.monsterCode}`,
-                    state: searchResult,
-                  })
+                  history.push(`${path}/${searchResult.monsterCode}`)
                 }
               >
                 상세페이지 이동
