@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
@@ -14,11 +15,17 @@ import { fontSize } from '../styles';
 
 const Monster = () => {
   const history = useHistory();
+  // const location = useLocation();
   const monsterList = useRecoilValue(babyMonsterState);
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);
   const [selectedAvatar, setSelectedAvatar] = useState(() => {
     return monsterList[0];
   });
+  // const [monsterId, setMonsterId] = useState({});
+  // useEffect(() => {
+  //   console.log(location.props.monsterId);
+  //   setMonsterId(location.props.monsterId);
+  // }, []);
 
   const handleSelectMonster = () => {
     setSelectedMonster(selectedAvatar);
@@ -125,3 +132,9 @@ const SelectListItem = styled.li`
   cursor: pointer;
   /* transition: border 500ms; */
 `;
+
+Monster.propTypes = {
+  location: PropTypes.shape({
+    monsterId: PropTypes.number,
+  }),
+};

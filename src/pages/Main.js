@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,12 +13,12 @@ import '../assets/fonts/font.css';
 
 //TODOS
 //1.Refactor with getBoundingClientRect()
-// Monster.monsterLevel === 5
 const Main = () => {
   const history = useHistory();
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isNextMonster, setIsNextMonster] = useRecoilState(monsterState);
   const monster = useRecoilValue(monsterState);
 
   useEffect(() => {
@@ -36,11 +36,10 @@ const Main = () => {
     return () => current.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // useEffect(() => {
-  //   const condition = monster.monsterLevel === 5;
-  //   console.log(monster.monsterLevel, monster.monsterExpPoint);
-  //   setIsModalOpen(condition);
-  // }, [monster]);
+  useEffect(() => {
+    const condition = monster.monsterLevel === 5;
+    setIsModalOpen(condition);
+  }, [monster.monsterLevel]);
 
   return (
     <>
@@ -60,9 +59,11 @@ const Main = () => {
           blurmode={true}
         >
           <LevelUp
-            onClickSelect={() => {
-              history.push('/monster');
-              setIsModalOpen(false);
+            onClickSelect={{
+              pathname: '/monster',
+              props: {
+                monsterId: monster.monsterId,
+              },
             }}
             onClickStay={() => setIsModalOpen(false)}
           />

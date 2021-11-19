@@ -8,10 +8,16 @@ export const monsterRefetchToggler = atom({
   default: 0,
 });
 
+// export const monsterChangeState = atom({
+//   key: 'monsterChangeState',
+//   default: { isNextMonster: false },
+// });
+
 export const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
   get: async ({ get }) => {
     const { isLogin, isFirstLogin } = get(authState);
+    // const monsterChangeState = {};
 
     if (!isLogin || isFirstLogin) {
       return null;
@@ -24,6 +30,7 @@ export const asyncDefaultMonster = selector({
     try {
       const { data } = await mainApis.getMonsterInfo();
       console.log('data.monster', data.monster);
+      // monsterChangeState.isNextMonster = data.monster.monsterId
       return data.monster;
     } catch (error) {
       return error.response;

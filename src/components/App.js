@@ -41,10 +41,10 @@ function App() {
       location.pathname.includes(path),
     );
 
-    if (isMonsterPath && isLogin && !isFirstLogin) {
-      history.replace('/');
-      return;
-    }
+    // if (isMonsterPath && isLogin && !isFirstLogin) {
+    //   history.replace('/');
+    //   return;
+    // }
 
     if (isFirstLogin && location.pathname !== '/select') {
       history.replace('/monster');
