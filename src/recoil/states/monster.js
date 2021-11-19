@@ -8,16 +8,39 @@ export const monsterRefetchToggler = atom({
   default: 0,
 });
 
-// export const monsterChangeState = atom({
-//   key: 'monsterChangeState',
-//   default: { isNextMonster: false },
-// });
+export const currentMonsterState = atom({
+  key: 'currentMonsterState',
+  default: {
+    monsterLevel: 1,
+    monsterExpPoint: 0,
+  },
+});
+
+const nextMonsterSelector = selector({
+  key: 'nextMonsterSelector',
+  get: async () => {
+    const currentMonsterState = {};
+    try {
+      const { data } = await mainApis.getMonsterInfo();
+      currentMonsterState.monsterLevel = data.monsterLevel;
+      currentMonsterState.monsterExpPoint = data.monsterExpPoint;
+      return currentMonsterState;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+});
+
+export const nextMonsterState = atom({
+  key: 'nextMonsterState',
+  default: nextMonsterSelector,
+});
 
 export const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
   get: async ({ get }) => {
     const { isLogin, isFirstLogin } = get(authState);
-    // const monsterChangeState = {};
 
     if (!isLogin || isFirstLogin) {
       return null;

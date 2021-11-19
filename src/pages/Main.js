@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -18,7 +18,6 @@ const Main = () => {
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [isNextMonster, setIsNextMonster] = useRecoilState(monsterState);
   const monster = useRecoilValue(monsterState);
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const Main = () => {
   useEffect(() => {
     const condition = monster.monsterLevel === 5;
     setIsModalOpen(condition);
-  }, [monster.monsterLevel]);
+  }, []);
 
   return (
     <>
@@ -59,11 +58,11 @@ const Main = () => {
           blurmode={true}
         >
           <LevelUp
-            onClickSelect={{
-              pathname: '/monster',
-              props: {
+            onClickSelect={() => {
+              history.push('/select', {
                 monsterId: monster.monsterId,
-              },
+                monsterLevel: monster.monsterLevel,
+              });
             }}
             onClickStay={() => setIsModalOpen(false)}
           />

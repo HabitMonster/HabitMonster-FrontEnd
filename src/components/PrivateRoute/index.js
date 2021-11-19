@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import { authState } from '../../recoil/states/auth';
+import { nextMonsterState } from '../../recoil/states/monster';
 import { Redirect, Route, useLocation, useHistory } from 'react-router-dom';
 
 //* Important Note
@@ -10,8 +11,8 @@ import { Redirect, Route, useLocation, useHistory } from 'react-router-dom';
 
 const PrivateRoute = ({ component, ...rest }) => {
   const { isLogin, isFirstLogin } = useRecoilValue(authState);
+  const { monsterLevel } = useRecoilValue(nextMonsterState);
   const location = useLocation();
-  const history = useHistory();
   const renderingCount = useRef(1);
   useEffect(() => {
     console.log(
@@ -81,7 +82,8 @@ const PrivateRoute = ({ component, ...rest }) => {
     isLogin &&
     !isFirstLogin &&
     location.pathname === '/select' &&
-    !history.state
+    !monsterLevel === 5
+    // !history.state
   ) {
     console.log(
       `%c Maybe this time, user level is under five and he/she just typed '/selected' url.
