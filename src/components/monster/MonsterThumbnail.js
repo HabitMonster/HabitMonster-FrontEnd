@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const MonsterThumbnail = ({ imageUrl, imageAlt, imageSize, monsterLv }) => {
+const MonsterThumbnail = ({ imageUrl, imageAlt, imageSize }) => {
   return (
     <>
       <MonsterImage src={imageUrl} alt={imageAlt} size={imageSize} />
-      <p>{monsterLv}</p>
     </>
   );
 };
@@ -35,5 +34,4 @@ MonsterThumbnail.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   imageAlt: PropTypes.string.isRequired,
   imageSize: PropTypes.string,
-  monsterLv: PropTypes.number,
 };

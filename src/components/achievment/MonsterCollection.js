@@ -55,7 +55,6 @@ const MonsterCollection = () => {
                         imageUrl={monster.monsterDatabases[i].monsterImage}
                         imageAlt={`The monster of ${monster.monsterName}`}
                         imageSize="small"
-                        monsterLv={monster.monsterDatabases[i]?.monsterLevel}
                       />
                     ) : (
                       <QuestionIcon />

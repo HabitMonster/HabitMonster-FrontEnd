@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { monsterState } from '../recoil/states/monster';
-import { MainMonster } from '../components/monster';
+import { MainMonster, LevelUp } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
 import Feedback from '../components/forTest/Feedback';
 import { Modal } from '../components/common';
 import { miniThrottle } from '../utils/event';
 import '../assets/fonts/font.css';
-import { Congrats } from '../assets/images/main';
+
 //TODOS
 //1.Refactor with getBoundingClientRect()
 // Monster.monsterLevel === 5
 const Main = () => {
+  const history = useHistory();
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,11 +36,11 @@ const Main = () => {
     return () => current.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const condition = monster.monsterLevel === 5;
-    console.log(monster.monsterLevel, monster.monsterExpPoint);
-    setIsModalOpen(condition);
-  }, [monster]);
+  // useEffect(() => {
+  //   const condition = monster.monsterLevel === 5;
+  //   console.log(monster.monsterLevel, monster.monsterExpPoint);
+  //   setIsModalOpen(condition);
+  // }, [monster]);
 
   return (
     <>
@@ -57,17 +59,13 @@ const Main = () => {
           onClose={() => setIsModalOpen(false)}
           blurmode={true}
         >
-          <img src={Congrats} alt="" />
-          <p>ㅊㅋㅊㅋ</p>
-          <button
-            onClick={() => {
-              window.location.href = '/monster';
+          <LevelUp
+            onClickSelect={() => {
+              history.push('/monster');
               setIsModalOpen(false);
             }}
-          >
-            다음몬스터 고르기
-          </button>
-          <button onClick={() => setIsModalOpen(false)}>유지하기</button>
+            onClickStay={() => setIsModalOpen(false)}
+          />
         </Modal>
       )}
     </>
