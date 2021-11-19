@@ -19,6 +19,7 @@ import FollowList from '../pages/FollowList';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
 import Select from '../pages/Select';
+import SearchDetailHabit from '../pages/SearchDetailHabit';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
@@ -69,8 +70,13 @@ function App() {
             <PrivateRoute exact path="/search" component={<Search />} />
             <PrivateRoute
               exact
-              path="/search/:code"
+              path="/search/:monsterCode"
               component={<SearchDetail />}
+            />
+            <PrivateRoute
+              exact
+              path="/search/:monsterCode/:habitId"
+              component={<SearchDetailHabit />}
             />
             <PrivateRoute
               exact

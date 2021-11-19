@@ -40,7 +40,7 @@ const Image = styled.div`
   width: 220px;
   height: 129px;
   margin: 0 auto;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   background-image: url(${loginMonster});
   background-position: center;
   background-repeat: no-repeat;

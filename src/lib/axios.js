@@ -5,6 +5,7 @@ import {
   OK,
   UNAUTHORIZED,
   INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
 } from '../constants/statusCode';
 import {
   ACCESS_TOKEN_EXPIRED,
@@ -13,6 +14,7 @@ import {
   REFRESH_TOKEN_EXPIRED,
   REFRESH_TOKEN_SIGNATURE_EXCEPTION,
   REFRESH_TOKEN_MALFORMED,
+  INTERNAL_SERVER_ERROR_MESSAGE,
 } from '../constants/statusMessage';
 import { setMoveToLoginPage } from '../utils/setMoveToLoginPage';
 
@@ -38,10 +40,11 @@ instance.interceptors.response.use(
 
   async (error) => {
     const { data: responseData, config: originalRequest } = error.response;
-
-    if (responseData.statusCode === INTERNAL_SERVER_ERROR) {
-      window.alert(INTERNAL_SERVER_ERROR);
-      setMoveToLoginPage();
+    console.log(responseData);
+    if (responseData.status === INTERNAL_SERVER_ERROR) {
+      window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
+      // setMoveToLoginPage();
+      window.location.href = '/';
       return Promise.reject(error);
     }
 
@@ -121,14 +124,23 @@ instance.interceptors.response.use(
       }
     }
 
+    if (error.response.data.statusCode === NOT_FOUND) {
+      return Promise.reject(error);
+    }
+
+    if (error.response.data.statusCode === INTERNAL_SERVER_ERROR) {
+      window.alert(INTERNAL_SERVER_ERROR);
+      // setMoveToLoginPage();
+      window.location.href = '/';
+      return Promise.reject(error);
+    }
+
     window.alert('Unexpected Error Occured. Please Check Your Console.');
     console.log(error.response.data);
 
-    const err = new Error();
-    err.statusCode = error.response.data.statusCode;
-    err.message = error.response.data.responseMessage;
-
-    return Promise.reject(err);
+    // const err = new Error();
+    // err.statusCode = error.response.data.statusCode;
+    // err.message = error.response.data.responseMessage;
   },
 );
 

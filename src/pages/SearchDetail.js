@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useParams, useHistory } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
 
 import { userApis } from '../api/user';
 import { OK } from '../constants/statusCode';
-import styled from 'styled-components';
-
-import { isFollowState } from '../recoil/states/follow';
+import { searchUserInfoState, refreshInfoState } from '../recoil/states/follow';
 
 const SearchDetail = () => {
-  const { state: searchResultState } = useLocation();
-  const [searchResult, setSearchResult] = useState(searchResultState);
-  const [checkFollow, setCheckFollow] = useState('');
+  const { monsterCode } = useParams();
+  const history = useHistory();
+  const [checkFollow, setCheckFollow] = useState(null);
 
-  const [isFollow, setIsFollow] = useRecoilState(isFollowState);
+  const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
+
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+
+  const { habits, monster, userInfo } = searchResult;
+  const [isFollwed, setIsFollowed] = useState(userInfo.followed);
+  const [followers, setFollowers] = useState(userInfo.followersCount);
 
   const handleRelationship = async () => {
     try {
-      console.log('before :', isFollow);
-      const { data } = await userApis.follow(
-        searchResult.monsterCode,
-        isFollow,
-      );
+      const { data } = await userApis.follow(monsterCode, isFollwed);
 
       if (data.statusCode === OK) {
-        console.log('after :', data.isFollowed);
-        setIsFollow(data.isFollowed);
-        setSearchResult((prev) => ({ ...prev, isFollowed: data.isFollowed }));
+        setIsFollowed(data.isFollowed);
+        data.isFollowed
+          ? setFollowers(followers + 1)
+          : setFollowers(followers - 1);
       }
     } catch (error) {
       console.error(error);
@@ -35,8 +37,7 @@ const SearchDetail = () => {
 
   const checkFollowTest = async () => {
     try {
-      const { data } = await userApis.checkFollow(searchResult.monsterCode);
-
+      const { data } = await userApis.checkFollow(userInfo.monsterCode);
       if (data.statusCode === OK) {
         if (data.responseMessage === 'isFollowedTrue') {
           setCheckFollow('팔로우 중');
@@ -55,33 +56,34 @@ const SearchDetail = () => {
     <>
       <Container>
         <Text className="title">검색 유저 상세 정보</Text>
-        <Card style={{ marginBottom: '50px' }}>
-          <Text>몬스터 이름: {searchResult.monsterName}</Text>
-          <Text>이메일 주소 : {searchResult.email}</Text>
-          <img
-            src={searchResult.monsterImg}
-            alt="user monster"
-            style={{ width: '50px', height: '50px' }}
-          />
-          <Text>몬스터 코드 : {searchResult.monsterCode}</Text>
-          <Text>
-            팔로우 여부 : {isFollow ? '팔로우' : '언팔로우'}
-            <button onClick={handleRelationship}>
-              {isFollow ? '언팔로우' : '팔로우'}
-            </button>
-          </Text>
-          <Text>팔로워 수 : </Text>
-          <Text>팔로잉 수 : </Text>
-          <Text>Follow Check API 테스트 : </Text>
-        </Card>
-
         <Box>
-          <Text className="title">Follow Check API 테스트</Text>
-          <Text style={{ textAlign: 'center' }}>{checkFollow}</Text>
-          <button style={{ width: '100%' }} onClick={checkFollowTest}>
-            테스트
-          </button>
+          <Card>
+            <Text>몬스터 이름: {monster.monsterName}</Text>
+            <Text>이메일 주소 : {userInfo.email}</Text>
+            <img
+              src={monster.monsterImage}
+              alt="user monster"
+              style={{ width: '50px', height: '50px' }}
+            />
+            <Text>몬스터 코드 : {userInfo.monsterCode}</Text>
+            <Text>
+              팔로우 여부 : {isFollwed ? '팔로우' : '언팔로우'}
+              <button onClick={handleRelationship}>
+                {isFollwed ? '언팔로우' : '팔로우'}
+              </button>
+            </Text>
+            <Text>팔로워 수 : {followers ? followers : 0}</Text>
+            <Text>
+              팔로잉 수 :{' '}
+              {userInfo.followingsCount ? userInfo.followingsCount : 0}
+            </Text>
+            <Text>Follow Check API 테스트 : {checkFollow}</Text>
+            <button style={{ width: '100%' }} onClick={checkFollowTest}>
+              팔로우 체크 테스트
+            </button>
+          </Card>
         </Box>
+
         <Box>
           <Text className="title">팔로워 리스트</Text>
         </Box>
@@ -92,6 +94,28 @@ const SearchDetail = () => {
 
         <Box>
           <Text className="title">습관 리스트</Text>
+          {habits.map((habit, idx) => {
+            return (
+              <Card key={idx}>
+                <Text>
+                  제목 : {habit.title}{' '}
+                  <button
+                    onClick={() => {
+                      setRefreshInfo((id) => id + 1);
+                      history.push(`${monsterCode}/${habit.habitId}`);
+                    }}
+                  >
+                    상세페이지
+                  </button>
+                </Text>
+                <Text>
+                  기간 : {habit.durationStart} - {habit.durationEnd}
+                </Text>
+                <Text>퍼센티지 : {habit.achievePercentage}</Text>
+                <Text>카테고리 : {habit.category}</Text>
+              </Card>
+            );
+          })}
         </Box>
       </Container>
     </>
@@ -114,6 +138,7 @@ const Text = styled.p`
     text-align: center;
     border: 1px solid var(--color-white);
     font-size: var(--font-l);
+    background-color: var(--bg-selected-light);
   }
 `;
 

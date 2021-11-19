@@ -28,10 +28,13 @@ const LevelOneMonstersDisplay = ({ go }) => {
     setSelectedMonster(selectedAvatar);
     go();
   };
+
   useEffect(() => {
     console.log(location.pathname);
     console.log(location.state);
   }, [location]);
+  console.log(monsterList);
+
   return (
     <AvatarContainer>
       <AvatarWrap>

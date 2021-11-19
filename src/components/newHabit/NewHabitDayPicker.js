@@ -22,6 +22,7 @@ const NewHabitDayPicker = ({ days, onDayPicked, isEditMode }) => {
   // isEditMode === false : 해당 컴포넌트를 "습관 작성" 페이지에서 사용합니다. 따라서 요일 선택이 "가능"합니다.
   return (
     <SubTitleOuter subTitle="요일 설정">
+      {isEditMode ? <HelperText>수정 불가능해요</HelperText> : ''}
       <Wrapper>
         <PresetList>
           {isEditMode
@@ -66,6 +67,14 @@ NewHabitDayPicker.propTypes = {
   days: PropTypes.string.isRequired,
   onDayPicked: PropTypes.func,
 };
+
+const HelperText = styled.span`
+  display: block;
+  color: var(--color-primary-deemed);
+  font-size: var(--font-xxs);
+  line-height: 14px;
+  margin-bottom: 6px;
+`;
 
 const Wrapper = styled.div`
   display: flex;
