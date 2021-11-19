@@ -20,14 +20,18 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
   return (
     <SubTitleOuter subTitle="빈도">
       <Wrapper>
-        <div onClick={decrement}>-</div>
+        <div onClick={decrement}>
+          <div></div>
+        </div>
         <NumberInput
           type="number"
           value={frequency}
           onChange={handleChange}
           maxLength={10}
         />
-        <div onClick={increment}>+</div>
+        <div onClick={increment}>
+          <div></div>
+        </div>
       </Wrapper>
     </SubTitleOuter>
   );
@@ -40,7 +44,6 @@ NewHabitFrequencySection.propTypes = {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
   height: 40px;
 
   & div {
@@ -53,6 +56,25 @@ const Wrapper = styled.div`
     align-items: center;
     color: var(--color-primary);
     cursor: pointer;
+    position: relative;
+
+    & div {
+      width: 25%;
+      height: 5%;
+      background: #c4c4c4;
+      border-radius: 0;
+    }
+  }
+
+  & div:last-child div::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: block;
+    background: inherit;
+    transform: rotate(90deg);
   }
 `;
 

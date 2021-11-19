@@ -18,19 +18,19 @@ const levelOneMonsters = {
   1: {
     component: GreenMonsterIcon,
   },
-  2: {
+  6: {
     component: PinkMonsterIcon,
   },
-  3: {
+  11: {
     component: BlueMonsterIcon,
   },
-  4: {
+  16: {
     component: YellowMonsterIcon,
   },
-  5: {
+  21: {
     component: OrangeMonsterIcon,
   },
-  6: {
+  26: {
     component: RedMonsterIcon,
   },
 };

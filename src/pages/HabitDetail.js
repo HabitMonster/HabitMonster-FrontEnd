@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilCallback } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -11,7 +11,11 @@ import {
 } from '../components/common';
 import leveloneMonsters from '../assets/images/monsters/svg';
 
-import { habitIdListState, habitStateWithId } from '../recoil/states/habit';
+import {
+  habitIdListState,
+  habitStateWithId,
+  defaultHabitsState,
+} from '../recoil/states/habit';
 import { userLevelOneMonsterSelector } from '../recoil/states/monster';
 import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
@@ -25,8 +29,10 @@ const HabitDetail = () => {
   const history = useHistory();
 
   const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
-  console.log(habitDetail);
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
+
+  const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
+  const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -37,44 +43,21 @@ const HabitDetail = () => {
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-  const deleteHabit = useRecoilCallback(({ set }) => async (id) => {
+  const deleteHabit = async (id) => {
     history.replace('/');
     try {
       const { data } = await habitApis.deleteHabit(id);
       if (data.statusCode === OK) {
-        set(habitIdListState, (prev) =>
-          prev.filter((habitId) => habitId !== id),
-        );
-        set(habitStateWithId(id), null);
+        setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
+        setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
       }
     } catch (error) {
       console.error(error);
     }
-  });
-
-  // const handleDeleteButtonClick = async () => {
-  //   try {
-  //     const { data } = await habitApis.deleteHabit(habitId);
-
-  //     if (data.statusCode === OK) {
-  //       const deletedHabitIndex = habitList.findIndex((habit) => {
-  //         return habit.habitId === Number(habitId);
-  //       });
-  //       const originHabitList = habitList.slice();
-  //       originHabitList.splice(deletedHabitIndex, 1);
-  //       setHabitList(originHabitList);
-
-  //       history.replace('/');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  };
 
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
   const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;
-
-  // return null;
 
   return (
     <Container>
@@ -92,11 +75,11 @@ const HabitDetail = () => {
               <div className="left" />
               <div className="right" />
               <div className="text">
-                <span>{habitDetail.achievePercentage}%</span>
-                <span>
+                <p>{habitDetail.achievePercentage}%</p>
+                <p>
                   {habitDetail.totalCount}번 중 {habitDetail.achieveCount}번
                   완료!
-                </span>
+                </p>
               </div>
               <ProgressBarOverflowSection>
                 <CircleProgressbar degree={progressbarRotationDegree} />
@@ -204,17 +187,16 @@ const Wrapper = styled.div`
 const ProgressBarWrapper = styled.section`
   width: 100%;
   height: 154px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: none;
-  background: var(--bg-primary);
   position: relative;
-  padding: 24px;
+  background: var(--bg-primary);
 `;
 
 const ProgressBar = styled.div`
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   & > .left,
   & > .right {
@@ -241,22 +223,22 @@ const ProgressBar = styled.div`
     position: absolute;
     bottom: -10px;
     left: 50%;
-    transform: translateX(-50%);
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    transform: translateX(-50%);
     font-size: var(--font-xs);
     line-height: 17px;
     color: var(--color-primary-deemed);
     text-align: center;
 
-    & > span:first-child {
+    & > p:first-child {
       font-size: 36px;
       line-height: 43.2px;
       font-weight: var(--weight-bold);
       color: var(--color-white);
-      margin-bottom: 6px;
+    }
+
+    & > p:last-child {
+      margin-top: 6px;
     }
   }
 `;

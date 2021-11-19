@@ -29,13 +29,14 @@ function App() {
 
   useEffect(() => {
     r.current += 1;
+    console.log(location.pathname);
 
     if (!isLogin) {
       history.replace('/login');
       return;
     }
 
-    const monsterPath = ['select', 'guide', 'monster'];
+    const monsterPath = ['select', 'monster'];
     const isMonsterPath = monsterPath.some((path) =>
       location.pathname.includes(path),
     );
