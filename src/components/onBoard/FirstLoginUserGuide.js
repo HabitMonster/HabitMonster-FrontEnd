@@ -3,22 +3,15 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { MonsterThumbnail } from '../components/monster';
-import { BottomFixedButton } from '../components/common';
-import { getSelectedMonster } from '../recoil/states/monster';
-import { userState } from '../recoil/states/user';
-import { appendPostPosition } from '../utils/appendPostPosition';
-import { fontSize } from '../styles';
+import { MonsterThumbnail } from '../monster';
+import { BottomFixedButton } from '../common';
+import { monsterState } from '../../recoil/states/monster';
+import { appendPostPosition } from '../../utils/appendPostPosition';
+import { fontSize } from '../../styles';
 
 const MonsterGuide = () => {
   const history = useHistory();
-  const selectedMonster = useRecoilValue(getSelectedMonster);
-  const user = useRecoilValue(userState);
-
-  if (!user.monsterName) {
-    history.replace('/monster');
-    return;
-  }
+  const monster = useRecoilValue(monsterState);
 
   return (
     <AvatarContainer>
@@ -26,16 +19,16 @@ const MonsterGuide = () => {
         <HeadText>안녕!</HeadText>
         <HeadText>
           <span>
-            난 <b>{user.monsterName} </b>{' '}
-            {appendPostPosition(user.monsterName) && '이'}
+            난 <b>{monster.monsterName} </b>{' '}
+            {appendPostPosition(monster.monsterName) && '이'}
             라고 해.
           </span>
         </HeadText>
       </TitleWrap>
       <ThumbnailWrap>
         <MonsterThumbnail
-          imageUrl={selectedMonster.monsterImage}
-          imageAlt={selectedMonster.monsterImage}
+          imageUrl={monster.monsterImage}
+          imageAlt={monster.monsterImage}
           imageSize={'large'}
         />
       </ThumbnailWrap>

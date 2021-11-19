@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
   babyMonsterState,
   selectedMonsterState,
-} from '../recoil/states/monster';
+} from '../../recoil/states/monster';
 
-import { MonsterThumbnail } from '../components/monster';
-import { BottomFixedButton } from '../components/common';
-import { fontSize } from '../styles';
+import { MonsterThumbnail } from '.';
+import { BottomFixedButton } from '../common';
+import { fontSize } from '../../styles';
 
-const Monster = () => {
-  const history = useHistory();
+//* VERY IMPORTANT NOTE *
+// since backend does not supply monsterImage anymore,
+// WE MUST AGGREGATE response with our assets.
+// To this, WE MUST MODIFY BABYMOSTERSTATE.
+
+const LevelOneMonstersDisplay = ({ go }) => {
   const monsterList = useRecoilValue(babyMonsterState);
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);
-  const [selectedAvatar, setSelectedAvatar] = useState(() => {
-    return monsterList[0];
-  });
+  const [selectedAvatar, setSelectedAvatar] = useState(() => monsterList[0]);
 
   const handleSelectMonster = () => {
     setSelectedMonster(selectedAvatar);
-    history.push('/select');
+    go();
   };
 
   return (
@@ -68,7 +70,9 @@ const Monster = () => {
   );
 };
 
-export default Monster;
+LevelOneMonstersDisplay.propTypes = {
+  go: PropTypes.func.isRequired,
+};
 
 const AvatarContainer = styled.div`
   background-color: var(--bg-wrapper);
@@ -125,3 +129,5 @@ const SelectListItem = styled.li`
   cursor: pointer;
   transition: border 500ms;
 `;
+
+export default LevelOneMonstersDisplay;

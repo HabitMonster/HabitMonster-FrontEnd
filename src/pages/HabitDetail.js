@@ -44,10 +44,10 @@ const HabitDetail = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const deleteHabit = async (id) => {
-    history.replace('/');
     try {
       const { data } = await habitApis.deleteHabit(id);
       if (data.statusCode === OK) {
+        history.replace('/');
         setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
       }

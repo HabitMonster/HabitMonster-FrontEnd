@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
+import React, { useRef, useEffect, Fragment } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { authState } from '../recoil/states/auth';
@@ -11,9 +11,6 @@ import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
-import Monster from '../pages/Monster';
-import MonsterSetting from '../pages/MonsterSetting';
-import MonsterGuide from '../pages/MonsterGuide';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import OnBoard from './onBoard/OnBoard';
@@ -21,65 +18,76 @@ import Notice from './myPage/Notice';
 import FollowList from '../pages/FollowList';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
+import Select from '../pages/Select';
 
 function App() {
   const { isFirstLogin, isLogin } = useRecoilValue(authState);
   const location = useLocation();
-  const history = useHistory();
   const r = useRef(1);
+  console.log(
+    '%c ----------IN THE APP CONTEXT----------',
+    'background: #222; color: #bada55',
+  );
+  console.log(
+    `%c The current path is ${location.pathname} in the App. this means The App should render ${location.pathname}`,
+    'color: hotpink',
+  );
+
+  console.log(`%c user Auth State [isLogin] : ${isLogin}`, 'color: hotpink');
+  console.log(
+    `%c user Auth State [isFirstLogin] : ${isFirstLogin}`,
+    'color: hotpink',
+  );
+
+  console.log(
+    `%c Rendering Count in App.js: << ${r.current} >>`,
+    'color: hotpink',
+  );
+
+  console.log(
+    '%c ----------IN THE APP CONTEXT----------',
+    'background: #222; color: #bada55',
+  );
 
   useEffect(() => {
     r.current += 1;
-    console.log(location.pathname);
-
-    if (!isLogin) {
-      history.replace('/login');
-      return;
-    }
-
-    const monsterPath = ['select', 'monster'];
-    const isMonsterPath = monsterPath.some((path) =>
-      location.pathname.includes(path),
-    );
-
-    if (isMonsterPath && isLogin && !isFirstLogin) {
-      history.replace('/');
-      return;
-    }
-
-    if (isFirstLogin && location.pathname !== '/select') {
-      history.replace('/monster');
-      return;
-    }
-  }, [history, location.pathname, isFirstLogin, isLogin]);
+  });
 
   return (
     <Layout>
       <Switch>
         {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
-        <Route path="/monster" component={Monster} />
-        <Route path="/select" component={MonsterSetting} />
-        <Route path="/guide" component={MonsterGuide} />
-        <Route>
-          {/* <Route exact path="/" component={Main} /> */}
-          {/* <Route exact path="/search" component={Search} /> */}
-          <Route exact path="/search/:code" component={SearchDetail} />
-          <Route exact path="/habit/:habitId" component={HabitDetail} />
-          <Route exact path="/habit/:habitId/edit" component={HabitEdit} />
-          <Route path="/achievement" component={Achievement} />
-          <Route path="/new" component={New} />
-          <Route path="/mypage" component={MyPage} />
-          <Route path="/notice" component={Notice} />
-          <Route path="/follow" component={FollowList} />
-          <PrivateRoute exact path="/">
-            <Main />
-          </PrivateRoute>
-          {/* <PrivateRoute>
+        <Fragment>
+          <Switch>
+            <PrivateRoute exact path="/" component={<Main />} />
+            <PrivateRoute path="/select" component={<Select />} />
+            <PrivateRoute path="/new" component={<New />} />
+            <PrivateRoute path="/achievement" component={<Achievement />} />
+            <PrivateRoute path="/mypage" component={<MyPage />} />
 
-          </PrivateRoute> */}
+            <PrivateRoute exact path="/search" component={<Search />} />
+            <PrivateRoute
+              exact
+              path="/search/:code"
+              component={<SearchDetail />}
+            />
+            <PrivateRoute
+              exact
+              path="/habit/:habitId"
+              component={<HabitDetail />}
+            />
+            <PrivateRoute
+              exact
+              path="/habit/:habitId/edit"
+              component={<HabitEdit />}
+            />
+
+            <PrivateRoute path="/notice" component={<Notice />} />
+            <PrivateRoute path="/follow" component={<FollowList />} />
+          </Switch>
           <Gnb />
-        </Route>
+        </Fragment>
       </Switch>
     </Layout>
   );
