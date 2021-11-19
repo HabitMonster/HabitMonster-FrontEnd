@@ -1,18 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { monsterState } from '../recoil/states/monster';
 import { MainMonster } from '../components/monster';
 import { TodayHabitList } from '../components/habit';
 import Feedback from '../components/forTest/Feedback';
+import { Modal } from '../components/common';
 import { miniThrottle } from '../utils/event';
 import '../assets/fonts/font.css';
-
+import { Congrats } from '../assets/images/main';
 //TODOS
 //1.Refactor with getBoundingClientRect()
-
+// Monster.monsterLevel === 5
 const Main = () => {
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const monster = useRecoilValue(monsterState);
 
   useEffect(() => {
     const { current } = habitSection;
@@ -29,16 +34,43 @@ const Main = () => {
     return () => current.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const condition = monster.monsterLevel === 5;
+    console.log(monster.monsterLevel, monster.monsterExpPoint);
+    setIsModalOpen(condition);
+  }, [monster]);
+
   return (
-    <Wrapper>
-      <Feedback />
-      <MonsterSection>
-        <MainMonster heightShrinked={shrinked} />
-      </MonsterSection>
-      <HabitSection ref={habitSection}>
-        <TodayHabitList />
-      </HabitSection>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Feedback />
+        <MonsterSection>
+          <MainMonster heightShrinked={shrinked} />
+        </MonsterSection>
+        <HabitSection ref={habitSection}>
+          <TodayHabitList />
+        </HabitSection>
+      </Wrapper>
+      {isModalOpen && (
+        <Modal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          blurmode={true}
+        >
+          <img src={Congrats} alt="" />
+          <p>ㅊㅋㅊㅋ</p>
+          <button
+            onClick={() => {
+              window.location.href = '/monster';
+              setIsModalOpen(false);
+            }}
+          >
+            다음몬스터 고르기
+          </button>
+          <button onClick={() => setIsModalOpen(false)}>유지하기</button>
+        </Modal>
+      )}
+    </>
   );
 };
 

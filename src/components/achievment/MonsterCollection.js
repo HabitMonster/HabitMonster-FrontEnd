@@ -18,6 +18,7 @@ const MonsterCollection = () => {
 
       if (data.statusCode === OK) {
         setCollectionList(data.monsters);
+        console.log('collectionList', collectionList);
       }
     }
 
@@ -48,12 +49,13 @@ const MonsterCollection = () => {
                 .fill(null)
                 .map((_, i) => (
                   <MonsterImageWrapper key={`${monster.monsterName} ${i}`}>
-                    {monster.maxLevel <=
+                    {monster.maxLevel >=
                       monster.monsterDatabases[i]?.monsterLevel ?? i + 1 ? (
                       <MonsterThumbnail
                         imageUrl={monster.monsterDatabases[i].monsterImage}
                         imageAlt={`The monster of ${monster.monsterName}`}
                         imageSize="small"
+                        monsterLv={monster.monsterDatabases[i]?.monsterLevel}
                       />
                     ) : (
                       <QuestionIcon />

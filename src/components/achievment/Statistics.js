@@ -86,7 +86,7 @@ const Statistics = () => {
       <DetailWrap>
         <DateWrap>
           <DateButton
-            isActive={createAtMonth === currentMonth}
+            disabled={createAtMonth === currentMonth}
             onClick={() => handleClickChangeMonth('minus')}
           >
             <AchieveLeft />
@@ -164,7 +164,7 @@ const DateWrap = styled.div`
 `;
 
 const DateButton = styled.button`
-  pointer-events: ${(props) => (props.isActive ? 'none' : 'auto')};
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   background-color: transparent;
   color: #999999;
   border: 0;
