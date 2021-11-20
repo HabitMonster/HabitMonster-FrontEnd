@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
+
 import { authState } from '../../recoil/states/auth';
-import { Redirect, Route, useLocation } from 'react-router-dom';
+import { userState } from '../../recoil/states/user';
 
 //* Important Note
 // 1. Too many Rerender?
@@ -10,8 +12,21 @@ import { Redirect, Route, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ component, ...rest }) => {
   const { isLogin, isFirstLogin } = useRecoilValue(authState);
+  const userInfo = useRecoilValue(userState);
   const location = useLocation();
   const renderingCount = useRef(1);
+
+  useEffect(() => {
+    const userInfoObj = {
+      email: userInfo.email,
+      monsterCode: userInfo.monsterCode,
+      monsterName: userInfo.monsterName,
+      socialType: userInfo.socialType,
+      userName: userInfo.username,
+    };
+    window.localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
+  }, []);
+
   useEffect(() => {
     console.log(
       `%c RENDERING count: ${renderingCount.current}`,
