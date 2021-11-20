@@ -9,15 +9,16 @@ import { monsterState } from '../../recoil/states/monster';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
-import { habitApis } from '../../api';
-import { mainApis } from '../../api';
+import { mainApis, habitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
+import { Toast } from '../common';
 
 const TodayHabit = ({ id }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
   const [active, setActive] = useState(false);
+  const [activeToast, setActiveToast] = useState(false);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -42,6 +43,7 @@ const TodayHabit = ({ id }) => {
         setHabitDetail(data.habit);
 
         if (data.habit.isAccomplished) {
+          setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
 
@@ -88,6 +90,11 @@ const TodayHabit = ({ id }) => {
       >
         {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
       </CheckBtn>
+      <Toast
+        isActive={activeToast}
+        setIsActive={setActiveToast}
+        text="오늘의 습관 하나를 완료했어요!🎉"
+      />
     </Card>
   );
 };

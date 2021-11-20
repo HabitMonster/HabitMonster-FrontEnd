@@ -85,7 +85,7 @@ const PrivateRoute = ({ component, ...rest }) => {
     (!location.state?.monsterLevel || !location.state?.levelOneId)
   ) {
     console.log(
-      `%c Maybe this time, user level is under five and he/she just typed '/selected' url.
+      `%c Maybe this time, user level is under five and he/she just typed '/select' url.
       The state should be undefined so that Program will redirect to root.
       the current state of history is [${location.state}]`,
       'color: #f73378',

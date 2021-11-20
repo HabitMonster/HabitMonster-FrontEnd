@@ -26,6 +26,7 @@ const NewHabitForm = () => {
     start: null,
     end: null,
   });
+
   const [practiceDays, setPracticeDays] = useState('');
   const [frequency, setFrequency] = useState(0);
   const [habits, setHabits] = useRecoilState(defaultHabitsState);
@@ -60,13 +61,6 @@ const NewHabitForm = () => {
         data.statusCode === OK &&
         data.habit.practiceDays.includes(String(currentDay))
       ) {
-        //* IMPORTANT NOTE
-        // console.log(data);
-        // - 초기에 data는 isAccomplished값이 null로 주어지고 있는 상황.
-        // - false로 다시 내려지는지 확인한다음, 정상 반영 된다면 교체.
-        data.habit.isAccomplished = false;
-        // set(habitIdListState, (prev) => [data.habit.habitId, ...prev]);
-        // set(habitStateWithId(data.habit.habitId), data.habit);
         setHabitIdList([data.habit.habitId, ...habitIdList]);
         setHabits([data.habit, ...habits]);
       }

@@ -1,4 +1,3 @@
-import { authState } from './auth';
 import { atom, selector, atomFamily, selectorFamily } from 'recoil';
 import { mainApis } from '../../api';
 
@@ -7,12 +6,6 @@ export const defaultHabitsState = atom({
   default: selector({
     key: 'asyncDefaultHabitsSelector',
     get: async ({ get }) => {
-      const { isLogin } = get(authState);
-
-      if (!isLogin) {
-        return [];
-      }
-
       try {
         const { data } = await mainApis.getHabitsInfo();
 

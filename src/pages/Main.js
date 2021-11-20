@@ -31,7 +31,7 @@ const Main = () => {
         setShrinked(true);
         current.removeEventListener('scroll', handleScroll);
       }
-    }, 150);
+    }, 50);
 
     current.addEventListener('scroll', handleScroll);
 
