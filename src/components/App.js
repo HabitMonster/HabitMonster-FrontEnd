@@ -37,8 +37,23 @@ function App() {
     'background: #222; color: #bada55',
   );
 
+  /*
+    Reference: https://stackoverflow.com/questions/32963400/android-keyboard-shrinking-the-viewport-and-elements-using-unit-vh-in-css
+    안드로이드 기반 휴대폰의 키보드를 열 때 높이가 축소되는 것을 막기 위한 방법이라고 합니다.
+  */
+
   useEffect(() => {
-    r.current += 1;
+    const preventShrinkViewportFromKeyboard = function () {
+      const viewport = document.querySelector('meta[name=viewport]');
+      viewport.setAttribute(
+        'content',
+        viewport.content + ', height=' + window.innerHeight,
+      );
+    };
+
+    window.addEventListener('load', preventShrinkViewportFromKeyboard);
+    return () =>
+      window.removeEventListener('load', preventShrinkViewportFromKeyboard);
   });
 
   return (

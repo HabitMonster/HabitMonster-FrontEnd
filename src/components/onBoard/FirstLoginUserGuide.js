@@ -3,8 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { MonsterThumbnail } from '../monster';
-import { BottomFixedButton } from '../common';
+import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { monsterState } from '../../recoil/states/monster';
 import { authState } from '../../recoil/states/auth';
 import { appendPostPosition } from '../../utils/appendPostPosition';
@@ -35,11 +34,7 @@ const MonsterGuide = () => {
         </HeadText>
       </TitleWrap>
       <ThumbnailWrap>
-        <MonsterThumbnail
-          imageUrl={monster.monsterImage}
-          imageAlt={monster.monsterImage}
-          imageSize={'large'}
-        />
+        <MonsterThumbnail width="177px" height="177px" id={monster.monsterId} />
       </ThumbnailWrap>
       <TitleWrap>
         <TextBox>
@@ -67,17 +62,26 @@ const MonsterGuide = () => {
 export default MonsterGuide;
 
 const AvatarContainer = styled.div`
-  margin-top: 80px;
   font-family: var(--font-name-apple);
   background-color: var(--bg-wrapper);
   width: 100%;
   height: 100%;
-  margin-bottom: 108px;
+  margin-bottom: 68px;
+  padding-top: 80px;
+`;
+
+const ThumbnailWrap = styled.div`
+  width: 284px;
+  height: 284px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px auto;
 `;
 
 const TextBox = styled.div`
   text-align: center;
-  margin: 24px 0;
+  margin-bottom: 48px;
 `;
 
 const TitleWrap = styled.div`
@@ -86,13 +90,6 @@ const TitleWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
-`;
-
-const ThumbnailWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 0 10px;
 `;
 
 const HeadText = styled.p`

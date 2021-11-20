@@ -9,8 +9,8 @@ import {
   useSetRecoilState,
 } from 'recoil';
 
-import { MonsterThumbnail } from '.';
-import { BottomFixedButton } from '../common';
+// import { MonsterThumbnail } from '.';
+import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { TextInput } from '../common';
 import { monsterApis } from '../../api';
 
@@ -82,9 +82,9 @@ const LevelOneMonsterForm = ({ showGuide }) => {
         </TitleWrap>
         <ThumbnailWrap>
           <MonsterThumbnail
-            imageUrl={selectedMonster.monsterImage}
-            imageAlt={selectedMonster.monsterImage}
-            imageSize={'large'}
+            id={selectedMonster.monsterId}
+            width="124px"
+            height="124px"
           />
         </ThumbnailWrap>
         <TextInput
@@ -124,10 +124,12 @@ const AvatarContainer = styled.div`
 const AvatarWrap = styled.div`
   background-color: var(--bg-wrapper);
   width: 100%;
-  padding: 75px 24px 100px;
+  padding: 0 24px;
 `;
 
-const TitleWrap = styled.div``;
+const TitleWrap = styled.div`
+  margin-top: 80px;
+`;
 
 const Title = styled.h2`
   color: var(--color-white);
@@ -140,7 +142,9 @@ const ThumbnailWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 0 30px;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
 `;
 
 export default LevelOneMonsterForm;

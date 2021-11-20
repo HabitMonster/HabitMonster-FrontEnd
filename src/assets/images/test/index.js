@@ -10,83 +10,58 @@ import { ReactComponent as PinkLevelThree } from './pink_3.svg';
 import { ReactComponent as PinkLevelFour } from './pink_4.svg';
 import { ReactComponent as PinkLevelFive } from './pink_5.svg';
 
+import { ReactComponent as BlueLevelOne } from './blue_1.svg';
+import { ReactComponent as BlueLevelTwo } from './blue_2.svg';
+
 import { ReactComponent as YellowLevelOne } from './yellow_1.svg';
 import { ReactComponent as YellowLevelTwo } from './yellow_2.svg';
 import { ReactComponent as YellowLevelThree } from './yellow_3.svg';
 import { ReactComponent as YellowLevelFour } from './yellow_4.svg';
 import { ReactComponent as YellowLevelFive } from './yellow_5.svg';
 
-const monsters = [
-  {
-    id: 1,
-    component: GreenLevelOne,
-  },
-  {
-    id: 2,
-    component: GreenLevelTwo,
-  },
-  {
-    id: 3,
-    component: GreenLevelThree,
-  },
-  {
-    id: 4,
-    component: GreenLevelFour,
-  },
-  {
-    id: 5,
-    component: GreenLevelFive,
-  },
-  {
-    id: 6,
-    component: PinkLevelOne,
-  },
-  {
-    id: 7,
-    component: PinkLevelTwo,
-  },
-  {
-    id: 8,
-    component: PinkLevelThree,
-  },
-  {
-    id: 9,
-    component: PinkLevelFour,
-  },
-  {
-    id: 10,
-    component: PinkLevelFive,
-  },
-  {
-    id: 16,
-    component: YellowLevelOne,
-  },
-  {
-    id: 17,
-    component: YellowLevelTwo,
-  },
-  {
-    id: 18,
-    component: YellowLevelThree,
-  },
-  {
-    id: 19,
-    component: YellowLevelFour,
-  },
-  {
-    id: 20,
-    component: YellowLevelFive,
-  },
-];
+import { ReactComponent as OrangeLevelOne } from './orange_1.svg';
+import { ReactComponent as OrangeLevelTwo } from './orange_1.svg';
 
-export const levelOneMonsters = monsters.filter(({ id }) => id % 5 === 1);
-export const greenMonsters = monsters.slice(0, 5);
-export const pinkMonsters = monsters.slice(5, 10);
+import { ReactComponent as RedLevelOne } from './red_1.svg';
+import { ReactComponent as RedLevelTwo } from './red_2.svg';
+import { ReactComponent as RedLevelThree } from './red_3.svg';
 
-// SVG 전부 나와야 아래 변수 선언문이 올바르게 작동함.
-// export const blueMonsters = monsters.slice(10, 15);
-// export const yellowMonsters = monsters.slice(15, 20);
-// export const orangeMonsters = monsters.slice(20, 25);
-// export const redMonsters = monsters.slice(25, 30);
+/*
+  @ 객체의 프로퍼티 키: MonsterId
+  @ 주석처리 한 것: 아직 나오지 않은 것.
+*/
 
-export default monsters;
+const MONSTERS = {
+  1: GreenLevelOne,
+  2: GreenLevelTwo,
+  3: GreenLevelThree,
+  4: GreenLevelFour,
+  5: GreenLevelFive,
+  6: PinkLevelOne,
+  7: PinkLevelTwo,
+  8: PinkLevelThree,
+  9: PinkLevelFour,
+  10: PinkLevelFive,
+  11: BlueLevelOne,
+  12: BlueLevelTwo,
+  //13: BlueLevelThree,
+  //14: BlueLevelFour,
+  //15: BlueLevelFive,
+  16: YellowLevelOne,
+  17: YellowLevelTwo,
+  18: YellowLevelThree,
+  19: YellowLevelFour,
+  20: YellowLevelFive,
+  21: OrangeLevelOne,
+  22: OrangeLevelTwo,
+  //23: OrangeLevelThree,
+  //24: OrangeLevelFour,
+  //25: OrangeLevelFive,
+  26: RedLevelOne,
+  27: RedLevelTwo,
+  28: RedLevelThree,
+  //29: RedLevelFour,
+  //30: RedLevelFive
+};
+
+export default MONSTERS;
