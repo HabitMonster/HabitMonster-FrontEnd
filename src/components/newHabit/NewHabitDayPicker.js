@@ -103,7 +103,7 @@ const ChoiceAllSection = styled.div`
     color: ${({ allSelected }) =>
       allSelected ? 'var(--bg-selected-light)' : 'rgba(248, 248, 248, 0.5)'};
     font-weight: var(--weight-regular);
-    font-size: var (--font-xs);
+    font-size: var(--font-xs);
     line-height: 17px;
     cursor: pointer;
     transition: all 150ms ease-out;

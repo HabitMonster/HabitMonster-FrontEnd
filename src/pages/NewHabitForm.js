@@ -127,14 +127,13 @@ const NewHabitForm = () => {
   );
 };
 
-// Wrapper에 패딩 바텀 줌.
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
   background: var(--bg-wrapper);
   overflow-y: scroll;
-  padding-bottom: 108px;
+  padding-bottom: 120px;
 `;
 
 const Inner = styled.div`
