@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
@@ -8,14 +8,19 @@ import { OK, NOT_FOUND } from '../constants/statusCode';
 import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
 import { refreshInfoState } from '../recoil/states/follow';
 
+import { Toast } from '../components/common';
+import { userState } from '../recoil/states/user';
+
 const Search = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
   const [monsterId, setMonsterId] = useState('');
   const [searchResult, setSearchResult] = useState('');
   const [failMessage, setFailMessage] = useState(null);
+  const [activeUnableFollowToast, setActiveUnableFollowToast] = useState(false);
 
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const userInfoState = useRecoilValue(userState);
 
   const handleButtonClick = async () => {
     if (!monsterId) {
@@ -26,6 +31,7 @@ const Search = () => {
     try {
       setFailMessage('');
       const { data } = await userApis.searchUser(monsterId);
+
       if (data.statusCode === OK) {
         setSearchResult(data.userInfo);
         setRefreshInfo((id) => id + 1);
@@ -41,6 +47,11 @@ const Search = () => {
   };
 
   const handleRelationship = async () => {
+    if (searchResult.monsterCode === userInfoState.monsterCode) {
+      setActiveUnableFollowToast(true);
+      return;
+    }
+
     try {
       const { data } = await userApis.follow(
         searchResult.monsterCode,
@@ -108,6 +119,11 @@ const Search = () => {
           </Result>
         )}
       </div>
+      <Toast
+        isActive={activeUnableFollowToast}
+        setIsActive={setActiveUnableFollowToast}
+        text="자기 자신은 팔로우할 수 없어요!"
+      />
     </Wrapper>
   );
 };

@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useRecoilValue } from 'recoil';
-import { authState } from '../../recoil/states/auth';
 import { Redirect, Route, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+
+import { authState } from '../../recoil/states/auth';
+import { userState } from '../../recoil/states/user';
+import { mainApis } from '../../api';
 
 //* Important Note
 // 1. Too many Rerender?
@@ -10,8 +13,28 @@ import { Redirect, Route, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ component, ...rest }) => {
   const { isLogin, isFirstLogin } = useRecoilValue(authState);
+  const setUserInfoState = useSetRecoilState(userState);
   const location = useLocation();
   const renderingCount = useRef(1);
+
+  useEffect(() => {
+    const saveUserInfoState = async () => {
+      try {
+        const { data } = await mainApis.getUserInfo();
+        setUserInfoState({
+          email: data.userInfo.email,
+          monsterCode: data.userInfo.monsterCode,
+          monsterName: data.userInfo.monsterName,
+          socialType: data.userInfo.socialType,
+          userName: data.userInfo.username,
+        });
+      } catch (error) {
+        throw error;
+      }
+    };
+    saveUserInfoState();
+  }, []);
+
   useEffect(() => {
     console.log(
       `%c RENDERING count: ${renderingCount.current}`,
