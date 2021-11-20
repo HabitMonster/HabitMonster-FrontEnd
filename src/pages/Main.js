@@ -9,6 +9,8 @@ import { TodayHabitList } from '../components/habit';
 import Feedback from '../components/forTest/Feedback';
 import { Modal } from '../components/common';
 import { miniThrottle } from '../utils/event';
+import { MAX_LEVEL, MAX_EXP } from '../constants/monster';
+
 import '../assets/fonts/font.css';
 
 //TODOS
@@ -17,7 +19,7 @@ const Main = () => {
   const history = useHistory();
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
   const monster = useRecoilValue(monsterState);
 
   useEffect(() => {
@@ -36,9 +38,10 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    const condition = monster.monsterLevel === 5;
-    setIsModalOpen(condition);
-  }, []);
+    const isMonsterModalOpen =
+      monster.monsterLevel === MAX_LEVEL && monster.monsterExpPoint === MAX_EXP;
+    setIsMonsterModalOpen(isMonsterModalOpen);
+  }, [monster.monsterExpPoint, monster.monsterLevel]);
 
   return (
     <>
@@ -51,20 +54,20 @@ const Main = () => {
           <TodayHabitList />
         </HabitSection>
       </Wrapper>
-      {isModalOpen && (
+      {isMonsterModalOpen && (
         <Modal
-          open={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          open={isMonsterModalOpen}
+          onClose={() => setIsMonsterModalOpen(false)}
           blurmode={true}
         >
           <LevelUp
             onClickSelect={() => {
               history.push('/select', {
-                monsterId: monster.monsterId,
+                levelOneId: monster.levelOneId,
                 monsterLevel: monster.monsterLevel,
               });
             }}
-            onClickStay={() => setIsModalOpen(false)}
+            onClickStay={() => setIsMonsterModalOpen(false)}
           />
         </Modal>
       )}

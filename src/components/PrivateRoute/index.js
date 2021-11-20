@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import { authState } from '../../recoil/states/auth';
-import { nextMonsterState } from '../../recoil/states/monster';
-import { Redirect, Route, useLocation, useHistory } from 'react-router-dom';
+import { Redirect, Route, useLocation } from 'react-router-dom';
 
 //* Important Note
 // 1. Too many Rerender?
@@ -11,7 +10,6 @@ import { Redirect, Route, useLocation, useHistory } from 'react-router-dom';
 
 const PrivateRoute = ({ component, ...rest }) => {
   const { isLogin, isFirstLogin } = useRecoilValue(authState);
-  const { monsterLevel } = useRecoilValue(nextMonsterState);
   const location = useLocation();
   const renderingCount = useRef(1);
   useEffect(() => {
@@ -82,8 +80,9 @@ const PrivateRoute = ({ component, ...rest }) => {
     isLogin &&
     !isFirstLogin &&
     location.pathname === '/select' &&
-    !monsterLevel === 5
+    // !monsterLevel === 5
     // !history.state
+    (!location.state?.monsterLevel || !location.state?.levelOneId)
   ) {
     console.log(
       `%c Maybe this time, user level is under five and he/she just typed '/selected' url.
