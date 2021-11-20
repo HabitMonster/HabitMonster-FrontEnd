@@ -1,6 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
+import {
+  useRecoilValue,
+  useSetRecoilState,
+  useRecoilCallback,
+  useResetRecoilState,
+} from 'recoil';
 import { useHistory } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
@@ -20,6 +25,7 @@ import { Toast } from '../common';
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  const resetUserInfoState = useResetRecoilState(userState);
 
   const history = useHistory();
 
@@ -98,7 +104,7 @@ const UserInformation = () => {
   const logoutUser = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    window.localStorage.removeItem('userInfo');
+    resetUserInfoState();
     setAuth({
       isFirstLogin: null,
       isLogin: false,
@@ -113,7 +119,7 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         window.localStorage.removeItem('habitAccessToken');
         window.localStorage.removeItem('habitRefreshToken');
-        window.localStorage.removeItem('userInfo');
+        resetUserInfoState();
         set(authState, {
           isFirstLogin: null,
           isLogin: false,
