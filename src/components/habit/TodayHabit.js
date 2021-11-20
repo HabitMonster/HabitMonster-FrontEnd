@@ -44,6 +44,7 @@ const TodayHabit = ({ id }) => {
         if (data.habit.isAccomplished) {
           try {
             const { data } = await mainApis.getMonsterInfo();
+
             setTimeout(() => {
               setMonster(data.monster);
             }, 500);

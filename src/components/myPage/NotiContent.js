@@ -91,5 +91,4 @@ const NotiBox = styled.div`
 
 NotiContent.propTypes = {
   id: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
 };

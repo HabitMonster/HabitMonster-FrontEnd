@@ -96,7 +96,6 @@ const UserInformation = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
     setAuth({ isFirstLogin: null, isLogin: false });
-    history.push('/login');
   };
 
   const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
@@ -120,11 +119,6 @@ const UserInformation = () => {
   const userInfoList = Object.keys(myPageData).length
     ? [
         {
-          title: '닉네임',
-          contents: myPageData.username,
-          handleClick: () => openModal('username'),
-        },
-        {
           title: '몬스터 이름',
           contents: myPageData.monsterName,
           handleClick: () => openModal('monsterName'),
@@ -134,11 +128,6 @@ const UserInformation = () => {
           contents: myPageData.monsterCode,
           isCopy: true,
           handleClipBoard: () => copyCode(myPageData.monsterCode),
-        },
-        {
-          title: '팔로워 목록보기',
-          contents: '',
-          handleClick: () => history.push('/follow'),
         },
         {
           title: '현재 버전',
@@ -166,34 +155,47 @@ const UserInformation = () => {
 
   return (
     <>
-      <UserInfoList>
-        <TitleArea>
-          <PageTitle>마이페이지</PageTitle>
-        </TitleArea>
-        <UserInfoWrap>
-          <Mypage />
-          <div>
-            <BoldText>나는 닉네임</BoldText>
-            {/* <BoldText>{}</BoldText> */}
-            <Link to="">
-              <Pencil />
-            </Link>
-          </div>
-          <Summary>
-            <li>
-              <BoldText>324</BoldText>
-              <span>총 습관</span>
-            </li>
-            <li>
-              <BoldText>1000</BoldText>
+      <TitleArea>
+        <PageTitle>마이페이지</PageTitle>
+      </TitleArea>
+      <UserInfoWrap>
+        <Mypage />
+        <div>
+          <BoldText>{myPageData.username}</BoldText>
+          <EditNicknameBtn onclick={() => openModal('username')}>
+            <Pencil />
+          </EditNicknameBtn>
+        </div>
+        <Summary>
+          <li>
+            <BoldText>{myPageData?.totalHabitCount ?? 1000}</BoldText>
+            <span>총 습관</span>
+          </li>
+          <li>
+            <FollowLink
+              to={{
+                pathname: '/follow',
+                search: '?tab=followers',
+              }}
+            >
+              <BoldText>{myPageData?.followersCount ?? 1000}</BoldText>
               <span>팔로워</span>
-            </li>
-            <li>
-              <BoldText>324</BoldText>
-              <span>팔로우</span>
-            </li>
-          </Summary>
-        </UserInfoWrap>
+            </FollowLink>
+          </li>
+          <li>
+            <FollowLink
+              to={{
+                pathname: '/follow',
+                search: '?tab=following',
+              }}
+            >
+              <BoldText>{myPageData?.followingsCount ?? 1000}</BoldText>
+              <span>팔로잉</span>
+            </FollowLink>
+          </li>
+        </Summary>
+      </UserInfoWrap>
+      <UserInfoList>
         {userInfoList.map((userInfoItem) => {
           return (
             <UserInfoItem
@@ -224,7 +226,7 @@ const UserInformation = () => {
             title="정말 로그아웃하시겠어요?"
             height="141px"
             activeButtonText="로그아웃하기"
-            onActive={() => logoutUser()}
+            onActive={logoutUser}
             onClose={() => setIsLogoutModalOpen(false)}
           />
         </Modal>
@@ -272,10 +274,19 @@ const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
-  height: 100%;
+`;
+
+const EditNicknameBtn = styled.button`
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 3px 0 0 2px;
+  height: 19px;
 `;
 
 const UserInfoWrap = styled.div`
+  color: var(--color-primary);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -295,12 +306,18 @@ const BoldText = styled.p`
   line-height: 19px;
 `;
 
+const FollowLink = styled(Link)`
+  color: var(--color-primary);
+  font-size: var(--font-xxs);
+  font-weight: var(--weight-semi-regular);
+  text-decoration: none;
+  text-align: center;
+`;
+
 const Summary = styled.ul`
   height: 34px;
-  width: 246px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   margin: 24px 0;
 
@@ -308,11 +325,31 @@ const Summary = styled.ul`
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    position: relative;
+    flex: 1 1 0;
 
-  & span {
-    font-size: var(--font-xxs);
-    font-weight: var(--weight-semi-regular);
-    line-height: 15px;
+    & span {
+      font-size: var(--font-xxs);
+      font-weight: var(--weight-semi-regular);
+      line-height: 15px;
+    }
+
+    &::after {
+      background-color: var(--color-title);
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: 25px;
+      opacity: 0.5;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+
+    &::last-child {
+      &::after {
+        width: 0;
+      }
+    }
   }
 `;

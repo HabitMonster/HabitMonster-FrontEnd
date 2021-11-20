@@ -46,7 +46,7 @@ const Notice = () => {
         />
       </PageTitle>
       <NotiList>
-        {noticeList.length &&
+        {noticeList?.length > 0 &&
           noticeList.map((notice, index) => {
             return (
               <NoticeItem

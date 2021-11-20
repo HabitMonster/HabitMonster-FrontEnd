@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { FollowListItem } from '../components/myPage';
 import { BackButtonHeader } from '../components/common';
 import { myPageApis } from '../api';
 
-const FollowList = () => {
+const FollowPage = () => {
   const history = useHistory();
+  const location = useLocation();
+
+  console.log('history', location);
   const [isLoadFollower, setIsLoadFollower] = useState(false);
   // const [followerList, setFollowerList] = useState([]);
   const [isLoadFollowing, setIsLoadFollowing] = useState(false);
-  // const [followingList, setFollowingList] = useState([]);
+  const goToMyPage = () => history.push('/mypage/information');
 
   // const getFollowerList = async () => {
   //   try {
@@ -41,39 +44,12 @@ const FollowList = () => {
   //   getFollowerList();
   //   getFollowingList();
   // }, []);
-  const list = [
-    {
-      email: 'abc@gmail.com',
-      isFollowed: true,
-      monsterCode: '12345',
-      monsterImg: '',
-      monsterName: '뽁아리',
-    },
-    {
-      email: 'abc@gmail.com',
-      isFollowed: false,
-      monsterCode: '12395',
-      monsterImg: '',
-      monsterName: '뽁아리',
-    },
-    {
-      email: 'abc@gmail.com',
-      isFollowed: true,
-      monsterCode: '10345',
-      monsterImg: '',
-      monsterName: '뽁아리',
-    },
-  ];
 
   //@jaekyung Todo. followlist 컴포넌트 만들어서 재활용하게 할 예정임
   return (
     <FollowContainer>
       <BackBtnWrap>
-        <BackButtonHeader
-          onButtonClick={() => {
-            history.goBack();
-          }}
-        />
+        <BackButtonHeader onButtonClick={goToMyPage} />
       </BackBtnWrap>
       <NavButtonWrap>
         <NavButtonItem>
@@ -96,7 +72,7 @@ const FollowList = () => {
         </NavButtonItem>
       </NavButtonWrap>
       <FollowListWrap>
-        {list.map((user) => {
+        {MOCK_DATA.map((user) => {
           return <FollowListItem key={user.monsterCode} user={user} />;
         })}
       </FollowListWrap>
@@ -104,7 +80,7 @@ const FollowList = () => {
   );
 };
 
-export default FollowList;
+export default FollowPage;
 
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
@@ -162,3 +138,29 @@ const FollowListWrap = styled.ul`
   margin: 0;
   padding: 0;
 `;
+
+// MOCK_DATA
+
+const MOCK_DATA = [
+  {
+    email: 'abc@gmail.com',
+    isFollowed: true,
+    monsterCode: '12345',
+    monsterImg: '',
+    monsterName: '뽁아리',
+  },
+  {
+    email: 'abc@gmail.com',
+    isFollowed: false,
+    monsterCode: '12395',
+    monsterImg: '',
+    monsterName: '뽁아리',
+  },
+  {
+    email: 'abc@gmail.com',
+    isFollowed: true,
+    monsterCode: '10345',
+    monsterImg: '',
+    monsterName: '뽁아리',
+  },
+];

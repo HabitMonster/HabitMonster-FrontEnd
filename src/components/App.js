@@ -89,7 +89,7 @@ function App() {
               component={<HabitEdit />}
             />
 
-            <PrivateRoute path="/notice" component={<Notice />} />
+            <PrivateRoute exact path="/notice" component={<Notice />} />
             <PrivateRoute exact path="/follow" component={<Follow />} />
           </Switch>
           <Gnb />
