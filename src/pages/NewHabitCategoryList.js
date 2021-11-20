@@ -7,6 +7,7 @@ import {
   NewHabitCategoryGrid,
   NewHabitCategoryHelperText,
 } from '../components/newHabit';
+import { Gnb } from '../components/gnb';
 import { useFetchCategories } from '../hooks';
 
 import CATEGORIES from '../assets/images/habit';
@@ -17,27 +18,30 @@ const NewHabitCategoryList = () => {
   const categories = useFetchCategories();
 
   return (
-    <Wrapper>
-      <NewHabitCategoryHelperText />
-      <NewHabitCategoryGrid>
-        {categories.map(({ categoryId, category: categoryName }) => (
-          <NewHabitCategoryCell
-            key={categoryId}
-            src={CATEGORIES[categoryName].src}
-            name={CATEGORIES[categoryName].name}
-            onClick={() => {
-              history.push({
-                pathname: `${path}/${categoryId}/preset`,
-                state: {
-                  id: categoryId,
-                  name: CATEGORIES[categoryName].name,
-                },
-              });
-            }}
-          />
-        ))}
-      </NewHabitCategoryGrid>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <NewHabitCategoryHelperText />
+        <NewHabitCategoryGrid>
+          {categories.map(({ categoryId, category: categoryName }) => (
+            <NewHabitCategoryCell
+              key={categoryId}
+              src={CATEGORIES[categoryName].src}
+              name={CATEGORIES[categoryName].name}
+              onClick={() => {
+                history.push({
+                  pathname: `${path}/${categoryId}/preset`,
+                  state: {
+                    id: categoryId,
+                    name: CATEGORIES[categoryName].name,
+                  },
+                });
+              }}
+            />
+          ))}
+        </NewHabitCategoryGrid>
+      </Wrapper>
+      <Gnb />
+    </>
   );
 };
 

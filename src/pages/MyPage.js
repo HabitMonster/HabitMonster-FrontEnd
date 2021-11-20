@@ -2,13 +2,14 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import { fontSize, whiteOpacity } from '../styles';
+import { Gnb } from '../components/gnb';
 import { UserInformation } from '../components/myPage';
 
 const MyPage = () => {
   return (
-    <AcheiveContainer>
-      {/* <NavButtonWrap>
+    <>
+      <AcheiveContainer>
+        {/* <NavButtonWrap>
         <NavButtonItem>
           <NavButton to="/mypage/information" activeClassName="active">
             마이페이지
@@ -20,12 +21,14 @@ const MyPage = () => {
           </NavButton>
         </NavButtonItem>
       </NavButtonWrap> */}
-      <Switch>
-        <Route exact path="/mypage/information" component={UserInformation} />
-        {/* <Route exact path="/mypage/history" component={History} /> */}
-        <Redirect from="*" to="/mypage/information" />
-      </Switch>
-    </AcheiveContainer>
+        <Switch>
+          <Route exact path="/mypage/information" component={UserInformation} />
+          {/* <Route exact path="/mypage/history" component={History} /> */}
+          <Redirect from="*" to="/mypage/information" />
+        </Switch>
+      </AcheiveContainer>
+      <Gnb />
+    </>
   );
 };
 

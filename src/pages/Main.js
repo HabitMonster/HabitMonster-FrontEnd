@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { monsterState } from '../recoil/states/monster';
+
 import { MainMonster, LevelUp } from '../components/monster';
+import { Gnb } from '../components/gnb';
 import { TodayHabitList } from '../components/habit';
 import Feedback from '../components/forTest/Feedback';
 import { Modal } from '../components/common';
@@ -53,6 +55,7 @@ const Main = () => {
         <HabitSection ref={habitSection}>
           <TodayHabitList />
         </HabitSection>
+        <Gnb />
       </Wrapper>
       {isMonsterModalOpen && (
         <Modal

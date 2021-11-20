@@ -61,40 +61,34 @@ function App() {
       <Switch>
         {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
-        <Fragment>
-          <Switch>
-            <PrivateRoute exact path="/" component={<Main />} />
-            <PrivateRoute path="/select" component={<Select />} />
-            <PrivateRoute path="/new" component={<New />} />
-            <PrivateRoute path="/achievement" component={<Achievement />} />
-            <PrivateRoute path="/mypage" component={<MyPage />} />
-            <PrivateRoute exact path="/search" component={<Search />} />
-            <PrivateRoute
-              exact
-              path="/search/:monsterCode"
-              component={<SearchDetail />}
-            />
-            <PrivateRoute
-              exact
-              path="/search/:monsterCode/:habitId"
-              component={<SearchDetailHabit />}
-            />
-            <PrivateRoute
-              exact
-              path="/habit/:habitId"
-              component={<HabitDetail />}
-            />
-            <PrivateRoute
-              exact
-              path="/habit/:habitId/edit"
-              component={<HabitEdit />}
-            />
-
-            <PrivateRoute path="/notice" component={<Notice />} />
-            <PrivateRoute exact path="/follow" component={<Follow />} />
-          </Switch>
-          <Gnb />
-        </Fragment>
+        <PrivateRoute path="/select" component={<Select />} />
+        <PrivateRoute exact path="/" component={<Main />} />
+        <PrivateRoute path="/new" component={<New />} />
+        <PrivateRoute path="/achievement" component={<Achievement />} />
+        <PrivateRoute path="/mypage" component={<MyPage />} />
+        <PrivateRoute exact path="/search" component={<Search />} />
+        <PrivateRoute
+          exact
+          path="/search/:monsterCode"
+          component={<SearchDetail />}
+        />
+        <PrivateRoute
+          exact
+          path="/search/:monsterCode/:habitId"
+          component={<SearchDetailHabit />}
+        />
+        <PrivateRoute
+          exact
+          path="/habit/:habitId"
+          component={<HabitDetail />}
+        />
+        <PrivateRoute
+          exact
+          path="/habit/:habitId/edit"
+          component={<HabitEdit />}
+        />
+        <PrivateRoute path="/notice" component={<Notice />} />
+        <PrivateRoute exact path="/follow" component={<Follow />} />
       </Switch>
     </Layout>
   );
