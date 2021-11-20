@@ -36,35 +36,16 @@ export default function useHabitPresets() {
 
   const currentDay = new Date().getDay() === 0 ? 7 : new Date().getDay();
 
-  // const createHabit = useRecoilCallback(({ set }) => (newHabitId, newHabit) => {
-  //   set(habitIdListState, (prev) => [newHabitId, ...prev]);
-  //   set(habitStateWithId(newHabitId), newHabit);
-  // });
-
   const onPresetSaved = async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
-      console.log(data);
 
-      // if the presets starts from now on(includes today in practiceDays)
       if (
         data.statusCode === OK &&
         data.habit.practiceDays.includes(String(currentDay))
       ) {
-        // const selectedPresetIndex = presets.findIndex((preset) => {
-        //   return preset.presetId === selectedPresetId;
-        // });
-
-        const defaultSettings = {
-          // category: presets[selectedPresetIndex].category,
-          // current: 0,
-          isAccomplished: false,
-          // achievePercentage: 0,
-        };
-        const newHabit = { ...data.habit, ...defaultSettings };
-        setHabitIdList([newHabit.habitId, ...habitIdList]);
-        setHabits([newHabit, ...habits]);
-        // createHabit(newHabit.habitId, newHabit);
+        setHabitIdList([data.habit.habitId, ...habitIdList]);
+        setHabits([data.habit, ...habits]);
       }
       history.replace('/');
     } catch (error) {
