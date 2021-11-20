@@ -1,7 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
-import { useHistory, Link } from 'react-router-dom';
+import {
+  useRecoilValue,
+  useSetRecoilState,
+  useRecoilCallback,
+  useResetRecoilState,
+} from 'recoil';
+import { useHistory } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
 import { myPageDataState, userState } from '../../recoil/states/user';
@@ -12,8 +17,6 @@ import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
 import { myPageApis } from '../../api';
-import { Mypage } from '../../assets/images/placeholder';
-import { Pencil } from '../../assets/icons/common';
 import { fontSize } from '../../styles/Mixin';
 
 import { USER_DELETED } from '../../constants/statusMessage';
@@ -22,6 +25,7 @@ import { Toast } from '../common';
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  const resetUserInfoState = useResetRecoilState(userState);
 
   const history = useHistory();
 
@@ -60,7 +64,6 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
-    setIsEditToastOpen(true);
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -102,8 +105,8 @@ const UserInformation = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
     setAuth({ isFirstLogin: null, isLogin: false });
-
     setIsLogoutToastOpen(true);
+    resetUserInfoState();
   };
 
   const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
@@ -113,11 +116,15 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         window.localStorage.removeItem('habitAccessToken');
         window.localStorage.removeItem('habitRefreshToken');
-        set(authState, { isFirstLogin: null, isLogin: false });
+        resetUserInfoState();
+        set(authState, {
+          isFirstLogin: null,
+          isLogin: false,
+        });
         set(habitIdListState, []);
         set(myPageDataState, {});
         set(userState, {});
-        window.location.href = '/login';
+        history.push('/login');
       }
     } catch (error) {
       console.error(error);
@@ -221,6 +228,7 @@ const UserInformation = () => {
             handleChangeValue={handleChangeValue}
             pageTitleText={editData.title}
             closeModal={closeModal}
+            activeToast={setIsEditToastOpen}
           />
         </Modal>
       )}
