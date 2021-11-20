@@ -46,6 +46,7 @@ const TodayHabit = ({ id }) => {
           setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
+
             setTimeout(() => {
               setMonster(data.monster);
             }, 500);

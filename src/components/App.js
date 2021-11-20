@@ -13,7 +13,7 @@ import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 
 import OnBoard from './onBoard/OnBoard';
-import Notice from './myPage/Notice';
+import Notice from '../pages/Notice';
 import Follow from '../pages/Follow';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
@@ -90,7 +90,7 @@ function App() {
               component={<HabitEdit />}
             />
 
-            <PrivateRoute path="/notice" component={<Notice />} />
+            <PrivateRoute exact path="/notice" component={<Notice />} />
             <PrivateRoute exact path="/follow" component={<Follow />} />
           </Switch>
           <Gnb />

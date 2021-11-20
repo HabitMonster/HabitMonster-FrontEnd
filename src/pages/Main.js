@@ -20,6 +20,7 @@ const Main = () => {
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
   const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
+  const [isLevelPopUp, setIsLevelPopUp] = useState(false);
   const monster = useRecoilValue(monsterState);
 
   useEffect(() => {
@@ -41,6 +42,8 @@ const Main = () => {
     const isMonsterModalOpen =
       monster.monsterLevel === MAX_LEVEL && monster.monsterExpPoint === MAX_EXP;
     setIsMonsterModalOpen(isMonsterModalOpen);
+
+    // const isLevelPopUp;
   }, [monster.monsterExpPoint, monster.monsterLevel]);
 
   return (

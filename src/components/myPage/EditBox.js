@@ -45,7 +45,9 @@ const EditBox = ({
       }
       //userName, monsterName
 
-      const { data } = await editRequest({ [type]: editValue });
+      const { data } = await editRequest({
+        [type]: editValue,
+      });
 
       if (data.statusCode === OK) {
         if (data.responseMessage === USER_NAME_UPDATE_SUCCESS) {

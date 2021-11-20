@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { myPageApis } from '../../api';
-import NoticeItem from './NoticeItem';
-import { fontSize } from '../../styles/Mixin';
-import { BackButtonHeader } from '../common';
+import { myPageApis } from '../api';
+import NoticeItem from '../components/myPage/NoticeItem';
+import { fontSize } from '../styles/Mixin';
+import { BackButtonHeader } from '../components/common';
 
 const Notice = () => {
   const history = useHistory();
@@ -46,7 +46,7 @@ const Notice = () => {
         />
       </PageTitle>
       <NotiList>
-        {noticeList.length &&
+        {noticeList?.length > 0 &&
           noticeList.map((notice, index) => {
             return (
               <NoticeItem

@@ -87,7 +87,4 @@ NoticeItem.propTypes = {
   notice: PropTypes.object.isRequired,
   onToggle: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  contents: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
 };
