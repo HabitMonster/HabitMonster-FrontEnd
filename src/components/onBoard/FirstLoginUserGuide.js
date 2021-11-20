@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-// import { MonsterThumbnail } from '../monster';
 import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { monsterState } from '../../recoil/states/monster';
 import { authState } from '../../recoil/states/auth';
