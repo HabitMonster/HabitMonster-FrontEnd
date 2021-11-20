@@ -27,7 +27,9 @@ const MainMonster = ({ heightShrinked }) => {
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
       <ThumbnailWrapper heightShrinked={heightShrinked}>
-        <MonsterThumbnail id={monster.monsterId} />
+        <div className="inner">
+          <MonsterThumbnail id={monster.monsterId} />
+        </div>
       </ThumbnailWrapper>
       <ExpContainer>
         <ExpText>
@@ -56,12 +58,13 @@ const MonsterContainer = styled.div`
   width: 100%;
   background: #1e135c;
   padding: 0px 24px;
+  padding-top: 24px;
   transition: all 150ms ease-in;
 `;
 
 const TitleWrapper = styled.div`
   display: block;
-  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '80px' : '0px')};
+  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
   height: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
   opacity: ${({ heightShrinked }) => (!heightShrinked ? '1' : '0')};
   transition: all 350ms linear;
@@ -80,16 +83,24 @@ const Title = styled.p`
 `;
 
 const ThumbnailWrapper = styled.div`
-  width: 152px;
-  height: 152px;
+  width: 100%;
+  height: 183px;
   margin: 0 auto;
-  margin-top: ${({ heightShrinked }) => (heightShrinked ? '0px' : '40px')};
+  margin-top: ${({ heightShrinked }) => (heightShrinked ? '0px' : '24px')};
   padding: 0px 28px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
   transition: all 350ms linear;
+
+  & > .inner {
+    width: 152px;
+    height: 152px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const ExpContainer = styled.div`
