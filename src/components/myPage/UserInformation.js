@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
 import { myPageDataState, userState } from '../../recoil/states/user';
@@ -12,6 +12,8 @@ import { Modal } from '../../components/common';
 import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
 import { myPageApis } from '../../api';
+import { Mypage } from '../../assets/images/placeholder';
+import { Pencil } from '../../assets/icons/common';
 import { fontSize } from '../../styles/Mixin';
 
 import { USER_DELETED } from '../../constants/statusMessage';
@@ -168,6 +170,30 @@ const UserInformation = () => {
         <TitleArea>
           <PageTitle>마이페이지</PageTitle>
         </TitleArea>
+        <UserInfoWrap>
+          <Mypage />
+          <div>
+            <BoldText>나는 닉네임</BoldText>
+            {/* <BoldText>{}</BoldText> */}
+            <Link to="">
+              <Pencil />
+            </Link>
+          </div>
+          <Summary>
+            <li>
+              <BoldText>324</BoldText>
+              <span>총 습관</span>
+            </li>
+            <li>
+              <BoldText>1000</BoldText>
+              <span>팔로워</span>
+            </li>
+            <li>
+              <BoldText>324</BoldText>
+              <span>팔로우</span>
+            </li>
+          </Summary>
+        </UserInfoWrap>
         {userInfoList.map((userInfoItem) => {
           return (
             <UserInfoItem
@@ -230,7 +256,7 @@ export default UserInformation;
 
 const TitleArea = styled.div`
   height: 44px;
-  margin: 20px 0 20px 24px;
+  margin: 24px;
   align-items: center;
   display: flex;
   align-items: center;
@@ -247,4 +273,46 @@ const UserInfoList = styled.ul`
   margin: 0;
   padding: 0;
   height: 100%;
+`;
+
+const UserInfoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+  }
+`;
+
+const BoldText = styled.p`
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
+  line-height: 19px;
+`;
+
+const Summary = styled.ul`
+  height: 34px;
+  width: 246px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 24px 0;
+
+  & li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & span {
+    font-size: var(--font-xxs);
+    font-weight: var(--weight-semi-regular);
+    line-height: 15px;
+  }
 `;

@@ -8,6 +8,7 @@ import { ReactComponent as EditIcon } from './edit.svg';
 import { ReactComponent as ToggleUp } from './toggleUp.svg';
 import { ReactComponent as ToggleDown } from './toggleDown.svg';
 import { ReactComponent as CopyIcon } from './copy.svg';
+import { ReactComponent as Pencil } from './pencil.svg';
 
 export {
   Back,
@@ -20,4 +21,5 @@ export {
   ToggleUp,
   ToggleDown,
   CopyIcon,
+  Pencil,
 };

@@ -34,7 +34,9 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
       }
       //userName, monsterName
 
-      const { data } = await editRequest({ [type]: editValue });
+      const { data } = await editRequest({
+        [type]: editValue,
+      });
 
       if (data.statusCode === OK) {
         alert('변경되었습니다!');
