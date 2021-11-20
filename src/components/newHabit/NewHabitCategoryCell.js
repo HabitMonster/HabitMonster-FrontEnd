@@ -2,24 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { whiteOpacity } from '../../styles/Mixin';
+import noop from '../../utils/noop';
 
-const NewHabitCategoryCell = ({ src, name, onClick }) => {
+const NewHabitCategoryCell = ({ src, name, onClick, skeleton }) => {
   return (
     <GategoryWrapper onClick={onClick}>
-      <img
-        style={{ width: '30px', height: '30px' }}
-        src={src}
-        alt={`category: ${name}`}
-      />
-      <span>{name}</span>
+      {skeleton ? (
+        <div style={{ width: '30px', height: '30px', background: 'eee' }} />
+      ) : (
+        <>
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={src}
+            alt={`category: ${name}`}
+          />
+          <span>{name}</span>
+        </>
+      )}
     </GategoryWrapper>
   );
 };
 
 NewHabitCategoryCell.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  src: PropTypes.string,
+  name: PropTypes.string,
+  onClick: PropTypes.func,
+  skeleton: PropTypes.bool,
+};
+
+NewHabitCategoryCell.defaultProps = {
+  src: '',
+  name: '',
+  onClick: noop,
 };
 
 const GategoryWrapper = styled.div`
