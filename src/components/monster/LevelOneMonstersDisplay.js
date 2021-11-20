@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -18,15 +19,16 @@ import { fontSize } from '../../styles';
 // To this, WE MUST MODIFY BABYMOSTERSTATE.
 
 const LevelOneMonstersDisplay = ({ go }) => {
+  const location = useLocation();
   const monsterList = useRecoilValue(babyMonsterState);
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);
   const [selectedAvatar, setSelectedAvatar] = useState(() => monsterList[0]);
+  const excludeMonsterId = location?.state?.levelOneId ?? -1;
 
   const handleSelectMonster = () => {
     setSelectedMonster(selectedAvatar);
     go();
   };
-
   console.log(monsterList);
 
   return (
@@ -49,16 +51,20 @@ const LevelOneMonstersDisplay = ({ go }) => {
         <SelectList>
           {monsterList.map((monster) => {
             return (
-              <SelectListItem
-                key={monster.monsterId}
-                selected={selectedAvatar.monsterImage === monster.monsterImage}
-                onClick={() => setSelectedAvatar(monster)}
-              >
-                <MonsterThumbnail
-                  imageUrl={monster.monsterImage}
-                  imageAlt={monster.monsterImage}
-                />
-              </SelectListItem>
+              excludeMonsterId !== monster.monsterId && (
+                <SelectListItem
+                  key={monster.monsterId}
+                  selected={
+                    selectedAvatar.monsterImage === monster.monsterImage
+                  }
+                  onClick={() => setSelectedAvatar(monster)}
+                >
+                  <MonsterThumbnail
+                    imageUrl={monster.monsterImage}
+                    imageAlt={monster.monsterImage}
+                  />
+                </SelectListItem>
+              )
             );
           })}
         </SelectList>

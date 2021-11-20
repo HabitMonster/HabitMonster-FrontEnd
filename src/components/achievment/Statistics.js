@@ -19,7 +19,7 @@ const Statistics = () => {
     formatMonth(new window.Date(), '-'),
   );
   const currentMonth = new Date(currentDate).getMonth() + 1;
-  const limitedMonth = new Date(setAuth.createdAt).getMonth() + 1;
+  const createAtMonth = new Date(setAuth.createdAt).getMonth() + 1;
 
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
@@ -85,11 +85,13 @@ const Statistics = () => {
     <>
       <DetailWrap>
         <DateWrap>
-          {limitedMonth > currentMonth ? (
-            <DateButton onClick={() => handleClickChangeMonth('minus')}>
-              <AchieveLeft />
-            </DateButton>
-          ) : null}
+          <DateButton
+            disabled={createAtMonth === currentMonth}
+            onClick={() => handleClickChangeMonth('minus')}
+          >
+            <AchieveLeft />
+          </DateButton>
+
           <DateText>{currentDate}</DateText>
           <DateButton onClick={() => handleClickChangeMonth('add')}>
             <AchieveRight />
@@ -162,6 +164,7 @@ const DateWrap = styled.div`
 `;
 
 const DateButton = styled.button`
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   background-color: transparent;
   color: #999999;
   border: 0;

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const MonsterThumbnail = ({ imageUrl, imageAlt, imageSize }) => {
-  return <MonsterImage src={imageUrl} alt={imageAlt} size={imageSize} />;
+  return (
+    <>
+      <MonsterImage src={imageUrl} alt={imageAlt} size={imageSize} />
+    </>
+  );
 };
 
 export default MonsterThumbnail;

@@ -83,7 +83,7 @@ const PrivateTextWrap = styled.div`
 // `;
 
 const CopyWrap = styled.div`
-  padding-left: 8px;
+  padding-left: 13px;
   cursor: pointer;
 `;
 

@@ -2,22 +2,14 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-  useRecoilValue,
-  useRecoilState,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
 
 import { MonsterThumbnail } from '.';
 import { BottomFixedButton } from '../common';
 import { TextInput } from '../common';
 import { monsterApis } from '../../api';
 
-import {
-  asyncDefaultMonster,
-  selectedMonsterState,
-} from '../../recoil/states/monster';
+import { selectedMonsterState } from '../../recoil/states/monster';
 
 import { authState } from '../../recoil/states/auth';
 
@@ -36,7 +28,6 @@ const LevelOneMonsterForm = ({ showGuide }) => {
 
   const [{ isFirstLogin }, setAuth] = useRecoilState(authState);
   const selectedMonster = useRecoilValue(selectedMonsterState);
-  const refetchMonster = useSetRecoilState(asyncDefaultMonster);
 
   // IF THE USER IS NOT FIRST VISITOR,
   // THIS HOOK SHOULD BE TRIGGERED AT THIS COMPONENT.
@@ -56,7 +47,6 @@ const LevelOneMonsterForm = ({ showGuide }) => {
         // IMPORTANT NOTE
         // I THINK THE UPDATING MONSTER BY REFETCHING IS NOT QUITE GOOD. BECAUSE I THINK THAT API CALL IS REDUNDANT.
         // (EXPERIMENT) To prevent flickering, use await keyword
-        await refetchMonster();
 
         //* I REALLY HATE NESTED IF STATEMENT, But for speed, i will grab this strategy.
         if (isFirstLogin) {

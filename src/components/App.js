@@ -15,7 +15,7 @@ import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import OnBoard from './onBoard/OnBoard';
 import Notice from './myPage/Notice';
-import FollowList from '../pages/FollowList';
+import Follow from '../pages/Follow';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
 import Select from '../pages/Select';
@@ -90,7 +90,7 @@ function App() {
             />
 
             <PrivateRoute path="/notice" component={<Notice />} />
-            <PrivateRoute path="/follow" component={<FollowList />} />
+            <PrivateRoute exact path="/follow" component={<Follow />} />
           </Switch>
           <Gnb />
         </Fragment>

@@ -1,3 +1,3 @@
 import { ReactComponent as None } from './none.svg';
-
-export { None };
+import { ReactComponent as Profile } from './profile.svg';
+export { None, Profile };
