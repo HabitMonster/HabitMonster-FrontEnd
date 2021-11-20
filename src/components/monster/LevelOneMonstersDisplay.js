@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -9,8 +9,7 @@ import {
   selectedMonsterState,
 } from '../../recoil/states/monster';
 
-import { MonsterThumbnail } from '.';
-import { BottomFixedButton } from '../common';
+import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { fontSize } from '../../styles';
 
 //* VERY IMPORTANT NOTE *
@@ -25,6 +24,7 @@ const LevelOneMonstersDisplay = ({ go }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(() => monsterList[0]);
   const excludeMonsterId = location?.state?.levelOneId ?? -1;
 
+  console.log(selectedAvatar);
   const handleSelectMonster = () => {
     setSelectedMonster(selectedAvatar);
     setTimeout(() => {
@@ -44,9 +44,9 @@ const LevelOneMonstersDisplay = ({ go }) => {
         </TitleWrap>
         <ThumbnailWrap>
           <MonsterThumbnail
-            imageUrl={selectedAvatar.monsterImage}
-            imageAlt={selectedAvatar.monsterImage}
-            imageSize={'large'}
+            id={selectedAvatar.monsterId}
+            width="124px"
+            height="124px"
           />
         </ThumbnailWrap>
         <SelectList>
@@ -61,8 +61,9 @@ const LevelOneMonstersDisplay = ({ go }) => {
                   onClick={() => setSelectedAvatar(monster)}
                 >
                   <MonsterThumbnail
-                    imageUrl={monster.monsterImage}
-                    imageAlt={monster.monsterImage}
+                    id={monster.monsterId}
+                    width="32px"
+                    height="32px"
                   />
                 </SelectListItem>
               )
@@ -122,16 +123,23 @@ const ThumbnailWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 0 30px;
+  margin: 30px auto;
+  width: 200px;
+  height: 200px;
 `;
 
 const SelectList = styled.ul`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
 `;
 
 const SelectListItem = styled.li`
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid
     ${(props) => (props.selected ? 'var(--color-white)' : 'transparent')};
   border-radius: var(--border-radius-small);
