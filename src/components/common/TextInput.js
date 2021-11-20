@@ -11,6 +11,7 @@ const TextInput = ({
   errorMessage,
   maxLength,
   idleHelperText,
+  disabled,
 }) => {
   const isIdle = !text.length;
   const isValidated = text.length <= maxLength;
@@ -29,6 +30,7 @@ const TextInput = ({
         onChange={handleInputChange}
         isValidated={isValidated}
         isIdle={isIdle}
+        disabled={disabled}
       />
       <div />
       <HelperSection>
@@ -63,6 +65,7 @@ TextInput.propTypes = {
   errorMessage: PropTypes.string,
   maxLength: PropTypes.number,
   idleHelperText: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -71,6 +74,7 @@ TextInput.defaultProps = {
   idleHelperText: '',
   maxLength: Infinity,
   lengthValidationMode: false,
+  disabled: false,
 };
 
 const IdleHelperText = styled.span`

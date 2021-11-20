@@ -5,8 +5,6 @@ import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
 import NewHabitPresetList from './NewHabitPresetList';
 
-// import PrivateRoute from '../components/PrivateRoute';
-
 const New = () => {
   const { path } = useRouteMatch();
   return (

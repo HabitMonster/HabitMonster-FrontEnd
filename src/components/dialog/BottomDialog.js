@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { whiteOpacity } from '../../styles/Mixin';
+import { LevelTwo, LevelThree, LevelThour } from '../../assets/images/level';
 
 const BottomDialog = ({
   height,
@@ -11,26 +12,62 @@ const BottomDialog = ({
   activeButtonText,
   onClose,
   onActive,
-}) => (
-  <Wrapper height={height}>
-    <Title>{title}</Title>
-    {description && <Description>{description}</Description>}
-    <ButtonGrid>
-      <Button onClick={onClose}>아니요</Button>
-      <Button onClick={onActive} active>
-        {activeButtonText}
-      </Button>
-    </ButtonGrid>
-  </Wrapper>
-);
+  type,
+  level,
+}) => {
+  const levelList = [
+    {
+      2: LevelTwo,
+    },
+    {
+      3: LevelThree,
+    },
+    {
+      4: LevelThour,
+    },
+  ];
+
+  switch (type) {
+    case 'levelUp':
+      return (
+        <Wrapper height={height}>
+          <Title type={type}>LEVEL UP!</Title>
+          <BadgeWrap>
+            <img src={`levelList.${level}`} alt={`levelList.${level}`} />
+          </BadgeWrap>
+          {description && <Description>{description}</Description>}
+          <ButtonGrid>
+            <Button onClick={onActive} active>
+              확인
+            </Button>
+          </ButtonGrid>
+        </Wrapper>
+      );
+    default:
+      return (
+        <Wrapper height={height}>
+          <Title>{title}</Title>
+          {description && <Description>{description}</Description>}
+          <ButtonGrid>
+            <Button onClick={onClose}>아니요</Button>
+            <Button onClick={onActive} active>
+              {activeButtonText}
+            </Button>
+          </ButtonGrid>
+        </Wrapper>
+      );
+  }
+};
 
 BottomDialog.propTypes = {
+  type: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   activeButtonText: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onActive: PropTypes.func.isRequired,
   height: PropTypes.string,
+  level: PropTypes.number,
 };
 
 BottomDialog.defaultProps = {
@@ -41,7 +78,7 @@ BottomDialog.defaultProps = {
 const Wrapper = styled.div`
   width: 100%;
   max-width: 414px;
-  height: ${({ height }) => height};
+  height: ${({ height }) => (height ? height : '308px')};
   padding: 24px 24px 0 24px;
   background: var(--bg-primary);
   border-radius: 24px 24px 0px 0px;
@@ -55,7 +92,7 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-weight: var(--weight-bold);
-  font-size: var(--font-l);
+  font-size: ${(type) => (type ? 'var(--font-xxl)' : 'var(--font-l)')};
   line-height: 24px;
   color: var(--color-primary);
 `;
@@ -93,4 +130,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const BadgeWrap = styled.div`
+  width: 108px;
+  height: 108px;
+  margin: 0 atuo;
+`;
 export default BottomDialog;

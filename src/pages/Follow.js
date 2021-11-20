@@ -1,18 +1,46 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { FollowListItem } from '../components/myPage';
 import { BackButtonHeader } from '../components/common';
 import { myPageApis } from '../api';
 
-const FollowList = () => {
+const FollowPage = () => {
   const history = useHistory();
-  const [isLoadFollower, setIsLoadFollower] = useState(false);
-  // const [followerList, setFollowerList] = useState([]);
-  const [isLoadFollowing, setIsLoadFollowing] = useState(false);
-  // const [followingList, setFollowingList] = useState([]);
+  const location = useLocation();
+  const [followList, setFollowList] = useState([]);
+  const tabType = location?.search?.split('tab=')?.[1];
+  const isCorrectTabType = tabType === 'followers' || tabType === 'following';
+  const isActiveTab = (type) => tabType === type;
+  const goToMyPage = () => history.push('/mypage/information');
 
+  useEffect(() => {
+    if (!isCorrectTabType) {
+      history.replace('/follow?tab=followers', null);
+    }
+  }, [history, tabType, isCorrectTabType]);
+
+  const getUserList = useCallback(async () => {
+    if (!isCorrectTabType) return;
+    console.log('tabType', tabType);
+
+    if (tabType === 'followers') {
+      const { data } = await myPageApis.loadFollowers();
+      if (data.statusCode === 200) {
+        console.log('followerdata', data, data.followers);
+        setFollowList(data.followers);
+      }
+    }
+    const { data } = await myPageApis.loadFollowings();
+    if (data.statusCode === 200) {
+      setFollowList(data.followings);
+    }
+  }, [tabType, isCorrectTabType]);
+
+  useEffect(() => {
+    getUserList();
+  }, [getUserList]);
   // const getFollowerList = async () => {
   //   try {
   //     const { data } = await myPageApis.loadFollowers();
@@ -41,46 +69,18 @@ const FollowList = () => {
   //   getFollowerList();
   //   getFollowingList();
   // }, []);
-  const list = [
-    {
-      email: 'abc@gmail.com',
-      isFollowed: true,
-      monsterCode: '12345',
-      monsterImg: '',
-      monsterName: '뽁아리',
-    },
-    {
-      email: 'abc@gmail.com',
-      isFollowed: false,
-      monsterCode: '12395',
-      monsterImg: '',
-      monsterName: '뽁아리',
-    },
-    {
-      email: 'abc@gmail.com',
-      isFollowed: true,
-      monsterCode: '10345',
-      monsterImg: '',
-      monsterName: '뽁아리',
-    },
-  ];
 
   //@jaekyung Todo. followlist 컴포넌트 만들어서 재활용하게 할 예정임
   return (
     <FollowContainer>
       <BackBtnWrap>
-        <BackButtonHeader
-          onButtonClick={() => {
-            history.goBack();
-          }}
-        />
+        <BackButtonHeader onButtonClick={goToMyPage} />
       </BackBtnWrap>
       <NavButtonWrap>
         <NavButtonItem>
           <NavButton
-            onClick={() => {
-              setIsLoadFollower(true);
-            }}
+            isActive={() => isActiveTab('followers')}
+            to="/follow?tab=followers"
             activeClassName="active"
           >
             팔로워
@@ -88,7 +88,8 @@ const FollowList = () => {
         </NavButtonItem>
         <NavButtonItem>
           <NavButton
-            onClick={() => setIsLoadFollowing(true)}
+            isActive={() => isActiveTab('following')}
+            to="/follow?tab=following"
             activeClassName="active"
           >
             팔로잉
@@ -96,7 +97,7 @@ const FollowList = () => {
         </NavButtonItem>
       </NavButtonWrap>
       <FollowListWrap>
-        {list.map((user) => {
+        {MOCK_DATA.map((user) => {
           return <FollowListItem key={user.monsterCode} user={user} />;
         })}
       </FollowListWrap>
@@ -104,7 +105,7 @@ const FollowList = () => {
   );
 };
 
-export default FollowList;
+export default FollowPage;
 
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
@@ -134,7 +135,7 @@ const NavButtonItem = styled.li`
   position: relative;
 `;
 
-const NavButton = styled.button`
+const NavButton = styled(NavLink)`
   background-color: transparent;
   border: 0;
   border: 1px solid transparent;
@@ -162,3 +163,29 @@ const FollowListWrap = styled.ul`
   margin: 0;
   padding: 0;
 `;
+
+// MOCK_DATA
+
+const MOCK_DATA = [
+  {
+    email: 'abc@gmail.com',
+    isFollowed: true,
+    monsterCode: '12345',
+    monsterImg: '',
+    monsterName: '뽁아리',
+  },
+  {
+    email: 'abc@gmail.com',
+    isFollowed: false,
+    monsterCode: '12395',
+    monsterImg: '',
+    monsterName: '뽁아리',
+  },
+  {
+    email: 'abc@gmail.com',
+    isFollowed: true,
+    monsterCode: '10345',
+    monsterImg: '',
+    monsterName: '뽁아리',
+  },
+];

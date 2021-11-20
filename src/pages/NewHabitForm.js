@@ -18,9 +18,9 @@ import { addHabitApis } from '../api';
 
 const NewHabitForm = () => {
   const history = useHistory();
-  const { state: categoryState } = useLocation();
+  const { state: broughtHabitState } = useLocation();
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(broughtHabitState?.title ?? '');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState({
     start: null,
@@ -48,7 +48,7 @@ const NewHabitForm = () => {
       durationStart: duration.start,
       durationEnd: duration.end,
       count: frequency,
-      categoryId: categoryState.id,
+      categoryId: broughtHabitState.categoryId,
       practiceDays: practiceDays,
     };
 
@@ -70,7 +70,7 @@ const NewHabitForm = () => {
     }
   };
 
-  if (!categoryState) {
+  if (!broughtHabitState) {
     return <Redirect to="/new" />;
   }
 
@@ -88,6 +88,7 @@ const NewHabitForm = () => {
             isEditMode={false}
             title={title}
             update={setTitle}
+            disabled={Boolean(broughtHabitState.title)}
           />
         </MarginInterval>
         <MarginInterval mb="24">
