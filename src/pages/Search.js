@@ -8,12 +8,15 @@ import { OK, NOT_FOUND } from '../constants/statusCode';
 import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
 import { refreshInfoState } from '../recoil/states/follow';
 
+import { Toast } from '../components/common';
+
 const Search = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
   const [monsterId, setMonsterId] = useState('');
   const [searchResult, setSearchResult] = useState('');
   const [failMessage, setFailMessage] = useState(null);
+  const [activeUnableFollowToast, setActiveUnableFollowToast] = useState(false);
 
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
@@ -26,6 +29,7 @@ const Search = () => {
     try {
       setFailMessage('');
       const { data } = await userApis.searchUser(monsterId);
+
       if (data.statusCode === OK) {
         setSearchResult(data.userInfo);
         setRefreshInfo((id) => id + 1);
@@ -41,6 +45,14 @@ const Search = () => {
   };
 
   const handleRelationship = async () => {
+    if (
+      searchResult.monsterCode ===
+      JSON.parse(window.localStorage.getItem('userInfo')).monsterCode
+    ) {
+      setActiveUnableFollowToast(true);
+      return;
+    }
+
     try {
       const { data } = await userApis.follow(
         searchResult.monsterCode,
@@ -108,6 +120,11 @@ const Search = () => {
           </Result>
         )}
       </div>
+      <Toast
+        isActive={activeUnableFollowToast}
+        setIsActive={setActiveUnableFollowToast}
+        text="자기 자신은 팔로우할 수 없어요!"
+      />
     </Wrapper>
   );
 };

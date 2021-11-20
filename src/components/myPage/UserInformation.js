@@ -99,7 +99,11 @@ const UserInformation = () => {
   const logoutUser = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    setAuth({ isFirstLogin: null, isLogin: false });
+    window.localStorage.removeItem('userInfo');
+    setAuth({
+      isFirstLogin: null,
+      isLogin: false,
+    });
     history.push('/login');
   };
 
@@ -110,11 +114,15 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         window.localStorage.removeItem('habitAccessToken');
         window.localStorage.removeItem('habitRefreshToken');
-        set(authState, { isFirstLogin: null, isLogin: false });
+        window.localStorage.removeItem('userInfo');
+        set(authState, {
+          isFirstLogin: null,
+          isLogin: false,
+        });
         set(habitIdListState, []);
         set(myPageDataState, {});
         set(userState, {});
-        window.location.href = '/login';
+        history.push('/login');
       }
     } catch (error) {
       console.error(error);

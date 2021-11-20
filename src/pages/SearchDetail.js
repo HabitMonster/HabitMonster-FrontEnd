@@ -7,10 +7,15 @@ import { userApis } from '../api/user';
 import { OK } from '../constants/statusCode';
 import { searchUserInfoState, refreshInfoState } from '../recoil/states/follow';
 
+import { Toast } from '../components/common';
+
 const SearchDetail = () => {
   const { monsterCode } = useParams();
   const history = useHistory();
   const [checkFollow, setCheckFollow] = useState(null);
+  const [activeUnableFollowToast, setActiveUnableFollowToast] = useState(false);
+  const [activeUnableFollowCheckToast, setActiveUnableFollowCheckToast] =
+    useState(false);
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
 
@@ -21,6 +26,14 @@ const SearchDetail = () => {
   const [followers, setFollowers] = useState(userInfo.followersCount);
 
   const handleRelationship = async () => {
+    if (
+      monsterCode ===
+      JSON.parse(window.localStorage.getItem('userInfo')).monsterCode
+    ) {
+      setActiveUnableFollowToast(true);
+      return;
+    }
+
     try {
       const { data } = await userApis.follow(monsterCode, isFollwed);
 
@@ -36,6 +49,14 @@ const SearchDetail = () => {
   };
 
   const checkFollowTest = async () => {
+    if (
+      monsterCode ===
+      JSON.parse(window.localStorage.getItem('userInfo')).monsterCode
+    ) {
+      setActiveUnableFollowCheckToast(true);
+      return;
+    }
+
     try {
       const { data } = await userApis.checkFollow(userInfo.monsterCode);
       if (data.statusCode === OK) {
@@ -117,6 +138,16 @@ const SearchDetail = () => {
             );
           })}
         </Box>
+        <Toast
+          isActive={activeUnableFollowToast}
+          setIsActive={setActiveUnableFollowToast}
+          text="자기 자신은 팔로우할 수 없어요!"
+        />
+        <Toast
+          isActive={activeUnableFollowCheckToast}
+          setIsActive={setActiveUnableFollowCheckToast}
+          text="자기 자신은 체크할 수 없어요!"
+        />
       </Container>
     </>
   );

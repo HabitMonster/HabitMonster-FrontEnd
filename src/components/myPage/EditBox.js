@@ -11,6 +11,10 @@ import { myPageApis } from '../../api';
 import { fontSize } from '../../styles';
 import { validateMonsterName } from '../../utils/validation';
 import { OK } from '../../constants/statusCode';
+import {
+  USER_NAME_UPDATE_SUCCESS,
+  MONSTER_NAME_UPDATE_SUCCESS,
+} from '../../constants/statusMessage';
 
 const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
   //* PROP을 STATE의 DEFAULT 값으로 주는 것은 안티패턴입니다 선생님!!!!!!!!!!
@@ -37,6 +41,25 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
       const { data } = await editRequest({ [type]: editValue });
 
       if (data.statusCode === OK) {
+        console.log(data);
+        if (data.responseMessage === USER_NAME_UPDATE_SUCCESS) {
+          const userInfoObj = {
+            ...JSON.parse(window.localStorage.getItem('userInfo')),
+            userName: data.userInfo.username,
+          };
+          window.localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
+        }
+
+        if (data.responseMessage === MONSTER_NAME_UPDATE_SUCCESS) {
+          const userInfoObj = {
+            ...JSON.parse(window.localStorage.getItem('userInfo')),
+            monsterName: data.monster.monsterName,
+          };
+          window.localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
+        }
+
+        // if(data.response)
+
         if (type === 'monsterName') {
           //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
           // setMonster((prev) => ({ ...prev, [type]: editValue }));
