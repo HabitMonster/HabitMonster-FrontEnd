@@ -1,6 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
+import {
+  useRecoilValue,
+  useSetRecoilState,
+  useRecoilCallback,
+  useResetRecoilState,
+} from 'recoil';
 import { useHistory } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
@@ -20,6 +25,7 @@ import { Toast } from '../common';
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  const resetUserInfoState = useResetRecoilState(userState);
 
   const history = useHistory();
 
@@ -58,7 +64,6 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
-    setIsEditToastOpen(true);
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -99,7 +104,11 @@ const UserInformation = () => {
   const logoutUser = () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    setAuth({ isFirstLogin: null, isLogin: false });
+    resetUserInfoState();
+    setAuth({
+      isFirstLogin: null,
+      isLogin: false,
+    });
     history.push('/login');
   };
 
@@ -110,11 +119,15 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         window.localStorage.removeItem('habitAccessToken');
         window.localStorage.removeItem('habitRefreshToken');
-        set(authState, { isFirstLogin: null, isLogin: false });
+        resetUserInfoState();
+        set(authState, {
+          isFirstLogin: null,
+          isLogin: false,
+        });
         set(habitIdListState, []);
         set(myPageDataState, {});
         set(userState, {});
-        window.location.href = '/login';
+        history.push('/login');
       }
     } catch (error) {
       console.error(error);
@@ -191,6 +204,7 @@ const UserInformation = () => {
             handleChangeValue={handleChangeValue}
             pageTitleText={editData.title}
             closeModal={closeModal}
+            activeToast={setIsEditToastOpen}
           />
         </Modal>
       )}
