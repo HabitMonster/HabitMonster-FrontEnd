@@ -15,15 +15,21 @@ import { myPageApis } from '../../api';
 import { fontSize } from '../../styles/Mixin';
 
 import { USER_DELETED } from '../../constants/statusMessage';
+import { Toast } from '../common';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
-  console.log(myPageData);
+
   const history = useHistory();
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+  const [isEditToastOpen, setIsEditToastOpen] = useState(false);
+  const [isLogoutToastOpen, setIsLogoutToastOpen] = useState(false);
+  const [isCopyToastOpen, setIsCopyToastOpen] = useState(false);
+  const [deleteAccountToastOpen, setDeleteAccountToastOpen] = useState(false);
 
   const [editData, setEditData] = useState({
     type: 'username',
@@ -40,7 +46,6 @@ const UserInformation = () => {
           value: myPageData.monsterName,
         });
       }
-
       setIsEditModalOpen(true);
     },
     [myPageData.monsterName],
@@ -53,7 +58,7 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
-
+    setIsEditToastOpen(true);
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -88,7 +93,7 @@ const UserInformation = () => {
     // 흐름 5.
     document.body.removeChild(textarea);
     console.log('복사된거 맞나', contents, textarea.value);
-    alert('클립보드에 복사되었습니다.');
+    setIsCopyToastOpen(true);
   };
 
   const logoutUser = () => {
@@ -199,7 +204,10 @@ const UserInformation = () => {
             title="정말 로그아웃하시겠어요?"
             height="141px"
             activeButtonText="로그아웃하기"
-            onActive={() => logoutUser()}
+            onActive={() => {
+              logoutUser();
+              setIsLogoutToastOpen(true);
+            }}
             onClose={() => setIsLogoutModalOpen(false)}
           />
         </Modal>
@@ -216,13 +224,33 @@ const UserInformation = () => {
             description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
             activeButtonText="탈퇴하기"
             onActive={() => {
-              console.log('탈퇴는 못참지');
+              setDeleteAccountToastOpen(true);
               deleteUserAccount();
             }}
             onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
       )}
+      <Toast
+        isActive={isCopyToastOpen}
+        setIsActive={setIsCopyToastOpen}
+        text="클립보드에 복사되었습니다!"
+      />
+      <Toast
+        isActive={isLogoutToastOpen}
+        setIsActive={setIsLogoutToastOpen}
+        text="로그아웃 되었습니다!"
+      />
+      <Toast
+        isActive={isEditToastOpen}
+        setIsActive={setIsEditToastOpen}
+        text="변경 되었습니다!"
+      />
+      <Toast
+        isActive={deleteAccountToastOpen}
+        setIsActive={setDeleteAccountToastOpen}
+        text="탈퇴는 못참지"
+      />
     </>
   );
 };
