@@ -33,7 +33,7 @@ const OnBoard = () => {
             initialSlide={0}
             style={{
               width: '100%',
-              maxWidth: '414px',
+              maxWidth: '320px',
             }}
             navigation
             pagination={{
@@ -92,12 +92,12 @@ const OnBoardContainer = styled.div`
   height: 100%;
   background-color: var(--bg-wrapper);
 
-  & .swiper-container {
-    height: 500px;
+  & .swiper-wrapper {
+    height: 300px;
   }
 
   & .swiper-pagination {
-    bottom: 250px;
+    top: 220px;
   }
 
   & .swiper-pagination-bullet {
@@ -135,7 +135,6 @@ const SubTitleBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 360px;
   height: 86px;
   margin: 0 auto;
 `;

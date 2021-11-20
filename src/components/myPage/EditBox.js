@@ -37,8 +37,6 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
       const { data } = await editRequest({ [type]: editValue });
 
       if (data.statusCode === OK) {
-        alert('변경되었습니다!');
-
         if (type === 'monsterName') {
           //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
           // setMonster((prev) => ({ ...prev, [type]: editValue }));

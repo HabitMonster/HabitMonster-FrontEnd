@@ -6,6 +6,7 @@ import SubTitleOuter from './SubTitleOuter';
 import TextInput from './TextInput';
 import BottomFixedButton from './BottomFixedButton';
 import MonsterThumbnail from './MonsterThumbnail';
+import Toast from './Toast';
 
 export {
   BackButtonHeader,
@@ -16,4 +17,5 @@ export {
   TextInput,
   BottomFixedButton,
   MonsterThumbnail,
+  Toast,
 };
