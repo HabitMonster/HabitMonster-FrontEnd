@@ -7,8 +7,8 @@ import {
   NewHabitCategoryGrid,
   NewHabitCategoryHelperText,
 } from '../components/newHabit';
+import { Gnb } from '../components/gnb';
 import { useFetchCategories } from '../hooks';
-
 import CATEGORIES from '../assets/images/habit';
 
 const NewHabitCategoryList = () => {
@@ -16,28 +16,39 @@ const NewHabitCategoryList = () => {
   const { path } = useRouteMatch();
   const categories = useFetchCategories();
 
+  const skeletons = [...Array(7).keys()].map((key) => ({
+    id: key,
+  }));
+
   return (
-    <Wrapper>
-      <NewHabitCategoryHelperText />
-      <NewHabitCategoryGrid>
-        {categories.map(({ categoryId, category: categoryName }) => (
-          <NewHabitCategoryCell
-            key={categoryId}
-            src={CATEGORIES[categoryName].src}
-            name={CATEGORIES[categoryName].name}
-            onClick={() => {
-              history.push({
-                pathname: `${path}/${categoryId}/preset`,
-                state: {
-                  id: categoryId,
-                  name: CATEGORIES[categoryName].name,
-                },
-              });
-            }}
-          />
-        ))}
-      </NewHabitCategoryGrid>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <NewHabitCategoryHelperText />
+        <NewHabitCategoryGrid>
+          {categories.length
+            ? categories.map(({ categoryId, category: categoryName }) => (
+                <NewHabitCategoryCell
+                  key={categoryId}
+                  src={CATEGORIES[categoryName].src}
+                  name={CATEGORIES[categoryName].name}
+                  onClick={() => {
+                    history.push({
+                      pathname: `${path}/${categoryId}/preset`,
+                      state: {
+                        id: categoryId,
+                        name: CATEGORIES[categoryName].name,
+                      },
+                    });
+                  }}
+                />
+              ))
+            : skeletons.map((skeleton) => (
+                <NewHabitCategoryCell key={skeleton.id} skeleton />
+              ))}
+        </NewHabitCategoryGrid>
+      </Wrapper>
+      <Gnb />
+    </>
   );
 };
 

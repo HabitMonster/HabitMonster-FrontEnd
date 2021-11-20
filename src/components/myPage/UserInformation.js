@@ -6,7 +6,7 @@ import {
   useRecoilCallback,
   useResetRecoilState,
 } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
 import { myPageDataState, userState } from '../../recoil/states/user';
@@ -174,11 +174,11 @@ const UserInformation = () => {
         <PageTitle>마이페이지</PageTitle>
       </TitleArea>
       <UserInfoWrap>
-        <Mypage />
+        {/* <Mypage /> */}
         <div>
           <BoldText>{myPageData.username}</BoldText>
           <EditNicknameBtn onclick={() => openModal('username')}>
-            <Pencil />
+            {/* <Pencil /> */}
           </EditNicknameBtn>
         </div>
         <Summary>

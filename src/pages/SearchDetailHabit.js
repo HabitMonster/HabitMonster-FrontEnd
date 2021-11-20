@@ -15,15 +15,28 @@ import { setFormattedDuration } from '../utils/setFormatDuration';
 import { renderDays } from '../utils/date';
 import { searchUserHabitSelector } from '../recoil/states/follow';
 
+const MOCKUP_CATEGORY_ID = {
+  Health: 1,
+  Study: 2,
+  Life: 3,
+  Emotion: 4,
+  Relation: 5,
+  Hobby: 6,
+  Etc: 7,
+};
+
 const SearchDetailHabit = () => {
   const { monsterCode, habitId } = useParams();
   const history = useHistory();
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
+  console.log(habitDetail);
+
+  // 백엔드에서 HabitCategoryId를 내려주면 코드를 삭제할 예정.
+  const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
 
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
-
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
     'YMD',
@@ -97,7 +110,15 @@ const SearchDetailHabit = () => {
       <BottomFixedButton
         condition={null}
         text="가져오기"
-        onClick={() => console.log('가져오기')}
+        onClick={() =>
+          history.push({
+            pathname: `/new/${categoryId}/detail`,
+            state: {
+              categoryId,
+              title: habitDetail.title,
+            },
+          })
+        }
       />
     </Container>
   );

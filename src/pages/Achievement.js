@@ -3,32 +3,36 @@ import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Statistics, MonsterCollection } from '../components/achievment';
+import { Gnb } from '../components/gnb';
 
 const Achievement = () => {
   return (
-    <AcheiveContainer>
-      <NavButtonWrap>
-        <NavButtonItem>
-          <NavButton to="/achievement/statistics" activeClassName="active">
-            월간 통계
-          </NavButton>
-        </NavButtonItem>
-        <NavButtonItem>
-          <NavButton to="/achievement/collection" activeClassName="active">
-            몬스터 도감
-          </NavButton>
-        </NavButtonItem>
-      </NavButtonWrap>
-      <Switch>
-        <Route exact path="/achievement/statistics" component={Statistics} />
-        <Route
-          exact
-          path="/achievement/collection"
-          component={MonsterCollection}
-        />
-        <Redirect from="*" to="/achievement/statistics" />
-      </Switch>
-    </AcheiveContainer>
+    <>
+      <AcheiveContainer>
+        <NavButtonWrap>
+          <NavButtonItem>
+            <NavButton to="/achievement/statistics" activeClassName="active">
+              월간 통계
+            </NavButton>
+          </NavButtonItem>
+          <NavButtonItem>
+            <NavButton to="/achievement/collection" activeClassName="active">
+              몬스터 도감
+            </NavButton>
+          </NavButtonItem>
+        </NavButtonWrap>
+        <Switch>
+          <Route exact path="/achievement/statistics" component={Statistics} />
+          <Route
+            exact
+            path="/achievement/collection"
+            component={MonsterCollection}
+          />
+          <Redirect from="*" to="/achievement/statistics" />
+        </Switch>
+      </AcheiveContainer>
+      <Gnb />
+    </>
   );
 };
 

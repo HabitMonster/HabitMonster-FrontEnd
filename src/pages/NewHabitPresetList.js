@@ -15,6 +15,8 @@ const NewHabitPresetList = () => {
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useHabitPresets();
 
+  const skeletons = [...Array(2).keys()].map(({ key }) => ({ id: key }));
+
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
@@ -30,21 +32,41 @@ const NewHabitPresetList = () => {
             />
           </Header>
           <HelperText>이런 습관은 어때요?</HelperText>
-          {presetList.map(
-            ({ count, description, period, practiceDays, title, presetId }) => (
-              <NewHabitPresetItem
-                key={presetId}
-                frequency={count}
-                description={description}
-                period={period}
-                days={practiceDays}
-                title={title}
-                id={presetId}
-                onClick={() => onPresetClicked(presetId)}
-                isSelected={selectedPresetId === presetId}
-              />
-            ),
-          )}
+          {presetList.length
+            ? presetList.map(
+                ({
+                  count,
+                  description,
+                  period,
+                  practiceDays,
+                  title,
+                  presetId,
+                }) => (
+                  <NewHabitPresetItem
+                    key={presetId}
+                    frequency={count}
+                    description={description}
+                    period={period}
+                    days={practiceDays}
+                    title={title}
+                    id={presetId}
+                    onClick={() => onPresetClicked(presetId)}
+                    isSelected={selectedPresetId === presetId}
+                  />
+                ),
+              )
+            : skeletons.map((skeleton) => (
+                <NewHabitPresetItem
+                  key={skeleton.id}
+                  skeleton
+                  title=""
+                  frequency={0}
+                  days=""
+                  period={0}
+                  onClick={() => {}}
+                  isSelected={false}
+                />
+              ))}
           <Hands
             isSelected={Boolean(selectedPresetId)}
             onClick={() =>

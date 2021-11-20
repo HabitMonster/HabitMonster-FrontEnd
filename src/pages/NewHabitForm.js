@@ -18,9 +18,9 @@ import { addHabitApis } from '../api';
 
 const NewHabitForm = () => {
   const history = useHistory();
-  const { state: categoryState } = useLocation();
+  const { state: broughtHabitState } = useLocation();
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(broughtHabitState?.title ?? '');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState({
     start: null,
@@ -48,7 +48,7 @@ const NewHabitForm = () => {
       durationStart: duration.start,
       durationEnd: duration.end,
       count: frequency,
-      categoryId: categoryState.id,
+      categoryId: broughtHabitState.categoryId,
       practiceDays: practiceDays,
     };
 
@@ -70,7 +70,7 @@ const NewHabitForm = () => {
     }
   };
 
-  if (!categoryState) {
+  if (!broughtHabitState) {
     return <Redirect to="/new" />;
   }
 
@@ -88,6 +88,7 @@ const NewHabitForm = () => {
             isEditMode={false}
             title={title}
             update={setTitle}
+            disabled={Boolean(broughtHabitState.title)}
           />
         </MarginInterval>
         <MarginInterval mb="24">
@@ -127,14 +128,13 @@ const NewHabitForm = () => {
   );
 };
 
-// Wrapper에 패딩 바텀 줌.
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
   background: var(--bg-wrapper);
   overflow-y: scroll;
-  padding-bottom: 108px;
+  padding-bottom: 120px;
 `;
 
 const Inner = styled.div`

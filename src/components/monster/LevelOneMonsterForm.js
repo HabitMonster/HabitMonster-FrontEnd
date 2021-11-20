@@ -65,9 +65,10 @@ const LevelOneMonsterForm = ({ showGuide }) => {
           showGuide();
           return;
         }
-
-        resetSelectedMonster();
         history.replace('/');
+        setTimeout(() => {
+          resetSelectedMonster();
+        }, 0);
       }
     } catch (error) {
       console.error(error);
