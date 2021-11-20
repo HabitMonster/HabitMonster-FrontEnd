@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { FollowListItem } from '../components/myPage';
@@ -9,13 +9,38 @@ import { myPageApis } from '../api';
 const FollowPage = () => {
   const history = useHistory();
   const location = useLocation();
-
-  console.log('history', location);
-  const [isLoadFollower, setIsLoadFollower] = useState(false);
-  // const [followerList, setFollowerList] = useState([]);
-  const [isLoadFollowing, setIsLoadFollowing] = useState(false);
+  const [followList, setFollowList] = useState([]);
+  const tabType = location?.search?.split('tab=')?.[1];
+  const isCorrectTabType = tabType === 'followers' || tabType === 'following';
+  const isActiveTab = (type) => tabType === type;
   const goToMyPage = () => history.push('/mypage/information');
 
+  useEffect(() => {
+    if (!isCorrectTabType) {
+      history.replace('/follow?tab=followers', null);
+    }
+  }, [history, tabType, isCorrectTabType]);
+
+  const getUserList = useCallback(async () => {
+    if (!isCorrectTabType) return;
+    console.log('tabType', tabType);
+
+    if (tabType === 'followers') {
+      const { data } = await myPageApis.loadFollowers();
+      if (data.statusCode === 200) {
+        console.log('followerdata', data, data.followers);
+        setFollowList(data.followers);
+      }
+    }
+    const { data } = await myPageApis.loadFollowings();
+    if (data.statusCode === 200) {
+      setFollowList(data.followings);
+    }
+  }, [tabType, isCorrectTabType]);
+
+  useEffect(() => {
+    getUserList();
+  }, [getUserList]);
   // const getFollowerList = async () => {
   //   try {
   //     const { data } = await myPageApis.loadFollowers();
@@ -54,9 +79,8 @@ const FollowPage = () => {
       <NavButtonWrap>
         <NavButtonItem>
           <NavButton
-            onClick={() => {
-              setIsLoadFollower(true);
-            }}
+            isActive={() => isActiveTab('followers')}
+            to="/follow?tab=followers"
             activeClassName="active"
           >
             팔로워
@@ -64,7 +88,8 @@ const FollowPage = () => {
         </NavButtonItem>
         <NavButtonItem>
           <NavButton
-            onClick={() => setIsLoadFollowing(true)}
+            isActive={() => isActiveTab('following')}
+            to="/follow?tab=following"
             activeClassName="active"
           >
             팔로잉
@@ -110,7 +135,7 @@ const NavButtonItem = styled.li`
   position: relative;
 `;
 
-const NavButton = styled.button`
+const NavButton = styled(NavLink)`
   background-color: transparent;
   border: 0;
   border: 1px solid transparent;
