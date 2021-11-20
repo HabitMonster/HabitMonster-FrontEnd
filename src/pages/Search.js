@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
@@ -9,6 +9,7 @@ import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
 import { refreshInfoState } from '../recoil/states/follow';
 
 import { Toast } from '../components/common';
+import { userState } from '../recoil/states/user';
 
 const Search = () => {
   const history = useHistory();
@@ -19,6 +20,7 @@ const Search = () => {
   const [activeUnableFollowToast, setActiveUnableFollowToast] = useState(false);
 
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const userInfoState = useRecoilValue(userState);
 
   const handleButtonClick = async () => {
     if (!monsterId) {
@@ -45,10 +47,7 @@ const Search = () => {
   };
 
   const handleRelationship = async () => {
-    if (
-      searchResult.monsterCode ===
-      JSON.parse(window.localStorage.getItem('userInfo')).monsterCode
-    ) {
+    if (searchResult.monsterCode === userInfoState.monsterCode) {
       setActiveUnableFollowToast(true);
       return;
     }

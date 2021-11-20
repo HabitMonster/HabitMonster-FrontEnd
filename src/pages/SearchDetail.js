@@ -8,6 +8,7 @@ import { OK } from '../constants/statusCode';
 import { searchUserInfoState, refreshInfoState } from '../recoil/states/follow';
 
 import { Toast } from '../components/common';
+import { userState } from '../recoil/states/user';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
@@ -17,8 +18,8 @@ const SearchDetail = () => {
   const [activeUnableFollowCheckToast, setActiveUnableFollowCheckToast] =
     useState(false);
 
+  const userInfoState = useRecoilValue(userState);
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
-
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const { habits, monster, userInfo } = searchResult;
@@ -26,10 +27,7 @@ const SearchDetail = () => {
   const [followers, setFollowers] = useState(userInfo.followersCount);
 
   const handleRelationship = async () => {
-    if (
-      monsterCode ===
-      JSON.parse(window.localStorage.getItem('userInfo')).monsterCode
-    ) {
+    if (monsterCode === userInfoState.monsterCode) {
       setActiveUnableFollowToast(true);
       return;
     }
@@ -49,10 +47,7 @@ const SearchDetail = () => {
   };
 
   const checkFollowTest = async () => {
-    if (
-      monsterCode ===
-      JSON.parse(window.localStorage.getItem('userInfo')).monsterCode
-    ) {
+    if (monsterCode === userInfoState.monsterCode) {
       setActiveUnableFollowCheckToast(true);
       return;
     }

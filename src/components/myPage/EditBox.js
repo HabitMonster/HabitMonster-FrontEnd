@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
-import { myPageDataState } from '../../recoil/states/user';
+import { myPageDataState, userState } from '../../recoil/states/user';
 import { asyncDefaultMonster } from '../../recoil/states/monster';
 
 import { myPageApis } from '../../api';
@@ -16,7 +16,13 @@ import {
   MONSTER_NAME_UPDATE_SUCCESS,
 } from '../../constants/statusMessage';
 
-const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
+const EditBox = ({
+  type,
+  editValue,
+  handleChangeValue,
+  closeModal,
+  activeToast,
+}) => {
   //* PROP을 STATE의 DEFAULT 값으로 주는 것은 안티패턴입니다 선생님!!!!!!!!!!
   //* 이 부분 다시 체크 부탁드립니다!!!!!!!!!!!!!!!!
   // const [originValue] = useState(editValue);
@@ -28,6 +34,7 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
   const setEditValue = useSetRecoilState(myPageDataState); // myPageData를 새로운 값으로 바꿔준다!
   // const [monster, refetchMonster] = useRecoilStateLoadable(asyncDefaultMonster); // 비동기 요청으로 담는 몬스터 값을 리페칭해주기!
   const refetchMonster = useSetRecoilState(asyncDefaultMonster);
+  const [userInfoState, setUserInfoState] = useRecoilState(userState);
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;
@@ -41,24 +48,22 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
       const { data } = await editRequest({ [type]: editValue });
 
       if (data.statusCode === OK) {
-        console.log(data);
         if (data.responseMessage === USER_NAME_UPDATE_SUCCESS) {
-          const userInfoObj = {
-            ...JSON.parse(window.localStorage.getItem('userInfo')),
+          const newUserInfoState = {
+            ...userInfoState,
             userName: data.userInfo.username,
           };
-          window.localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
+          setUserInfoState(newUserInfoState);
         }
 
         if (data.responseMessage === MONSTER_NAME_UPDATE_SUCCESS) {
-          const userInfoObj = {
-            ...JSON.parse(window.localStorage.getItem('userInfo')),
+          const newUserInfoState = {
+            ...userInfoState,
             monsterName: data.monster.monsterName,
           };
-          window.localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
+          setUserInfoState(newUserInfoState);
         }
-
-        // if(data.response)
+        activeToast(true);
 
         if (type === 'monsterName') {
           //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
@@ -119,7 +124,6 @@ const Container = styled.div`
   max-width: 414px;
   width: 100%;
   height: 100%;
-  /* position: relative; */
   background: var(--bg-wrapper);
   margin: 0 auto;
   position: absolute;
@@ -150,6 +154,7 @@ EditBox.propTypes = {
   handleChangeValue: PropTypes.func.isRequired,
   pageTitleText: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
+  activeToast: PropTypes.func.isRequired,
 };
 
 export default EditBox;

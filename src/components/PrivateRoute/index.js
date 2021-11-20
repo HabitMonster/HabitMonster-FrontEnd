@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { authState } from '../../recoil/states/auth';
 import { userState } from '../../recoil/states/user';
+import { mainApis } from '../../api';
 
 //* Important Note
 // 1. Too many Rerender?
@@ -12,19 +13,26 @@ import { userState } from '../../recoil/states/user';
 
 const PrivateRoute = ({ component, ...rest }) => {
   const { isLogin, isFirstLogin } = useRecoilValue(authState);
-  const userInfo = useRecoilValue(userState);
+  const setUserInfoState = useSetRecoilState(userState);
   const location = useLocation();
   const renderingCount = useRef(1);
 
   useEffect(() => {
-    const userInfoObj = {
-      email: userInfo.email,
-      monsterCode: userInfo.monsterCode,
-      monsterName: userInfo.monsterName,
-      socialType: userInfo.socialType,
-      userName: userInfo.username,
+    const saveUserInfoState = async () => {
+      try {
+        const { data } = await mainApis.getUserInfo();
+        setUserInfoState({
+          email: data.userInfo.email,
+          monsterCode: data.userInfo.monsterCode,
+          monsterName: data.userInfo.monsterName,
+          socialType: data.userInfo.socialType,
+          userName: data.userInfo.username,
+        });
+      } catch (error) {
+        throw error;
+      }
     };
-    window.localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
+    saveUserInfoState();
   }, []);
 
   useEffect(() => {

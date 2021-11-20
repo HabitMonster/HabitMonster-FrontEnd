@@ -58,7 +58,6 @@ const UserInformation = () => {
       title: '제가 뭐라고 부르면 좋을까요?',
       value: myPageData.username,
     });
-    setIsEditToastOpen(true);
     setIsEditModalOpen(false);
   }, [myPageData.username]);
 
@@ -199,6 +198,7 @@ const UserInformation = () => {
             handleChangeValue={handleChangeValue}
             pageTitleText={editData.title}
             closeModal={closeModal}
+            activeToast={setIsEditToastOpen}
           />
         </Modal>
       )}
