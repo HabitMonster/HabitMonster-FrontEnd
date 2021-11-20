@@ -1,17 +1,26 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { MonsterThumbnail } from '../monster';
 import { BottomFixedButton } from '../common';
 import { monsterState } from '../../recoil/states/monster';
+import { authState } from '../../recoil/states/auth';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { fontSize } from '../../styles';
 
 const MonsterGuide = () => {
   const history = useHistory();
   const monster = useRecoilValue(monsterState);
+  const [auth, setAuth] = useRecoilState(authState);
+
+  const handleButtonClick = () => {
+    setAuth({ ...auth, isFirstLogin: false });
+    setTimeout(() => {
+      history.replace('/new');
+    }, 0);
+  };
 
   return (
     <AvatarContainer>
@@ -48,7 +57,7 @@ const MonsterGuide = () => {
       </TitleWrap>
       <BottomFixedButton
         text="습관 작성하러 가기"
-        onClick={() => history.replace('/new')}
+        onClick={handleButtonClick}
         condition={null}
       />
     </AvatarContainer>
@@ -109,8 +118,8 @@ const SmallText = styled.p`
   font-weight: var(--weight-semi-regular);
   line-height: 32px;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
+  justify-content: center;
   text-align: center;
   vertical-align: bottom;
   display: flex;

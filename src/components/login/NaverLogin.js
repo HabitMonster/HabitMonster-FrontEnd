@@ -56,7 +56,7 @@ const NaverLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          history.replace('/monster');
+          history.replace('/select');
           return;
         }
 

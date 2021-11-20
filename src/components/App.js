@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, Fragment } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import { authState } from '../recoil/states/auth';
 
 import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
@@ -13,6 +11,7 @@ import MyPage from '../pages/MyPage';
 import Gnb from '../components/gnb/Gnb';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
+
 import OnBoard from './onBoard/OnBoard';
 import Notice from './myPage/Notice';
 import Follow from '../pages/Follow';
@@ -22,22 +21,10 @@ import Select from '../pages/Select';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
 
 function App() {
-  const { isFirstLogin, isLogin } = useRecoilValue(authState);
-  const location = useLocation();
   const r = useRef(1);
   console.log(
     '%c ----------IN THE APP CONTEXT----------',
     'background: #222; color: #bada55',
-  );
-  console.log(
-    `%c The current path is ${location.pathname} in the App. this means The App should render ${location.pathname}`,
-    'color: hotpink',
-  );
-
-  console.log(`%c user Auth State [isLogin] : ${isLogin}`, 'color: hotpink');
-  console.log(
-    `%c user Auth State [isFirstLogin] : ${isFirstLogin}`,
-    'color: hotpink',
   );
 
   console.log(
@@ -66,7 +53,6 @@ function App() {
             <PrivateRoute path="/new" component={<New />} />
             <PrivateRoute path="/achievement" component={<Achievement />} />
             <PrivateRoute path="/mypage" component={<MyPage />} />
-
             <PrivateRoute exact path="/search" component={<Search />} />
             <PrivateRoute
               exact

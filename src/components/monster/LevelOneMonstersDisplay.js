@@ -27,9 +27,10 @@ const LevelOneMonstersDisplay = ({ go }) => {
 
   const handleSelectMonster = () => {
     setSelectedMonster(selectedAvatar);
-    go();
+    setTimeout(() => {
+      go();
+    }, 0);
   };
-  console.log(monsterList);
 
   return (
     <AvatarContainer>

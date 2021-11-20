@@ -19,6 +19,7 @@ import { USER_DELETED } from '../../constants/statusMessage';
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
   const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  console.log(myPageData);
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);

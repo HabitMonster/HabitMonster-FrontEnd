@@ -1,16 +1,9 @@
-import { authState } from './auth';
 import { atom, selector, selectorFamily } from 'recoil';
 import { userApis, mainApis, myPageApis } from '../../api';
 
 const asyncDefaultUserState = selector({
   key: 'asyncDefaultUser',
-  get: async ({ get }) => {
-    const { isLogin } = get(authState);
-
-    if (!isLogin) {
-      return {};
-    }
-
+  get: async () => {
     try {
       const { data } = await mainApis.getUserInfo();
       return data.userInfo;
@@ -27,13 +20,7 @@ export const userState = atom({
 
 const myPageDataSelector = selector({
   key: 'myPageDataSelector',
-  get: async ({ get }) => {
-    const { isLogin } = get(authState);
-
-    if (!isLogin) {
-      return {};
-    }
-
+  get: async () => {
     try {
       const { data } = await myPageApis.loadUserData();
       return data.userInfo;
