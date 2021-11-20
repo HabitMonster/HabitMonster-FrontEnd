@@ -20,11 +20,12 @@ import { fontSize } from '../../styles';
 const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
   const monsterList = useRecoilValue(babyMonsterState);
+  const enabledMonsterList = monsterList.filter(({ enable }) => enable);
+  const [selectedAvatar, setSelectedAvatar] = useState(
+    () => enabledMonsterList[0],
+  );
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);
-  const [selectedAvatar, setSelectedAvatar] = useState(() => monsterList[0]);
   const excludeMonsterId = location?.state?.levelOneId ?? -1;
-
-  console.log(selectedAvatar);
   const handleSelectMonster = () => {
     setSelectedMonster(selectedAvatar);
     setTimeout(() => {
