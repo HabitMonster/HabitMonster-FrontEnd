@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { None } from '../../assets/images/placeholder';
 
 const MonsterThumbnail = ({ imageUrl, imageAlt, imageSize }) => {
   return (
     <>
-      <MonsterImage src={imageUrl} alt={imageAlt} size={imageSize} />
+      {imageUrl ? (
+        <MonsterImage src={imageUrl} alt={imageAlt} size={imageSize} />
+      ) : (
+        <PlaceholderImage width="100%" height="100%" />
+      )}
     </>
   );
 };
@@ -30,8 +35,13 @@ const MonsterImage = styled.img`
   height: ${({ size }) => getThumbnailSize(size).height};
 `;
 
+const PlaceholderImage = styled(None)`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+`;
+
 MonsterThumbnail.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
-  imageAlt: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
+  imageAlt: PropTypes.string,
   imageSize: PropTypes.string,
 };

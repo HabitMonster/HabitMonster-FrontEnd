@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { FollowListItem } from '../components/myPage';
-import { BackButtonHeader } from '../components/common';
 import { myPageApis } from '../api';
+import { OK } from '../constants/statusCode';
+
+import { MonsterListItem } from '../components/monster';
+import { BackButtonHeader } from '../components/common';
 
 const FollowPage = () => {
   const history = useHistory();
@@ -25,50 +27,25 @@ const FollowPage = () => {
     if (!isCorrectTabType) return;
     console.log('tabType', tabType);
 
-    if (tabType === 'followers') {
-      const { data } = await myPageApis.loadFollowers();
-      if (data.statusCode === 200) {
-        console.log('followerdata', data, data.followers);
-        setFollowList(data.followers);
-      }
+    let getUserResponse = myPageApis.loadFollowers;
+
+    if (tabType === 'following') {
+      getUserResponse = myPageApis.loadFollowings;
     }
-    const { data } = await myPageApis.loadFollowings();
-    if (data.statusCode === 200) {
-      setFollowList(data.followings);
+
+    const { data } = await getUserResponse();
+
+    if (data.statusCode === OK) {
+      const followList =
+        tabType === 'followers' ? data.followers : data.followings;
+      console.log('followerdata', followList);
+      setFollowList(followList ?? []);
     }
   }, [tabType, isCorrectTabType]);
 
   useEffect(() => {
     getUserList();
   }, [getUserList]);
-  // const getFollowerList = async () => {
-  //   try {
-  //     const { data } = await myPageApis.loadFollowers();
-  //     if (data.statusCode === 200) {
-  //       console.log('followerdata', data, data.followers);
-  //       setFollowerList(data.followers);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const getFollowingList = async () => {
-  //   try {
-  //     const { data } = await myPageApis.loadFollowings();
-  //     if (data.statusCode === 200) {
-  //       console.log('followingdata', data, data.followings);
-  //       setFollowingList(data.followings);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getFollowerList();
-  //   getFollowingList();
-  // }, []);
 
   //@jaekyung Todo. followlist 컴포넌트 만들어서 재활용하게 할 예정임
   return (
@@ -97,9 +74,10 @@ const FollowPage = () => {
         </NavButtonItem>
       </NavButtonWrap>
       <FollowListWrap>
-        {MOCK_DATA.map((user) => {
-          return <FollowListItem key={user.monsterCode} user={user} />;
-        })}
+        {followList?.length > 0 &&
+          followList.map((user) => {
+            return <MonsterListItem key={user.monsterCode} user={user} />;
+          })}
       </FollowListWrap>
     </FollowContainer>
   );
@@ -161,31 +139,5 @@ const NavButton = styled(NavLink)`
 const FollowListWrap = styled.ul`
   color: var(--color-primary);
   margin: 0;
-  padding: 0;
+  padding: 16px 0 0;
 `;
-
-// MOCK_DATA
-
-const MOCK_DATA = [
-  {
-    email: 'abc@gmail.com',
-    isFollowed: true,
-    monsterCode: '12345',
-    monsterImg: '',
-    monsterName: '뽁아리',
-  },
-  {
-    email: 'abc@gmail.com',
-    isFollowed: false,
-    monsterCode: '12395',
-    monsterImg: '',
-    monsterName: '뽁아리',
-  },
-  {
-    email: 'abc@gmail.com',
-    isFollowed: true,
-    monsterCode: '10345',
-    monsterImg: '',
-    monsterName: '뽁아리',
-  },
-];

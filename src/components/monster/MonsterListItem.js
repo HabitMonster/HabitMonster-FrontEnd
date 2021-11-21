@@ -3,32 +3,37 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Profile } from '../../assets/images/placeholder';
+import { MonsterThumbnailWrapper } from './';
 
-const FollowListItem = ({ user }) => {
+const MonsterListItem = ({ user }) => {
   const { monsterName, monsterImg, monsterCode, isFollowed } = user;
+  const monsterImageAlt =
+    monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
 
   return (
-    <FollowListItemWrap>
-      {/* <Profile /> */}
+    <MonsterListItemWrap>
       <ProfileWrap>
         <ALink to="">
-          <Profile src={monsterImg} />
+          <MonsterThumbnailWrapper
+            imageUrl={monsterImg}
+            imageAlt={monsterImageAlt}
+          />
         </ALink>
         <TextWrap>
           <ALink to="">{monsterName}</ALink>
           <p>{monsterCode}</p>
+          <p>전체 습관 달성 1위</p>
         </TextWrap>
       </ProfileWrap>
       <FollowBtn isFollowed={isFollowed}>팔로우</FollowBtn>
-    </FollowListItemWrap>
+    </MonsterListItemWrap>
   );
 };
 
-export default FollowListItem;
+export default MonsterListItem;
 
-const FollowListItemWrap = styled.li`
-  height: 64px;
+const MonsterListItemWrap = styled.li`
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,7 +84,7 @@ const FollowBtn = styled.button`
   text-align: center;
 `;
 
-FollowListItem.propTypes = {
+MonsterListItem.propTypes = {
   user: PropTypes.object.isRequired,
   monsterName: PropTypes.string,
   monsterImg: PropTypes.string,

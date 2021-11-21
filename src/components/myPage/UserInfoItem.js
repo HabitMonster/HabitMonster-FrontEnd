@@ -89,7 +89,7 @@ const CopyWrap = styled.div`
 
 const PrivateText = styled.p`
   ${fontSize('14px')};
-  line-height: 17px;
+  line-height: 16px;
   font-weight: var(--weight-regular);
   ${whiteOpacity('0.8')};
   height: 17px;
