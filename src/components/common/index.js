@@ -1,4 +1,5 @@
 import BackButtonHeader from './BackButtonHeader';
+import NonePlaceHolder from './NonePlaceHolder';
 import Modal from './Modal';
 import Portal from './Portal';
 import Header from './Header';
@@ -10,6 +11,7 @@ import Toast from './Toast';
 
 export {
   BackButtonHeader,
+  NonePlaceHolder,
   Modal,
   Portal,
   Header,

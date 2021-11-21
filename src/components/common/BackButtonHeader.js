@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 
 import { Back } from '../../assets/icons/common';
 
-const BackButtonHeader = ({ onButtonClick, pageTitleText }) => {
+const BackButtonHeader = ({ onButtonClick, pageTitleText, children }) => {
   return (
     <Wrapper>
       <Back fill="var(--color-primary)" onClick={() => onButtonClick()} />
       {pageTitleText && <PageTitle>{pageTitleText}</PageTitle>}
+      {children && children}
     </Wrapper>
   );
 };
@@ -16,6 +17,10 @@ const BackButtonHeader = ({ onButtonClick, pageTitleText }) => {
 BackButtonHeader.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   pageTitleText: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 BackButtonHeader.defaultProps = {

@@ -38,7 +38,6 @@ const TodayHabit = ({ id }) => {
 
     try {
       const { data } = await habitApis.checkHabit(id);
-      console.log(data);
       if (data.statusCode === OK) {
         setHabitDetail(data.habit);
 

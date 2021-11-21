@@ -33,7 +33,7 @@ const PrivateRoute = ({ component, ...rest }) => {
       }
     };
     saveUserInfoState();
-  }, []);
+  }, [setUserInfoState]);
 
   useEffect(() => {
     console.log(
