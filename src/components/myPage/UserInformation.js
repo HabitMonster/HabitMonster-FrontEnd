@@ -12,15 +12,15 @@ import { authState } from '../../recoil/states/auth';
 import { myPageDataState, userState } from '../../recoil/states/user';
 import { habitIdListState } from '../../recoil/states/habit';
 
-import UserInfoItem from './UserInfoItem';
-import { Modal } from '../../components/common';
-import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
-import { myPageApis } from '../../api';
-import { fontSize } from '../../styles/Mixin';
+import { Modal, Toast } from '../../components/common';
+import { EditBox, UserInfoItem } from '../../components/myPage';
+import { MonsterThumbnailWrapper } from '../../components/monster';
 
+import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
-import { Toast } from '../common';
+import { Pencil } from '../../assets/icons/common';
+import { fontSize } from '../../styles/Mixin';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
@@ -28,7 +28,6 @@ const UserInformation = () => {
   const resetUserInfoState = useResetRecoilState(userState);
 
   const history = useHistory();
-
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
@@ -52,6 +51,7 @@ const UserInformation = () => {
           value: myPageData.monsterName,
         });
       }
+
       setIsEditModalOpen(true);
     },
     [myPageData.monsterName],
@@ -154,6 +154,11 @@ const UserInformation = () => {
           handleClick: () => history.push('/notice'),
         },
         {
+          title: '신고하기',
+          contents: '',
+          handleClick: () => window.open('구글폼주소', '_blank'),
+        },
+        {
           title: '로그아웃',
           contents: '',
           handleClick: () => setIsLogoutModalOpen(true),
@@ -174,11 +179,11 @@ const UserInformation = () => {
         <PageTitle>마이페이지</PageTitle>
       </TitleArea>
       <UserInfoWrap>
-        {/* <Mypage /> */}
+        <MonsterThumbnailWrapper thumbnailSize="small" monsterLevel={3} />
         <div>
           <BoldText>{myPageData.username}</BoldText>
-          <EditNicknameBtn onclick={() => openModal('username')}>
-            {/* <Pencil /> */}
+          <EditNicknameBtn onClick={() => openModal('username')}>
+            <Pencil />
           </EditNicknameBtn>
         </div>
         <Summary>
