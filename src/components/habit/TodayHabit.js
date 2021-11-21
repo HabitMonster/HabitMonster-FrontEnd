@@ -88,7 +88,7 @@ const TodayHabit = ({ id }) => {
         disabled={habitDetail.isAccomplished}
         onClick={clickHandler}
       >
-        {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
+        {habitDetail.isAccomplished ? '완료' : '완료하기'}
       </CheckBtn>
       <Toast
         isActive={activeToast}

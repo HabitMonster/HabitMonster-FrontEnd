@@ -23,7 +23,7 @@ BackButtonHeader.defaultProps = {
 };
 
 const Wrapper = styled.div`
-  max-width: 414;
+  max-width: 414px;
   height: 44px;
   display: flex;
   align-items: center;
