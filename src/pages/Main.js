@@ -29,7 +29,9 @@ const Main = () => {
     const { current } = habitSection;
 
     const handleScroll = miniThrottle(() => {
+      console.log(current);
       if (current.scrollTop >= 24) {
+        console.log('now');
         setShrinked(true);
         current.removeEventListener('scroll', handleScroll);
       }
@@ -43,9 +45,8 @@ const Main = () => {
   useEffect(() => {
     const isMonsterModalOpen =
       monster.monsterLevel === MAX_LEVEL && monster.monsterExpPoint === MAX_EXP;
-    setIsMonsterModalOpen(isMonsterModalOpen);
 
-    // const isLevelPopUp;
+    setIsMonsterModalOpen(isMonsterModalOpen);
   }, [monster.monsterExpPoint, monster.monsterLevel]);
 
   return (
@@ -101,6 +102,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
+  overflow-y: hidden;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
   overflow-y: hidden;

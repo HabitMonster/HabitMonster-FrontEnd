@@ -11,7 +11,6 @@ import { appendPostPosition } from '../../utils/appendPostPosition';
 
 const MainMonster = ({ heightShrinked }) => {
   const monster = useRecoilValue(monsterState);
-  console.log(monster);
 
   return (
     <MonsterContainer>

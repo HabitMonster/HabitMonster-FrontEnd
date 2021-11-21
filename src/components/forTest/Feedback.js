@@ -8,7 +8,13 @@ const Feedback = () => {
     <FeedbackLink>
       <div>
         <FeedbackIcon />
-        <span>피드백</span>
+        <a
+          href="https://forms.gle/H9fYGuAomKwzo5ZD6"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>피드백</span>
+        </a>
       </div>
     </FeedbackLink>
   );
@@ -30,6 +36,9 @@ const FeedbackLink = styled.a`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  & a {
+    text-decoration: none;
   }
   & span {
     font-size: var(--font-xs);

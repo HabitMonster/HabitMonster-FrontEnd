@@ -14,7 +14,6 @@ export const asyncDefaultMonster = selector({
 
     try {
       const { data } = await mainApis.getMonsterInfo();
-      console.log('data.monster', data.monster);
       return data.monster;
     } catch (error) {
       return error.response;

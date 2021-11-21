@@ -29,8 +29,8 @@ const HabitContainer = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  /* padding: 24px;
-  overflow-y: scroll; */
+  /* padding: 24px;*/
+  overflow-y: scroll;
   border-radius: var(--border-radius-semi);
 
   &::-webkit-scrollbar {
