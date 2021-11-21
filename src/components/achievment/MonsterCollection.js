@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { MonsterThumbnail } from '../monster';
 import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
 import { None } from '../../assets/images/placeholder';
+
+import { MonsterThumbnail } from '../common';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
@@ -18,7 +19,6 @@ const MonsterCollection = () => {
 
       if (data.statusCode === OK) {
         setCollectionList(data.monsters);
-        console.log('collectionList', collectionList);
       }
     }
 
@@ -52,14 +52,14 @@ const MonsterCollection = () => {
                     {monster.maxLevel >=
                       monster.monsterDatabases[i]?.monsterLevel ?? i + 1 ? (
                       <MonsterThumbnail
-                        imageUrl={monster.monsterDatabases[i].monsterImage}
-                        imageAlt={`The monster of ${monster.monsterName}`}
-                        imageSize="small"
+                        id={monster.monsterDatabases[i].monsterId}
+                        width={'40px'}
+                        height={'45px'}
                       />
                     ) : (
                       <QuestionIcon />
                     )}
-                    {/* <span> LV. {i + 1}</span> */}
+                    <span> LV. {i + 1}</span>
                   </MonsterImageWrapper>
                 ))}
             </ImageScroller>
@@ -107,6 +107,10 @@ const ImageScroller = styled.div`
   flex-wrap: nowrap;
   overflow-x: auto;
   width: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MonsterImageWrapper = styled.div`
@@ -123,8 +127,8 @@ const MonsterImageWrapper = styled.div`
   background: var(--bg-primary);
   border-radius: var(--border-radius-semi);
 
-  & img {
-    margin-bottom: 14px;
+  & svg {
+    margin-bottom: 25px;
   }
 
   & span {

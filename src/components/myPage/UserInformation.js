@@ -107,6 +107,7 @@ const UserInformation = () => {
     setAuth({ isFirstLogin: null, isLogin: false });
     setIsLogoutToastOpen(true);
     resetUserInfoState();
+    history.push('/login');
   };
 
   const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
