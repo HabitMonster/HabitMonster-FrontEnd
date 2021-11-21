@@ -42,9 +42,7 @@ const HabitContainer = styled.div`
 `;
 
 const HabitList = styled.div`
-  &:last-child {
-    padding-bottom: 108px;
-  }
+  padding-bottom: 108px;
 `;
 
 export default TodayHabitList;
