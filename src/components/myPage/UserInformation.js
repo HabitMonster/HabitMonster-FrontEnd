@@ -19,9 +19,8 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
-import { Toast } from '../common';
-import { Mypage } from '../../assets/images/placeholder';
 import { Pencil } from '../../assets/icons/common';
+import { fontSize } from '../../styles/Mixin';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
