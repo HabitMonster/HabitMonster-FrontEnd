@@ -23,9 +23,6 @@ const EditBox = ({
   closeModal,
   activeToast,
 }) => {
-  //* PROP을 STATE의 DEFAULT 값으로 주는 것은 안티패턴입니다 선생님!!!!!!!!!!
-  //* 이 부분 다시 체크 부탁드립니다!!!!!!!!!!!!!!!!
-
   const isEnabled =
     type === 'monsterName'
       ? editValue && validateMonsterName(editValue)
@@ -77,7 +74,18 @@ const EditBox = ({
         activeToast(true);
         // myPageData가 먼저 갱신되면서 closeModal callback 의존성에 영향을 주기 때문에 모달을 닫고 EditValue를 하도록 한다
         setTimeout(() =>
-          setEditValue((myPageData) => ({ ...myPageData, [type]: editValue })),
+          setEditValue((myPageData) => {
+            const changedObject =
+              type === 'username'
+                ? { ...myPageData.userInfo, [type]: editValue }
+                : { ...myPageData.monster, [type]: editValue };
+            const changedKey = type === 'username' ? 'userInfo' : 'monster';
+
+            return {
+              ...myPageData,
+              [changedKey]: { ...changedObject },
+            };
+          }),
         );
       }
     } catch (err) {

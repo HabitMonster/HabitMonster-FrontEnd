@@ -11,7 +11,8 @@ const myPageDataSelector = selector({
   get: async () => {
     try {
       const { data } = await myPageApis.loadUserData();
-      return data.userInfo;
+      console.log(data);
+      return { userInfo: data.userInfo, monster: data.monster };
     } catch (error) {
       throw error;
     }

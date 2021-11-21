@@ -38,6 +38,8 @@ const AcheiveContainer = styled.div`
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
   width: 100%;
+  height: calc(100% - 80px);
+  padding-bottom: 144px;
 `;
 
 // const NavButtonWrap = styled.ul`

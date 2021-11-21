@@ -23,7 +23,6 @@ import Select from '../pages/Select';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
 
 function App() {
-  const layoutScrollLock = useRecoilValue(layoutScrollState);
   const r = useRef(1);
   console.log(
     '%c ----------IN THE APP CONTEXT----------',
@@ -60,7 +59,7 @@ function App() {
   });
 
   return (
-    <Layout lock={layoutScrollLock}>
+    <Layout>
       <Switch>
         {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
@@ -108,7 +107,6 @@ const Layout = styled.div`
   /* height: calc(100vh - calc(100vh - 100%)); */
   margin: 0 auto;
   position: relative;
-  overflow-y: ${({ lock }) => (lock ? 'hidden' : 'initial')};
 `;
 
 export default App;

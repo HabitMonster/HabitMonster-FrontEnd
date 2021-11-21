@@ -32,7 +32,7 @@ const getThumbnailSize = (size) => {
         border: '1px solid rgba(248, 248, 248, 0.2)',
         width: '80px',
         height: '80px',
-        padding: '14px 17px',
+        // padding: '14px 17px',
       };
     default:
       return {

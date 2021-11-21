@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { monsterState } from '../recoil/states/monster';
-import { layoutScrollState } from '../recoil/states/common';
 
 import { MainMonster, LevelUp } from '../components/monster';
 import { Gnb } from '../components/gnb';
@@ -19,8 +18,6 @@ import '../assets/fonts/font.css';
 //TODOS
 //1.Refactor with getBoundingClientRect()
 const Main = () => {
-  const setScrollLock = useSetRecoilState(layoutScrollState);
-  const resetScrollLock = useResetRecoilState(layoutScrollState);
   const history = useHistory();
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
@@ -50,12 +47,6 @@ const Main = () => {
 
     // const isLevelPopUp;
   }, [monster.monsterExpPoint, monster.monsterLevel]);
-
-  useEffect(() => {
-    setScrollLock(true);
-
-    return () => resetScrollLock();
-  }, [setScrollLock, resetScrollLock]);
 
   return (
     <>
@@ -112,6 +103,7 @@ const Wrapper = styled.div`
   height: 100vh;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
+  overflow-y: hidden;
 `;
 
 export default Main;

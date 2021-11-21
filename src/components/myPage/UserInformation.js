@@ -21,10 +21,11 @@ import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
 import { fontSize } from '../../styles/Mixin';
+import { monsterState } from '../../recoil/states/monster';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
-  const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  const { userInfo, monster } = useRecoilValue(myPageDataState); // 비동기요청
   const resetUserInfoState = useResetRecoilState(userState);
 
   const history = useHistory();
@@ -39,7 +40,7 @@ const UserInformation = () => {
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
-    value: myPageData.username,
+    value: userInfo.username,
   }); // 수정할 값 (닉네임, 몬스터이름, 모달 제목)
 
   const openModal = useCallback(
@@ -48,13 +49,13 @@ const UserInformation = () => {
         setEditData({
           type: 'monsterName',
           title: '변경할 몬스터 이름을 적어주세요!',
-          value: myPageData.monsterName,
+          value: monster.monsterName,
         });
       }
 
       setIsEditModalOpen(true);
     },
-    [myPageData.monsterName],
+    [monster.monsterName],
   );
 
   const closeModal = useCallback(() => {
@@ -62,10 +63,10 @@ const UserInformation = () => {
     setEditData({
       type: 'username',
       title: '제가 뭐라고 부르면 좋을까요?',
-      value: myPageData.username,
+      value: userInfo.username,
     });
     setIsEditModalOpen(false);
-  }, [myPageData.username]);
+  }, [userInfo.username]);
 
   const handleChangeValue = useCallback((value) => {
     setEditData((editData) => ({
@@ -131,18 +132,18 @@ const UserInformation = () => {
     }
   });
 
-  const userInfoList = Object.keys(myPageData).length
+  const userInfoList = Object.keys(userInfo).length
     ? [
         {
           title: '몬스터 이름',
-          contents: myPageData.monsterName,
+          contents: monster.monsterName,
           handleClick: () => openModal('monsterName'),
         },
         {
           title: '몬스터 코드',
-          contents: myPageData.monsterCode,
+          contents: userInfo.monsterCode,
           isCopy: true,
-          handleClipBoard: () => copyCode(myPageData.monsterCode),
+          handleClipBoard: () => copyCode(userInfo.monsterCode),
         },
         {
           title: '현재 버전',
@@ -153,11 +154,11 @@ const UserInformation = () => {
           contents: '',
           handleClick: () => history.push('/notice'),
         },
-        {
-          title: '신고하기',
-          contents: '',
-          handleClick: () => window.open('구글폼주소', '_blank'),
-        },
+        // {
+        //   title: '신고하기',
+        //   contents: '',
+        //   handleClick: () => window.open('구글폼주소', '_blank'),
+        // },
         {
           title: '로그아웃',
           contents: '',
@@ -179,16 +180,20 @@ const UserInformation = () => {
         <PageTitle>마이페이지</PageTitle>
       </TitleArea>
       <UserInfoWrap>
-        <MonsterThumbnailWrapper thumbnailSize="small" monsterLevel={3} />
+        <MonsterThumbnailWrapper
+          thumbnailSize="small"
+          monsterLevel={monster.monsterLevel}
+          imageUrl={monster.monsterImage}
+        />
         <div>
-          <BoldText>{myPageData.username}</BoldText>
+          <BoldText>{userInfo.username}</BoldText>
           <EditNicknameBtn onClick={() => openModal('username')}>
             <Pencil />
           </EditNicknameBtn>
         </div>
         <Summary>
           <li>
-            <BoldText>{myPageData?.totalHabitCount ?? 1000}</BoldText>
+            <BoldText>{userInfo?.totalHabitCount ?? 1000}</BoldText>
             <span>총 습관</span>
           </li>
           <li>
@@ -198,7 +203,7 @@ const UserInformation = () => {
                 search: '?tab=followers',
               }}
             >
-              <BoldText>{myPageData?.followersCount ?? 1000}</BoldText>
+              <BoldText>{userInfo?.followersCount ?? 1000}</BoldText>
               <span>팔로워</span>
             </FollowLink>
           </li>
@@ -209,7 +214,7 @@ const UserInformation = () => {
                 search: '?tab=following',
               }}
             >
-              <BoldText>{myPageData?.followingsCount ?? 1000}</BoldText>
+              <BoldText>{userInfo?.followingsCount ?? 1000}</BoldText>
               <span>팔로잉</span>
             </FollowLink>
           </li>
@@ -217,6 +222,7 @@ const UserInformation = () => {
       </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
+          console.log('userInfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
