@@ -1,6 +1,9 @@
-import React, { useRef, useEffect, Fragment } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+
+import { layoutScrollState } from '../recoil/states/common';
 
 import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
@@ -8,7 +11,6 @@ import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
-import Gnb from '../components/gnb/Gnb';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 
@@ -21,6 +23,7 @@ import Select from '../pages/Select';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
 
 function App() {
+  const layoutScrollLock = useRecoilValue(layoutScrollState);
   const r = useRef(1);
   console.log(
     '%c ----------IN THE APP CONTEXT----------',
@@ -57,7 +60,7 @@ function App() {
   });
 
   return (
-    <Layout>
+    <Layout lock={layoutScrollLock}>
       <Switch>
         {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
@@ -101,10 +104,11 @@ const Layout = styled.div`
   width: 100%;
   min-width: 280px;
   min-height: 100vh;
-  height: -webkit-fill-available;
+  height: fill-available;
   /* height: calc(100vh - calc(100vh - 100%)); */
   margin: 0 auto;
   position: relative;
+  overflow-y: ${({ lock }) => (lock ? 'hidden' : 'initial')};
 `;
 
 export default App;
