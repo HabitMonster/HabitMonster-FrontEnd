@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { userApis } from '../api/user';
 import { OK, BAD_REQUEST } from '../constants/statusCode';
@@ -36,12 +36,11 @@ const Search = () => {
     }, 600),
     [setDebouncedId],
   );
-  console.log(searchResult);
 
   const handleRelationship = async () => {
     try {
       const { data } = await userApis.follow(
-        searchResult.monsterCode,
+        searchResult.setMonsterIdrCode,
         searchResult.isFollowed,
       );
 
@@ -117,6 +116,14 @@ const Search = () => {
             placeholder="몬스터 ID를 입력하세요"
           />
         </BackButtonHeader>
+        {monsterId && (
+          <CancelButton onClick={() => setMonsterId('')}>
+            <div>
+              <div></div>
+              <div></div>
+            </div>
+          </CancelButton>
+        )}
       </BackButtonWrapper>
       {isFail && (
         <NonePlaceHolder>
@@ -161,10 +168,51 @@ const Search = () => {
 const Wrapper = styled.section`
   width: 100%;
   height: 100%;
+  position: relative;
 `;
 const BackButtonWrapper = styled.div`
   margin: 24px 0;
   padding: 0 24px;
+  position: relative;
+`;
+
+const CancelButton = styled.div`
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  padding-right: inherit;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  & > div {
+    width: 18px;
+    height: 18px;
+    background: #999999;
+    border-radius: 99em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > div {
+      width: 7.66px;
+      height: 2.12px;
+      background: var(--bg-primary);
+      border-radius: 99em;
+      position: absolute;
+
+      &:first-child {
+        transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(135deg);
+      }
+    }
+  }
 `;
 
 const SearchInput = styled.input`
