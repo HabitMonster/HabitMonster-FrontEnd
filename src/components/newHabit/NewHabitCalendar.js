@@ -28,8 +28,6 @@ const NewHabitCalendar = ({ onClick }) => {
     convertYMD(today).split('-').slice(0, 2).join('-') ===
     convertYMD(startDate).split('-').slice(0, 2).join('-');
 
-  console.log(dates);
-
   const movePreviousMonth = () => {
     const previousMonth = getPreviousMonth(startDateOfCurrentMonth).split(
       '-',

@@ -103,8 +103,6 @@ const Search = () => {
     queryRecommendation();
   }, []);
 
-  console.log(debouncedMonsterCode);
-
   return (
     <Wrapper>
       <BackButtonWrapper>

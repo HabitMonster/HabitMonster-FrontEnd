@@ -15,7 +15,6 @@ const BottomDialog = ({
   type,
   level,
 }) => {
-  console.log(level);
   const LevelIcon = LEVELS[level];
   switch (type) {
     case 'levelUp':

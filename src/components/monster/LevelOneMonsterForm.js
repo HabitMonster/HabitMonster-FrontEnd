@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-  useRecoilValue,
-  useRecoilState,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
 // import { MonsterThumbnail } from '.';
 import { BottomFixedButton, MonsterThumbnail } from '../common';
@@ -16,7 +11,7 @@ import { monsterApis } from '../../api';
 
 import {
   selectedMonsterState,
-  asyncDefaultMonster,
+  monsterState,
 } from '../../recoil/states/monster';
 
 import { authState } from '../../recoil/states/auth';
@@ -26,24 +21,13 @@ import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
-  console.log('LevelOneMonsterForm Render');
   const history = useHistory();
-
-  // IF THE USER IS FIRST VISITOR,
-  // isFirstLogin MUST BE TRUE,
-  // IF that value is falsy(including null, this is because user doesn't have token at this moment)
-  // The Private Route should GUARD THIS SITUATION.
-
   const { isFirstLogin } = useRecoilValue(authState);
   const [selectedMonster, setSelectedMonster] =
     useRecoilState(selectedMonsterState);
 
-  // IF THE USER IS NOT FIRST VISITOR,
-  // THIS HOOK SHOULD BE TRIGGERED AT THIS COMPONENT.
-  // This mean if isFirstLogin === false, this hook should be called and just history replace ('/') or whatever.
+  const setMonster = useSetRecoilState(monsterState);
   const [monsterName, setMonsterName] = useState('');
-  const refreshMonster = useSetRecoilState(asyncDefaultMonster);
-  const resetSelectedMonster = useResetRecoilState(selectedMonsterState);
 
   const setMonsterInfo = async () => {
     const monsterInfo = {
@@ -54,12 +38,8 @@ const LevelOneMonsterForm = ({ showGuide }) => {
     try {
       const { data } = await monsterApis.setMonster(monsterInfo);
       if (data.statusCode === OK) {
-        // IMPORTANT NOTE
-        // I THINK THE UPDATING MONSTER BY REFETCHING IS NOT QUITE GOOD. BECAUSE I THINK THAT API CALL IS REDUNDANT.
-        // (EXPERIMENT) To prevent flickering, use await keyword
-        await refreshMonster();
+        setMonster(data.monster);
 
-        //* I REALLY HATE NESTED IF STATEMENT, But for speed, i will grab this strategy.
         if (isFirstLogin) {
           setSelectedMonster({ ...selectedMonster, monsterName });
           showGuide();
@@ -67,7 +47,7 @@ const LevelOneMonsterForm = ({ showGuide }) => {
         }
         history.replace('/');
         setTimeout(() => {
-          resetSelectedMonster();
+          setSelectedMonster(null);
         }, 0);
       }
     } catch (error) {

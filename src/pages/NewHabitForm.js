@@ -48,7 +48,7 @@ const NewHabitForm = () => {
       durationStart: duration.start,
       durationEnd: duration.end,
       count: frequency,
-      categoryId: broughtHabitState.categoryId,
+      categoryId: broughtHabitState.id,
       practiceDays: practiceDays,
     };
 

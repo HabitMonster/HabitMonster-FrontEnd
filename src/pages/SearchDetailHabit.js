@@ -31,7 +31,6 @@ const SearchDetailHabit = () => {
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
-  console.log(habitDetail);
 
   // 백엔드에서 HabitCategoryId를 내려주면 코드를 삭제할 예정.
   const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
@@ -49,13 +48,11 @@ const SearchDetailHabit = () => {
 
   return (
     <Container>
+      <BackButtonHeader
+        onButtonClick={() => history.goBack()}
+        pageTitleText={habitDetail.title}
+      />
       <Inner>
-        <MenuBar>
-          <BackButtonHeader
-            onButtonClick={() => history.goBack()}
-            pageTitleText={habitDetail.title}
-          />
-        </MenuBar>
         <Wrapper>
           <ProgressBarWrapper>
             <ProgressBar achievePercentage={habitDetail.achievePercentage}>

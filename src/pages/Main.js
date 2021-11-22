@@ -22,16 +22,14 @@ const Main = () => {
   const habitSection = useRef(null);
   const [shrinked, setShrinked] = useState(false);
   const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
-  const [isLevelPopUp, setIsLevelPopUp] = useState(false);
+
   const monster = useRecoilValue(monsterState);
 
   useEffect(() => {
     const { current } = habitSection;
 
     const handleScroll = miniThrottle(() => {
-      console.log(current);
       if (current.scrollTop >= 24) {
-        console.log('now');
         setShrinked(true);
         current.removeEventListener('scroll', handleScroll);
       }
@@ -74,7 +72,9 @@ const Main = () => {
                 monsterLevel: monster.monsterLevel,
               });
             }}
-            onClickStay={() => setIsMonsterModalOpen(false)}
+            onClickStay={() => {
+              setIsMonsterModalOpen(false);
+            }}
           />
         </Modal>
       )}
