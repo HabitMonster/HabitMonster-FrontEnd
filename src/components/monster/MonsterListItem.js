@@ -8,14 +8,14 @@ import styled from 'styled-components';
 import { MonsterThumbnailWrapper } from './';
 
 const MonsterListItem = ({
-  monsterName,
-  id,
+  monsterId,
+  monsterCode,
+  monsterLevel,
   width,
   height,
-  thumbnailSize,
-  monsterLevel,
-  monsterCode,
+  nickName,
   isFollowed,
+  thumbnailSize,
   recommendationTitle,
   path,
 }) => {
@@ -29,7 +29,7 @@ const MonsterListItem = ({
       <ProfileWrap>
         <div>
           <MonsterThumbnailWrapper
-            id={id}
+            id={monsterId}
             height={height}
             width={width}
             thumbnailSize={thumbnailSize}
@@ -37,7 +37,7 @@ const MonsterListItem = ({
           />
         </div>
         <TextWrap>
-          <p>{monsterName}</p>
+          <p>{nickName}</p>
           <p>{monsterCode}</p>
           {recommendationTitle && <p>{recommendationTitle}</p>}
         </TextWrap>
@@ -54,15 +54,15 @@ const MonsterListItem = ({
 MonsterListItem.propTypes = {
   recommendationTitle: PropTypes.string,
   monsterName: PropTypes.string,
-  monsterImg: PropTypes.string,
+  monsterId: PropTypes.number,
   monsterCode: PropTypes.string,
   isFollowed: PropTypes.bool,
   path: PropTypes.string,
-  id: PropTypes.number.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
   thumbnailSize: PropTypes.string,
   monsterLevel: PropTypes.number,
+  nickName: PropTypes.string,
 };
 
 const MonsterListItemWrap = styled.li`

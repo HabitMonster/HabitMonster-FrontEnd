@@ -183,7 +183,7 @@ const UserInformation = () => {
         <MonsterThumbnailWrapper
           thumbnailSize="small"
           monsterLevel={monster.monsterLevel}
-          id={monster.monsterId}
+          monsterId={monster.monsterId}
         />
         <div>
           <BoldText>{userInfo.username}</BoldText>
@@ -193,7 +193,7 @@ const UserInformation = () => {
         </div>
         <Summary>
           <li>
-            <BoldText>{userInfo?.totalHabitCount ?? 1000}</BoldText>
+            {/* <BoldText>{userInfo?.totalHabitCount ?? 1000}</BoldText> */}
             <span>총 습관</span>
           </li>
           <li>
@@ -203,7 +203,7 @@ const UserInformation = () => {
                 search: '?tab=followers',
               }}
             >
-              <BoldText>{userInfo?.followersCount ?? 1000}</BoldText>
+              {/* <BoldText>{userInfo?.followersCount ?? 1000}</BoldText> */}
               <span>팔로워</span>
             </FollowLink>
           </li>
@@ -214,7 +214,7 @@ const UserInformation = () => {
                 search: '?tab=following',
               }}
             >
-              <BoldText>{userInfo?.followingsCount ?? 1000}</BoldText>
+              {/* <BoldText>{userInfo?.followingsCount ?? 1000}</BoldText> */}
               <span>팔로잉</span>
             </FollowLink>
           </li>
