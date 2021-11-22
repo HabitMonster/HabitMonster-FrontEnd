@@ -31,14 +31,14 @@ const BottomDialog = ({
     case 'levelUp':
       return (
         <Wrapper height={height}>
-          <Title type={type}>LEVEL UP!</Title>
+          <Title type={type}>{title}</Title>
           <BadgeWrap>
             <img src={`levelList.${level}`} alt={`levelList.${level}`} />
           </BadgeWrap>
           {description && <Description>{description}</Description>}
           <ButtonGrid>
             <Button onClick={onActive} active>
-              확인
+              {activeButtonText}
             </Button>
           </ButtonGrid>
         </Wrapper>

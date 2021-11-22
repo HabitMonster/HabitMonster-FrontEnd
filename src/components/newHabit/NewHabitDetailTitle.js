@@ -9,7 +9,6 @@ const NewHabitDetailTitle = ({
   originTitle,
   disabled,
 }) => {
-  console.log(disabled);
   // isEditMode === true  :  해당 컴포넌트를 "습관 수정" 페이지에서 사용합니다. 따라서 placeholder가 수정 전 습관의 값으로 출력됩니다.
   // isEditMode === false : 해당 컴포넌트를 "습관 작성" 페이지에서 사용합니다. 따라서 placeholder가 default 값으로 출력됩니다.
   return (

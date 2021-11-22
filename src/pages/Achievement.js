@@ -43,6 +43,7 @@ const AcheiveContainer = styled.div`
   width: 100%;
   height: calc(100% - 64px);
   flex: 1 1 0;
+  position: relative;
 `;
 
 const NavButtonWrap = styled.ul`

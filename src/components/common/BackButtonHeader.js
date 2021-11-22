@@ -7,7 +7,11 @@ import { Back } from '../../assets/icons/common';
 const BackButtonHeader = ({ onButtonClick, pageTitleText, children }) => {
   return (
     <Wrapper>
-      <Back fill="var(--color-primary)" onClick={() => onButtonClick()} />
+      <Back
+        style={{ marginRight: '4px' }}
+        fill="var(--color-primary)"
+        onClick={() => onButtonClick()}
+      />
       {pageTitleText && <PageTitle>{pageTitleText}</PageTitle>}
       {children && children}
     </Wrapper>
@@ -29,9 +33,13 @@ BackButtonHeader.defaultProps = {
 
 const Wrapper = styled.div`
   max-width: 414px;
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 12px;
   height: 44px;
   display: flex;
   align-items: center;
+  padding: 0 16px;
 
   & svg {
     cursor: pointer;
@@ -42,7 +50,6 @@ const PageTitle = styled.h1`
   font-weight: var(--weight-regular);
   font-size: var(--font-l);
   line-height: 21.6px;
-  margin-left: 4px;
   color: var(--color-primary);
 `;
 
