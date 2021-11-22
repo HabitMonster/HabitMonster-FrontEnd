@@ -2,21 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { MonsterThumbnail } from './';
+import { MonsterThumbnail } from '../common';
 
 const MonsterThumbnailWrapper = ({
-  imageUrl,
-  imageAlt,
+  id,
+  width,
+  height,
   thumbnailSize,
   monsterLevel,
 }) => {
   return (
     <ThumbnailWrapper size={thumbnailSize}>
-      <MonsterThumbnail
-        imageUrl={imageUrl}
-        imageAlt={imageAlt}
-        imageSize={'small'}
-      />
+      <MonsterThumbnail id={id} width={width} height={height} />
       {monsterLevel && <LevelBadge>Lv.{monsterLevel}</LevelBadge>}
     </ThumbnailWrapper>
   );
@@ -32,7 +29,7 @@ const getThumbnailSize = (size) => {
         border: '1px solid rgba(248, 248, 248, 0.2)',
         width: '80px',
         height: '80px',
-        // padding: '14px 17px',
+        padding: '14px 17px',
       };
     default:
       return {
@@ -71,8 +68,9 @@ const LevelBadge = styled.span`
 `;
 
 MonsterThumbnailWrapper.propTypes = {
-  imageUrl: PropTypes.string,
-  imageAlt: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
   thumbnailSize: PropTypes.string,
   monsterLevel: PropTypes.number,
 };
