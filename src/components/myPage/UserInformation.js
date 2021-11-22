@@ -9,7 +9,7 @@ import {
 import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
-import { myPageDataState, userState } from '../../recoil/states/user';
+import { userState } from '../../recoil/states/user';
 import { habitIdListState } from '../../recoil/states/habit';
 
 import { BottomDialog } from '../dialog';
@@ -24,9 +24,9 @@ import { monsterState } from '../../recoil/states/monster';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
-  const { userInfo, monster } = useRecoilValue(myPageDataState); // 비동기요청
+  const user = useRecoilValue(userState); // 비동기요청
+  const monster = useRecoilValue(monsterState);
   const resetUserInfoState = useResetRecoilState(userState);
-
   const history = useHistory();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -35,11 +35,11 @@ const UserInformation = () => {
   const [isLogoutToastOpen, setIsLogoutToastOpen] = useState(false);
   const [isCopyToastOpen, setIsCopyToastOpen] = useState(false);
   const [deleteAccountToastOpen, setDeleteAccountToastOpen] = useState(false);
-
+  console.log('user:::', user, 'monster:::', monster);
   const [editData, setEditData] = useState({
     type: 'username',
     title: '제가 뭐라고 부르면 좋을까요?',
-    value: userInfo.username,
+    value: user.username,
   }); // 수정할 값 (닉네임, 몬스터이름, 모달 제목)
 
   const openModal = useCallback(
@@ -62,10 +62,10 @@ const UserInformation = () => {
     setEditData({
       type: 'username',
       title: '제가 뭐라고 부르면 좋을까요?',
-      value: userInfo.username,
+      value: user.username,
     });
     setIsEditModalOpen(false);
-  }, [userInfo.username]);
+  }, [user.username]);
 
   const handleChangeValue = useCallback((value) => {
     setEditData((editData) => ({
@@ -123,7 +123,7 @@ const UserInformation = () => {
           isLogin: false,
         });
         set(habitIdListState, []);
-        set(myPageDataState, {});
+        set(monsterState, {});
         set(userState, {});
         history.push('/login');
       }
@@ -132,7 +132,7 @@ const UserInformation = () => {
     }
   });
 
-  const userInfoList = Object.keys(userInfo).length
+  const userInfoList = Object.keys(user).length
     ? [
         {
           title: '몬스터 이름',
@@ -141,9 +141,9 @@ const UserInformation = () => {
         },
         {
           title: '몬스터 코드',
-          contents: userInfo.monsterCode,
+          contents: user.monsterCode,
           isCopy: true,
-          handleClipBoard: () => copyCode(userInfo.monsterCode),
+          handleClipBoard: () => copyCode(user.monsterCode),
         },
         {
           title: '현재 버전',
@@ -186,7 +186,7 @@ const UserInformation = () => {
           monsterId={monster.monsterId}
         />
         <div>
-          <BoldText>{userInfo.username}</BoldText>
+          <BoldText>{user.username}</BoldText>
           <EditNicknameBtn onClick={() => openModal('username')}>
             <Pencil />
           </EditNicknameBtn>
@@ -312,7 +312,7 @@ export default UserInformation;
 // `;
 
 // const PageTitle = styled.p`
-//   ${fontSize('18px')};
+//   font-size: var(--font-l);
 //   font-weight: var(--weight-regular);
 //   color: var(--color-primary);
 // `;

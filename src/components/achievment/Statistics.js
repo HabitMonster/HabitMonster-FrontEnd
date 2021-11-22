@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
-import { fontSize } from '../../styles';
-
 import { statisticApi } from '../../api';
 
 import { formatMonth, addMonths, subMonths } from '../../utils/date';
@@ -175,7 +173,7 @@ const DateButton = styled.button`
 
 const DateText = styled.p`
   color: var(--color-primary);
-  ${fontSize('18px')};
+  font-size: var(--font-l);
   font-weight: var(--font-weight-medium);
   margin: 0 15px;
 `;
@@ -206,7 +204,7 @@ const GoalCount = styled.div`
   span {
     &:last-child {
       text-align: right;
-      ${fontSize('24px')};
+      font-size: var(--font-xxl);
       color: var(--color-primary);
     }
   }
@@ -217,7 +215,7 @@ const GoalCount = styled.div`
 
 const GoalText = styled.span`
   color: rgba(248, 248, 248, 0.6);
-  ${fontSize('12px')};
+  font-size: var(--font-xxs);
   width: 50%;
   display: inline-block;
 `;
@@ -234,7 +232,7 @@ const ButtonWrap = styled.div`
 `;
 
 const HabitsList = styled.p`
-  ${fontSize('18px')};
+  font-size: var(--font-l);
   font-weight: var(--weight-regular);
   line-height: 22px;
   color: var(--color-primary);
@@ -250,7 +248,7 @@ const AchieveNavBtn = styled.button`
     !props.isActive ? 'transparent' : 'var(--bg-selected)'};
   color: ${(props) =>
     !props.isActive ? 'var(--color-primary)' : 'var(--color-primary)'};
-  ${fontSize('14px')};
+  font-size: var(--font-xs);
   line-height: 16px;
   cursor: pointer;
   margin: 10px 0;

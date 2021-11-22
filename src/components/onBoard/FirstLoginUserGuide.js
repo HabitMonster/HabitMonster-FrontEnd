@@ -7,7 +7,6 @@ import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { monsterState } from '../../recoil/states/monster';
 import { authState } from '../../recoil/states/auth';
 import { appendPostPosition } from '../../utils/appendPostPosition';
-import { fontSize } from '../../styles';
 
 const MonsterGuide = () => {
   const history = useHistory();
@@ -110,7 +109,7 @@ const HeadText = styled.p`
 `;
 
 const SmallText = styled.p`
-  ${fontSize('15px')};
+  font-size: var(--font-s);
   color: var(--color-primary);
   font-weight: var(--weight-semi-regular);
   line-height: 32px;
@@ -124,7 +123,7 @@ const SmallText = styled.p`
 
 const BigText = styled.p`
   font-weight: var(--weight-semi-bold);
-  ${fontSize('20px')};
+  font-size: var(--font-xl);
   line-height: 32px;
   margin: 0 auto;
 `;

@@ -8,7 +8,6 @@ import { myPageDataState, userState } from '../../recoil/states/user';
 import { asyncDefaultMonster } from '../../recoil/states/monster';
 
 import { myPageApis } from '../../api';
-import { fontSize } from '../../styles';
 import { validateMonsterName } from '../../utils/validation';
 import { OK } from '../../constants/statusCode';
 import {
@@ -146,7 +145,7 @@ const PositionWrap = styled.div`
 
 const EditTitle = styled.p`
   color: var(--color-primary);
-  ${fontSize('24px')};
+  font-size: var(--font-xxl);
   font-weight: var(--weight-bold);
   line-height: 32px;
   margin-bottom: 32px;

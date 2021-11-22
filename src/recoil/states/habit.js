@@ -9,7 +9,7 @@ export const defaultHabitsState = atom({
     get: async ({ get }) => {
       try {
         const { data } = await mainApis.getHabitsInfo();
-
+        console.log('mypage', data.totalHabitCount);
         return data.habits;
       } catch (error) {
         console.error(error);

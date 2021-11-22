@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { fontSize, whiteOpacity } from '../../styles';
+import { whiteOpacity } from '../../styles';
 import { EditIcon, CopyIcon } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
@@ -51,7 +51,7 @@ const InfoListItem = styled.li`
 `;
 
 const DefaultTitle = styled.p`
-  ${fontSize('15px')};
+  font-size: var(--font-s);
   line-height: 18px;
   font-weight: var(--weight-bold);
   ${whiteOpacity('0.8')};
@@ -88,7 +88,7 @@ const CopyWrap = styled.div`
 `;
 
 const PrivateText = styled.p`
-  ${fontSize('14px')};
+  font-size: var(--font-xs);
   line-height: 16px;
   font-weight: var(--weight-regular);
   ${whiteOpacity('0.8')};
