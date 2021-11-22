@@ -133,7 +133,7 @@ const SearchDetail = () => {
             );
           })}
         </Box>
-        <Toast
+        {/* <Toast
           isActive={activeUnableFollowToast}
           setIsActive={setActiveUnableFollowToast}
           text="자기 자신은 팔로우할 수 없어요!"
@@ -142,7 +142,7 @@ const SearchDetail = () => {
           isActive={activeUnableFollowCheckToast}
           setIsActive={setActiveUnableFollowCheckToast}
           text="자기 자신은 체크할 수 없어요!"
-        />
+        /> */}
       </Container>
     </>
   );

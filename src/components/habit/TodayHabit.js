@@ -89,11 +89,11 @@ const TodayHabit = ({ id }) => {
       >
         {habitDetail.isAccomplished ? '완료' : '완료하기'}
       </CheckBtn>
-      <Toast
+      {/* <Toast
         isActive={activeToast}
         setIsActive={setActiveToast}
         text="오늘의 습관 하나를 완료했어요!🎉"
-      />
+      /> */}
     </Card>
   );
 };

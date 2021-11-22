@@ -101,6 +101,7 @@ const Layout = styled.div`
   height: 100vh;
   margin: 0 auto;
   position: relative;
+  /* overflow: hidden; */
 `;
 
 export default App;

@@ -103,6 +103,8 @@ const Search = () => {
     queryRecommendation();
   }, []);
 
+  console.log(debouncedMonsterCode);
+
   return (
     <Wrapper>
       <BackButtonWrapper>
@@ -112,26 +114,27 @@ const Search = () => {
             value={monsterCode}
             onChange={(e) => {
               setIsFail(false);
+              setSearchResult(null);
               setMonsterCode(e.target.value);
               debounceChange(e.target.value);
             }}
             placeholder="몬스터 코드를 입력하세요"
           />
+          {monsterCode && (
+            <CancelButton
+              onClick={() => {
+                setMonsterCode('');
+                setDebouncedMonsterCode('');
+                setIsFail(null);
+              }}
+            >
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </CancelButton>
+          )}
         </BackButtonHeader>
-        {monsterCode && (
-          <CancelButton
-            onClick={() => {
-              setMonsterCode('');
-              setDebouncedMonsterCode('');
-              setIsFail(null);
-            }}
-          >
-            <div>
-              <div></div>
-              <div></div>
-            </div>
-          </CancelButton>
-        )}
       </BackButtonWrapper>
       {isFail && (
         <NonePlaceHolder>
@@ -141,9 +144,10 @@ const Search = () => {
       {searchResult && (
         <ul>
           <MonsterListItem
-            monsterName={searchResult.nickName}
+            nickName={searchResult.nickName}
             monsterCode={searchResult.monsterCode}
             isFollowed={searchResult.isFollowed}
+            monsterId={searchResult.monsterId}
             path={`${path}/${searchResult.monsterCode}`}
           />
         </ul>
@@ -151,15 +155,13 @@ const Search = () => {
       {recommendedUserList.length && !isFail && (
         <RecommendationSection>
           <h2>추천 유저</h2>
-          {/* monsterId로 몬스터 반환시켜야 함. */}
-          {/* {recommendedUserList.map(({ isFollowed, monsterCode, monsterImg, nickName, title }) => {}} */}
           {recommendedUserList.map(
-            ({ isFollowed, monsterCode, monsterImg, nickName, title }) => {
+            ({ isFollowed, monsterCode, monsterId, nickName, title }) => {
               return (
                 <MonsterListItem
-                  key={title + nickName + monsterImg}
-                  monsterName={nickName}
-                  monsterImg={monsterImg}
+                  key={title + nickName + monsterId}
+                  nickName={nickName}
+                  monsterId={monsterId}
                   monsterCode={monsterCode}
                   recommendationTitle={title}
                   isFollowd={isFollowed}
@@ -181,7 +183,6 @@ const Wrapper = styled.section`
 `;
 const BackButtonWrapper = styled.div`
   margin: 24px 0;
-  padding: 0 24px;
   position: relative;
 `;
 
@@ -189,8 +190,7 @@ const CancelButton = styled.div`
   width: 24px;
   height: 24px;
   position: absolute;
-  padding-right: inherit;
-  right: 32px;
+  right: 24px;
   top: 50%;
   transform: translateY(-50%);
 
