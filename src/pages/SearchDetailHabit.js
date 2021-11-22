@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -10,7 +10,10 @@ import {
 } from '../components/common';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import { renderDays } from '../utils/date';
-import { searchUserHabitSelector } from '../recoil/states/follow';
+import {
+  searchUserHabitSelector,
+  refreshInfoState,
+} from '../recoil/states/search';
 
 const MOCKUP_CATEGORY_ID = {
   Health: 1,
@@ -28,6 +31,7 @@ const SearchDetailHabit = () => {
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   // 백엔드에서 HabitCategoryId를 내려주면 코드를 삭제할 예정.
   const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
@@ -43,7 +47,10 @@ const SearchDetailHabit = () => {
     <Container>
       <MenuBar>
         <BackButtonHeader
-          onButtonClick={() => history.goBack()}
+          onButtonClick={() => {
+            setRefreshInfo((id) => id + 1);
+            history.push(`/search/${monsterCode}`);
+          }}
           pageTitleText={habitDetail.title}
         />
       </MenuBar>

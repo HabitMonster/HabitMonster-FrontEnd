@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { userApis } from '../api/user';
 import { OK, BAD_REQUEST } from '../constants/statusCode';
 import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../constants/statusMessage';
-import { refreshInfoState } from '../recoil/states/follow';
+import { refreshInfoState } from '../recoil/states/search';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { MonsterListItem } from '../components/monster';
@@ -30,25 +30,6 @@ const Search = () => {
     }, 600),
     [setDebouncedMonsterCode],
   );
-
-  const handleRelationship = async () => {
-    try {
-      const { data } = await userApis.follow(
-        searchResult.setMonsterIdrCode,
-        searchResult.isFollowed,
-      );
-
-      if (data.statusCode === OK) {
-        setSearchResult((prev) => ({
-          ...prev,
-          isFollowed: data.isFollowed,
-        }));
-        setRefreshInfo((id) => id + 1);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
     const queryUser = async () => {

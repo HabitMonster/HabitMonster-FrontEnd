@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { CategoryMenu, UserSection } from '../components/search';
-import { searchUserInfoState } from '../recoil/states/follow';
+import { searchUserInfoState, refreshInfoState } from '../recoil/states/search';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import CategoryImage from '../assets/images/habit';
+import { userApis } from '../api';
+import { OK } from '../constants/statusCode';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
   const history = useHistory();
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const { habits, monster, userInfo } = searchResult;
-  const [isFollowed, setIsFollowed] = useState(userInfo.followed);
+  const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
   const [followers, setFollowers] = useState(userInfo.followersCount);
   const [categorization, setCategorization] = useState({
     id: 'all',
@@ -42,6 +45,26 @@ const SearchDetail = () => {
     setFilteredHabits(filteredHabits);
   }, [categorization]);
 
+  // @sangjoon
+  // TODO : 페이지 이동 시 Loading 페이지가 출력됨.
+  // 로딩 자체를 없애거나 로딩 페이지를 제대로 만들어야 할 필요가 있음.
+  const handleRelationship = async () => {
+    try {
+      const { data } = await userApis.follow(monsterCode, isFollowed);
+
+      if (data.statusCode === OK) {
+        setIsFollowed(data.isFollowed);
+        data.isFollowed
+          ? setFollowers(followers + 1)
+          : setFollowers(followers - 1);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // @sangjoon
+  // TODOS: 습관 카드 공용 컴포넌트로 추출
   return (
     <Container>
       <Header>
@@ -59,7 +82,9 @@ const SearchDetail = () => {
           userInfo={userInfo}
           followers={followers}
         />
-        <FollowBtn>{isFollowed ? '팔로우' : '팔로잉'}</FollowBtn>
+        <FollowBtn isFollowed={isFollowed} onClick={handleRelationship}>
+          {isFollowed ? '팔로잉' : '팔로우'}
+        </FollowBtn>
       </UppserSection>
       <CategoryMenu
         categorization={categorization}
@@ -72,11 +97,12 @@ const SearchDetail = () => {
               return (
                 <Card
                   key={idx}
-                  onClick={() =>
+                  onClick={() => {
+                    setRefreshInfo((id) => id + 1);
                     history.push(
                       `/search/${userInfo.monsterCode}/${habit.habitId}`,
-                    )
-                  }
+                    );
+                  }}
                 >
                   <DetailContainer>
                     <div>
@@ -151,7 +177,8 @@ const FollowBtn = styled.button`
   height: 38px;
   margin: 20px auto;
   color: var(--color-white);
-  background-color: var(--color-onboard);
+  background-color: ${({ isFollowed }) =>
+    isFollowed ? '#181819' : 'var(--bg-active)'};
   border: none;
   border-radius: var(--border-radius-semi);
   cursor: pointer;

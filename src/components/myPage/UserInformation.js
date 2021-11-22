@@ -20,7 +20,6 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
-import { monsterState } from '../../recoil/states/monster';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
