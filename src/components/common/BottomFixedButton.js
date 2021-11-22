@@ -28,6 +28,7 @@ const Button = styled.button`
   height: 80px;
 
   position: fixed;
+  padding-left: inherit;
   bottom: 0;
   background: var(--bg-active);
   z-index: 3;

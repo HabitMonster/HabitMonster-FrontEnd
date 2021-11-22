@@ -17,31 +17,31 @@ import { miniDebounce } from '../utils/event';
 const Search = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
-  const [monsterId, setMonsterId] = useState('');
-  const [debouncedId, setDebouncedId] = useState('');
+
+  const [monsterCode, setMonsterCode] = useState('');
+  const [debouncedMonsterCode, setDebouncedMonsterCode] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [isFail, setIsFail] = useState(null);
   const [recommendedUserList, setRecommendedUserList] = useState([]);
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   // @semyung
-  // useCallback의 디펜던시는 setDebouncedId 이외에 아무것도 없습니다.
+  // useCallback의 디펜던시는 setDebouncedMonsterCode 이외에 아무것도 없습니다.
   // 다만, Hook Rules에 의하면 inline function을 전달하라고 합니다.
   // 함수를 Wrapping하는 함수를 만들면 되지만 좋은 생각은 아닌 것 같아
   // 해당 구간 린트를 삭제합니다.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceChange = useCallback(
     miniDebounce(function (nextValue) {
-      setDebouncedId(nextValue);
+      setDebouncedMonsterCode(nextValue);
     }, 600),
-    [setDebouncedId],
+    [setDebouncedMonsterCode],
   );
-  console.log(searchResult);
 
   const handleRelationship = async () => {
     try {
       const { data } = await userApis.follow(
-        searchResult.monsterCode,
+        searchResult.setMonsterIdrCode,
         searchResult.isFollowed,
       );
 
@@ -59,11 +59,14 @@ const Search = () => {
 
   useEffect(() => {
     const queryUser = async () => {
-      if (!debouncedId || debouncedId.length < 6) {
+      if (!debouncedMonsterCode || debouncedMonsterCode.length < 6) {
+        setDebouncedMonsterCode('');
         return;
       }
       try {
-        const { data } = await userApis.searchUser(debouncedId);
+        const { data } = await userApis.searchUser(debouncedMonsterCode);
+        setSearchResult(null);
+
         if (
           data.statusCode === BAD_REQUEST &&
           data.responseMessage === NOT_FOUND_USER_VIA_MONSTER_CODE
@@ -80,7 +83,7 @@ const Search = () => {
       }
     };
     queryUser();
-  }, [setRefreshInfo, debouncedId]);
+  }, [setRefreshInfo, debouncedMonsterCode]);
 
   useEffect(() => {
     const queryRecommendation = async () => {
@@ -100,23 +103,35 @@ const Search = () => {
     queryRecommendation();
   }, []);
 
-  console.log(recommendedUserList);
-
   return (
     <Wrapper>
       <BackButtonWrapper>
         <BackButtonHeader onButtonClick={() => history.replace('/')}>
           <SearchInput
             type="text"
-            value={monsterId}
+            value={monsterCode}
             onChange={(e) => {
-              setIsFail(null);
-              setMonsterId(e.target.value);
+              setIsFail(false);
+              setMonsterCode(e.target.value);
               debounceChange(e.target.value);
             }}
-            placeholder="몬스터 ID를 입력하세요"
+            placeholder="몬스터 코드를 입력하세요"
           />
         </BackButtonHeader>
+        {monsterCode && (
+          <CancelButton
+            onClick={() => {
+              setMonsterCode('');
+              setDebouncedMonsterCode('');
+              setIsFail(null);
+            }}
+          >
+            <div>
+              <div></div>
+              <div></div>
+            </div>
+          </CancelButton>
+        )}
       </BackButtonWrapper>
       {isFail && (
         <NonePlaceHolder>
@@ -133,8 +148,9 @@ const Search = () => {
           />
         </ul>
       )}
-      {recommendedUserList.length && isFail === null && (
+      {recommendedUserList.length && !isFail && (
         <RecommendationSection>
+          <h2>추천 유저</h2>
           {/* monsterId로 몬스터 반환시켜야 함. */}
           {/* {recommendedUserList.map(({ isFollowed, monsterCode, monsterImg, nickName, title }) => {}} */}
           {recommendedUserList.map(
@@ -161,10 +177,51 @@ const Search = () => {
 const Wrapper = styled.section`
   width: 100%;
   height: 100%;
+  position: relative;
 `;
 const BackButtonWrapper = styled.div`
   margin: 24px 0;
   padding: 0 24px;
+  position: relative;
+`;
+
+const CancelButton = styled.div`
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  padding-right: inherit;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  & > div {
+    width: 18px;
+    height: 18px;
+    background: #999999;
+    border-radius: 99em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > div {
+      width: 7.66px;
+      height: 2.12px;
+      background: var(--bg-primary);
+      border-radius: 99em;
+      position: absolute;
+
+      &:first-child {
+        transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(135deg);
+      }
+    }
+  }
 `;
 
 const SearchInput = styled.input`
@@ -190,8 +247,11 @@ const SearchInput = styled.input`
 
 const RecommendationSection = styled.ul`
   & > h2 {
+    color: white;
+    padding: 0 24px;
     font-weight: var(--weight-bold);
     line-height: 19.2px;
+    margin-top: 32px;
     margin-bottom: 10px;
   }
 `;

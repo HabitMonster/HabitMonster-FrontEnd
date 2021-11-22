@@ -15,80 +15,79 @@ const NewHabitPresetList = () => {
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useHabitPresets();
 
-  const skeletons = [...Array(2).keys()].map(({ key }) => ({ id: key }));
+  const skeletons = Array(2)
+    .fill(null)
+    .map((_, index) => ({ id: index }));
 
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
 
   return (
-    <>
-      <Wrapper>
-        <Inner>
-          <Header>
-            <BackButtonHeader
-              pageTitleText={selectedHabitCategory.name}
-              onButtonClick={() => history.replace('/new')}
-            />
-          </Header>
-          <HelperText>이런 습관은 어때요?</HelperText>
-          {presetList.length
-            ? presetList.map(
-                ({
-                  count,
-                  description,
-                  period,
-                  practiceDays,
-                  title,
-                  presetId,
-                }) => (
-                  <NewHabitPresetItem
-                    key={presetId}
-                    frequency={count}
-                    description={description}
-                    period={period}
-                    days={practiceDays}
-                    title={title}
-                    id={presetId}
-                    onClick={() => onPresetClicked(presetId)}
-                    isSelected={selectedPresetId === presetId}
-                  />
-                ),
-              )
-            : skeletons.map((skeleton) => (
+    <Wrapper>
+      <BackButtonHeader
+        pageTitleText={selectedHabitCategory.name}
+        onButtonClick={() => history.replace('/new')}
+      />
+      <Inner>
+        <HelperText>이런 습관은 어때요?</HelperText>
+        {presetList.length
+          ? presetList.map(
+              ({
+                count,
+                description,
+                period,
+                practiceDays,
+                title,
+                presetId,
+              }) => (
                 <NewHabitPresetItem
-                  key={skeleton.id}
-                  skeleton
-                  title=""
-                  frequency={0}
-                  days=""
-                  period={0}
-                  onClick={() => {}}
-                  isSelected={false}
+                  key={presetId}
+                  frequency={count}
+                  description={description}
+                  period={period}
+                  days={practiceDays}
+                  title={title}
+                  id={presetId}
+                  onClick={() => onPresetClicked(presetId)}
+                  isSelected={selectedPresetId === presetId}
                 />
-              ))}
-          <Hands
-            isSelected={Boolean(selectedPresetId)}
-            onClick={() =>
-              history.push({
-                pathname: 'detail',
-                state: selectedHabitCategory,
-              })
-            }
-          >
-            <span>
-              <PencilIcon />
-              직접 작성하기
-            </span>
-          </Hands>
-        </Inner>
-      </Wrapper>
+              ),
+            )
+          : skeletons.map((skeleton, index) => (
+              <NewHabitPresetItem
+                key={skeleton.id * index}
+                skeleton
+                title=""
+                frequency={0}
+                days=""
+                period={0}
+                onClick={() => {}}
+                isSelected={false}
+                description=""
+              />
+            ))}
+        <Hands
+          isSelected={Boolean(selectedPresetId)}
+          onClick={() =>
+            history.push({
+              pathname: 'detail',
+              state: selectedHabitCategory,
+            })
+          }
+        >
+          <span>
+            <PencilIcon />
+            직접 작성하기
+          </span>
+        </Hands>
+      </Inner>
       <BottomFixedButton
         text="저장하기"
         condition={() => selectedPresetId}
         onClick={onSaveButtonClicked}
       />
-    </>
+    </Wrapper>
   );
 };
 
@@ -102,11 +101,6 @@ const Wrapper = styled.div`
 const Inner = styled.div`
   padding: 0 24px;
   background: inherit;
-`;
-
-const Header = styled.div`
-  margin-top: 24px;
-  margin-bottom: 12px;
 `;
 
 const HelperText = styled.h2`

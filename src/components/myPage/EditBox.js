@@ -65,7 +65,6 @@ const EditBox = ({
 
         if (type === 'monsterName') {
           //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
-          // setMonster((prev) => ({ ...prev, [type]: editValue }));
           // @jaekyung: default value가 비동기의 응답을 담고있는 아톰이기 때문에 useRecoilSet으로는 아직 지원하지 않는다고 에러가 나네요ㅠㅠ!
           // 대신 api를 다시 리페칭하는 방법을 한 번 사용하겠습니다!
           refetchMonster();
@@ -95,10 +94,8 @@ const EditBox = ({
 
   return (
     <Container>
+      <BackButtonHeader onButtonClick={closeModal} />
       <PositionWrap>
-        <BackWrap>
-          <BackButtonHeader onButtonClick={closeModal} />
-        </BackWrap>
         {type === 'username' && (
           <EditTitle>
             제가 뭐라고
@@ -142,11 +139,8 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const BackWrap = styled.div`
-  padding-top: 50px;
-`;
-
 const PositionWrap = styled.div`
+  margin-top: 24px;
   padding: 0 24px;
 `;
 
