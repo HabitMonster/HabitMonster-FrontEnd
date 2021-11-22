@@ -40,6 +40,5 @@ const HabitListWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 108px;
   overflow-y: scroll;
 `;

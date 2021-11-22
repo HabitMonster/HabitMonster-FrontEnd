@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { whiteOpacity } from '../../styles/Mixin';
-import { LevelTwo, LevelThree, LevelThour } from '../../assets/images/level';
+import LEVELS from '../../assets/images/level';
 
 const BottomDialog = ({
   height,
@@ -15,32 +15,25 @@ const BottomDialog = ({
   type,
   level,
 }) => {
-  const levelList = [
-    {
-      2: LevelTwo,
-    },
-    {
-      3: LevelThree,
-    },
-    {
-      4: LevelThour,
-    },
-  ];
-
+  console.log(level);
+  const LevelIcon = LEVELS[level];
   switch (type) {
     case 'levelUp':
       return (
         <Wrapper height={height}>
-          <Title type={type}>{title}</Title>
-          <BadgeWrap>
-            <img src={`levelList.${level}`} alt={`levelList.${level}`} />
-          </BadgeWrap>
-          {description && <Description>{description}</Description>}
-          <ButtonGrid>
-            <Button onClick={onActive} active>
-              {activeButtonText}
-            </Button>
-          </ButtonGrid>
+          <OneButtonInner>
+            <Title type={type}>{title}</Title>
+            <BadgeWrap>
+              {/* <img src={`levelList.${level}`} alt={`levelList.${level}`} /> */}
+              <LevelIcon />
+            </BadgeWrap>
+            {description && <Description>{description}</Description>}
+            <ButtonGrid type={type}>
+              <Button onClick={onActive} active>
+                {activeButtonText}
+              </Button>
+            </ButtonGrid>
+          </OneButtonInner>
         </Wrapper>
       );
     default:
@@ -64,7 +57,7 @@ BottomDialog.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   activeButtonText: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   onActive: PropTypes.func.isRequired,
   height: PropTypes.string,
   level: PropTypes.number,
@@ -90,6 +83,36 @@ const Wrapper = styled.div`
   transform: translate(-50%, 0);
 `;
 
+const OneButtonInner = styled.div`
+  height: 100%;
+
+  & > h2 {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  & > p {
+    text-align: center;
+  }
+
+  & button {
+    width: 150px;
+    margin: 0 auto;
+  }
+`;
+
+const BadgeWrap = styled.div`
+  width: 108px;
+  height: 108px;
+  margin: 0 atuo;
+  background: linear-gradient(180deg, #02db26 0%, #19892c 100%);
+  border-radius: 99em;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Title = styled.h2`
   font-weight: var(--weight-bold);
   font-size: ${(type) => (type ? 'var(--font-xxl)' : 'var(--font-l)')};
@@ -107,7 +130,8 @@ const Description = styled.p`
 const ButtonGrid = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: ${({ type }) => (type ? '1fr' : 'repeat(2, 1fr)')};
   column-gap: 12px;
   margin-top: 21px;
 `;
@@ -130,9 +154,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const BadgeWrap = styled.div`
-  width: 108px;
-  height: 108px;
-  margin: 0 atuo;
-`;
 export default BottomDialog;

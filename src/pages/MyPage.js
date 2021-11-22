@@ -45,6 +45,7 @@ const AcheiveContainer = styled.div`
   width: 100%;
   height: calc(100% - 80px);
   padding-bottom: 144px;
+  overflow-y: scroll;
 `;
 
 const NavButtonWrap = styled.ul`

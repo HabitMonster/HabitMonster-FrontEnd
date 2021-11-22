@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -13,6 +13,23 @@ import { appendPostPosition } from '../../utils/appendPostPosition';
 const MainMonster = ({ heightShrinked }) => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
+  const [levelUpMessage, setLevelUpMessage] = useState('');
+  const previousLevel = useRef(monster.monsterLevel);
+
+  useEffect(() => {
+    setLevelUpMessage('');
+    const { current: previous } = previousLevel;
+    const current = monster.monsterLevel;
+    if (previous === current) {
+      return null;
+    }
+
+    setModalOpen((prev) => !prev);
+    setLevelUpMessage(
+      `레벨 ${previous}에서 레벨 ${current}로 업그레이드 했습니다!`,
+    );
+    previousLevel.current = monster.monsterLevel;
+  }, [monster.monsterLevel]);
 
   return (
     <MonsterContainer>
@@ -53,10 +70,11 @@ const MainMonster = ({ heightShrinked }) => {
           <BottomDialog
             type="levelUp"
             height="308px"
-            level={1}
+            level={monster.monsterLevel}
             onActive={() => setModalOpen(false)}
             title="LEVEL UP!"
             activeButtonText="확인"
+            description={levelUpMessage}
           />
         </Modal>
       )}
@@ -114,6 +132,7 @@ const ThumbnailWrapper = styled.div`
   & > .inner {
     width: 152px;
     height: 152px;
+    padding: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
