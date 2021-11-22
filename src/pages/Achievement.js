@@ -16,18 +16,18 @@ const Achievement = () => {
             </NavButton>
           </NavButtonItem>
           <NavButtonItem>
-            <NavButton to="/achievement/collection" activeClassName="active">
-              몬스터 도감
-            </NavButton>
+            {/* <NavButton to="/" activeClassName="active">
+              미정
+            </NavButton> */}
           </NavButtonItem>
         </NavButtonWrap>
         <Switch>
           <Route exact path="/achievement/statistics" component={Statistics} />
-          <Route
+          {/* <Route
             exact
             path="/achievement/collection"
             component={MonsterCollection}
-          />
+          /> */}
           <Redirect from="*" to="/achievement/statistics" />
         </Switch>
       </AcheiveContainer>

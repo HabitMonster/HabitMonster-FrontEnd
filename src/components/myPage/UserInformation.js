@@ -20,7 +20,6 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
-import { fontSize } from '../../styles/Mixin';
 import { monsterState } from '../../recoil/states/monster';
 
 const UserInformation = () => {
@@ -177,14 +176,14 @@ const UserInformation = () => {
 
   return (
     <>
-      <TitleArea>
+      {/* <TitleArea>
         <PageTitle>마이페이지</PageTitle>
-      </TitleArea>
+      </TitleArea> */}
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           thumbnailSize="small"
           monsterLevel={monster.monsterLevel}
-          imageUrl={monster.monsterImage}
+          id={monster.monsterId}
         />
         <div>
           <BoldText>{userInfo.username}</BoldText>
@@ -304,19 +303,19 @@ const UserInformation = () => {
 
 export default UserInformation;
 
-const TitleArea = styled.div`
-  height: 44px;
-  margin: 24px;
-  align-items: center;
-  display: flex;
-  align-items: center;
-`;
+// const TitleArea = styled.div`
+//   height: 44px;
+//   margin: 24px;
+//   align-items: center;
+//   display: flex;
+//   align-items: center;
+// `;
 
-const PageTitle = styled.p`
-  ${fontSize('18px')};
-  font-weight: var(--weight-regular);
-  color: var(--color-primary);
-`;
+// const PageTitle = styled.p`
+//   ${fontSize('18px')};
+//   font-weight: var(--weight-regular);
+//   color: var(--color-primary);
+// `;
 
 const UserInfoList = styled.ul`
   color: var(--color-primary);
@@ -339,6 +338,7 @@ const UserInfoWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 12px;
 
   & div {
     display: flex;
