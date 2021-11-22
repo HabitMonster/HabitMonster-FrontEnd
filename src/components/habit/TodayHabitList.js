@@ -29,18 +29,12 @@ const HabitContainer = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
+  padding: 0 24px;
   border-radius: var(--border-radius-semi);
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 `;
 
 const HabitList = styled.div`
-  padding-bottom: 108px;
+  padding-bottom: 84px;
 `;
 
 export default TodayHabitList;

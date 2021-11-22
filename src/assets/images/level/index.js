@@ -1,5 +1,11 @@
-import LevelTwo from './level2.svg';
-import LevelThree from './level3.svg';
-import LevelThour from './level4.svg';
+import { ReactComponent as LevelTwo } from './level2.svg';
+import { ReactComponent as LevelThree } from './level3.svg';
+import { ReactComponent as LevelFour } from './level4.svg';
 
-export { LevelTwo, LevelThree, LevelThour };
+const LEVELS = {
+  2: LevelTwo,
+  3: LevelThree,
+  4: LevelFour,
+};
+
+export default LEVELS;

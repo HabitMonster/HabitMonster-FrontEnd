@@ -37,14 +37,12 @@ const Notice = () => {
 
   return (
     <Container>
-      <PageTitle>
-        <BackButtonHeader
-          onButtonClick={() => {
-            history.push('/mypage');
-          }}
-          pageTitleText="공지사항"
-        />
-      </PageTitle>
+      <BackButtonHeader
+        onButtonClick={() => {
+          history.push('/mypage');
+        }}
+        pageTitleText="공지사항"
+      />
       <NotiList>
         {noticeList?.length > 0 &&
           noticeList.map((notice, index) => {
@@ -71,7 +69,6 @@ const Container = styled.div`
   /* position: relative; */
   background: var(--bg-wrapper);
   margin: 0 auto;
-  padding-top: 24px;
   position: absolute;
   top: 50%;
   left: 50%;
