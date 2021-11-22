@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { monsterState } from '../../recoil/states/monster';
 
-import { MonsterThumbnail } from '../common';
+import { MonsterThumbnail, Modal } from '../common';
+import { BottomDialog } from '../dialog';
 import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 
 const MainMonster = ({ heightShrinked }) => {
   const monster = useRecoilValue(monsterState);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <MonsterContainer>
@@ -42,6 +44,22 @@ const MainMonster = ({ heightShrinked }) => {
           <Gauge percentage={monster.monsterExpPoint} />
         </GuageBar>
       </ExpContainer>
+      {modalOpen && (
+        <Modal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            type="levelUp"
+            height="308px"
+            level={1}
+            onActive={() => setModalOpen(false)}
+            title="LEVEL UP!"
+            activeButtonText="확인"
+          />
+        </Modal>
+      )}
     </MonsterContainer>
   );
 };

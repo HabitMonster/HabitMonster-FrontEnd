@@ -76,13 +76,13 @@ const NewHabitForm = () => {
 
   return (
     <Wrapper>
+      <Header>
+        <BackButtonHeader
+          onButtonClick={() => history.goBack()}
+          pageTitleText="직접 작성하기"
+        />
+      </Header>
       <Inner>
-        <Header>
-          <BackButtonHeader
-            onButtonClick={() => history.goBack()}
-            pageTitleText="직접 작성하기"
-          />
-        </Header>
         <MarginInterval mb="24">
           <NewHabitDetailTitle
             isEditMode={false}
@@ -142,7 +142,6 @@ const Inner = styled.div`
 `;
 
 const Header = styled.section`
-  margin-top: 24px;
   margin-bottom: 40px;
 `;
 

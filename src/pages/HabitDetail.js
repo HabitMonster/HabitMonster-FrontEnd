@@ -61,17 +61,16 @@ const HabitDetail = () => {
 
   return (
     <Container>
-      <Inner>
+      <BackButtonHeader onButtonClick={() => history.goBack()}>
         <MenuBar>
-          <BackButtonHeader
-            onButtonClick={() => history.goBack()}
-            pageTitleText={habitDetail.title}
-          />
+          <span>{habitDetail.title}</span>{' '}
           <Trash
             onClick={() => setDeleteModalOpen(true)}
             className="deleteBtn"
           />
         </MenuBar>
+      </BackButtonHeader>
+      <Inner>
         <Wrapper>
           <ProgressBarWrapper>
             <ProgressBar achievePercentage={habitDetail.achievePercentage}>
@@ -167,12 +166,17 @@ const Inner = styled.div`
 `;
 
 const MenuBar = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  height: 44px;
-  margin-top: 24px;
-  margin-bottom: 16px;
+  align-items: center;
+
+  & > span {
+    font-weight: var(--weight-regular);
+    font-size: var(--font-l);
+    line-height: 21.6px;
+    color: var(--color-primary);
+  }
 `;
 const Wrapper = styled.div`
   margin-bottom: 22px;
