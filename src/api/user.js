@@ -10,8 +10,8 @@ export const userApis = {
       : tokenInstance.patch(`/follow/${monsterCode}`),
   checkFollow: (monsterCode) =>
     tokenInstance.get(`/checkFollow/${monsterCode}`),
-  getUserFollower: (monsterCode) =>
+  getUserFollowers: (monsterCode) =>
     tokenInstance.get(`/followers/${monsterCode}`),
-  getUserFollowing: (monsterCode) =>
+  getUserFollowings: (monsterCode) =>
     tokenInstance.get(`/followings/${monsterCode}`),
 };
