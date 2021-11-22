@@ -98,9 +98,7 @@ const Layout = styled.div`
   max-width: 414px;
   width: 100%;
   min-width: 280px;
-  min-height: 100vh;
-  height: fill-available;
-  /* height: calc(100vh - calc(100vh - 100%)); */
+  height: 100vh;
   margin: 0 auto;
   position: relative;
 `;

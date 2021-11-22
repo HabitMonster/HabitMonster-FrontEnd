@@ -31,6 +31,11 @@ export const monsterState = atom({
   default: asyncDefaultMonster,
 });
 
+export const monsterIdSelector = selector({
+  key: 'monsterId',
+  get: ({ get }) => get(monsterState).monsterId,
+});
+
 export const userLevelOneMonsterSelector = selector({
   key: 'userLevelOneMonster',
   get: ({ get }) => {

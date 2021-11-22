@@ -9,8 +9,13 @@ import {
   selectedMonsterState,
 } from '../../recoil/states/monster';
 
-import { BottomFixedButton, MonsterThumbnail } from '../common';
+import {
+  BottomFixedButton,
+  MonsterThumbnail,
+  BackButtonHeader,
+} from '../common';
 import { fontSize } from '../../styles';
+import { whiteOpacity } from '../../styles/Mixin';
 
 //* VERY IMPORTANT NOTE *
 // since backend does not supply monsterImage anymore,
@@ -36,7 +41,12 @@ const LevelOneMonstersDisplay = ({ go }) => {
   return (
     <AvatarContainer>
       <AvatarWrap>
-        <TitleWrap>
+        {Boolean(location.state) && (
+          <BackbuttonWrapper>
+            <BackButtonHeader onButtonClick={() => {}} />
+          </BackbuttonWrapper>
+        )}
+        <TitleWrap selectAgainMode={Boolean(location.state)}>
           <WeightText>반가워요!</WeightText>
           <Title>나만의 몬스터를 골라주세요!</Title>
           <Description>
@@ -91,13 +101,20 @@ const AvatarContainer = styled.div`
   height: calc(100% - 64px);
 `;
 
+const BackbuttonWrapper = styled.div`
+  margin-top: 24px;
+  margin-bottom: 12px;
+`;
+
 const AvatarWrap = styled.div`
   background-color: var(--color-background);
   width: 100%;
-  padding: 75px 24px 100px;
+  padding: 0 24px;
 `;
 
-const TitleWrap = styled.div``;
+const TitleWrap = styled.div`
+  margin-top: ${({ selectAgainMode }) => (selectAgainMode ? '0px' : '80px')};
+`;
 
 const Title = styled.h2`
   color: var(--color-white);
@@ -114,7 +131,7 @@ const WeightText = styled.span`
 `;
 
 const Description = styled.p`
-  color: var(--color-white);
+  ${whiteOpacity('0.7')};
   ${fontSize('13px')};
   font-weight: var(--weight-regular);
   margin-top: 12px;

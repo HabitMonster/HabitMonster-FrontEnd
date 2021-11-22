@@ -1,57 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
-import { OK, NOT_FOUND } from '../constants/statusCode';
-import { NOT_FOUND_MONSTER_CODE } from '../constants/statusMessage';
+import { OK, BAD_REQUEST } from '../constants/statusCode';
+import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../constants/statusMessage';
 import { refreshInfoState } from '../recoil/states/follow';
 
-import { Toast } from '../components/common';
-import { userState } from '../recoil/states/user';
+import { BackButtonHeader } from '../components/common';
+import { MonsterListItem } from '../components/monster';
+import { NonePlaceHolder } from '../components/common';
+
+import { miniDebounce } from '../utils/event';
 
 const Search = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
   const [monsterId, setMonsterId] = useState('');
-  const [searchResult, setSearchResult] = useState('');
-  const [failMessage, setFailMessage] = useState(null);
-  const [activeUnableFollowToast, setActiveUnableFollowToast] = useState(false);
-
+  const [debouncedId, setDebouncedId] = useState('');
+  const [searchResult, setSearchResult] = useState(null);
+  const [isFail, setIsFail] = useState(null);
+  const [recommendedUserList, setRecommendedUserList] = useState([]);
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
-  const userInfoState = useRecoilValue(userState);
 
-  const handleButtonClick = async () => {
-    if (!monsterId) {
-      window.alert('몬스터코드를 입력해주세요!');
-      return;
-    }
-
-    try {
-      setFailMessage('');
-      const { data } = await userApis.searchUser(monsterId);
-
-      if (data.statusCode === OK) {
-        setSearchResult(data.userInfo);
-        setRefreshInfo((id) => id + 1);
-      }
-    } catch (error) {
-      if (
-        error.response.data.statusCode === NOT_FOUND &&
-        error.response.data.responseMessage === NOT_FOUND_MONSTER_CODE
-      ) {
-        setFailMessage('등록되지 않은 사용자의 정보입니다.');
-      }
-    }
-  };
+  // @semyung
+  // useCallback의 디펜던시는 setDebouncedId 이외에 아무것도 없습니다.
+  // 다만, Hook Rules에 의하면 inline function을 전달하라고 합니다.
+  // 함수를 Wrapping하는 함수를 만들면 되지만 좋은 생각은 아닌 것 같아
+  // 해당 구간 린트를 삭제합니다.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceChange = useCallback(
+    miniDebounce(function (nextValue) {
+      setDebouncedId(nextValue);
+    }, 600),
+    [setDebouncedId],
+  );
+  console.log(searchResult);
 
   const handleRelationship = async () => {
-    if (searchResult.monsterCode === userInfoState.monsterCode) {
-      setActiveUnableFollowToast(true);
-      return;
-    }
-
     try {
       const { data } = await userApis.follow(
         searchResult.monsterCode,
@@ -70,60 +57,103 @@ const Search = () => {
     }
   };
 
+  useEffect(() => {
+    const queryUser = async () => {
+      if (!debouncedId || debouncedId.length < 6) {
+        return;
+      }
+      try {
+        const { data } = await userApis.searchUser(debouncedId);
+        if (
+          data.statusCode === BAD_REQUEST &&
+          data.responseMessage === NOT_FOUND_USER_VIA_MONSTER_CODE
+        ) {
+          setIsFail(true);
+          return;
+        }
+
+        setSearchResult(data.userInfo);
+        setIsFail(false);
+        setRefreshInfo((id) => id + 1);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    queryUser();
+  }, [setRefreshInfo, debouncedId]);
+
+  useEffect(() => {
+    const queryRecommendation = async () => {
+      try {
+        const { data } = await userApis.getRecommendedUsers();
+        if (data.statusCode === OK) {
+          const mappedUserList = data.userList.map(({ title, userInfo }) => ({
+            title,
+            ...userInfo,
+          }));
+          setRecommendedUserList(mappedUserList);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    queryRecommendation();
+  }, []);
+
+  console.log(recommendedUserList);
+
   return (
     <Wrapper>
-      <Title>search Page</Title>
-      <div>
-        <input
-          type="text"
-          value={monsterId}
-          onChange={(e) => setMonsterId(e.target.value)}
-        />
-        <button onClick={handleButtonClick}>검색하기</button>
-        {failMessage && <FailMessage>{failMessage}</FailMessage>}
-      </div>
-      <div>
-        <Title>검색결과</Title>
-        {searchResult && (
-          <Result>
-            <div>유저 이메일: {searchResult.email}</div>
-            <div>유저 몬스터이름: {searchResult.monsterName}</div>
-            <img
-              src={searchResult.monsterImg}
-              alt="user monster"
-              style={{ width: '128px', height: '128px' }}
-            />
-            <div>
-              팔로우를 했나요?{' '}
-              <span style={{ color: 'yellow' }}>
-                {searchResult.isFollowed ? '네' : '아니요'}
-              </span>
-            </div>
-            <div>
-              <button
-                onClick={handleRelationship}
-                style={{ marginTop: '16px' }}
-              >
-                {searchResult.isFollowed ? '언팔로우' : '팔로우'}
-              </button>
-            </div>
-            <div>
-              <button
-                onClick={() =>
-                  history.push(`${path}/${searchResult.monsterCode}`)
-                }
-              >
-                상세페이지 이동
-              </button>
-            </div>
-          </Result>
-        )}
-      </div>
-      <Toast
-        isActive={activeUnableFollowToast}
-        setIsActive={setActiveUnableFollowToast}
-        text="자기 자신은 팔로우할 수 없어요!"
-      />
+      <BackButtonWrapper>
+        <BackButtonHeader onButtonClick={() => history.replace('/')}>
+          <SearchInput
+            type="text"
+            value={monsterId}
+            onChange={(e) => {
+              setIsFail(null);
+              setMonsterId(e.target.value);
+              debounceChange(e.target.value);
+            }}
+            placeholder="몬스터 ID를 입력하세요"
+          />
+        </BackButtonHeader>
+      </BackButtonWrapper>
+      {isFail && (
+        <NonePlaceHolder>
+          <span>검색한 유저를 찾지 못했어요</span>
+        </NonePlaceHolder>
+      )}
+      {searchResult && (
+        <ul>
+          <MonsterListItem
+            monsterName={searchResult.nickName}
+            monsterCode={searchResult.monsterCode}
+            isFollowed={searchResult.isFollowed}
+            path={`${path}/${searchResult.monsterCode}`}
+          />
+        </ul>
+      )}
+      {recommendedUserList.length && isFail === null && (
+        <RecommendationSection>
+          {/* monsterId로 몬스터 반환시켜야 함. */}
+          {/* {recommendedUserList.map(({ isFollowed, monsterCode, monsterImg, nickName, title }) => {}} */}
+          {recommendedUserList.map(
+            ({ isFollowed, monsterCode, monsterImg, nickName, title }) => {
+              return (
+                <MonsterListItem
+                  key={title + nickName + monsterImg}
+                  monsterName={nickName}
+                  monsterImg={monsterImg}
+                  monsterCode={monsterCode}
+                  recommendationTitle={title}
+                  isFollowd={isFollowed}
+                  path={`${path}/${monsterCode}`}
+                />
+              );
+            },
+          )}
+        </RecommendationSection>
+      )}
     </Wrapper>
   );
 };
@@ -131,38 +161,39 @@ const Search = () => {
 const Wrapper = styled.section`
   width: 100%;
   height: 100%;
+`;
+const BackButtonWrapper = styled.div`
+  margin: 24px 0;
   padding: 0 24px;
+`;
 
-  & h1 {
+const SearchInput = styled.input`
+  width: 100%;
+  height: 32px;
+  padding: 14px 12px;
+  background: var(--bg-primary);
+  border: none;
+  border-radius: 4px;
+  color: #999999;
+
+  &::placeholder {
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: var(--weight-regular);
+    color: #999999;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 
-const Title = styled.div`
-  margin-top: 43px; //현재 640기준아님. 640 + 37 = 677기준.
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 32px;
-  color: var(--color-primary);
-  font-weight: var(--weight-regular);
-  font-size: var(--font-xl);
-  line-height: 32px;
-`;
-
-const Result = styled.div`
-  width: 100%;
-  padding: 24px;
-  background: var(--bg-primary);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  color: var(--color-primary);
-`;
-
-const FailMessage = styled.span`
-  display: block;
-  color: var(--color-danger);
-  font-weight: var(--weight-bold);
+const RecommendationSection = styled.ul`
+  & > h2 {
+    font-weight: var(--weight-bold);
+    line-height: 19.2px;
+    margin-bottom: 10px;
+  }
 `;
 
 export default Search;

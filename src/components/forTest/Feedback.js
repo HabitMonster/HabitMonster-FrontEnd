@@ -1,41 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+
+import { SearchIcon } from '../../assets/icons/common';
 import { FeedbackIcon } from '../../assets/icons/forTest';
 import { whiteOpacity } from '../../styles/Mixin';
 
 const Feedback = () => {
+  const history = useHistory();
+
   return (
-    <FeedbackLink>
-      <div>
-        <FeedbackIcon />
-        <a
-          href="https://forms.gle/H9fYGuAomKwzo5ZD6"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+    <Header>
+      <FeedbackLink
+        href="https://forms.gle/H9fYGuAomKwzo5ZD6"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div>
+          <FeedbackIcon />
           <span>피드백</span>
-        </a>
-      </div>
-    </FeedbackLink>
+        </div>
+      </FeedbackLink>
+      <SearchIcon
+        style={{ cursor: 'pointer' }}
+        onClick={() => history.push('/search')}
+      />
+    </Header>
   );
 };
 
-const FeedbackLink = styled.a`
+const Header = styled.header`
+  padding: 0 24px;
+  width: 100%;
   height: 32px;
   z-index: 3;
-
   position: absolute;
-  right: 24px;
   top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const FeedbackLink = styled.a`
+  height: 32px;
   background: #7d3cff;
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: var(--border-radius-checkBtn);
+  text-decoration: none;
+  cursor: pointer;
 
   & div {
     height: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
   & a {
     text-decoration: none;

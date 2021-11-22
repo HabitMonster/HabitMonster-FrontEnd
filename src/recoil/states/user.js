@@ -6,6 +6,11 @@ export const userState = atom({
   default: {},
 });
 
+export const currentUserMonsterCodeSelector = selector({
+  key: 'currentUserMonsterCode',
+  get: ({ get }) => get(userState)?.monsterCode,
+});
+
 const myPageDataSelector = selector({
   key: 'myPageDataSelector',
   get: async () => {
