@@ -1,36 +1,57 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { currentUserMonsterCodeSelector } from '../../recoil/states/user';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { MonsterThumbnailWrapper } from './';
 
-const MonsterListItem = ({ user }) => {
-  const { monsterName, monsterImg, monsterCode, isFollowed } = user;
+const MonsterListItem = ({
+  monsterName,
+  monsterImg,
+  monsterCode,
+  isFollowed,
+  recommendationTitle,
+  path,
+}) => {
   const monsterImageAlt =
     monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
+  const history = useHistory();
+  const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
 
   return (
-    <MonsterListItemWrap>
+    <MonsterListItemWrap onClick={() => history.push(path)}>
       <ProfileWrap>
-        <ALink to="">
+        <div>
           <MonsterThumbnailWrapper
             imageUrl={monsterImg}
             imageAlt={monsterImageAlt}
           />
-        </ALink>
+        </div>
         <TextWrap>
-          <ALink to="">{monsterName}</ALink>
+          <p>{monsterName}</p>
           <p>{monsterCode}</p>
-          <p>전체 습관 달성 1위</p>
+          {recommendationTitle && <p>{recommendationTitle}</p>}
         </TextWrap>
       </ProfileWrap>
-      <FollowBtn isFollowed={isFollowed}>팔로우</FollowBtn>
+      {currentUserMonsterCode !== monsterCode && (
+        <FollowBtn isFollowed={isFollowed}>
+          {isFollowed ? '팔로잉' : '팔로우'}
+        </FollowBtn>
+      )}
     </MonsterListItemWrap>
   );
 };
 
-export default MonsterListItem;
+MonsterListItem.propTypes = {
+  recommendationTitle: PropTypes.string,
+  monsterName: PropTypes.string,
+  monsterImg: PropTypes.string,
+  monsterCode: PropTypes.string,
+  isFollowed: PropTypes.bool,
+  path: PropTypes.string,
+};
 
 const MonsterListItemWrap = styled.li`
   height: 80px;
@@ -47,32 +68,27 @@ const ProfileWrap = styled.div`
 `;
 
 const TextWrap = styled.div`
+  height: 100%;
   margin-left: 12px;
 
   & p {
     color: var(--color-primary-deemed);
     font-size: var(--font-xxs);
     font-weight: var(--weight-semi-regular);
-    margin-top: 7px;
+    line-height: 14px;
+    margin: 3px 0px;
 
-    /* &:nth-child(2) {
-      color: var(--color-primary-deemed);
-      font-weight: var(--weight-semi-regular);
-    } */
+    &:nth-child(1) {
+      color: var(--color-primary);
+      font-size: var(--font-xs);
+      font-weight: var(--weight-bold);
+    }
   }
-`;
-
-const ALink = styled(Link)`
-  color: var(--color-primary);
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-bold);
-  line-height: 14px;
-  text-decoration: none;
 `;
 
 const FollowBtn = styled.button`
   background-color: ${({ isFollowed }) =>
-    isFollowed ? 'var(--bg-active)' : 'var(--bg-primary)'};
+    isFollowed ? '#181819' : 'var(--bg-active)'};
   border: 0;
   border-radius: var(--border-radius-semi);
   cursor: pointer;
@@ -84,10 +100,4 @@ const FollowBtn = styled.button`
   text-align: center;
 `;
 
-MonsterListItem.propTypes = {
-  user: PropTypes.object.isRequired,
-  monsterName: PropTypes.string,
-  monsterImg: PropTypes.string,
-  monsterCode: PropTypes.string,
-  isFollowed: PropTypes.bool,
-};
+export default MonsterListItem;

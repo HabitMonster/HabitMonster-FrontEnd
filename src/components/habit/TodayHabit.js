@@ -38,7 +38,6 @@ const TodayHabit = ({ id }) => {
 
     try {
       const { data } = await habitApis.checkHabit(id);
-      console.log(data);
       if (data.statusCode === OK) {
         setHabitDetail(data.habit);
 
@@ -88,7 +87,7 @@ const TodayHabit = ({ id }) => {
         disabled={habitDetail.isAccomplished}
         onClick={clickHandler}
       >
-        {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
+        {habitDetail.isAccomplished ? '완료' : '완료하기'}
       </CheckBtn>
       <Toast
         isActive={activeToast}

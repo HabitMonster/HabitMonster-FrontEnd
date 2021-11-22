@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { NonePlaceHolder } from '../common';
 import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
@@ -28,14 +29,13 @@ const MonsterCollection = () => {
   return (
     <Wrapper>
       {!collectionList?.length ? (
-        <NoneTextWrapper>
-          <None />
-          <NoneTextDescription>
+        <NonePlaceHolder>
+          <span>
             아직 수집한 몬스터가 없어요.
             <br />
             습관을 실천해 몬스터를 모아보세요!
-          </NoneTextDescription>
-        </NoneTextWrapper>
+          </span>
+        </NonePlaceHolder>
       ) : (
         collectionList.map((monster) => (
           <EachCollectionWrapper key={monster.monsterName}>

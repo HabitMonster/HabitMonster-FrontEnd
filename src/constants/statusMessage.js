@@ -10,7 +10,7 @@ export const USER_DELETED = 'User Droped';
 export const INTERNAL_SERVER_ERROR_MESSAGE = 'Internal Server Error';
 
 // About MonsterCode
-export const NOT_FOUND_MONSTER_CODE = 'Not Found MonsterCode';
+export const NOT_FOUND_USER_VIA_MONSTER_CODE = 'Not Found User';
 
 export const USER_NAME_UPDATE_SUCCESS = 'User Name Updated Completed';
 export const MONSTER_NAME_UPDATE_SUCCESS = 'Change Monster Name';
