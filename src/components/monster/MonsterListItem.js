@@ -28,13 +28,7 @@ const MonsterListItem = ({
     <MonsterListItemWrap onClick={() => history.push(path)}>
       <ProfileWrap>
         <div>
-          <MonsterThumbnailWrapper
-            id={monsterId}
-            height={height}
-            width={width}
-            thumbnailSize={thumbnailSize}
-            monsterLevel={monsterLevel}
-          />
+          <MonsterThumbnailWrapper monsterId={monsterId} />
         </div>
         <TextWrap>
           <p>{nickName}</p>
@@ -63,6 +57,7 @@ MonsterListItem.propTypes = {
   thumbnailSize: PropTypes.string,
   monsterLevel: PropTypes.number,
   nickName: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const MonsterListItemWrap = styled.li`

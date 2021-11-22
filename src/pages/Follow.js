@@ -78,7 +78,14 @@ const FollowPage = () => {
         {followList?.length >= 1 && (
           <FollowListWrap>
             {followList.map((user) => {
-              return <MonsterListItem key={user.monsterCode} user={user} />;
+              return (
+                <MonsterListItem
+                  key={user.monsterCode}
+                  monsterId={user.monsterId}
+                  nickName={user.nickName}
+                  monsterCode={user.monsterCode}
+                />
+              );
             })}
           </FollowListWrap>
         )}
