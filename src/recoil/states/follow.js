@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, selectorFamily } from 'recoil';
 import { userApis } from '../../api';
 
 export const refreshInfoState = atom({
@@ -33,9 +33,4 @@ export const searchUserHabitSelector = selectorFamily({
       });
       return habit;
     },
-});
-
-export const userHabitSelector = selector({
-  key: 'userHabitSelector',
-  get: async () => {},
 });

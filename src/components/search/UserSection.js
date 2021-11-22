@@ -13,14 +13,10 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
         monsterId={monster.monsterId}
       />
       <Box>
-        <p>{habits.length}</p>
-        <p className="box-title">습관</p>
-      </Box>
-      <Box>
         <FollowLink
           to={{
-            pathname: '/follow',
-            search: '?tab=followers',
+            pathname: `/follow/${userInfo.monsterCode}`,
+            search: `?tab=followers`,
           }}
         >
           <p>{followers}</p>
@@ -30,8 +26,8 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
       <Box>
         <FollowLink
           to={{
-            pathname: '/follow',
-            search: '?tab=following',
+            pathname: `/follow/${userInfo.monsterCode}`,
+            search: `?tab=following`,
           }}
         >
           <p>{userInfo.followingsCount}</p>
