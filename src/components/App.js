@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+
 import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
@@ -9,7 +10,6 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
-
 import OnBoard from './onBoard/OnBoard';
 import Notice from '../pages/Notice';
 import Follow from '../pages/Follow';

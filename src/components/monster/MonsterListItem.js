@@ -8,15 +8,19 @@ import styled from 'styled-components';
 import { MonsterThumbnailWrapper } from './';
 
 const MonsterListItem = ({
-  monsterName,
-  monsterImg,
+  monsterId,
   monsterCode,
+  monsterLevel,
+  width,
+  height,
+  nickName,
   isFollowed,
+  thumbnailSize,
   recommendationTitle,
   path,
 }) => {
-  const monsterImageAlt =
-    monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
+  // const monsterImageAlt =
+  //   monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
   const history = useHistory();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
 
@@ -24,13 +28,10 @@ const MonsterListItem = ({
     <MonsterListItemWrap onClick={() => history.push(path)}>
       <ProfileWrap>
         <div>
-          <MonsterThumbnailWrapper
-            imageUrl={monsterImg}
-            imageAlt={monsterImageAlt}
-          />
+          <MonsterThumbnailWrapper monsterId={monsterId} />
         </div>
         <TextWrap>
-          <p>{monsterName}</p>
+          <p>{nickName}</p>
           <p>{monsterCode}</p>
           {recommendationTitle && <p>{recommendationTitle}</p>}
         </TextWrap>
@@ -47,10 +48,16 @@ const MonsterListItem = ({
 MonsterListItem.propTypes = {
   recommendationTitle: PropTypes.string,
   monsterName: PropTypes.string,
-  monsterImg: PropTypes.string,
+  monsterId: PropTypes.number,
   monsterCode: PropTypes.string,
   isFollowed: PropTypes.bool,
   path: PropTypes.string,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  thumbnailSize: PropTypes.string,
+  monsterLevel: PropTypes.number,
+  nickName: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const MonsterListItemWrap = styled.li`

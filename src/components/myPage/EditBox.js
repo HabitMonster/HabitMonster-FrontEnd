@@ -73,7 +73,18 @@ const EditBox = ({
         activeToast(true);
         // myPageData가 먼저 갱신되면서 closeModal callback 의존성에 영향을 주기 때문에 모달을 닫고 EditValue를 하도록 한다
         setTimeout(() =>
-          setEditValue((myPageData) => ({ ...myPageData, [type]: editValue })),
+          setEditValue((myPageData) => {
+            const changedObject =
+              type === 'username'
+                ? { ...myPageData.userInfo, [type]: editValue }
+                : { ...myPageData.monster, [type]: editValue };
+            const changedKey = type === 'username' ? 'userInfo' : 'monster';
+
+            return {
+              ...myPageData,
+              [changedKey]: { ...changedObject },
+            };
+          }),
         );
       }
     } catch (err) {
