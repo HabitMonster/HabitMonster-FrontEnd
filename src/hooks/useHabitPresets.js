@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { habitIdListState, defaultHabitsState } from '../recoil/states/habit';
+import {
+  habitIdListState,
+  defaultHabitsState,
+  myHabitCountState,
+} from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
@@ -11,6 +15,8 @@ export default function useHabitPresets() {
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habits, setHabits] = useRecoilState(defaultHabitsState);
+  const [totalHabitCount, setTotalHabitCount] =
+    useRecoilState(myHabitCountState);
   const { categoryId } = useParams();
   const history = useHistory();
 
@@ -47,6 +53,7 @@ export default function useHabitPresets() {
         setHabitIdList([data.habit.habitId, ...habitIdList]);
         setHabits([data.habit, ...habits]);
       }
+      setTotalHabitCount(totalHabitCount + 1);
       history.replace('/');
     } catch (error) {
       console.error(error);

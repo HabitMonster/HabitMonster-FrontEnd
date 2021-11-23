@@ -6,10 +6,11 @@ import { monsterState } from '../../recoil/states/monster';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { MonsterThumbnail, Modal } from '../common';
+import { MonsterSearchSection } from '.';
 import { BottomDialog } from '../dialog';
 import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
-import { MAX_LEVEL } from '../../constants/monster';
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
@@ -20,9 +21,16 @@ const MainMonster = () => {
 
   useEffect(() => {
     setLevelUpMessage('');
+    if (
+      monster.monsterLevel === MAX_LEVEL &&
+      monster.monsterExpPoint === MAX_EXP
+    ) {
+      return;
+    }
+
     const { current: previous } = previousLevel;
     const current = monster.monsterLevel;
-    if (previous === current || current === MAX_LEVEL) {
+    if (previous === current) {
       return null;
     }
 
@@ -31,10 +39,11 @@ const MainMonster = () => {
       `레벨 ${previous}에서 레벨 ${current}로 업그레이드 했습니다!`,
     );
     previousLevel.current = monster.monsterLevel;
-  }, [monster.monsterLevel]);
+  }, [monster.monsterLevel, monster.monsterExpPoint]);
 
   return (
     <MonsterContainer>
+      <MonsterSearchSection />
       <TitleWrapper heightShrinked={heightShrinked}>
         <Title>
           오늘{' '}
@@ -93,6 +102,7 @@ const MonsterContainer = styled.div`
   padding: 0px 24px;
   padding-top: 24px;
   transition: all 150ms ease-in;
+  position: relative;
 `;
 
 const TitleWrapper = styled.div`

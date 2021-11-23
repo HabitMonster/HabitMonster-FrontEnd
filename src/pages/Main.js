@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { monsterState } from '../recoil/states/monster';
+import {
+  monsterState,
+  monsterChangeTogglerState,
+} from '../recoil/states/monster';
 
 import { MainMonster, LevelUp } from '../components/monster';
 import { Gnb } from '../components/gnb';
 import { TodayHabitList } from '../components/habit';
-import Feedback from '../components/forTest/Feedback';
 import { Modal } from '../components/common';
-
-import { MAX_LEVEL, MAX_EXP } from '../constants/monster';
 
 const Main = () => {
   const history = useHistory();
   const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
   const monster = useRecoilValue(monsterState);
+  const [changeModalOpen, setChangeModalOpen] = useRecoilState(
+    monsterChangeTogglerState,
+  );
 
   useEffect(() => {
-    const isMonsterModalOpen =
-      monster.monsterLevel === MAX_LEVEL && monster.monsterExpPoint === MAX_EXP;
-
-    setIsMonsterModalOpen(isMonsterModalOpen);
-  }, [monster.monsterExpPoint, monster.monsterLevel]);
+    if (changeModalOpen) {
+      setIsMonsterModalOpen(changeModalOpen);
+      return;
+    }
+  }, [changeModalOpen, monster.monsterExpPoint, monster.monsterLevel]);
 
   return (
     <>
       <Wrapper>
-        <Feedback />
         <MonsterSection>
           <MainMonster />
         </MonsterSection>
@@ -52,6 +54,7 @@ const Main = () => {
             }}
             onClickStay={() => {
               setIsMonsterModalOpen(false);
+              setChangeModalOpen(false);
             }}
           />
         </Modal>

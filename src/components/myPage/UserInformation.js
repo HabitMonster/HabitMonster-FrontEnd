@@ -18,7 +18,7 @@ import {
 import {
   defaultHabitsState,
   habitIdListState,
-  myHabitCountSelector,
+  myHabitCountState,
 } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
@@ -34,7 +34,7 @@ import { Pencil } from '../../assets/icons/common';
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
   const monsterInfo = useRecoilValue(monsterState);
-  const myHabitCount = useRecoilValue(myHabitCountSelector);
+  const myHabitCount = useRecoilValue(myHabitCountState);
   const followerListCount = useRecoilValue(myFollowerListCountSelector);
   const followingListCount = useRecoilValue(myFollowingListCountSelector);
   const setAuth = useSetRecoilState(authState);

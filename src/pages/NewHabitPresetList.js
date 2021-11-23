@@ -10,6 +10,7 @@ import { PencilIcon } from '../assets/icons/habits';
 
 const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();
+
   const history = useHistory();
 
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =

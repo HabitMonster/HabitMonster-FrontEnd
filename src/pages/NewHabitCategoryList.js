@@ -35,7 +35,7 @@ const NewHabitCategoryList = () => {
                     history.push({
                       pathname: `${path}/${categoryId}/preset`,
                       state: {
-                        id: categoryId,
+                        categoryId,
                         name: CATEGORIES[categoryName].name,
                       },
                     });
