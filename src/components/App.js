@@ -86,7 +86,11 @@ function App() {
           component={<HabitEdit />}
         />
         <PrivateRoute path="/notice" component={<Notice />} />
-        <PrivateRoute exact path="/follow" component={<Follow />} />
+        <PrivateRoute
+          exact
+          path="/follow/:monsterCode"
+          component={<Follow />}
+        />
       </Switch>
     </Layout>
   );
@@ -101,7 +105,7 @@ const Layout = styled.div`
   height: 100vh;
   margin: 0 auto;
   position: relative;
-  /* overflow: hidden; */
+  overflow: hidden;
 `;
 
 export default App;

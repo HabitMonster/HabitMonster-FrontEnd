@@ -9,6 +9,7 @@ import { MonsterThumbnail, Modal } from '../common';
 import { BottomDialog } from '../dialog';
 import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
+import { MAX_LEVEL } from '../../constants/monster';
 
 const MainMonster = ({ heightShrinked }) => {
   const monster = useRecoilValue(monsterState);
@@ -20,7 +21,7 @@ const MainMonster = ({ heightShrinked }) => {
     setLevelUpMessage('');
     const { current: previous } = previousLevel;
     const current = monster.monsterLevel;
-    if (previous === current) {
+    if (previous === current || current === MAX_LEVEL) {
       return null;
     }
 

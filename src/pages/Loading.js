@@ -4,11 +4,7 @@ import styled from 'styled-components';
 import '../assets/fonts/font.css';
 
 const Loading = () => {
-  return (
-    <Wrapper>
-      <Text>Loading...</Text>
-    </Wrapper>
-  );
+  return <Wrapper></Wrapper>;
 };
 
 const Wrapper = styled.div`
@@ -18,13 +14,8 @@ const Wrapper = styled.div`
   align-items: center;
   background: red;
   width: 100%;
-  height: 100%;
-  background-color: transparent;
-`;
-
-const Text = styled.p`
-  color: var(--color-white);
-  text-align: center;
+  height: 100vh;
+  background-color: black;
 `;
 
 export default Loading;

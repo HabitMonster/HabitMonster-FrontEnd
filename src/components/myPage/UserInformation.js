@@ -199,8 +199,8 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: '/follow',
-                search: '?tab=followers',
+                pathname: `/follow`,
+                search: `?tab=followers`,
               }}
             >
               <BoldText>{followerListCount ?? 0}</BoldText>
@@ -210,8 +210,8 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: '/follow',
-                search: '?tab=following',
+                pathname: `/follow`,
+                search: `?tab=following`,
               }}
             >
               <BoldText>{followingListCount ?? 0}</BoldText>
