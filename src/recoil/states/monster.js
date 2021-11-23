@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil';
 import { mainApis, monsterApis } from '../../api';
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 import { OK } from '../../constants/statusCode';
 
 export const monsterRefetchToggler = atom({

@@ -1,16 +1,20 @@
 import { atom, selector, atomFamily, selectorFamily } from 'recoil';
-import { mainApis, addHabitApis } from '../../api';
+import { mainApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
 export const defaultHabitsState = atom({
   key: 'asyncDefaultHabitsState',
   default: selector({
     key: 'asyncDefaultHabitsSelector',
-    get: async ({ get }) => {
+    get: async () => {
       try {
         const { data } = await mainApis.getHabitsInfo();
 
-        return data.habits;
+        if (data.statusCode === OK) {
+          return data.habits;
+        }
+
+        return [];
       } catch (error) {
         console.error(error);
         return [];
@@ -45,19 +49,4 @@ export const habitStateWithId = atomFamily({
       ({ get }) =>
         get(habitsHashSelector)[habitId],
   }),
-});
-
-export const habitCategorySelector = selector({
-  key: 'habitCategorySelector',
-  get: async () => {
-    try {
-      const { data } = await addHabitApis.getCategoryList();
-      if (data.statusCode === OK) {
-        return data.categories;
-      }
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  },
 });

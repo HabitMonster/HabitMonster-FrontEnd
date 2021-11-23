@@ -44,8 +44,14 @@ const AcheiveContainer = styled.div`
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 80px);
-  padding-bottom: 144px;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const NavButtonWrap = styled.ul`

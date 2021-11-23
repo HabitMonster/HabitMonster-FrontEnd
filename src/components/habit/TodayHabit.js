@@ -10,6 +10,7 @@ import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
 import { mainApis, habitApis } from '../../api';
+import { miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
 import { Toast } from '../common';
 
@@ -28,15 +29,13 @@ const TodayHabit = ({ id }) => {
 
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
 
-  const clickHandler = async (e) => {
-    e.stopPropagation();
+  const clickHandler = miniDebounce(async () => {
     setActive((prev) => !prev);
 
-    setTimeout(() => {
-      setActive((prev) => !prev);
-    }, 300);
-
     try {
+      setTimeout(() => {
+        setActive((prev) => !prev);
+      }, 300);
       const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
         setHabitDetail(data.habit);
@@ -57,7 +56,7 @@ const TodayHabit = ({ id }) => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, 0);
 
   const onHabitClicked = () => {
     history.push(`/habit/${id}`);
@@ -85,7 +84,11 @@ const TodayHabit = ({ id }) => {
         active={active}
         isDone={habitDetail.isAccomplished}
         disabled={habitDetail.isAccomplished}
-        onClick={clickHandler}
+        onClick={(e) => {
+          console.log(e);
+          e.stopPropagation();
+          clickHandler();
+        }}
       >
         {habitDetail.isAccomplished ? '완료' : '완료하기'}
       </CheckBtn>
