@@ -1,11 +1,15 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { currentUserMonsterCodeSelector } from '../../recoil/states/user';
+import { refreshInfoState } from '../../recoil/states/search';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { MonsterThumbnailWrapper } from './';
+
+import { userApis } from '../../api';
+import { OK } from '../../constants/statusCode';
 
 const MonsterListItem = ({
   monsterId,
@@ -23,6 +27,23 @@ const MonsterListItem = ({
   //   monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
   const history = useHistory();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const [_isFollowed, setIsFollowed] = useState(isFollowed);
+
+  const handleRelationship = async (e) => {
+    e.stopPropagation();
+    try {
+      const { data } = await userApis.follow(monsterCode, _isFollowed);
+
+      if (data.statusCode === OK) {
+        console.log(data);
+        setIsFollowed(data.isFollowed);
+        setRefreshInfo((id) => id + 1);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <MonsterListItemWrap onClick={() => history.push(path)}>
@@ -37,8 +58,8 @@ const MonsterListItem = ({
         </TextWrap>
       </ProfileWrap>
       {currentUserMonsterCode !== monsterCode && (
-        <FollowBtn isFollowed={isFollowed}>
-          {isFollowed ? '팔로잉' : '팔로우'}
+        <FollowBtn isFollowed={_isFollowed} onClick={handleRelationship}>
+          {_isFollowed ? '팔로잉' : '팔로우'}
         </FollowBtn>
       )}
     </MonsterListItemWrap>
@@ -58,6 +79,7 @@ MonsterListItem.propTypes = {
   monsterLevel: PropTypes.number,
   nickName: PropTypes.string,
   user: PropTypes.object,
+  handleRelationship: PropTypes.func,
 };
 
 const MonsterListItemWrap = styled.li`

@@ -164,15 +164,15 @@ const UserInformation = () => {
       ]
     : [];
 
-  useEffect(() => {
-    return () => {
-      // 마이페이지에서 벗어날 때 리스트를 초기화한다
-      if (history.location.pathname !== 'mypage/information') {
-        console.log('mypage CleanUp');
-        resetFollowList();
-      }
-    };
-  }, [history, resetFollowList]);
+  // useEffect(() => {
+  //   return () => {
+  //     // 마이페이지에서 벗어날 때 리스트를 초기화한다
+  //     if (history.location.pathname !== 'mypage/information') {
+  //       console.log('mypage CleanUp');
+  //       resetFollowList();
+  //     }
+  //   };
+  // }, [history, resetFollowList]);
 
   return (
     <>
@@ -186,8 +186,8 @@ const UserInformation = () => {
           monsterId={monsterInfo.monsterId}
         />
         <div>
-          <BoldText>{userInfo.username}</BoldText>
-          <EditNicknameBtn onClick={() => openModal('username')}>
+          <BoldText>{userInfo.userName}</BoldText>
+          <EditNicknameBtn onClick={() => openModal('userName')}>
             <Pencil />
           </EditNicknameBtn>
         </div>
@@ -199,8 +199,8 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: `/follow`,
-                search: `?tab=followers`,
+                pathname: '/follow',
+                search: '?tab=followers',
               }}
             >
               <BoldText>{followerListCount ?? 0}</BoldText>
@@ -210,8 +210,8 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: `/follow`,
-                search: `?tab=following`,
+                pathname: '/follow',
+                search: '?tab=following',
               }}
             >
               <BoldText>{followingListCount ?? 0}</BoldText>

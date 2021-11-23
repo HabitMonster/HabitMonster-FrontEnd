@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -34,7 +34,7 @@ const EditBox = ({ type, closeModal, activeToast }) => {
       }
 
       // fieldKey: username / monsterName
-      const fieldKey = type === 'username' ? 'username' : 'monsterName';
+      const fieldKey = type === 'userName' ? 'username' : 'monsterName';
       const { data } = await editRequest({
         [fieldKey]: editValue,
       });
@@ -54,6 +54,7 @@ const EditBox = ({ type, closeModal, activeToast }) => {
             ...monsterInfo,
             monsterName: data.monster.monsterName,
           };
+          //몬스터 아톰 수정
           setMonsterInfo(newMonsterInfo);
         }
 
@@ -65,11 +66,17 @@ const EditBox = ({ type, closeModal, activeToast }) => {
     }
   };
 
+  useEffect(() => {
+    setEditValue(
+      type === 'userName' ? userInfo.userName : monsterInfo.monsterName,
+    );
+  }, [type, userInfo.userName, monsterInfo.monsterName]);
+
   return (
     <Container>
       <BackButtonHeader onButtonClick={closeModal} />
       <PositionWrap>
-        {type === 'username' && (
+        {type === 'userName' && (
           <EditTitle>
             제가 뭐라고
             <br /> 부르면 좋을까요?
@@ -84,7 +91,7 @@ const EditBox = ({ type, closeModal, activeToast }) => {
         <TextInput
           text={editValue || ''}
           placeholder={editValue}
-          onTextChanged={handleChangeValue}
+          onTextChanged={setEditValue}
           maxLength={12}
           idleHelperText="한글, 영문, 숫자 공백없이 최대 12자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"

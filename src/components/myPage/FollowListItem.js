@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import { Profile } from '../../assets/images/placeholder';
 
 const FollowListItem = ({ user }) => {
-  const { monsterName, monsterImg, monsterCode, isFollowed } = user;
+  const { monsterName, monsterId, monsterCode, isFollowed } = user;
 
   return (
     <FollowListItemWrap>
       {/* <Profile /> */}
       <ProfileWrap>
         <ALink to="">
-          <Profile src={monsterImg} />
+          <Profile src={monsterId} />
         </ALink>
         <TextWrap>
           <ALink to="">{monsterName}</ALink>
