@@ -8,18 +8,22 @@ import {
   NaverLogin,
 } from '../components/login';
 
+import OnBoard from '../components/onBoard/OnBoard';
+
 import '../assets/fonts/font.css';
 
 const Login = () => {
+  if (!window.localStorage.getItem('isOnboarding')) {
+    return <OnBoard />;
+  }
+
   return (
-    <>
-      <Wrapper>
-        <LoginTitle />
-        <KakaoLogin />
-        <GoogleLogin />
-        <NaverLogin />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <LoginTitle />
+      <KakaoLogin />
+      <GoogleLogin />
+      <NaverLogin />
+    </Wrapper>
   );
 };
 

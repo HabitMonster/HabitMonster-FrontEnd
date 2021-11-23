@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { myFollowListByType } from '../recoil/states/user';
+import { userApis } from '../api';
+import { OK } from '../constants/statusCode';
 
 import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
 import { Gnb } from '../components/gnb';
 
-const FollowPage = () => {
+const SearchDetailFollow = () => {
   const history = useHistory();
   const location = useLocation();
   const [followList, setFollowList] = useState(null);
   const tabType = location?.search?.split('tab=')?.[1];
+  const userMonsterCode = location.pathname.split('/')[2];
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
-  const getFollowList = useRecoilValue(myFollowListByType(tabType));
-  console.log('followlist', getFollowList, followList);
-  const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
+  const goToMyPage = () => {
+    history.push(`/search/${userMonsterCode}`);
+  };
 
   useEffect(() => {
     if (!isCorrectTabType) {
@@ -26,12 +27,34 @@ const FollowPage = () => {
     }
   }, [history, tabType, isCorrectTabType]);
 
-  useEffect(() => {
-    console.log('getFollowList', getFollowList);
-    // recoil에서 가져온 FollowList를 담아준다
-    setFollowList(getFollowList);
-  }, [getFollowList]);
+  const getUserList = useCallback(async () => {
+    if (!isCorrectTabType) {
+      return;
+    }
 
+    await setFollowList(null);
+
+    let getUserResponse = userApis.getUserFollowers(userMonsterCode);
+
+    if (tabType === 'following') {
+      getUserResponse = userApis.getUserFollowings(userMonsterCode);
+    }
+
+    const { data } = await getUserResponse;
+
+    if (data.statusCode === OK) {
+      const followList =
+        tabType === 'followers' ? data.followers : data.followings;
+
+      setFollowList(followList ?? []);
+    }
+  }, [tabType, isCorrectTabType]);
+
+  useEffect(() => {
+    getUserList();
+  }, [getUserList]);
+
+  //@jaekyung Todo. followlist 컴포넌트 만들어서 재활용하게 할 예정임
   return (
     <>
       <FollowContainer>
@@ -40,7 +63,10 @@ const FollowPage = () => {
           <NavButtonItem>
             <NavButton
               isActive={() => isActiveTab('followers')}
-              to="/follow?tab=followers"
+              to={{
+                pathname: `/follow/${userMonsterCode}`,
+                search: `?tab=followers`,
+              }}
               activeClassName="active"
             >
               팔로워
@@ -49,7 +75,10 @@ const FollowPage = () => {
           <NavButtonItem>
             <NavButton
               isActive={() => isActiveTab('following')}
-              to="/follow?tab=following"
+              to={{
+                pathname: `/follow/${userMonsterCode}`,
+                search: `?tab=following`,
+              }}
               activeClassName="active"
             >
               팔로잉
@@ -65,7 +94,6 @@ const FollowPage = () => {
                   monsterId={user.monsterId}
                   nickName={user.nickName}
                   monsterCode={user.monsterCode}
-                  isFollowed={user.isFollowed}
                 />
               );
             })}
@@ -86,7 +114,7 @@ const FollowPage = () => {
   );
 };
 
-export default FollowPage;
+export default SearchDetailFollow;
 
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
@@ -123,10 +151,12 @@ const NavButton = styled(NavLink)`
   outline: 0;
   line-height: 19px;
   text-decoration: none;
+
   &:hover {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
   }
+
   &.active {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
@@ -144,6 +174,7 @@ const EmptyPlace = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   & p {
     color: var(--color-primary);
     opacity: 0.6;
