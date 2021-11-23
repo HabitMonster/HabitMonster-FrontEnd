@@ -13,7 +13,6 @@ const MonsterThumbnailWrapper = ({
   monsterLevel,
 }) => {
   if (isProfile) {
-    console.log('프로필이미지');
     return (
       <ThumbnailWrapper size={thumbnailSize}>
         <MonsterThumbnailProfile id={monsterId} width={width} height={height} />
@@ -22,7 +21,6 @@ const MonsterThumbnailWrapper = ({
     );
   }
 
-  console.log('그냥이미지');
   return (
     <ThumbnailWrapper size={thumbnailSize}>
       <MonsterThumbnail id={monsterId} width={width} height={height} />
