@@ -9,6 +9,7 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
   return (
     <Section>
       <MonsterThumbnailWrapper
+        isProfile={true}
         monsterLevel={monster.monsterLevel}
         monsterId={monster.monsterId}
       />
