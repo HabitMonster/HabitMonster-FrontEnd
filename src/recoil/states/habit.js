@@ -9,7 +9,7 @@ export const defaultHabitsState = atom({
     get: async ({ get }) => {
       try {
         const { data } = await mainApis.getHabitsInfo();
-        console.log('mypage', data.totalHabitCount);
+
         return data.habits;
       } catch (error) {
         console.error(error);
@@ -60,4 +60,9 @@ export const habitCategorySelector = selector({
       return [];
     }
   },
+});
+
+export const myHabitCountSelector = selector({
+  key: 'myHabitCounterSelector',
+  get: ({ get }) => get(defaultHabitsState)?.length ?? 0,
 });
