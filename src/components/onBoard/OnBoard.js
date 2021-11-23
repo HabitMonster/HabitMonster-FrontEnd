@@ -75,8 +75,8 @@ const OnBoard = () => {
           text="시작하기"
           condition={null}
           onClick={() => {
-            history.replace('/login');
             window.localStorage.setItem('isOnboarding', false);
+            history.replace('/login');
           }}
         />
       </OnBoardContainer>

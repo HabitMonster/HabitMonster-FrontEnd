@@ -219,6 +219,7 @@ const UserInformation = () => {
       </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
+          console.log('userInfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
@@ -332,7 +333,6 @@ const UserInfoWrap = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 12px;
-
   & div {
     display: flex;
     justify-content: center;
@@ -361,20 +361,17 @@ const Summary = styled.ul`
   display: flex;
   justify-content: space-around;
   margin: 24px 0;
-
   & li {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     flex: 1 1 0;
-
     & span {
       font-size: var(--font-xxs);
       font-weight: var(--weight-semi-regular);
       line-height: 15px;
     }
-
     &::after {
       background-color: var(--color-title);
       position: absolute;
@@ -386,7 +383,6 @@ const Summary = styled.ul`
       right: 0;
       transform: translateY(-50%);
     }
-
     &::last-child {
       &::after {
         width: 0;

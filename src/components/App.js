@@ -9,13 +9,13 @@ import New from '../pages/New';
 import MyPage from '../pages/MyPage';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
-import OnBoard from './onBoard/OnBoard';
 import Notice from '../pages/Notice';
 import Follow from '../pages/Follow';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
 import Select from '../pages/Select';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
+import SearchDetailFollow from '../pages/SearchDetailFollow';
 
 import Loading from '../pages/Loading';
 
@@ -56,7 +56,6 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
-        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
         <PrivateRoute path="/select" component={<Select />} />
         <PrivateRoute exact path="/" component={<Main />} />
@@ -86,6 +85,11 @@ function App() {
         />
         <PrivateRoute path="/notice" component={<Notice />} />
         <PrivateRoute exact path="/follow" component={<Follow />} />
+        <PrivateRoute
+          exact
+          path="/follow/:monsterCode"
+          component={<SearchDetailFollow />}
+        />
       </Switch>
     </Suspense>
   );
