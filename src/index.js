@@ -1,9 +1,8 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
-
-import Loading from './pages/Loading';
+import DeviceDetector from './components/DeviceDetector';
 import App from './components/App';
 
 import { GlobalStyle } from './styles/';
@@ -11,15 +10,13 @@ import { GlobalStyle } from './styles/';
 import './assets/fonts/font.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <GlobalStyle />
-      <RecoilRoot>
-        <Suspense fallback={<Loading />}>
-          <App />
-        </Suspense>
-      </RecoilRoot>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <GlobalStyle />
+    <RecoilRoot>
+      <DeviceDetector>
+        <App />
+      </DeviceDetector>
+    </RecoilRoot>
+  </Router>,
   document.getElementById('root'),
 );

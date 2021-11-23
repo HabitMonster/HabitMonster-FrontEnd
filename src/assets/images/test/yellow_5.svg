@@ -2,7 +2,7 @@
 <defs>
 <style>
 .cls-1-yellow-level-five{fill:#008133;}
-.cls-2-yellow-level-five{fill:url(#무제_그라디언트_725);}
+.cls-2-yellow-level-five{fill:url(#yellow-level-five-gradient-725);}
 .cls-3-yellow-level-five{fill:#00d726;}
 .cls-4-yellow-level-five{fill:#00ad4c;}
 .cls-5-yellow-level-five{fill:#87ff7b;}
@@ -22,7 +22,7 @@
 .cls-21-yellow-level-five{fill:#4a2827;}
 .cls-22-yellow-level-five{fill:#651e02;} 
 </style>
-<radialGradient id="무제_그라디언트_725" cx="1527.73" cy="1095.13" r="54.05" gradientUnits="userSpaceOnUse">
+<radialGradient id="yellow-level-five-gradient-725" cx="1527.73" cy="1095.13" r="54.05" gradientUnits="userSpaceOnUse">
 <stop offset="0" stop-color="#00d800"/>
 <stop offset="1" stop-color="#0f9"/>
 </radialGradient>
