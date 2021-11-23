@@ -1,22 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { myPageApis } from '../api';
+import { myPageApis, userApis } from '../api';
 import { OK } from '../constants/statusCode';
 
 import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
 import { Gnb } from '../components/gnb';
+import { userState } from '../recoil/states/user';
 
 const FollowPage = () => {
   const history = useHistory();
   const location = useLocation();
+  const userInfoState = useRecoilValue(userState);
   const [followList, setFollowList] = useState(null);
   const tabType = location?.search?.split('tab=')?.[1];
+  const userMonsterCode = location.pathname.split('/')[2];
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
   const isActiveTab = (type) => tabType === type;
-  const goToMyPage = () => history.push('/mypage/information');
+  const goToMyPage = () => {
+    history.push(
+      userInfoState.monsterCode === userMonsterCode
+        ? '/mypage/information'
+        : `/search/${userMonsterCode}`,
+    );
+  };
 
   useEffect(() => {
     if (!isCorrectTabType) {
@@ -25,21 +35,30 @@ const FollowPage = () => {
   }, [history, tabType, isCorrectTabType]);
 
   const getUserList = useCallback(async () => {
-    if (!isCorrectTabType) return;
-    console.log('tabType', tabType);
-    await setFollowList(null);
-    let getUserResponse = myPageApis.loadFollowers;
-
-    if (tabType === 'following') {
-      getUserResponse = myPageApis.loadFollowings;
+    if (!isCorrectTabType) {
+      return;
     }
 
-    const { data } = await getUserResponse();
+    await setFollowList(null);
+
+    let getUserResponse =
+      userInfoState.monsterCode === userMonsterCode
+        ? myPageApis.loadFollowers()
+        : userApis.getUserFollowers(userMonsterCode);
+
+    if (tabType === 'following') {
+      getUserResponse =
+        userInfoState.monsterCode === userMonsterCode
+          ? myPageApis.loadFollowings()
+          : userApis.getUserFollowings(userMonsterCode);
+    }
+
+    const { data } = await getUserResponse;
 
     if (data.statusCode === OK) {
       const followList =
         tabType === 'followers' ? data.followers : data.followings;
-      console.log('followerdata', followList);
+
       setFollowList(followList ?? []);
     }
   }, [tabType, isCorrectTabType]);
@@ -59,7 +78,10 @@ const FollowPage = () => {
           <NavButtonItem>
             <NavButton
               isActive={() => isActiveTab('followers')}
-              to="/follow?tab=followers"
+              to={{
+                pathname: `/follow/${userMonsterCode}`,
+                search: `?tab=followers`,
+              }}
               activeClassName="active"
             >
               팔로워
@@ -68,7 +90,10 @@ const FollowPage = () => {
           <NavButtonItem>
             <NavButton
               isActive={() => isActiveTab('following')}
-              to="/follow?tab=following"
+              to={{
+                pathname: `/follow/${userMonsterCode}`,
+                search: `?tab=following`,
+              }}
               activeClassName="active"
             >
               팔로잉

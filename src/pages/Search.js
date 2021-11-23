@@ -6,11 +6,10 @@ import styled from 'styled-components';
 import { userApis } from '../api/user';
 import { OK, BAD_REQUEST } from '../constants/statusCode';
 import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../constants/statusMessage';
-import { refreshInfoState } from '../recoil/states/follow';
+import { refreshInfoState } from '../recoil/states/search';
 
-import { BackButtonHeader } from '../components/common';
+import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { MonsterListItem } from '../components/monster';
-import { NonePlaceHolder } from '../components/common';
 
 import { miniDebounce } from '../utils/event';
 
@@ -25,37 +24,12 @@ const Search = () => {
   const [recommendedUserList, setRecommendedUserList] = useState([]);
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
-  // @semyung
-  // useCallback의 디펜던시는 setDebouncedMonsterCode 이외에 아무것도 없습니다.
-  // 다만, Hook Rules에 의하면 inline function을 전달하라고 합니다.
-  // 함수를 Wrapping하는 함수를 만들면 되지만 좋은 생각은 아닌 것 같아
-  // 해당 구간 린트를 삭제합니다.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceChange = useCallback(
     miniDebounce(function (nextValue) {
       setDebouncedMonsterCode(nextValue);
     }, 600),
     [setDebouncedMonsterCode],
   );
-
-  const handleRelationship = async () => {
-    try {
-      const { data } = await userApis.follow(
-        searchResult.setMonsterIdrCode,
-        searchResult.isFollowed,
-      );
-
-      if (data.statusCode === OK) {
-        setSearchResult((prev) => ({
-          ...prev,
-          isFollowed: data.isFollowed,
-        }));
-        setRefreshInfo((id) => id + 1);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
     const queryUser = async () => {

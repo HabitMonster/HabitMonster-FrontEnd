@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -8,12 +8,12 @@ import {
   BottomFixedButton,
   BackButtonHeader,
 } from '../components/common';
-import leveloneMonsters from '../assets/images/monsters/svg';
-
-import { userLevelOneMonsterSelector } from '../recoil/states/monster';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import { renderDays } from '../utils/date';
-import { searchUserHabitSelector } from '../recoil/states/follow';
+import {
+  searchUserHabitSelector,
+  refreshInfoState,
+} from '../recoil/states/search';
 
 const MOCKUP_CATEGORY_ID = {
   Health: 1,
@@ -31,11 +31,11 @@ const SearchDetailHabit = () => {
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   // 백엔드에서 HabitCategoryId를 내려주면 코드를 삭제할 예정.
   const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
 
-  const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
     'YMD',
@@ -43,38 +43,18 @@ const SearchDetailHabit = () => {
   );
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'YMD', '.');
 
-  const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
-  const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;
-
   return (
     <Container>
-      <BackButtonHeader
-        onButtonClick={() => history.goBack()}
-        pageTitleText={habitDetail.title}
-      />
+      <MenuBar>
+        <BackButtonHeader
+          onButtonClick={() => {
+            setRefreshInfo((id) => id + 1);
+            history.push(`/search/${monsterCode}`);
+          }}
+          pageTitleText={habitDetail.title}
+        />
+      </MenuBar>
       <Inner>
-        <Wrapper>
-          <ProgressBarWrapper>
-            <ProgressBar achievePercentage={habitDetail.achievePercentage}>
-              <div className="left" />
-              <div className="right" />
-              <div className="text">
-                <span>{habitDetail.achievePercentage}%</span>
-                <span>
-                  {habitDetail.totalCount}번 중 {habitDetail.achieveCount}번
-                  완료!
-                </span>
-              </div>
-              <ProgressBarOverflowSection>
-                <CircleProgressbar degree={progressbarRotationDegree} />
-              </ProgressBarOverflowSection>
-              <IconProgressbar degree={progressbarRotationDegree}>
-                <MonsterIcon />
-              </IconProgressbar>
-            </ProgressBar>
-          </ProgressBarWrapper>
-        </Wrapper>
-
         <Wrapper>
           <SubTitleOuter subTitle="내용" className="subTitle">
             <p className="content">{habitDetail.description}</p>
@@ -142,9 +122,9 @@ const MenuBar = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 44px;
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 60px;
 `;
+
 const Wrapper = styled.div`
   margin-bottom: 22px;
 
@@ -158,101 +138,6 @@ const Wrapper = styled.div`
 
   & .content {
     font-weight: var(--weight-semi-regular);
-  }
-`;
-
-const ProgressBarWrapper = styled.section`
-  width: 100%;
-  height: 154px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  background: var(--bg-primary);
-  position: relative;
-  padding: 24px;
-`;
-
-const ProgressBar = styled.div`
-  position: relative;
-
-  & > .left,
-  & > .right {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    bottom: -7px;
-    overflow: hidden;
-  }
-  & > .left {
-    left: 0;
-    background: ${({ achievePercentage }) =>
-      achievePercentage ? 'var(--bg-selected-light)' : '#5a5a5a'};
-  }
-
-  & > .right {
-    right: 0;
-    background: ${({ achievePercentage }) =>
-      achievePercentage === 100 ? 'var(--bg-selected-light)' : '#5a5a5a'};
-  }
-
-  & > .text {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: var(--font-xs);
-    line-height: 17px;
-    color: var(--color-primary-deemed);
-    text-align: center;
-
-    & > span:first-child {
-      font-size: 36px;
-      line-height: 43.2px;
-      font-weight: var(--weight-bold);
-      color: var(--color-white);
-      margin-bottom: 6px;
-    }
-  }
-`;
-
-const ProgressBarOverflowSection = styled.div`
-  width: 206px;
-  height: 103px;
-  position: relative;
-  overflow: hidden;
-`;
-
-const CircleProgressbar = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 206px;
-  height: 206px;
-  border: 15px solid #5a5a5a;
-  margin-top: 3px;
-  border-radius: 50%;
-  border-bottom-color: var(--bg-selected-light);
-  border-right-color: var(--bg-selected-light);
-  transform: ${({ degree }) => `rotate(${degree}deg)`};
-`;
-
-const IconProgressbar = styled(CircleProgressbar)`
-  border: 15px solid transparent;
-
-  & > svg {
-    position: absolute;
-    bottom: 8px;
-    left: 10px;
-    width: 24px;
-    height: 24px;
-    transform: rotate(270deg);
-    z-index: 10;
   }
 `;
 
