@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { myFollowListByType } from '../recoil/states/user';
-import { myPageApis } from '../api';
-import { OK } from '../constants/statusCode';
 
 import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
@@ -21,14 +19,6 @@ const FollowPage = () => {
   console.log('followlist', getFollowList, followList);
   const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
-  // const userMonsterCode = location.pathname.split('/')[2];
-  // const goToMyPage = () => {
-  //   history.push(
-  //     userInfoState.monsterCode === userMonsterCode
-  //       ? '/mypage/information'
-  //       : `/search/${userMonsterCode}`,
-  //   );
-  // };
 
   useEffect(() => {
     if (!isCorrectTabType) {
@@ -42,64 +32,10 @@ const FollowPage = () => {
     setFollowList(getFollowList);
   }, [getFollowList]);
 
-  // const getUserList = useCallback(async () => {
-  //   if (!isCorrectTabType) {
-  //     return;
-  //   }
-
-  //   await setFollowList(null);
-
-  //   let getUserResponse =
-  //     userInfoState.monsterCode === userMonsterCode
-  //       ? myPageApis.loadFollowers()
-  //       : userApis.getUserFollowers(userMonsterCode);
-
-  //   if (tabType === 'following') {
-  //     getUserResponse =
-  //       userInfoState.monsterCode === userMonsterCode
-  //         ? myPageApis.loadFollowings()
-  //         : userApis.getUserFollowings(userMonsterCode);
-  //   }
-
-  //   const { data } = await getUserResponse;
-
-  //   if (data.statusCode === OK) {
-  //     const followList =
-  //       tabType === 'followers' ? data.followers : data.followings;
-  const getUserList = useCallback(async () => {
-    if (!isCorrectTabType) return;
-    console.log('tabType', tabType);
-    await setFollowList(null);
-    let getUserResponse = myPageApis.loadFollowers;
-
-    if (tabType === 'following') {
-      getUserResponse = myPageApis.loadFollowings;
-    }
-
-    const { data } = await getUserResponse();
-
-    if (data.statusCode === OK) {
-      const followList =
-        tabType === 'followers' ? data.followers : data.followings;
-      console.log('followerdata', followList);
-      setFollowList(followList ?? []);
-    }
-  }, [tabType, isCorrectTabType]);
-
-  //     setFollowList(followList ?? []);
-  //   }
-  // }, [tabType, isCorrectTabType]);
-
-  // useEffect(() => {
-  //   getUserList();
-  // }, [getUserList]);
-
   return (
     <>
       <FollowContainer>
-        <BackBtnWrap>
-          <BackButtonHeader onButtonClick={goToMyPage} />
-        </BackBtnWrap>
+        <BackButtonHeader onButtonClick={goToMyPage} />
         <NavButtonWrap>
           <NavButtonItem>
             <NavButton
@@ -157,12 +93,8 @@ const FollowContainer = styled.div`
   width: 100%;
   height: calc(100% - 64px);
   flex: 1 1 0;
-  /* padding-top: 24px; */
 `;
 
-const BackBtnWrap = styled.div`
-  padding: 0 16px;
-`;
 const NavButtonWrap = styled.ul`
   border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
   display: flex;
@@ -209,7 +141,7 @@ const FollowListWrap = styled.ul`
 
 const EmptyPlace = styled.div`
   height: calc(100vh - (68px + 108px));
-  display: felx;
+  display: flex;
   justify-content: center;
   align-items: center;
   & p {

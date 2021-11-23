@@ -76,8 +76,7 @@ const OnBoard = () => {
           condition={null}
           onClick={() => {
             window.localStorage.setItem('isOnboarding', false);
-            window.location.href = '/login';
-            // history.push('/login');
+            history.replace('/login');
           }}
         />
       </OnBoardContainer>

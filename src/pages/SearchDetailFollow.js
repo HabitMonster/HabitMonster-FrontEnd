@@ -1,31 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { myPageApis, userApis } from '../api';
+import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
 
 import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
 import { Gnb } from '../components/gnb';
-import { userState } from '../recoil/states/user';
 
-const FollowPage = () => {
+const SearchDetailFollow = () => {
   const history = useHistory();
   const location = useLocation();
-  const userInfoState = useRecoilValue(userState);
   const [followList, setFollowList] = useState(null);
   const tabType = location?.search?.split('tab=')?.[1];
   const userMonsterCode = location.pathname.split('/')[2];
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
   const isActiveTab = (type) => tabType === type;
   const goToMyPage = () => {
-    history.push(
-      userInfoState.monsterCode === userMonsterCode
-        ? '/mypage/information'
-        : `/search/${userMonsterCode}`,
-    );
+    history.push(`/search/${userMonsterCode}`);
   };
 
   useEffect(() => {
@@ -41,16 +34,10 @@ const FollowPage = () => {
 
     await setFollowList(null);
 
-    let getUserResponse =
-      userInfoState.monsterCode === userMonsterCode
-        ? myPageApis.loadFollowers()
-        : userApis.getUserFollowers(userMonsterCode);
+    let getUserResponse = userApis.getUserFollowers(userMonsterCode);
 
     if (tabType === 'following') {
-      getUserResponse =
-        userInfoState.monsterCode === userMonsterCode
-          ? myPageApis.loadFollowings()
-          : userApis.getUserFollowings(userMonsterCode);
+      getUserResponse = userApis.getUserFollowings(userMonsterCode);
     }
 
     const { data } = await getUserResponse;
@@ -71,9 +58,7 @@ const FollowPage = () => {
   return (
     <>
       <FollowContainer>
-        <BackBtnWrap>
-          <BackButtonHeader onButtonClick={goToMyPage} />
-        </BackBtnWrap>
+        <BackButtonHeader onButtonClick={goToMyPage} />
         <NavButtonWrap>
           <NavButtonItem>
             <NavButton
@@ -129,19 +114,15 @@ const FollowPage = () => {
   );
 };
 
-export default FollowPage;
+export default SearchDetailFollow;
 
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
   width: 100%;
   height: calc(100% - 64px);
   flex: 1 1 0;
-  padding-top: 24px;
 `;
 
-const BackBtnWrap = styled.div`
-  padding: 0 16px;
-`;
 const NavButtonWrap = styled.ul`
   border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
   display: flex;
@@ -190,7 +171,7 @@ const FollowListWrap = styled.ul`
 
 const EmptyPlace = styled.div`
   height: calc(100vh - (68px + 108px));
-  display: felx;
+  display: flex;
   justify-content: center;
   align-items: center;
 
