@@ -2,15 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { MonsterThumbnail } from '../common';
+import { MonsterThumbnail, MonsterThumbnailProfile } from '../common';
 
 const MonsterThumbnailWrapper = ({
+  isProfile,
   monsterId,
   width,
   height,
   thumbnailSize,
   monsterLevel,
 }) => {
+  if (isProfile) {
+    console.log('프로필이미지');
+    return (
+      <ThumbnailWrapper size={thumbnailSize}>
+        <MonsterThumbnailProfile id={monsterId} width={width} height={height} />
+        {monsterLevel && <LevelBadge>Lv.{monsterLevel}</LevelBadge>}
+      </ThumbnailWrapper>
+    );
+  }
+
+  console.log('그냥이미지');
   return (
     <ThumbnailWrapper size={thumbnailSize}>
       <MonsterThumbnail id={monsterId} width={width} height={height} />
@@ -42,6 +54,15 @@ const getThumbnailSize = (size) => {
   }
 };
 
+MonsterThumbnailWrapper.propTypes = {
+  isProfile: PropTypes.bool,
+  monsterId: PropTypes.number.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  thumbnailSize: PropTypes.string,
+  monsterLevel: PropTypes.number,
+};
+
 const ThumbnailWrapper = styled.div`
   background-color: ${({ size }) => getThumbnailSize(size).backgroundColor};
   border: ${({ size }) => getThumbnailSize(size).border};
@@ -69,11 +90,3 @@ const LevelBadge = styled.span`
   transform: translateX(-50%);
   z-index: 1;
 `;
-
-MonsterThumbnailWrapper.propTypes = {
-  monsterId: PropTypes.number.isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  thumbnailSize: PropTypes.string,
-  monsterLevel: PropTypes.number,
-};

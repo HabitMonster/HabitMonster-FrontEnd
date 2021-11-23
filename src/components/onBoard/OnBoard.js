@@ -91,19 +91,15 @@ const OnBoardContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
-
   & .swiper-wrapper {
     height: 300px;
   }
-
   & .swiper-pagination {
     top: 220px;
   }
-
   & .swiper-pagination-bullet {
     background: var(--color-title);
     opacity: 1;
-
     &.swiper-pagination-bullet-active {
       background: var(--color-onboard);
     }
