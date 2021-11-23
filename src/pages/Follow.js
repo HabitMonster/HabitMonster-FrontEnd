@@ -16,6 +16,8 @@ const FollowPage = () => {
   const tabType = location?.search?.split('tab=')?.[1];
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
   const getFollowList = useRecoilValue(myFollowListByType(tabType));
+  console.log('getFollowList1', getFollowList, 'followList');
+  console.log('getFollowList2', getFollowList, 'followList', followList);
   const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
 
@@ -26,7 +28,7 @@ const FollowPage = () => {
   }, [history, tabType, isCorrectTabType]);
 
   useEffect(() => {
-    console.log('getFollowList', getFollowList);
+    console.log('getFollowList3', getFollowList);
     // recoil에서 가져온 FollowList를 담아준다
     setFollowList(getFollowList);
   }, [getFollowList]);
@@ -57,17 +59,19 @@ const FollowPage = () => {
         </NavButtonWrap>
         {followList?.length >= 1 && (
           <FollowListWrap>
-            {followList.map((user) => {
-              return (
-                <MonsterListItem
-                  key={user.monsterCode}
-                  monsterId={user.monsterId}
-                  nickName={user.nickName}
-                  monsterCode={user.monsterCode}
-                  isFollowed={user.isFollowed}
-                />
-              );
-            })}
+            <FollowList>
+              {followList.map((user) => {
+                return (
+                  <MonsterListItem
+                    key={user.monsterCode}
+                    monsterId={user.monsterId}
+                    nickName={user.nickName}
+                    monsterCode={user.monsterCode}
+                    isFollowed={user.isFollowed}
+                  />
+                );
+              })}
+            </FollowList>
           </FollowListWrap>
         )}
         {followList?.length === 0 && (
@@ -132,10 +136,16 @@ const NavButton = styled(NavLink)`
   }
 `;
 
-const FollowListWrap = styled.ul`
+const FollowListWrap = styled.div`
+  height: calc(100% - 120px);
+  padding-top: 16px;
+  overflow-y: auto;
+`;
+
+const FollowList = styled.ul`
   color: var(--color-primary);
   margin: 0;
-  padding: 16px 0 0;
+  padding: 0;
 `;
 
 const EmptyPlace = styled.div`

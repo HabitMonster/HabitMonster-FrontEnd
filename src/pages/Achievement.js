@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Statistics } from '../components/achievment';
+import { Statistics, UserStatistics } from '../components/achievment';
 import { Gnb } from '../components/gnb';
 
 const Achievement = () => {
@@ -17,17 +17,13 @@ const Achievement = () => {
           </NavButtonItem>
           <NavButtonItem>
             <NavButton to="/achievement/global" activeClassName="active">
-              글로벌 통계
+              사용자 통계
             </NavButton>
           </NavButtonItem>
         </NavButtonWrap>
         <Switch>
           <Route exact path="/achievement/statistics" component={Statistics} />
-          {/* <Route
-            exact
-            path="/achievement/global"
-            component={MonsterCollection}
-          /> */}
+          <Route exact path="/achievement/global" component={UserStatistics} />
           <Redirect from="*" to="/achievement/statistics" />
         </Switch>
       </AcheiveContainer>

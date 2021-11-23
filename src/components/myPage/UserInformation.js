@@ -51,6 +51,14 @@ const UserInformation = () => {
   const [isCopyToastOpen, setIsCopyToastOpen] = useState(false);
   const [deleteAccountToastOpen, setDeleteAccountToastOpen] = useState(false);
 
+  useEffect(() => {
+    console.log(
+      'followerListCount',
+      followerListCount,
+      'followingListCount',
+      followingListCount,
+    );
+  }, []);
   const openModal = useCallback((type) => {
     setEditModalType(type);
   }, []);

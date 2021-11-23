@@ -63,6 +63,10 @@ const Statistics = () => {
           failedCount,
           habitList,
         });
+        const { data } = await statisticApi.getGlobalStatistics();
+        if (data.status === 200) {
+          console.log(data);
+        }
       }
     } catch (error) {
       console.error(error);
