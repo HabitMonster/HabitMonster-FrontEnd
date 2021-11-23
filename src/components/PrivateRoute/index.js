@@ -18,13 +18,10 @@ const PrivateRoute = ({ component, ...rest }) => {
       try {
         const { data } = await mainApis.getUserInfo();
         setUserInfoState({
-          // email: data.userInfo.email,
           monsterCode: data.userInfo.monsterCode,
           monsterName: data.userInfo.monsterName,
-          // socialType: data.userInfo.socialType,
           userName: data.userInfo.username,
         });
-        // console.log('userState', userState);
       } catch (error) {
         throw error;
       }
@@ -63,8 +60,6 @@ const PrivateRoute = ({ component, ...rest }) => {
     'color: #f73378',
   );
 
-  // when user doesn't login, simply pass him/her to login page.
-  // the login page must not be wrapped within private route.
   if (!isLogin) {
     console.log(
       `%c if user does not login, WE SHOULD REDIRECT TO LOGIN, CHECK THIS PRIVATE ROUTE!`,
@@ -74,8 +69,6 @@ const PrivateRoute = ({ component, ...rest }) => {
     return <Redirect to="/login" />;
   }
 
-  // when user does login, and doesn't choose levelOne Character(isFirstLogin = false)
-  // and move page via directly typing url, simply pass him/her to select page.
   //*Important Note
   // when user CHANGE mosnter, the isFirstLogin must be true at that time.
   if (isFirstLogin && location.pathname !== '/select') {

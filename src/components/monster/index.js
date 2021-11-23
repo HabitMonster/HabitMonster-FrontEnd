@@ -1,4 +1,5 @@
 import MonsterThumbnailWrapper from './MonsterThumbnailWrapper';
+import MonsterSearchSection from './MonsterSearchSection';
 import LevelOneMonstersDisplay from './LevelOneMonstersDisplay';
 import LevelOneMonsterForm from './LevelOneMonsterForm';
 import MainMonster from './MainMonster';
@@ -12,4 +13,5 @@ export {
   LevelOneMonsterForm,
   LevelUp,
   MonsterListItem,
+  MonsterSearchSection,
 };

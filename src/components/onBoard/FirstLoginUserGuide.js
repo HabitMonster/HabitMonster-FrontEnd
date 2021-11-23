@@ -65,8 +65,15 @@ const AvatarContainer = styled.div`
   background-color: var(--bg-wrapper);
   width: 100%;
   height: 100%;
-  margin-bottom: 68px;
   padding-top: 80px;
+  padding-bottom: 128px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const ThumbnailWrap = styled.div`
@@ -81,6 +88,10 @@ const ThumbnailWrap = styled.div`
 const TextBox = styled.div`
   text-align: center;
   margin-bottom: 48px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
 `;
 
 const TitleWrap = styled.div`

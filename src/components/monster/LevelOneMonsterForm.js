@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
-// import { MonsterThumbnail } from '.';
 import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { TextInput } from '../common';
 import { monsterApis } from '../../api';
@@ -40,15 +39,8 @@ const LevelOneMonsterForm = ({ showGuide }) => {
       if (data.statusCode === OK) {
         setMonster(data.monster);
 
-        if (isFirstLogin) {
-          setSelectedMonster({ ...selectedMonster, monsterName });
-          showGuide();
-          return;
-        }
-        history.replace('/');
-        setTimeout(() => {
-          setSelectedMonster(null);
-        }, 0);
+        isFirstLogin ? showGuide() : history.replace('/');
+        setSelectedMonster(null);
       }
     } catch (error) {
       console.error(error);

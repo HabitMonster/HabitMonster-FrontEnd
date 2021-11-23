@@ -6,7 +6,7 @@ import { SearchIcon } from '../../assets/icons/common';
 import { FeedbackIcon } from '../../assets/icons/forTest';
 import { whiteOpacity } from '../../styles/Mixin';
 
-const Feedback = () => {
+const MonsterSearchSection = () => {
   const history = useHistory();
 
   return (
@@ -30,12 +30,10 @@ const Feedback = () => {
 };
 
 const Header = styled.header`
-  padding: 0 24px;
-  width: 100%;
+  width: calc(100% - 48px); // 100% width - (paddingLeft + paddingRight)
   height: 32px;
   z-index: 3;
   position: absolute;
-  top: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,4 +65,4 @@ const FeedbackLink = styled.a`
   }
 `;
 
-export default Feedback;
+export default MonsterSearchSection;

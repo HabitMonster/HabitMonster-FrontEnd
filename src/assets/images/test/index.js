@@ -25,6 +25,8 @@ import { ReactComponent as OrangeLevelTwo } from './orange_1.svg';
 import { ReactComponent as RedLevelOne } from './red_1.svg';
 import { ReactComponent as RedLevelTwo } from './red_2.svg';
 import { ReactComponent as RedLevelThree } from './red_3.svg';
+import { ReactComponent as RedLevelFour } from './red_4.svg';
+import { ReactComponent as RedLevelFive } from './red_5.svg';
 
 /*
   @ 객체의 프로퍼티 키: MonsterId
@@ -60,8 +62,8 @@ const MONSTERS = {
   26: RedLevelOne,
   27: RedLevelTwo,
   28: RedLevelThree,
-  //29: RedLevelFour,
-  //30: RedLevelFive
+  29: RedLevelFour,
+  30: RedLevelFive,
 };
 
 export default MONSTERS;

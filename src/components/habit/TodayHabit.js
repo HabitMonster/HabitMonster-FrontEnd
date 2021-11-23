@@ -35,7 +35,7 @@ const TodayHabit = ({ id }) => {
     try {
       setTimeout(() => {
         setActive((prev) => !prev);
-      }, 300);
+      }, 100);
       const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
         setHabitDetail(data.habit);
@@ -56,7 +56,7 @@ const TodayHabit = ({ id }) => {
     } catch (error) {
       console.error(error);
     }
-  }, 300);
+  }, 150);
 
   const onHabitClicked = () => {
     history.push(`/habit/${id}`);

@@ -9,6 +9,7 @@ import MONSTERS from '../../assets/images/test';
 */
 
 const MonsterThumbnail = ({ id, width, height }) => {
+  console.log(id);
   const Monster = MONSTERS[id];
 
   return (
