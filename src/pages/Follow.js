@@ -29,7 +29,6 @@ const FollowPage = () => {
   // };
 
   useEffect(() => {
-    console.log(followList);
     if (!isCorrectTabType) {
       history.replace('/follow?tab=followers', null);
     }
@@ -40,6 +39,7 @@ const FollowPage = () => {
     // recoil에서 가져온 FollowList를 담아준다
     setFollowList(getFollowList);
   }, [getFollowList]);
+
   // const getUserList = useCallback(async () => {
   //   if (!isCorrectTabType) {
   //     return;
