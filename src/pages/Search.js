@@ -22,6 +22,7 @@ const Search = () => {
   const [searchResult, setSearchResult] = useState(null);
   const [isFail, setIsFail] = useState(null);
   const [recommendedUserList, setRecommendedUserList] = useState([]);
+  const [isFollowed, setIsFollowed] = useState(null);
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const debounceChange = useCallback(
@@ -48,9 +49,9 @@ const Search = () => {
           setIsFail(true);
           return;
         }
-
         setSearchResult(data.userInfo);
         setIsFail(false);
+        setIsFollowed(data.userInfo.isFollowed);
         setRefreshInfo((id) => id + 1);
       } catch (error) {
         console.log(error);
@@ -76,6 +77,9 @@ const Search = () => {
     };
     queryRecommendation();
   }, []);
+
+  console.log(searchResult);
+  console.log(isFollowed);
 
   return (
     <Wrapper>
@@ -129,6 +133,7 @@ const Search = () => {
           <h2>추천 유저</h2>
           {recommendedUserList.map(
             ({ isFollowed, monsterCode, monsterId, nickName, title }) => {
+              console.log(isFollowed);
               return (
                 <MonsterListItem
                   key={title + nickName + monsterId}
@@ -136,7 +141,7 @@ const Search = () => {
                   monsterId={monsterId}
                   monsterCode={monsterCode}
                   recommendationTitle={title}
-                  isFollowd={isFollowed}
+                  isFollowed={isFollowed}
                   path={`${path}/${monsterCode}`}
                 />
               );
@@ -203,13 +208,13 @@ const SearchInput = styled.input`
   background: var(--bg-primary);
   border: none;
   border-radius: 4px;
-  color: #999999;
+  color: var(--color-deemed);
 
   &::placeholder {
     font-size: 13px;
     line-height: 16px;
     font-weight: var(--weight-regular);
-    color: #999999;
+    color: var(--color-deemed);
   }
 
   &:focus {
