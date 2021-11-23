@@ -18,12 +18,13 @@ const PrivateRoute = ({ component, ...rest }) => {
       try {
         const { data } = await mainApis.getUserInfo();
         setUserInfoState({
-          email: data.userInfo.email,
+          // email: data.userInfo.email,
           monsterCode: data.userInfo.monsterCode,
           monsterName: data.userInfo.monsterName,
-          socialType: data.userInfo.socialType,
+          // socialType: data.userInfo.socialType,
           userName: data.userInfo.username,
         });
+        // console.log('userState', userState);
       } catch (error) {
         throw error;
       }

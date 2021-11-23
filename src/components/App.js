@@ -85,11 +85,7 @@ function App() {
           component={<HabitEdit />}
         />
         <PrivateRoute path="/notice" component={<Notice />} />
-        <PrivateRoute
-          exact
-          path="/follow/:monsterCode"
-          component={<Follow />}
-        />
+        <PrivateRoute exact path="/follow" component={<Follow />} />
       </Switch>
     </Suspense>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { fontSize, whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity } from '../../styles/Mixin';
 
 const NotiContent = ({ id }) => {
   if (id === 1) {
@@ -78,7 +78,7 @@ const NotiBox = styled.div`
   padding: 18px;
 
   & p {
-    ${fontSize('14px')};
+    font-size: var(--font-xs);
     ${whiteOpacity('0.8')};
     font-weight: var(--weight-semi-regular);
     white-space: pre-wrap;

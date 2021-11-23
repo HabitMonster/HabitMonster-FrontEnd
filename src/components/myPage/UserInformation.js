@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   useRecoilValue,
@@ -9,8 +9,18 @@ import {
 import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
-import { myPageDataState, userState } from '../../recoil/states/user';
-import { habitIdListState } from '../../recoil/states/habit';
+import {
+  userState,
+  myFollowerListCountSelector,
+  myFollowingListCountSelector,
+  myFollowListByType,
+} from '../../recoil/states/user';
+import {
+  defaultHabitsState,
+  habitIdListState,
+  myHabitCountSelector,
+} from '../../recoil/states/habit';
+import { monsterState } from '../../recoil/states/monster';
 
 import { BottomDialog } from '../dialog';
 import { Modal, Toast } from '../../components/common';
@@ -22,12 +32,18 @@ import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
 
 const UserInformation = () => {
+  const userInfo = useRecoilValue(userState);
+  const monsterInfo = useRecoilValue(monsterState);
+  const myHabitCount = useRecoilValue(myHabitCountSelector);
+  const followerListCount = useRecoilValue(myFollowerListCountSelector);
+  const followingListCount = useRecoilValue(myFollowingListCountSelector);
   const setAuth = useSetRecoilState(authState);
-  const { userInfo, monster } = useRecoilValue(myPageDataState); // 비동기요청
   const resetUserInfoState = useResetRecoilState(userState);
+  const resetFollowList = useSetRecoilState(myFollowListByType());
+  const resetHabitState = useResetRecoilState(defaultHabitsState);
 
   const history = useHistory();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [isEditToastOpen, setIsEditToastOpen] = useState(false);
@@ -35,42 +51,12 @@ const UserInformation = () => {
   const [isCopyToastOpen, setIsCopyToastOpen] = useState(false);
   const [deleteAccountToastOpen, setDeleteAccountToastOpen] = useState(false);
 
-  const [editData, setEditData] = useState({
-    type: 'username',
-    title: '제가 뭐라고 부르면 좋을까요?',
-    value: userInfo.username,
-  }); // 수정할 값 (닉네임, 몬스터이름, 모달 제목)
-
-  const openModal = useCallback(
-    (type) => {
-      if (type === 'monsterName') {
-        setEditData({
-          type: 'monsterName',
-          title: '변경할 몬스터 이름을 적어주세요!',
-          value: monster.monsterName,
-        });
-      }
-
-      setIsEditModalOpen(true);
-    },
-    [monster.monsterName],
-  );
+  const openModal = useCallback((type) => {
+    setEditModalType(type);
+  }, []);
 
   const closeModal = useCallback(() => {
-    // state 초기화
-    setEditData({
-      type: 'username',
-      title: '제가 뭐라고 부르면 좋을까요?',
-      value: userInfo.username,
-    });
-    setIsEditModalOpen(false);
-  }, [userInfo.username]);
-
-  const handleChangeValue = useCallback((value) => {
-    setEditData((editData) => ({
-      ...editData,
-      value,
-    }));
+    setEditModalType('');
   }, []);
 
   const copyCode = (contents) => {
@@ -96,18 +82,23 @@ const UserInformation = () => {
     document.execCommand('copy');
     // 흐름 5.
     document.body.removeChild(textarea);
-    console.log('복사된거 맞나', contents, textarea.value);
+    //console.log('복사된거 맞나', contents, textarea.value);
     setIsCopyToastOpen(true);
   };
 
-  const logoutUser = () => {
+  const logoutUser = useRecoilCallback(({ set }) => () => {
+    setIsLogoutToastOpen(false);
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    setAuth({ isFirstLogin: null, isLogin: false });
-    setIsLogoutToastOpen(true);
+    set(authState, {
+      isFirstLogin: null,
+      isLogin: false,
+    });
     resetUserInfoState();
+    resetHabitState();
+    set(userState, {});
     history.push('/login');
-  };
+  });
 
   const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
     try {
@@ -122,7 +113,7 @@ const UserInformation = () => {
           isLogin: false,
         });
         set(habitIdListState, []);
-        set(myPageDataState, {});
+        set(monsterState, {});
         set(userState, {});
         history.push('/login');
       }
@@ -135,7 +126,7 @@ const UserInformation = () => {
     ? [
         {
           title: '몬스터 이름',
-          contents: monster.monsterName,
+          contents: monsterInfo.monsterName,
           handleClick: () => openModal('monsterName'),
         },
         {
@@ -173,6 +164,16 @@ const UserInformation = () => {
       ]
     : [];
 
+  // useEffect(() => {
+  //   return () => {
+  //     // 마이페이지에서 벗어날 때 리스트를 초기화한다
+  //     if (history.location.pathname !== 'mypage/information') {
+  //       console.log('mypage CleanUp');
+  //       resetFollowList();
+  //     }
+  //   };
+  // }, [history, resetFollowList]);
+
   return (
     <>
       {/* <TitleArea>
@@ -181,39 +182,39 @@ const UserInformation = () => {
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           thumbnailSize="small"
-          monsterLevel={monster.monsterLevel}
-          monsterId={monster.monsterId}
+          monsterLevel={monsterInfo.monsterLevel}
+          monsterId={monsterInfo.monsterId}
         />
         <div>
-          <BoldText>{userInfo.username}</BoldText>
-          <EditNicknameBtn onClick={() => openModal('username')}>
+          <BoldText>{userInfo.userName}</BoldText>
+          <EditNicknameBtn onClick={() => openModal('userName')}>
             <Pencil />
           </EditNicknameBtn>
         </div>
         <Summary>
           <li>
-            {/* <BoldText>{userInfo?.totalHabitCount ?? 1000}</BoldText> */}
+            <BoldText>{myHabitCount ?? 0}</BoldText>
             <span>총 습관</span>
           </li>
           <li>
             <FollowLink
               to={{
-                pathname: `/follow/${userInfo.monsterCode}`,
-                search: `?tab=followers`,
+                pathname: '/follow',
+                search: '?tab=followers',
               }}
             >
-              {/* <BoldText>{userInfo?.followersCount ?? 1000}</BoldText> */}
+              <BoldText>{followerListCount ?? 0}</BoldText>
               <span>팔로워</span>
             </FollowLink>
           </li>
           <li>
             <FollowLink
               to={{
-                pathname: `/follow/${userInfo.monsterCode}`,
-                search: `?tab=following`,
+                pathname: '/follow',
+                search: '?tab=following',
               }}
             >
-              {/* <BoldText>{userInfo?.followingsCount ?? 1000}</BoldText> */}
+              <BoldText>{followingListCount ?? 0}</BoldText>
               <span>팔로잉</span>
             </FollowLink>
           </li>
@@ -221,7 +222,6 @@ const UserInformation = () => {
       </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
-          console.log('user InfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
@@ -230,13 +230,10 @@ const UserInformation = () => {
           );
         })}
       </UserInfoList>
-      {isEditModalOpen && (
-        <Modal open={isEditModalOpen} onClose={closeModal}>
+      {editModalType && (
+        <Modal open={!!editModalType} onClose={closeModal}>
           <EditBox
-            type={editData.type}
-            editValue={editData.value}
-            handleChangeValue={handleChangeValue}
-            pageTitleText={editData.title}
+            type={editModalType}
             closeModal={closeModal}
             activeToast={setIsEditToastOpen}
           />
@@ -311,7 +308,7 @@ export default UserInformation;
 // `;
 
 // const PageTitle = styled.p`
-//   ${fontSize('18px')};
+//   font-size: var(--font-l);
 //   font-weight: var(--weight-regular);
 //   color: var(--color-primary);
 // `;

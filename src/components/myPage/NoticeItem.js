@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import NotiContent from './NotiContent';
-import { fontSize, whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity } from '../../styles/Mixin';
 import { ToggleUp, ToggleDown } from '../../assets/icons/common';
 
 const NoticeItem = ({ notice, active, onToggle }) => {
@@ -53,7 +53,7 @@ const NotiTitleWrap = styled.div`
 `;
 
 const NotiTitle = styled.p`
-  ${fontSize('16px')};
+  font-size: var(--font-m);
   line-height: 19px;
   font-weight: var(--weight-bold);
   ${whiteOpacity('0.8')};
@@ -61,7 +61,7 @@ const NotiTitle = styled.p`
 `;
 
 const NotiDate = styled.p`
-  ${fontSize('13px')};
+  font-size: 13px;
   font-weight: var(--weight-semi-regular);
   line-height: 16px;
   ${whiteOpacity('0.6')};

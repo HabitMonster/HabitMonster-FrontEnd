@@ -1,5 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
-import { userApis, myPageApis } from '../../api';
+import { myPageApis } from '../../api';
 
 export const userState = atom({
   key: 'user',
@@ -11,68 +11,97 @@ export const currentUserMonsterCodeSelector = selector({
   get: ({ get }) => get(userState)?.monsterCode,
 });
 
-const myPageDataSelector = selector({
-  key: 'myPageDataSelector',
-  get: async () => {
-    try {
-      const { data } = await myPageApis.loadUserData();
-      console.log(data);
-      return { userInfo: data.userInfo, monster: data.monster };
-    } catch (error) {
-      throw error;
-    }
-  },
+//followerlist refetch atom
+export const followerListRefetchToggler = atom({
+  key: 'followerListRefetchToggler',
+  default: 0,
 });
 
-export const myPageDataState = atom({
-  key: 'myPageData',
-  default: myPageDataSelector,
+//followinglist refetch atom
+export const followingListRefetchToggler = atom({
+  key: 'followingListRefetchToggler',
+  default: 0,
 });
 
-// 안쓰는 셀렉터
-export const updateUserSelector = selectorFamily({
-  key: 'updateUser',
-  get: (userName) => async () => {
-    // 신경써주세용!
-    if (!userName) {
-      return null;
-    }
-
-    const { data } = await myPageApis.editUserName(userName);
-    return data;
-  },
+// 본인 followerList 가져오는 atom
+export const myFollowerListState = atom({
+  key: 'myFollowerListState',
+  default: selector({
+    key: 'myFollowerListState',
+    get: async ({ get }) => {
+      get(followerListRefetchToggler);
+      try {
+        const { data } = await myPageApis.getFollowerList();
+        console.log('myFollowerListState', data);
+        return data?.followers ?? [];
+      } catch (error) {
+        console.error('myFollowerList error', error);
+      }
+    },
+  }),
 });
 
-const followerDataSelector = selector({
-  key: 'followerDataSelector',
-  get: async () => {
-    try {
-      const { data } = await userApis.loadFollowers();
-      return data.followers;
-    } catch (error) {
-      throw error;
-    }
-  },
+// 마이페이지 진입시 팔로워리스트 카운트 셀렉터
+export const myFollowerListCountSelector = selector({
+  key: 'myFollowerListCountSelector',
+  get: ({ get }) => get(myFollowerListState)?.length ?? 0,
 });
 
-export const followerDataState = atom({
-  key: 'followerDataState',
-  default: followerDataSelector,
+// 본인 팔로잉리스트 아톰
+export const myFollowingListState = atom({
+  key: 'myFollowingListState',
+  default: selector({
+    key: 'myFollowingListSelector',
+    get: async ({ get }) => {
+      get(followingListRefetchToggler);
+      try {
+        const { data } = await myPageApis.getFollowingList();
+        console.log('myFollowingState', data);
+        return data?.followings ?? [];
+      } catch (error) {
+        console.error('myFollowing error', error);
+        return [];
+      }
+    },
+  }),
 });
 
-const followingDataSelector = selector({
-  key: 'followingDataSelector',
-  get: async () => {
-    try {
-      const { data } = await userApis.loadFollowings();
-      return data.followings;
-    } catch (error) {
-      throw error;
-    }
-  },
+// 마이페이지 진입시 팔로잉리스트 카운트 셀렉터
+export const myFollowingListCountSelector = selector({
+  key: 'myFollowingListCountSelector',
+  get: ({ get }) => get(myFollowingListState)?.length ?? 0,
 });
 
-export const followingDataState = atom({
-  key: 'followingDataState',
-  default: followingDataSelector,
+export const myFollowListByType = selectorFamily({
+  key: 'myFollowListByType',
+  get:
+    (type) =>
+    ({ get }) => {
+      // followerList, followingList를 타입에 따라 가져오는 get 함수
+      switch (type) {
+        case 'followers':
+          return get(myFollowerListState);
+        case 'following':
+          return get(myFollowingListState);
+        default:
+          return [];
+      }
+    },
+  set:
+    (type) =>
+    ({ set }) => {
+      // followerList, followingList를 초기화 시켜주는 selectorFamily set 함수
+      switch (type) {
+        case 'followers':
+          set(followerListRefetchToggler, (v) => v + 1);
+          break;
+        case 'following':
+          set(followingListRefetchToggler, (v) => v + 1);
+          break;
+        default:
+          set(followerListRefetchToggler, (v) => v + 1);
+          set(followingListRefetchToggler, (v) => v + 1);
+          break;
+      }
+    },
 });

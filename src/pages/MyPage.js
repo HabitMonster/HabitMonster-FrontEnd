@@ -44,6 +44,7 @@ const AcheiveContainer = styled.div`
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 80px);
+  padding-bottom: 64px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

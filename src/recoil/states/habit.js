@@ -50,3 +50,8 @@ export const habitStateWithId = atomFamily({
         get(habitsHashSelector)[habitId],
   }),
 });
+
+export const myHabitCountSelector = selector({
+  key: 'myHabitCountSelector',
+  get: ({ get }) => get(defaultHabitsState)?.length ?? 0,
+});

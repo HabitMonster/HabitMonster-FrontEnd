@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { myPageApis } from '../api';
 import NoticeItem from '../components/myPage/NoticeItem';
-import { fontSize } from '../styles/Mixin';
 import { BackButtonHeader } from '../components/common';
 
 const Notice = () => {
@@ -86,6 +85,6 @@ const PageTitle = styled.div`
   height: 44px;
   padding-left: 16px;
   font-weight: 500;
-  ${fontSize('16px')}
+  font-size: var(--font-m);
   line-height: 22px;
 `;

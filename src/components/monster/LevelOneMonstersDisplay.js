@@ -14,13 +14,7 @@ import {
   MonsterThumbnail,
   BackButtonHeader,
 } from '../common';
-import { fontSize } from '../../styles';
 import { whiteOpacity } from '../../styles/Mixin';
-
-//* VERY IMPORTANT NOTE *
-// since backend does not supply monsterImage anymore,
-// WE MUST AGGREGATE response with our assets.
-// To this, WE MUST MODIFY BABYMOSTERSTATE.
 
 const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
@@ -132,7 +126,7 @@ const WeightText = styled.span`
 
 const Description = styled.p`
   ${whiteOpacity('0.7')};
-  ${fontSize('13px')};
+  font-size: 13px;
   font-weight: var(--weight-regular);
   margin-top: 12px;
 `;
