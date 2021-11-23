@@ -79,12 +79,3 @@ const NotiList = styled.ul`
   margin: 0;
   padding: 0;
 `;
-
-const PageTitle = styled.div`
-  display: flex;
-  height: 44px;
-  padding-left: 16px;
-  font-weight: 500;
-  font-size: var(--font-m);
-  line-height: 22px;
-`;

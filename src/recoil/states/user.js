@@ -27,7 +27,7 @@ export const followingListRefetchToggler = atom({
 export const myFollowerListState = atom({
   key: 'myFollowerListState',
   default: selector({
-    key: 'myFollowerListState',
+    key: 'myFollowerListSelector',
     get: async ({ get }) => {
       get(followerListRefetchToggler);
       try {
@@ -39,12 +39,6 @@ export const myFollowerListState = atom({
       }
     },
   }),
-});
-
-// 마이페이지 진입시 팔로워리스트 카운트 셀렉터
-export const myFollowerListCountSelector = selector({
-  key: 'myFollowerListCountSelector',
-  get: ({ get }) => get(myFollowerListState)?.length ?? 0,
 });
 
 // 본인 팔로잉리스트 아톰
@@ -66,10 +60,15 @@ export const myFollowingListState = atom({
   }),
 });
 
-// 마이페이지 진입시 팔로잉리스트 카운트 셀렉터
-export const myFollowingListCountSelector = selector({
-  key: 'myFollowingListCountSelector',
-  get: ({ get }) => get(myFollowingListState)?.length ?? 0,
+// 마이페이지 진입시 팔로워리스트 카운트
+export const myFollowListCountSelector = selector({
+  key: 'myFollowListCountSelector',
+  get: ({ get }) => {
+    return {
+      followerListCount: get(myFollowerListState)?.length ?? 0,
+      followingListCount: get(myFollowingListState)?.length ?? 0,
+    };
+  },
 });
 
 export const myFollowListByType = selectorFamily({
@@ -77,6 +76,8 @@ export const myFollowListByType = selectorFamily({
   get:
     (type) =>
     ({ get }) => {
+      get(followerListRefetchToggler);
+      get(followingListRefetchToggler);
       // followerList, followingList를 타입에 따라 가져오는 get 함수
       switch (type) {
         case 'followers':
@@ -89,16 +90,21 @@ export const myFollowListByType = selectorFamily({
     },
   set:
     (type) =>
-    ({ set }) => {
+    ({ set }, newType) => {
+      // refetchType을 결정한다 (기존타입과 새로운 타입)
+      const refetchType = newType ?? type;
       // followerList, followingList를 초기화 시켜주는 selectorFamily set 함수
-      switch (type) {
+      switch (refetchType) {
         case 'followers':
+          console.log('refetch followers');
           set(followerListRefetchToggler, (v) => v + 1);
           break;
         case 'following':
+          console.log('refetch following');
           set(followingListRefetchToggler, (v) => v + 1);
           break;
         default:
+          console.log('refetch all follow list');
           set(followerListRefetchToggler, (v) => v + 1);
           set(followingListRefetchToggler, (v) => v + 1);
           break;

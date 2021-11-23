@@ -14,29 +14,50 @@ const FollowPage = () => {
   const location = useLocation();
   const [followList, setFollowList] = useState(null);
   const tabType = location?.search?.split('tab=')?.[1];
-  const isCorrectTabType = tabType === 'followers' || tabType === 'following';
+  const isFollowTab = tabType === 'followers' || tabType === 'following';
+  // const [getFollowList, refetchFollowList] = useRecoilState(
+  //   myFollowListByType(tabType),
+  // );
   const getFollowList = useRecoilValue(myFollowListByType(tabType));
-  console.log('getFollowList1', getFollowList, 'followList');
-  console.log('getFollowList2', getFollowList, 'followList', followList);
   const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
 
   useEffect(() => {
-    if (!isCorrectTabType) {
+    if (!isFollowTab) {
       history.replace('/follow?tab=followers', null);
     }
-  }, [history, tabType, isCorrectTabType]);
+  }, [history, tabType, isFollowTab]);
 
   useEffect(() => {
-    console.log('getFollowList3', getFollowList);
     // recoil에서 가져온 FollowList를 담아준다
+    console.log('getFollowList', getFollowList);
     setFollowList(getFollowList);
+
+    return () => {
+      setFollowList(null);
+    };
   }, [getFollowList]);
+
+  // 탭이동할 때, 리페치하는 방식인데 처음 다른 탭으로 이동할 때 두번 요청하게 되서 일단 주석.
+  // useEffect(() => {
+  //   return () => {
+  //     const { pathname, search } = history.location;
+  //     const changedTabType = search?.split('tab=')?.[1];
+  //     const isFollowTab =
+  //       changedTabType === 'followers' || changedTabType === 'following';
+  //     if (pathname === '/follow' && tabType !== changedTabType && isFollowTab) {
+  //       console.log('tab 변경', tabType, changedTabType);
+  //       // tabType이 바뀌면 리페치해준다!
+  //       refetchFollowList(changedTabType);
+  //       setFollowList(null);
+  //     }
+  //   };
+  // }, [tabType, history, refetchFollowList]);
 
   return (
     <>
       <FollowContainer>
-        <BackButtonHeader onButtonClick={goToMyPage} />
+        <BackButtonHeader onButtonClick={goToMyPage} marginBottom="0" />
         <NavButtonWrap>
           <NavButtonItem>
             <NavButton
@@ -68,6 +89,7 @@ const FollowPage = () => {
                     nickName={user.nickName}
                     monsterCode={user.monsterCode}
                     isFollowed={user.isFollowed}
+                    path={`/search/${user.monsterCode}`}
                   />
                 );
               })}
@@ -94,7 +116,7 @@ export default FollowPage;
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - 80px);
   flex: 1 1 0;
 `;
 
@@ -111,8 +133,9 @@ const NavButtonItem = styled.li`
   justify-content: center;
   list-style: none;
   width: 50%;
-  height: 34px;
+  height: 40px;
   position: relative;
+  padding-top: 4px;
 `;
 
 const NavButton = styled(NavLink)`
@@ -149,7 +172,7 @@ const FollowList = styled.ul`
 `;
 
 const EmptyPlace = styled.div`
-  height: calc(100vh - (68px + 108px));
+  height: calc(100% - 120px);
   display: flex;
   justify-content: center;
   align-items: center;
