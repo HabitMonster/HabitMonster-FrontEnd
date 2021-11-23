@@ -125,7 +125,6 @@ const Wrapper = styled.div`
   width: 100%;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
-  /* overflow-y: hidden; */
 `;
 
 export default Main;

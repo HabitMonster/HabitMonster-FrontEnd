@@ -20,7 +20,6 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
-import { monsterState } from '../../recoil/states/monster';
 
 const UserInformation = () => {
   const setAuth = useSetRecoilState(authState);
@@ -199,8 +198,8 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: '/follow',
-                search: '?tab=followers',
+                pathname: `/follow/${userInfo.monsterCode}`,
+                search: `?tab=followers`,
               }}
             >
               {/* <BoldText>{userInfo?.followersCount ?? 1000}</BoldText> */}
@@ -210,8 +209,8 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: '/follow',
-                search: '?tab=following',
+                pathname: `/follow/${userInfo.monsterCode}`,
+                search: `?tab=following`,
               }}
             >
               {/* <BoldText>{userInfo?.followingsCount ?? 1000}</BoldText> */}
@@ -222,7 +221,7 @@ const UserInformation = () => {
       </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
-          console.log('userInfoItem', userInfoItem);
+          console.log('user InfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
