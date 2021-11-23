@@ -37,7 +37,7 @@ const UserInformation = () => {
   const myHabitCount = useRecoilValue(myHabitCountSelector);
   const followerListCount = useRecoilValue(myFollowerListCountSelector);
   const followingListCount = useRecoilValue(myFollowingListCountSelector);
-  const setAuth = useSetRecoilState(authState);
+  // const setAuth = useSetRecoilState(authState);
   const resetUserInfoState = useResetRecoilState(userState);
   const resetFollowList = useSetRecoilState(myFollowListByType());
   const resetHabitState = useResetRecoilState(defaultHabitsState);
@@ -164,21 +164,18 @@ const UserInformation = () => {
       ]
     : [];
 
-  // useEffect(() => {
-  //   return () => {
-  //     // 마이페이지에서 벗어날 때 리스트를 초기화한다
-  //     if (history.location.pathname !== 'mypage/information') {
-  //       console.log('mypage CleanUp');
-  //       resetFollowList();
-  //     }
-  //   };
-  // }, [history, resetFollowList]);
+  useEffect(() => {
+    return () => {
+      // 마이페이지에서 벗어날 때 리스트를 초기화한다
+      if (history.location.pathname !== 'mypage/information') {
+        console.log('mypage CleanUp');
+        resetFollowList();
+      }
+    };
+  }, [history, resetFollowList]);
 
   return (
     <>
-      {/* <TitleArea>
-        <PageTitle>마이페이지</PageTitle>
-      </TitleArea> */}
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           thumbnailSize="small"

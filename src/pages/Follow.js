@@ -16,7 +16,6 @@ const FollowPage = () => {
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
   const getFollowList = useRecoilValue(myFollowListByType(tabType));
   const [followList, setFollowList] = useState(null);
-  console.log('followlist', getFollowList, followList);
   const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
   // const userMonsterCode = location.pathname.split('/')[2];
