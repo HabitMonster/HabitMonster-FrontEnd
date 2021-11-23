@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { habitIdListState, defaultHabitsState } from '../recoil/states/habit';
+import {
+  habitIdListState,
+  defaultHabitsState,
+  myHabitCountState,
+} from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,
@@ -31,6 +35,7 @@ const NewHabitForm = () => {
   const [frequency, setFrequency] = useState(0);
   const [habits, setHabits] = useRecoilState(defaultHabitsState);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
+  const [habitCount, setHabitCount] = useRecoilState(myHabitCountState);
 
   const condition =
     title &&
@@ -41,6 +46,8 @@ const NewHabitForm = () => {
     practiceDays &&
     frequency;
 
+  console.log(broughtHabitState);
+
   const handleSaveButtonClick = async () => {
     const body = {
       title,
@@ -48,7 +55,7 @@ const NewHabitForm = () => {
       durationStart: duration.start,
       durationEnd: duration.end,
       count: frequency,
-      categoryId: broughtHabitState.id,
+      categoryId: broughtHabitState.categoryId,
       practiceDays: practiceDays,
     };
 
@@ -64,6 +71,7 @@ const NewHabitForm = () => {
         setHabitIdList([data.habit.habitId, ...habitIdList]);
         setHabits([data.habit, ...habits]);
       }
+      setHabitCount(habitCount + 1);
       history.replace('/');
     } catch (error) {
       console.error(error);

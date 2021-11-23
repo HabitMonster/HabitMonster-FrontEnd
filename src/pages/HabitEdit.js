@@ -6,6 +6,7 @@ import {
   habitStateWithId,
   habitIdListState,
   defaultHabitsState,
+  myHabitCountState,
 } from '../recoil/states/habit';
 
 import {
@@ -41,6 +42,8 @@ const HabitEdit = () => {
 
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
+  const [totalHabitCount, setTotalHabitCount] =
+    useRecoilState(myHabitCountState);
 
   const deleteHabit = async (id) => {
     try {
@@ -49,6 +52,7 @@ const HabitEdit = () => {
         history.replace('/');
         setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
+        setTotalHabitCount(totalHabitCount - 1);
       }
     } catch (error) {
       console.error(error);
@@ -173,6 +177,7 @@ const Wrapper = styled.div`
   height: 100%;
   font-family: var(--font-name-apple);
   background: var(--bg-wrapper);
+  overflow-y: scroll;
 `;
 
 const Inner = styled.div`

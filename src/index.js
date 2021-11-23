@@ -7,16 +7,14 @@ import App from './components/App';
 
 import { GlobalStyle } from './styles/';
 
-import './assets/fonts/font.css';
-
 ReactDOM.render(
-  <Router>
-    <GlobalStyle />
-    <RecoilRoot>
+  <RecoilRoot>
+    <Router>
+      <GlobalStyle />
       <DeviceDetector>
         <App />
       </DeviceDetector>
-    </RecoilRoot>
-  </Router>,
+    </Router>
+  </RecoilRoot>,
   document.getElementById('root'),
 );

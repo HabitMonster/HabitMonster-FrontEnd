@@ -78,9 +78,6 @@ const Search = () => {
     queryRecommendation();
   }, []);
 
-  console.log(searchResult);
-  console.log(isFollowed);
-
   return (
     <Wrapper>
       <BackButtonWrapper>
@@ -113,9 +110,11 @@ const Search = () => {
         </BackButtonHeader>
       </BackButtonWrapper>
       {isFail && (
-        <NonePlaceHolder>
-          <span>검색한 유저를 찾지 못했어요</span>
-        </NonePlaceHolder>
+        <SearchFailSection>
+          <NonePlaceHolder>
+            <span>검색한 유저를 찾지 못했어요</span>
+          </NonePlaceHolder>
+        </SearchFailSection>
       )}
       {searchResult && (
         <ul>
@@ -128,12 +127,11 @@ const Search = () => {
           />
         </ul>
       )}
-      {recommendedUserList.length && !isFail && (
+      {recommendedUserList.length && (
         <RecommendationSection>
           <h2>추천 유저</h2>
           {recommendedUserList.map(
             ({ isFollowed, monsterCode, monsterId, nickName, title }) => {
-              console.log(isFollowed);
               return (
                 <MonsterListItem
                   key={title + nickName + monsterId}
@@ -157,6 +155,7 @@ const Wrapper = styled.section`
   width: 100%;
   height: 100%;
   position: relative;
+  overflow-y: scroll;
 `;
 const BackButtonWrapper = styled.div`
   margin: 24px 0;
@@ -170,6 +169,7 @@ const CancelButton = styled.div`
   right: 24px;
   top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
 
   & > div {
     width: 18px;
@@ -222,7 +222,14 @@ const SearchInput = styled.input`
   }
 `;
 
+const SearchFailSection = styled.div`
+  height: 145px;
+  margin-top: 48px;
+  position: relative;
+`;
+
 const RecommendationSection = styled.ul`
+  overflow-y: scroll;
   & > h2 {
     color: white;
     padding: 0 24px;

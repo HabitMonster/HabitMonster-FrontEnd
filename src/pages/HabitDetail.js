@@ -15,6 +15,7 @@ import {
   habitIdListState,
   habitStateWithId,
   defaultHabitsState,
+  myHabitCountState,
 } from '../recoil/states/habit';
 import { userLevelOneMonsterSelector } from '../recoil/states/monster';
 import { renderDays } from '../utils/date';
@@ -33,6 +34,8 @@ const HabitDetail = () => {
 
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
+  const [totalHabitCount, setTotalHabitCount] =
+    useRecoilState(myHabitCountState);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -47,9 +50,10 @@ const HabitDetail = () => {
     try {
       const { data } = await habitApis.deleteHabit(id);
       if (data.statusCode === OK) {
-        history.replace('/');
         setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
+        setTotalHabitCount(totalHabitCount - 1);
+        history.replace('/');
       }
     } catch (error) {
       console.error(error);
