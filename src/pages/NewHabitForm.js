@@ -130,11 +130,16 @@ const NewHabitForm = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
   position: relative;
   background: var(--bg-wrapper);
   overflow-y: scroll;
   padding-bottom: 120px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const Inner = styled.div`

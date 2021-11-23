@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { monsterState } from '../../recoil/states/monster';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { MonsterThumbnail, Modal } from '../common';
 import { BottomDialog } from '../dialog';
@@ -11,11 +11,12 @@ import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL } from '../../constants/monster';
 
-const MainMonster = ({ heightShrinked }) => {
+const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
   const [levelUpMessage, setLevelUpMessage] = useState('');
   const previousLevel = useRef(monster.monsterLevel);
+  const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
 
   useEffect(() => {
     setLevelUpMessage('');
@@ -81,10 +82,6 @@ const MainMonster = ({ heightShrinked }) => {
       )}
     </MonsterContainer>
   );
-};
-
-MainMonster.propTypes = {
-  heightShrinked: PropTypes.bool,
 };
 
 const MonsterContainer = styled.div`

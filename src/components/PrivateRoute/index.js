@@ -7,10 +7,6 @@ import { authState } from '../../recoil/states/auth';
 import { userState } from '../../recoil/states/user';
 import { mainApis } from '../../api';
 
-//* Important Note
-// 1. Too many Rerender?
-// 2. Component match route => Render Component?
-
 const PrivateRoute = ({ component, ...rest }) => {
   const { isLogin, isFirstLogin } = useRecoilValue(authState);
   const setUserInfoState = useSetRecoilState(userState);

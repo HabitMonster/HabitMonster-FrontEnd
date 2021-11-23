@@ -56,7 +56,7 @@ const TodayHabit = ({ id }) => {
     } catch (error) {
       console.error(error);
     }
-  }, 0);
+  }, 300);
 
   const onHabitClicked = () => {
     history.push(`/habit/${id}`);
@@ -85,7 +85,6 @@ const TodayHabit = ({ id }) => {
         isDone={habitDetail.isAccomplished}
         disabled={habitDetail.isAccomplished}
         onClick={(e) => {
-          console.log(e);
           e.stopPropagation();
           clickHandler();
         }}
