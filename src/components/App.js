@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
 
 import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
@@ -18,27 +17,27 @@ import SearchDetail from '../pages/SearchDetail';
 import Select from '../pages/Select';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
 
+import Loading from '../pages/Loading';
+
 function App() {
   const r = useRef(1);
-  console.log(
-    '%c ----------IN THE APP CONTEXT----------',
-    'background: #222; color: #bada55',
-  );
 
-  console.log(
-    `%c Rendering Count in App.js: << ${r.current} >>`,
-    'color: hotpink',
-  );
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '%c ----------IN THE APP CONTEXT----------',
+      'background: #222; color: #bada55',
+    );
 
-  console.log(
-    '%c ----------IN THE APP CONTEXT----------',
-    'background: #222; color: #bada55',
-  );
+    console.log(
+      `%c Rendering Count in App.js: << ${r.current} >>`,
+      'color: hotpink',
+    );
 
-  /*
-    Reference: https://stackoverflow.com/questions/32963400/android-keyboard-shrinking-the-viewport-and-elements-using-unit-vh-in-css
-    안드로이드 기반 휴대폰의 키보드를 열 때 높이가 축소되는 것을 막기 위한 방법이라고 합니다.
-  */
+    console.log(
+      '%c ----------IN THE APP CONTEXT----------',
+      'background: #222; color: #bada55',
+    );
+  }
 
   useEffect(() => {
     const preventShrinkViewportFromKeyboard = function () {
@@ -55,7 +54,7 @@ function App() {
   });
 
   return (
-    <Layout>
+    <Suspense fallback={<Loading />}>
       <Switch>
         {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
@@ -92,20 +91,8 @@ function App() {
           component={<Follow />}
         />
       </Switch>
-    </Layout>
+    </Suspense>
   );
 }
-
-const Layout = styled.div`
-  background: var(--bg-wrapper);
-  display: flex;
-  max-width: 414px;
-  width: 100%;
-  min-width: 280px;
-  height: 100vh;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-`;
 
 export default App;
