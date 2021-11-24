@@ -48,6 +48,7 @@ const NaverLogin = () => {
     async function getTokenWithNaver() {
       try {
         const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
+        console.log(data);
         window.localStorage.setItem('habitAccessToken', data.accessToken);
         window.localStorage.setItem('habitRefreshToken', data.refreshToken);
 
@@ -76,14 +77,16 @@ const NaverLogin = () => {
     getTokenWithNaver();
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log(naverRef.current);
     naverRef.current.children[0].click();
   };
 
   return (
     <>
       <LoginBtn className="naverLogin" onClick={handleClick}>
-        <div ref={naverRef} id="naverIdLogin" className="hide"></div>
+        <div ref={naverRef} id="naverIdLogin"></div>
         <NaverSymbol />
         <SocialTitle>네이버로 시작하기</SocialTitle>
       </LoginBtn>

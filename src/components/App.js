@@ -59,7 +59,7 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorLog}>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route path="/login" component={Login} />
+          <Route path={['/login', '/#']} component={Login} />
           <PrivateRoute path="/select" component={<Select />} />
           <PrivateRoute exact path="/" component={<Main />} />
           <PrivateRoute path="/new" component={<New />} />
