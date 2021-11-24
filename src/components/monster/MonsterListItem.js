@@ -36,7 +36,6 @@ const MonsterListItem = ({
       const { data } = await userApis.follow(monsterCode, _isFollowed);
 
       if (data.statusCode === OK) {
-        console.log(data);
         setIsFollowed(data.isFollowed);
         setRefreshInfo((id) => id + 1);
       }
@@ -49,7 +48,7 @@ const MonsterListItem = ({
     <MonsterListItemWrap onClick={() => history.push(path)}>
       <ProfileWrap>
         <div>
-          <MonsterThumbnailWrapper monsterId={monsterId} />
+          <MonsterThumbnailWrapper isProfile={true} monsterId={monsterId} />
         </div>
         <TextWrap>
           <p>{nickName}</p>

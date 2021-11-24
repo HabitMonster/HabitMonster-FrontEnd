@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MONSTERS from '../../assets/images/test';
+import MONSTERS from '../../assets/images/monsters/svg';
 
 /*
   @ 몬스터 썸네일'만' 출력하는 컴포넌트입니다.
@@ -9,7 +9,6 @@ import MONSTERS from '../../assets/images/test';
 */
 
 const MonsterThumbnail = ({ id, width, height }) => {
-  console.log(id);
   const Monster = MONSTERS[id];
 
   return (

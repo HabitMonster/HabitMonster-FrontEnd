@@ -22,7 +22,6 @@ const Search = () => {
   const [searchResult, setSearchResult] = useState(null);
   const [isFail, setIsFail] = useState(null);
   const [recommendedUserList, setRecommendedUserList] = useState([]);
-  const [isFollowed, setIsFollowed] = useState(null);
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const debounceChange = useCallback(
@@ -51,7 +50,6 @@ const Search = () => {
         }
         setSearchResult(data.userInfo);
         setIsFail(false);
-        setIsFollowed(data.userInfo.isFollowed);
         setRefreshInfo((id) => id + 1);
       } catch (error) {
         console.log(error);
