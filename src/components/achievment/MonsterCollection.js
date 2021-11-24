@@ -20,10 +20,10 @@ const MonsterCollection = () => {
 
       if (data.statusCode === OK) {
         setCollectionList(data.monsters);
-        console.log(data.monsters[0].monsterDatabases[0].monsterId);
-        window.alert(
-          `몬스터아이디:${data.monsters[0].monsterDatabases[0].monsterId}`,
-        );
+        // console.log(data.monsters[0].monsterDatabases[0].monsterId);
+        // window.alert(
+        //   `몬스터아이디:${data.monsters[0].monsterDatabases[0].monsterId}`,
+        // );
       }
     }
 

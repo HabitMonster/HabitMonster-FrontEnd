@@ -39,7 +39,7 @@ const Notice = () => {
     try {
       const { data } = await myPageApis.loadNoticeData();
       if (data.statusCode === 200) {
-        console.log('noticeResponses.data', data, data.noticeVoList);
+        // console.log('noticeResponses.data', data, data.noticeVoList);
         setNoticeList(data.noticeVoList);
       }
     } catch (error) {

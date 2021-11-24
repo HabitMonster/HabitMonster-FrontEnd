@@ -29,6 +29,8 @@ const TodayHabitList = () => {
     return () => current.removeEventListener('scroll', handleScroll);
   }, [setShrink]);
 
+  // console.log(habitIdList);
+
   return (
     <HabitContainer>
       {habitIdList.length ? (

@@ -14,7 +14,6 @@ const MonsterThumbnailProfile = ({ id, width, height }) => {
   const Monster = MONSTERS_PROFILE[id] ? MONSTERS_PROFILE[id] : MONSTERS[id];
 
   if (!Monster) {
-    window.alert('몬스터 안보일 예정');
     return null;
   }
 

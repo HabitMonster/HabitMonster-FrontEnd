@@ -8,9 +8,15 @@ import { OK } from '../../constants/statusCode';
 */
 const testDelay = (wait) => new Promise((resolve) => setTimeout(resolve, wait));
 
+export const asyncHabitTogglerState = atom({
+  key: 'asyncHabitTogglerState',
+  default: 0,
+});
+
 export const defaultHabitResponseSelector = selector({
   key: 'asyncDefaultHabitsSelector',
-  get: async () => {
+  get: async ({ get }) => {
+    get(asyncHabitTogglerState);
     const defaultValue = {
       totalHabitCount: null,
       habits: [],
