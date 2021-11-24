@@ -24,7 +24,7 @@ export default function useFetchCategories() {
     }
 
     getCategoryListFromServer();
-  }, []);
+  }, [history]);
 
   return categories;
 }

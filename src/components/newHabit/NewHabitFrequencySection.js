@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SubTitleOuter } from '../common';
-import { whiteOpacity } from '../../styles/Mixin';
 
 const NewHabitFrequencySection = ({ frequency, onChange }) => {
   const increment = () =>
@@ -20,16 +19,19 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
     );
   return (
     <SubTitleOuter subTitle="빈도">
-      <Helper>숫자 영역을 클릭하여 직접 입력할 수 있어요</Helper>
       <Wrapper>
-        <div onClick={decrement}>-</div>
+        <div onClick={decrement}>
+          <div></div>
+        </div>
         <NumberInput
           type="number"
           value={frequency}
           onChange={handleChange}
           maxLength={10}
         />
-        <div onClick={increment}>+</div>
+        <div onClick={increment}>
+          <div></div>
+        </div>
       </Wrapper>
     </SubTitleOuter>
   );
@@ -40,16 +42,8 @@ NewHabitFrequencySection.propTypes = {
   onChange: PropTypes.func,
 };
 
-const Helper = styled.p`
-  font-size: var(--font-xxs);
-  line-height: 14px;
-  ${whiteOpacity('0.4')};
-  margin-bottom: 6px;
-`;
-
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
   height: 40px;
 
   & div {
@@ -61,25 +55,43 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     color: var(--color-primary);
-    margin-right: 11px;
     cursor: pointer;
+    position: relative;
+
+    & div {
+      width: 25%;
+      height: 5%;
+      background: #c4c4c4;
+      border-radius: 0;
+    }
+  }
+
+  & div:last-child div::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: block;
+    background: inherit;
+    transform: rotate(90deg);
   }
 `;
 
 const NumberInput = styled.input`
-  width: 208px;
   height: 100%;
+  flex: 1;
 
   text-align: center;
   padding: 4px 8px;
   background: var(--bg-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   border: none;
   color: var(--color-primary);
   font-size: var(--font-s);
   line-height: 18px;
   font-weight: var(--weight-bold);
-  margin-right: 13px;
+  margin: 0 11px;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

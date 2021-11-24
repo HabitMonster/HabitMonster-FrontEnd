@@ -1,111 +1,214 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
 
-import { getCookie, deleteCookie } from '../../utils/cookie';
+import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
-import { myPageDataState } from '../../recoil/states/user';
+import {
+  userState,
+  myFollowListCountSelector,
+  myFollowListByType,
+} from '../../recoil/states/user';
 
-import UserInfoItem from './UserInfoItem';
-import { Modal } from '../../components/common';
-import { EditBox } from '../../components/myPage';
+import { myHabitCountState } from '../../recoil/states/habit';
+import { monsterState } from '../../recoil/states/monster';
+
 import { BottomDialog } from '../dialog';
+import { Modal } from '../../components/common';
+import { EditBox, UserInfoItem } from '../../components/myPage';
+import { MonsterThumbnailWrapper } from '../../components/monster';
+
+import { myPageApis } from '../../api';
+import { USER_DELETED } from '../../constants/statusMessage';
+import { Pencil } from '../../assets/icons/common';
 
 const UserInformation = () => {
-  const resetAuth = useResetRecoilState(authState);
-  const myPageData = useRecoilValue(myPageDataState); // 비동기요청
-  const history = useHistory();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [editData, setEditData] = useState({
-    type: 'username',
-    title: '제가 뭐라고 부르면 좋을까요?',
-    value: myPageData.username,
-  }); // 수정할 값 (닉네임, 몬스터이름, 모달 제목)
-
-  const openModal = useCallback(
-    (type) => {
-      if (type === 'monsterName') {
-        setEditData({
-          type: 'monsterName',
-          title: '변경할 몬스터 이름을 적어주세요!',
-          value: myPageData.monsterName,
-        });
-      }
-
-      setIsEditModalOpen(true);
-    },
-    [myPageData.monsterName],
+  const userInfo = useRecoilValue(userState);
+  const monsterInfo = useRecoilValue(monsterState);
+  const myHabitCount = useRecoilValue(myHabitCountState);
+  const { followerListCount, followingListCount } = useRecoilValue(
+    myFollowListCountSelector,
   );
+  const refetchFollowList = useSetRecoilState(myFollowListByType(''));
+
+  const history = useHistory();
+  const [editModalType, setEditModalType] = useState('');
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+
+  const openModal = useCallback((type) => {
+    setEditModalType(type);
+  }, []);
 
   const closeModal = useCallback(() => {
-    // state 초기화
-    setEditData({
-      type: 'username',
-      title: '제가 뭐라고 부르면 좋을까요?',
-      value: myPageData.username,
-    });
-    setIsEditModalOpen(false);
-  }, [myPageData.username]);
+    setEditModalType('');
+  }, []);
 
-  const handleChangeValue = useCallback(
-    (value) => {
-      setEditData((editData) => ({
-        ...editData,
-        value,
-      }));
-    },
-    [editData.value],
-  );
-
-  const logoutUser = () => {
-    const token = getCookie('accessToken');
-
-    if (!token) {
-      <div>먼저 로그인을 해주세요!</div>;
+  const copyCode = (contents) => {
+    // 흐름 1.
+    if (!document.queryCommandSupported('copy')) {
+      return alert('복사하기가 지원되지 않는 브라우저입니다.');
     }
-    window.localStorage.removeItem('habitAccess');
-    window.localStorage.removeItem('habitRefresh');
-    window.localStorage.removeItem('isFirstLogin');
-    window.localStorage.removeItem('isOnboarding');
-    resetAuth();
-    setIsLogoutModalOpen(false);
-    history.replace('/login', null);
+
+    // 흐름 2.
+    const textarea = document.createElement('textarea');
+    textarea.value = contents;
+    textarea.style.top = 0;
+    textarea.style.left = 0;
+    textarea.style.position = 'fixed';
+
+    // 흐름 3.
+    document.body.appendChild(textarea);
+    // focus() -> 사파리 브라우저 서포팅
+    textarea.focus();
+    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+    textarea.select();
+    // 흐름 4.
+    document.execCommand('copy');
+    // 흐름 5.
+    document.body.removeChild(textarea);
+    //console.log('복사된거 맞나', contents, textarea.value);
   };
 
-  const userInfoList = [
-    {
-      title: '닉네임',
-      contents: myPageData.username,
-      handleClick: () => openModal('username'),
-    },
-    {
-      title: '몬스터 이름',
-      contents: myPageData.monsterName,
-      handleClick: () => openModal('monsterName'),
-    },
-    {
-      title: '몬스터 코드',
-      contents: myPageData.monsterCode,
-    },
-    {
-      title: '현재 버전',
-      contents: 'V_1.0.0',
-    },
-    {
-      title: '로그아웃',
-      contents: '',
-      handleClick: () => setIsLogoutModalOpen(true),
-      isLogout: true,
-    },
-  ];
+  /*
+    유저가 로그아웃을 하든 계정을 삭제하든 본질적으로 토큰이 없어지는 것과 auth를 말 그대로 직접 초기화하는 것은 공통적입니다.
+    즉, 리코일에 아무리 정보가 남아있다고 하더라도 PrivateRoute에서 isLogin이 false이기 때문에 반드시 '/login'으로 리다이렉팅합니다.
+    로그인 페이지에서는 각 아이템들에 대해 "다시 페칭하는 로직"을 짭니다.
+  */
+
+  const logoutUser = useRecoilCallback(({ set }) => () => {
+    window.localStorage.removeItem('habitAccessToken');
+    window.localStorage.removeItem('habitRefreshToken');
+    set(authState, {
+      isFirstLogin: null,
+      isLogin: false,
+    });
+    history.push('/login');
+  });
+
+  const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
+    try {
+      const { data } = await myPageApis.deleteUser();
+
+      if (data.responseMessage === USER_DELETED) {
+        window.localStorage.removeItem('habitAccessToken');
+        window.localStorage.removeItem('habitRefreshToken');
+        set(authState, {
+          isFirstLogin: null,
+          isLogin: false,
+        });
+        history.push('/login');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  const userInfoList = Object.keys(userInfo).length
+    ? [
+        {
+          title: '몬스터 이름',
+          contents: monsterInfo.monsterName,
+          handleClick: () => openModal('monsterName'),
+        },
+        {
+          title: '몬스터 코드',
+          contents: userInfo.monsterCode,
+          isCopy: true,
+          handleClipBoard: () => copyCode(userInfo.monsterCode),
+        },
+        {
+          title: '현재 버전',
+          contents: 'V_1.0.0',
+        },
+        {
+          title: '공지사항',
+          contents: '',
+          handleClick: () => history.push('/notice'),
+        },
+        // {
+        //   title: '신고하기',
+        //   contents: '',
+        //   handleClick: () => window.open('구글폼주소', '_blank'),
+        // },
+        {
+          title: '로그아웃',
+          contents: '',
+          handleClick: () => setIsLogoutModalOpen(true),
+          isLogout: true,
+        },
+        {
+          title: '탈퇴하기',
+          contents: '',
+          handleClick: () => setdeleteAccountModalOpen(true),
+          isDeleteAccount: true,
+        },
+      ]
+    : [];
+
+  useEffect(() => {
+    // console.log('mypage CleanUp', history.location.pathname);
+    return () => {
+      // 마이페이지에서 벗어날 때 리스트를 초기화한다
+      if (
+        !(
+          history.location.pathname.includes('mypage') ||
+          history.location.pathname.includes('login')
+        )
+      ) {
+        refetchFollowList();
+      }
+    };
+  }, [history, refetchFollowList]);
 
   return (
     <>
+      <UserInfoWrap>
+        <MonsterThumbnailWrapper
+          isProfile={true}
+          thumbnailSize="small"
+          monsterLevel={monsterInfo.monsterLevel}
+          monsterId={monsterInfo.monsterId}
+        />
+        <div>
+          <BoldText>{userInfo.userName}</BoldText>
+          <EditNicknameBtn onClick={() => openModal('userName')}>
+            <Pencil />
+          </EditNicknameBtn>
+        </div>
+        <Summary>
+          <li>
+            <BoldText>{myHabitCount ?? 0}</BoldText>
+            <span>총 습관</span>
+          </li>
+          <li>
+            <FollowLink
+              to={{
+                pathname: '/follow',
+                search: '?tab=followers',
+              }}
+            >
+              <BoldText>{followerListCount ?? 0}</BoldText>
+              <span>팔로워</span>
+            </FollowLink>
+          </li>
+          <li>
+            <FollowLink
+              to={{
+                pathname: '/follow',
+                search: '?tab=following',
+              }}
+            >
+              <BoldText>{followingListCount ?? 0}</BoldText>
+              <span>팔로잉</span>
+            </FollowLink>
+          </li>
+        </Summary>
+      </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
+          // console.log('userInfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
@@ -114,15 +217,9 @@ const UserInformation = () => {
           );
         })}
       </UserInfoList>
-      {isEditModalOpen && (
-        <Modal open={isEditModalOpen} onClose={closeModal}>
-          <EditBox
-            type={editData.type}
-            editValue={editData.value}
-            handleChangeValue={handleChangeValue}
-            pageTitleText={editData.title}
-            closeModal={closeModal}
-          />
+      {editModalType && (
+        <Modal open={!!editModalType} onClose={closeModal}>
+          <EditBox type={editModalType} closeModal={closeModal} />
         </Modal>
       )}
       {isLogoutModalOpen && (
@@ -133,9 +230,28 @@ const UserInformation = () => {
         >
           <BottomDialog
             title="정말 로그아웃하시겠어요?"
+            height="141px"
             activeButtonText="로그아웃하기"
-            onActive={() => logoutUser()}
+            onActive={logoutUser}
             onClose={() => setIsLogoutModalOpen(false)}
+          />
+        </Modal>
+      )}
+      {deleteAccountModalOpen && (
+        <Modal
+          open={deleteAccountModalOpen}
+          onClose={() => setdeleteAccountModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            height="182px"
+            title="정말 탈퇴하시겠어요?"
+            description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
+            activeButtonText="탈퇴하기"
+            onActive={() => {
+              deleteUserAccount();
+            }}
+            onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
       )}
@@ -149,4 +265,78 @@ const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
+`;
+
+const EditNicknameBtn = styled.button`
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 3px 0 0 2px;
+  height: 19px;
+`;
+
+const UserInfoWrap = styled.div`
+  color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+  }
+`;
+
+const BoldText = styled.p`
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
+  line-height: 19px;
+`;
+
+const FollowLink = styled(Link)`
+  color: var(--color-primary);
+  font-size: var(--font-xxs);
+  font-weight: var(--weight-semi-regular);
+  text-decoration: none;
+  text-align: center;
+`;
+
+const Summary = styled.ul`
+  height: 34px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 24px 0;
+  & li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1 1 0;
+    & span {
+      font-size: var(--font-xxs);
+      font-weight: var(--weight-semi-regular);
+      line-height: 15px;
+    }
+    &::after {
+      background-color: var(--color-title);
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: 25px;
+      opacity: 0.5;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+    &::last-child {
+      &::after {
+        width: 0;
+      }
+    }
+  }
 `;

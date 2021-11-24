@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { MonsterThumbnail } from '../monster';
+import { NonePlaceHolder } from '../common';
 import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
+import { None } from '../../assets/images/placeholder';
+
+import { MonsterThumbnail } from '../common';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
@@ -17,6 +20,10 @@ const MonsterCollection = () => {
 
       if (data.statusCode === OK) {
         setCollectionList(data.monsters);
+        // console.log(data.monsters[0].monsterDatabases[0].monsterId);
+        // window.alert(
+        //   `몬스터아이디:${data.monsters[0].monsterDatabases[0].monsterId}`,
+        // );
       }
     }
 
@@ -26,14 +33,13 @@ const MonsterCollection = () => {
   return (
     <Wrapper>
       {!collectionList?.length ? (
-        <NoneTextWrapper>
-          <NoneTextTitle>아직 수집한 몬스터가 없어요!😭</NoneTextTitle>
-          <NoneTextDescription>
-            습관을 실천해 몬스터를 레벨업하고
+        <NonePlaceHolder>
+          <span>
+            아직 수집한 몬스터가 없어요.
             <br />
-            새로운 몬스터를 수집해 보세요!
-          </NoneTextDescription>
-        </NoneTextWrapper>
+            습관을 실천해 몬스터를 모아보세요!
+          </span>
+        </NonePlaceHolder>
       ) : (
         collectionList.map((monster) => (
           <EachCollectionWrapper key={monster.monsterName}>
@@ -47,17 +53,17 @@ const MonsterCollection = () => {
                 .fill(null)
                 .map((_, i) => (
                   <MonsterImageWrapper key={`${monster.monsterName} ${i}`}>
-                    {monster.maxLevel <=
+                    {monster.maxLevel >=
                       monster.monsterDatabases[i]?.monsterLevel ?? i + 1 ? (
                       <MonsterThumbnail
-                        imageUrl={monster.monsterDatabases[i].monsterImage}
-                        imageAlt={`The monster of ${monster.monsterName}`}
-                        imageSize="small"
+                        id={monster.monsterDatabases[i].monsterId}
+                        width={'40px'}
+                        height={'45px'}
                       />
                     ) : (
                       <QuestionIcon />
                     )}
-                    {/* <span> LV. {i + 1}</span> */}
+                    <span> LV. {i + 1}</span>
                   </MonsterImageWrapper>
                 ))}
             </ImageScroller>
@@ -70,6 +76,8 @@ const MonsterCollection = () => {
 
 const Wrapper = styled.div`
   padding-left: 24px;
+  position: relative;
+  height: 100%;
 
   &:last-child {
     margin-bottom: 64px;
@@ -105,6 +113,10 @@ const ImageScroller = styled.div`
   flex-wrap: nowrap;
   overflow-x: auto;
   width: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MonsterImageWrapper = styled.div`
@@ -119,10 +131,10 @@ const MonsterImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: var(--bg-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 
-  & img {
-    margin-bottom: 14px;
+  & svg {
+    margin-bottom: 25px;
   }
 
   & span {
@@ -139,20 +151,20 @@ const NoneTextWrapper = styled.section`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 0 24px;
-`;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-const NoneTextTitle = styled.h2`
-  ${whiteOpacity('0.8')};
-  font-size: var(--font-xxl);
-  line-height: 32px;
-  font-weight: var(--weight-bold);
-  margin-bottom: 16px;
+  & svg {
+    margin-bottom: 32px;
+  }
 `;
 
 const NoneTextDescription = styled.p`
   ${whiteOpacity('0.6')};
-  font-size: var(--font-l);
-  line-height: 27px;
+  font-size: var(--font-xs);
+  line-height: 21px;
+  text-align: center;
 `;
 
 export default MonsterCollection;

@@ -1,42 +1,95 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { monsterState } from '../../recoil/states/monster';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
+
+import { MonsterThumbnail, Modal } from '../common';
+import { MonsterSearchSection } from '.';
+import { BottomDialog } from '../dialog';
+import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [levelUpMessage, setLevelUpMessage] = useState('');
+  const previousLevel = useRef(monster.monsterLevel);
+  const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
+
+  useEffect(() => {
+    setLevelUpMessage('');
+    if (
+      monster.monsterLevel === MAX_LEVEL &&
+      monster.monsterExpPoint === MAX_EXP
+    ) {
+      return;
+    }
+
+    const { current: previous } = previousLevel;
+    const current = monster.monsterLevel;
+    if (previous === current) {
+      return null;
+    }
+
+    setModalOpen((prev) => !prev);
+    setLevelUpMessage(
+      `레벨 ${previous}에서 레벨 ${current}로 업그레이드 했습니다!`,
+    );
+    previousLevel.current = monster.monsterLevel;
+  }, [monster.monsterLevel, monster.monsterExpPoint]);
 
   return (
-    <>
-      <MonsterContainer>
-        <TitleWrapper>
-          <Title>
-            오늘{' '}
-            <MonsterName>
-              {appendPostPosition(monster.monsterName)
-                ? `${monster.monsterName}은`
-                : `${monster.monsterName}는`}
-            </MonsterName>
-          </Title>
-          <Title>얼마나 실천을 했을까요?</Title>
-        </TitleWrapper>
-        <MonsterImage image={monster.monsterImage} />
-      </MonsterContainer>
+    <MonsterContainer>
+      <MonsterSearchSection />
+      <TitleWrapper heightShrinked={heightShrinked}>
+        <Title>
+          오늘{' '}
+          <span>
+            {appendPostPosition(monster.monsterName)
+              ? `${monster.monsterName}은`
+              : `${monster.monsterName}는`}
+          </span>
+        </Title>
+        <Title>얼마나 실천을 했을까요?</Title>
+      </TitleWrapper>
+      <ThumbnailWrapper heightShrinked={heightShrinked}>
+        <div className="inner">
+          <MonsterThumbnail id={monster.monsterId} />
+        </div>
+      </ThumbnailWrapper>
       <ExpContainer>
-        <MonsterLevel>lv.{monster.monsterLevel}</MonsterLevel>
-        <ExpWrapper>
+        <ExpText>
+          <MonsterLevel>lv.{monster.monsterLevel}</MonsterLevel>
           <Exp>
             {monster.monsterExpPoint}
-            <Percentage>%</Percentage>
+            <span>%</span>
           </Exp>
-        </ExpWrapper>
+        </ExpText>
         <GuageBar>
           <Gauge percentage={monster.monsterExpPoint} />
         </GuageBar>
       </ExpContainer>
-    </>
+      {modalOpen && (
+        <Modal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            type="levelUp"
+            height="308px"
+            level={monster.monsterLevel}
+            onActive={() => setModalOpen(false)}
+            title="LEVEL UP!"
+            activeButtonText="확인"
+            description={levelUpMessage}
+          />
+        </Modal>
+      )}
+    </MonsterContainer>
   );
 };
 
@@ -44,15 +97,20 @@ const MonsterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  gap: 4px;
+  width: 100%;
+  background: #1e135c;
+  padding: 0px 24px;
+  padding-top: 24px;
+  transition: all 150ms ease-in;
+  position: relative;
 `;
 
 const TitleWrapper = styled.div`
-  position: absolute;
-  top: 80px;
-  left: 24px;
-  height: 64px;
+  display: block;
+  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
+  height: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
+  opacity: ${({ heightShrinked }) => (!heightShrinked ? '1' : '0')};
+  transition: all 350ms linear;
 `;
 
 const Title = styled.p`
@@ -61,87 +119,84 @@ const Title = styled.p`
   font-size: var(--font-xxl);
   line-height: 32px;
   color: var(--color-primary);
+
+  & span {
+    font-weight: var(--weight-bold);
+  }
 `;
 
-const MonsterName = styled.span`
-  font-weight: var(--weight-bold);
-`;
-
-const MonsterImage = styled.div`
+const ThumbnailWrapper = styled.div`
+  width: 100%;
+  height: 183px;
+  margin: 0 auto;
+  margin-top: ${({ heightShrinked }) => (heightShrinked ? '0px' : '24px')};
+  padding: 0px 28px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin-top: 212px;
-  margin-bottom: 40px;
-  width: 152px;
-  height: 152px;
-  background-image: ${(props) => `url(${props.image})`};
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  align-items: flex-end;
+  position: relative;
+  transition: all 350ms linear;
+
+  & > .inner {
+    width: 152px;
+    height: 152px;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const ExpContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  padding-bottom: 10px;
+  position: relative;
+  top: -14px;
+`;
+
+const ExpText = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 6px;
 `;
 
 const MonsterLevel = styled.span`
-  position: absolute;
-  top: 381px;
-  left: 24px;
   margin-bottom: 6px;
   font-family: var(--font-name-apple);
   font-size: var(--font-xs);
   font-weight: var(--weight-semi-bold);
   line-height: 17px;
-  color: var(--color-primary);
-  opacity: 0.8;
-`;
-
-const ExpWrapper = styled.div`
-  position: absolute;
-  top: 351px;
-  left: 276px;
-  width: 60px;
-  height: 53px;
-  padding-bottom: 11px;
-  box-sizing: box-sizing;
+  ${whiteOpacity('0.8')};
 `;
 
 const Exp = styled.p`
-  font-family: Apple SD Gothic Neo;
+  font-family: var(--font-name-apple);
   font-size: var(--font-xxxxl);
   font-weight: var(--weight-regular);
   color: var(--color-primary);
   line-height: 53px;
-`;
 
-const Percentage = styled.span`
-  font-size: var(--font-xs);
-  line-height: 17px;
-  margin-left: 4px;
-  opacity: 0.8;
+  & span {
+    font-size: var(--font-xs);
+    line-height: 17px;
+    margin-left: 4px;
+    opacity: 0.8;
+  }
 `;
 
 const GuageBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 312px;
   height: 6px;
   background-color: rgb(90, 90, 90, 0.6);
-  border-radius: 4px;
-  box-sizing: border-box;
+  border-radius: var(--border-radius-semi);
 `;
 
 const Gauge = styled.div`
   width: ${(props) => `${props.percentage}%`};
   height: 6px;
   background-color: var(--color-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
 `;
 
 export default MainMonster;

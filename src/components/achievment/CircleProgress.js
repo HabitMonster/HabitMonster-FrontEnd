@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { fontSize, whiteOpacity } from '../../styles';
-
 function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
   const circleX = useMemo(() => width / 2, [width]);
   const circleY = useMemo(() => height / 2, [height]);
-  const circleRadius = useMemo(() => circleX - strokeWidth, []);
+  const circleRadius = useMemo(
+    () => circleX - strokeWidth,
+    [circleX, strokeWidth],
+  );
   const circleDashArray = 2 * Math.PI * circleRadius;
 
   return (
@@ -79,23 +80,24 @@ const DetailContainer = styled.div`
 
 const DetailValue = styled.p`
   color: var(--color-primary);
-  ${fontSize('44px')};
+  font-size: var(--font-xxxxl);
   line-height: 52px;
   font-weight: var(--weight-regular);
 `;
 
 const DetailPer = styled.span`
-  ${whiteOpacity('0.6')};
   font-weight: var(--weight-regular);
-  ${fontSize('14px')};
+  font-size: var(--font-xs);
+  color: rgba(248, 248, 248, 0.6);
   line-height: 16px;
   margin-bottom: 5px;
   padding-left: 1px;
 `;
+
 CircleProgress.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  strokeWidth: PropTypes.strokeWidth,
-  title: PropTypes.string.isRequired,
+  strokeWidth: PropTypes.number,
+  title: PropTypes.string,
   value: PropTypes.number.isRequired,
 };

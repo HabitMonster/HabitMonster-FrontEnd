@@ -40,12 +40,13 @@ const Gnb = () => {
 
 const TabBar = styled.nav`
   width: 100%;
-  height: 56px;
-  max-width: 360px;
+  height: 80px;
+  max-width: 414px;
   position: fixed;
   bottom: 0;
-  background-color: var(--bg-wrapper);
-  padding: 12px 29px;
+  background-color: #141517;
+  box-shadow: 0px -1px 1px rgba(255, 255, 255, 0.16);
+  padding: 12px 29px 24px;
   z-index: 1;
 `;
 
@@ -71,11 +72,9 @@ const NavigationItem = styled.li`
     align-items: center;
     justify-content: center;
 
-    &.active path {
-      fill: var(--bg-selected-light);
-      stroke: var(--bg-selected-light);
-    }
-
+    &.active path,
+    &.active rect,
+    &.active circle,
     &.active ellipse {
       stroke: var(--bg-selected-light);
     }

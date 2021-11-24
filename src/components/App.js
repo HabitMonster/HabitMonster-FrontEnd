@@ -1,76 +1,103 @@
-import React, { useEffect } from 'react';
-import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
-import { authState } from '../recoil/states/auth';
+import React, { useRef, useEffect, Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { lazy } from '@loadable/component';
+import Loading from '../pages/Loading';
+import ErrorLog from './ErrorLog';
 
-import Login from '../pages/Login';
-import Main from '../pages/Main';
-import Achievement from '../pages/Achievement';
-import New from '../pages/New';
-import MyPage from '../pages/MyPage';
-import Gnb from '../components/gnb/Gnb';
-import { PrivateRoute } from './route';
-import Monster from '../pages/Monster';
-import MonsterSetting from '../pages/MonsterSetting';
-import MonsterGuide from '../pages/MonsterGuide';
-import HabitDetail from '../pages/HabitDetail';
-import HabitEdit from '../pages/HabitEdit';
-import OnBoard from './onBoard/OnBoard';
+const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const Login = lazy(() => import('../pages/Login'));
+const Main = lazy(() => import('../pages/Main'));
+const Achievement = lazy(() => import('../pages/Achievement'));
+const New = lazy(() => import('../pages/New'));
+const MyPage = lazy(() => import('../pages/MyPage'));
+const HabitDetail = lazy(() => import('../pages/HabitDetail'));
+const HabitEdit = lazy(() => import('../pages/HabitEdit'));
+const Notice = lazy(() => import('../pages/Notice'));
+const Follow = lazy(() => import('../pages/Follow'));
+const Select = lazy(() => import('../pages/Select'));
+const Search = lazy(() => import('../pages/Search'));
+const SearchDetail = lazy(() => import('../pages/SearchDetail'));
+const SearchDetailHabit = lazy(() => import('../pages/SearchDetailHabit'));
+const SearchDetailFollow = lazy(() => import('../pages/SearchDetailFollow'));
 
 function App() {
-  const { isFirstLogin, isLogin } = useRecoilValue(authState);
-  const location = useLocation();
-  const history = useHistory();
+  const r = useRef(1);
 
-  useEffect(() => {
-    const monsterPath = ['select', 'guide', 'monster'];
-    const isMonsterPath = monsterPath.some((path) =>
-      location.pathname.includes(path),
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '%c ----------IN THE APP CONTEXT----------',
+      'background: #222; color: #bada55',
     );
 
-    if (isMonsterPath && isLogin && !isFirstLogin) {
-      history.replace('/');
-      return;
-    }
+    console.log(
+      `%c Rendering Count in App.js: << ${r.current} >>`,
+      'color: hotpink',
+    );
 
-    if (isFirstLogin) {
-      history.replace('/monster');
-      return;
-    }
-  }, []);
+    console.log(
+      '%c ----------IN THE APP CONTEXT----------',
+      'background: #222; color: #bada55',
+    );
+  }
+
+  useEffect(() => {
+    const preventShrinkViewportFromKeyboard = function () {
+      const viewport = document.querySelector('meta[name=viewport]');
+      viewport.setAttribute(
+        'content',
+        viewport.content + ', height=' + window.innerHeight,
+      );
+    };
+
+    window.addEventListener('load', preventShrinkViewportFromKeyboard);
+    return () =>
+      window.removeEventListener('load', preventShrinkViewportFromKeyboard);
+  });
 
   return (
-    <Layout>
-      <Switch>
-        {!localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
-        <Route path="/login" component={Login} />
-        <PrivateRoute path="/monster" comp={Monster} />
-        <PrivateRoute path="/select" comp={MonsterSetting} />
-        <PrivateRoute path="/guide" comp={MonsterGuide} />
-        <>
-          <PrivateRoute exact path="/" comp={Main} />
-          <PrivateRoute exact path="/habit/:habitId" comp={HabitDetail} />
-          <PrivateRoute exact path="/habit/:habitId/edit" comp={HabitEdit} />
-          <PrivateRoute path="/achievement" comp={Achievement} />
-          <PrivateRoute path="/new" comp={New} />
-          <PrivateRoute path="/mypage" comp={MyPage} />
-          <Gnb />
-        </>
-      </Switch>
-    </Layout>
+    <ErrorBoundary FallbackComponent={ErrorLog}>
+      <Suspense fallback={<Loading />}>
+        <Switch>
+          <Route path={['/login', '/#']} component={Login} />
+          <PrivateRoute path="/select" component={<Select />} />
+          <PrivateRoute exact path="/" component={<Main />} />
+          <PrivateRoute path="/new" component={<New />} />
+          <PrivateRoute path="/achievement" component={<Achievement />} />
+          <PrivateRoute path="/mypage" component={<MyPage />} />
+          <PrivateRoute exact path="/search" component={<Search />} />
+          <PrivateRoute
+            exact
+            path="/search/:monsterCode"
+            component={<SearchDetail />}
+          />
+          <PrivateRoute
+            exact
+            path="/search/:monsterCode/:habitId"
+            component={<SearchDetailHabit />}
+          />
+          <PrivateRoute
+            exact
+            path="/habit/:habitId"
+            component={<HabitDetail />}
+          />
+          <PrivateRoute
+            exact
+            path="/habit/:habitId/edit"
+            component={<HabitEdit />}
+          />
+          <PrivateRoute path="/notice" component={<Notice />} />
+          <PrivateRoute exact path="/follow" component={<Follow />} />
+          <PrivateRoute
+            exact
+            path="/follow/:monsterCode"
+            component={<SearchDetailFollow />}
+          />
+          {/* <Redirect from="*" to="/" /> */}
+        </Switch>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
-
-const Layout = styled.div`
-  background: var(--bg-wrapper);
-  display: flex;
-  max-width: 360px;
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-`;
 
 export default App;

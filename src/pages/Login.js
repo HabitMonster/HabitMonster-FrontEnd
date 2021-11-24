@@ -1,18 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { SocialLogin, LoginTitle } from '../components/login';
+import {
+  LoginTitle,
+  GoogleLogin,
+  KakaoLogin,
+  NaverLogin,
+} from '../components/login';
+
+import OnBoard from '../components/onBoard/OnBoard';
 
 import '../assets/fonts/font.css';
 
 const Login = () => {
+  if (!window.localStorage.getItem('isOnboarding')) {
+    return <OnBoard />;
+  }
+
   return (
-    <>
-      <Wrapper>
-        <LoginTitle />
-        <SocialLogin />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <LoginTitle />
+      <KakaoLogin />
+      <GoogleLogin />
+      <NaverLogin />
+    </Wrapper>
   );
 };
 
@@ -23,6 +34,16 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
+  font-family: var(--font-name-apple);
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
+  line-height: 25px;
+
+  & .kakaoLogin,
+  & .googleLogin,
+  & .naverLogin {
+    margin-bottom: 12px;
+  }
 `;
 
 export default Login;

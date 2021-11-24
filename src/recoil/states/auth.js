@@ -1,38 +1,40 @@
 import { atom, selector } from 'recoil';
-import { auth } from '../../api';
+import { mainApis } from '../../api';
 
-export const loginState = atom({
-  key: 'loginState',
-  default: {
-    isFirstLogin: false,
-  },
-});
-
-export const asyncDefaultAuth = selector({
-  key: 'asyncDefaultAuth',
-  get: async () => {
-    const loginStatus = {};
-
-    const accessToken = window.localStorage.getItem('habitAccess');
-    if (!accessToken) {
-      return loginStatus;
-    }
-
-    console.log('after');
-
-    try {
-      const { data } = await auth.check();
-      loginStatus.isFirstLogin = data.isFirstLogin;
-      loginStatus.isLogin = data.isLogin;
-      return loginStatus;
-    } catch (error) {
-      console.error(error);
-      return loginStatus;
-    }
-  },
+export const authToggler = atom({
+  key: 'authToggler',
+  default: 1,
 });
 
 export const authState = atom({
   key: 'authState',
-  default: asyncDefaultAuth,
+  default: selector({
+    key: 'asyncAuth',
+    get: async ({ get }) => {
+      get(authToggler);
+      const loginStatus = {
+        isLogin: false,
+        isFirstLogin: null,
+        createdAt: '',
+      };
+
+      const accessToken = window.localStorage.getItem('habitAccessToken');
+
+      if (!accessToken) {
+        return loginStatus;
+      }
+
+      try {
+        const { data } = await mainApis.checkLogin();
+        loginStatus.isFirstLogin = data.isFirstLogin;
+        loginStatus.isLogin = data.isLogin;
+        loginStatus.createdAt = data.createdAt;
+
+        return loginStatus;
+      } catch (error) {
+        console.error(error);
+        return loginStatus;
+      }
+    },
+  }),
 });

@@ -23,11 +23,12 @@ BottomFixedButton.propTypes = {
 
 const Button = styled.button`
   width: 100%;
-  max-width: 360px;
+  max-width: 414px;
   margin: 0 auto;
-  height: 64px;
+  height: 80px;
 
   position: fixed;
+  padding-left: inherit;
   bottom: 0;
   background: var(--bg-active);
   z-index: 3;

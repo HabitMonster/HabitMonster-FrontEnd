@@ -1,26 +1,35 @@
-import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { lazy } from '@loadable/component';
+import { Switch, useRouteMatch, Route } from 'react-router-dom';
 
-import PrivateRoute from '../components/route/PrivateRoute';
-import NewHabitCategoryList from './NewHabitCategoryList';
+// import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
-import NewHabitPresetList from './NewHabitPresetList';
+
+import NewHabitCategorySkeleton from '../components/newHabit/NewHabitCategorySkeleton';
+import NewHabitPresetListSkeleton from '../components/newHabit/NewHabitPresetListSkeleton';
+// import NewHabitPresetList from './NewHabitPresetList';
+
+const NewHabitCategoryList = lazy(() => import('./NewHabitCategoryList'));
+const NewHabitPresetList = lazy(() => import('./NewHabitPresetList'));
 
 const New = () => {
   const { path } = useRouteMatch();
-
   return (
-    <>
-      <PrivateRoute exact path={path}>
-        <NewHabitCategoryList />
-      </PrivateRoute>
-      <PrivateRoute path={`${path}/:categoryId/preset`}>
-        <NewHabitPresetList />
-      </PrivateRoute>
-      <PrivateRoute path={`${path}/:categoryId/detail`}>
+    <Switch>
+      <Route exact path={path}>
+        <Suspense fallback={<NewHabitCategorySkeleton />}>
+          <NewHabitCategoryList />
+        </Suspense>
+      </Route>
+      <Route path={`${path}/:categoryId/preset`}>
+        <Suspense fallback={<NewHabitPresetListSkeleton />}>
+          <NewHabitPresetList />
+        </Suspense>
+      </Route>
+      <Route path={`${path}/:categoryId/detail`}>
         <NewHabitForm />
-      </PrivateRoute>
-    </>
+      </Route>
+    </Switch>
   );
 };
 

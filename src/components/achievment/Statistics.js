@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-
-import { fontSize } from '../../styles';
 
 import { statisticApi } from '../../api';
 
@@ -10,11 +8,17 @@ import { formatMonth, addMonths, subMonths } from '../../utils/date';
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
 import { HabitList, CircleProgress } from '.';
+import { authState } from '../../recoil/states/auth';
+import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
+  const setAuth = useRecoilValue(authState);
   const [currentDate, setCurrentDate] = useState(
     formatMonth(new window.Date(), '-'),
   );
+  const currentMonth = new Date(currentDate).getMonth() + 1;
+  const createAtMonth = new Date(setAuth.createdAt).getMonth() + 1;
+
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
     totalCount: 0,
@@ -47,10 +51,9 @@ const Statistics = () => {
     setCurrentListName(listName);
   };
 
-  const getStatistic = async () => {
+  const getStatistic = useCallback(async () => {
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);
-      console.log('statisticResponse', statisticResponse);
       if (statisticResponse.status === 200) {
         const { totalCount, succeededCount, failedCount, habitList } =
           statisticResponse.data;
@@ -61,10 +64,11 @@ const Statistics = () => {
           habitList,
         });
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }, [currentDate]);
+
   const currentList = getCurrentList(statisticData?.habitList ?? []);
   const circleValue =
     statisticData?.totalCount > 0
@@ -72,15 +76,17 @@ const Statistics = () => {
       : 0;
 
   useEffect(() => {
-    // 날짜가 바뀔때마다 요청
     getStatistic();
-  }, [currentDate]);
+  }, [getStatistic]);
 
   return (
     <>
       <DetailWrap>
         <DateWrap>
-          <DateButton onClick={() => handleClickChangeMonth('minus')}>
+          <DateButton
+            disabled={createAtMonth === currentMonth}
+            onClick={() => handleClickChangeMonth('minus')}
+          >
             <AchieveLeft />
           </DateButton>
           <DateText>{currentDate}</DateText>
@@ -104,7 +110,7 @@ const Statistics = () => {
           </GoalBox>
         </GoalWrap>
       </DetailWrap>
-      <HabitsList>12월의 습관 목록</HabitsList>
+      <HabitsList>{currentMonth}월의 습관 목록</HabitsList>
       <ListContainer>
         <ButtonWrap>
           {/* TODO: onClick type 지정필요 */}
@@ -137,8 +143,6 @@ const Statistics = () => {
   );
 };
 
-export default Statistics;
-
 const DetailWrap = styled.div`
   background-color: var(--bg-wrapper);
   padding: 0 34px 24px;
@@ -151,10 +155,13 @@ const DateWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  /* padding: 20px 0; */
+  margin-top: 24px;
+  margin-bottom: 32px;
 `;
 
 const DateButton = styled.button`
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   background-color: transparent;
   color: #999999;
   border: 0;
@@ -165,7 +172,7 @@ const DateButton = styled.button`
 
 const DateText = styled.p`
   color: var(--color-primary);
-  ${fontSize('18px')};
+  font-size: var(--font-l);
   font-weight: var(--font-weight-medium);
   margin: 0 15px;
 `;
@@ -185,14 +192,18 @@ const GoalBox = styled.div`
   color: white;
   margin-left: 35px;
   flex: 1;
+  & > div:first-child {
+    padding-bottom: 19.5px;
+  }
 `;
 
 const GoalCount = styled.div`
   padding: 12px 0;
+  padding-left: 4px;
   span {
     &:last-child {
       text-align: right;
-      ${fontSize('24px')};
+      font-size: var(--font-xxl);
       color: var(--color-primary);
     }
   }
@@ -203,28 +214,28 @@ const GoalCount = styled.div`
 
 const GoalText = styled.span`
   color: rgba(248, 248, 248, 0.6);
-  ${fontSize('12px')};
+  font-size: var(--font-xxs);
   width: 50%;
   display: inline-block;
 `;
 
 const ListContainer = styled.div`
   height: 100%;
-  padding: 12px 0;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 0 16px;
+  margin: 16px 0px;
 `;
 
 const HabitsList = styled.p`
-  ${fontSize('18px')};
+  font-size: var(--font-l);
   font-weight: var(--weight-regular);
   line-height: 22px;
   color: var(--color-primary);
-  margin-left: 24px;
+  margin: 0 24px;
 `;
 
 const AchieveNavBtn = styled.button`
@@ -236,7 +247,7 @@ const AchieveNavBtn = styled.button`
     !props.isActive ? 'transparent' : 'var(--bg-selected)'};
   color: ${(props) =>
     !props.isActive ? 'var(--color-primary)' : 'var(--color-primary)'};
-  ${fontSize('14px')};
+  font-size: var(--font-xs);
   line-height: 16px;
   cursor: pointer;
   margin: 10px 0;
@@ -251,3 +262,4 @@ const AchieveNavBtn = styled.button`
     margin-left: 6px;
   }
 `;
+export default Statistics;

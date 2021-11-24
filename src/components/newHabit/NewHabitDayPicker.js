@@ -8,7 +8,7 @@ import { CheckIcon } from '../../assets/icons/habits';
 
 import { toggleDay } from '../../utils/date';
 
-const NewHabitDayPicker = ({ days, onDayPicked }) => {
+const NewHabitDayPicker = ({ days, onDayPicked, isEditMode }) => {
   const handleDayClick = (id) => {
     const newDays = toggleDay(days, id);
     onDayPicked(newDays);
@@ -18,19 +18,32 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
     onDayPicked(days.length === 7 ? '' : '1234567');
   };
 
+  // isEditMode === true  :  해당 컴포넌트를 "습관 수정" 페이지에서 사용합니다. 따라서 요일 선택이 "불가능"합니다.
+  // isEditMode === false : 해당 컴포넌트를 "습관 작성" 페이지에서 사용합니다. 따라서 요일 선택이 "가능"합니다.
   return (
     <SubTitleOuter subTitle="요일 설정">
+      {isEditMode ? <HelperText>수정 불가능해요</HelperText> : ''}
       <Wrapper>
         <PresetList>
-          {WEEK.map(({ id, day }) => (
-            <Item
-              onClick={() => handleDayClick(id)}
-              key={id}
-              selected={days.includes(String(id))}
-            >
-              {day}
-            </Item>
-          ))}
+          {isEditMode
+            ? WEEK.map(({ id, day }) => (
+                <Item
+                  onClick={null}
+                  key={id}
+                  selected={days.includes(String(id))}
+                >
+                  {day}
+                </Item>
+              ))
+            : WEEK.map(({ id, day }) => (
+                <Item
+                  onClick={() => handleDayClick(id)}
+                  key={id}
+                  selected={days.includes(String(id))}
+                >
+                  {day}
+                </Item>
+              ))}
         </PresetList>
         <ChoiceAllSection allSelected={days.length === 7}>
           <CheckIcon
@@ -40,9 +53,9 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
                 ? 'var(--bg-selected-light)'
                 : 'var(--color-primary)'
             }
-            onClick={toggleAll}
+            onClick={isEditMode ? null : toggleAll}
           />
-          <span onClick={toggleAll}>매일(모든 요일)</span>
+          <span onClick={isEditMode ? null : toggleAll}>매일(모든 요일)</span>
         </ChoiceAllSection>
       </Wrapper>
     </SubTitleOuter>
@@ -50,20 +63,31 @@ const NewHabitDayPicker = ({ days, onDayPicked }) => {
 };
 
 NewHabitDayPicker.propTypes = {
+  isEditMode: PropTypes.bool,
   days: PropTypes.string.isRequired,
-  onDayPicked: PropTypes.func.isRequired,
+  onDayPicked: PropTypes.func,
 };
+
+const HelperText = styled.span`
+  display: block;
+  color: var(--color-primary-deemed);
+  font-size: var(--font-xxs);
+  line-height: 14px;
+  margin-bottom: 6px;
+`;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 310px;
+  width: 100%;
 `;
 
 const PresetList = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin-bottom: 12px;
 `;
 
@@ -79,7 +103,7 @@ const ChoiceAllSection = styled.div`
     color: ${({ allSelected }) =>
       allSelected ? 'var(--bg-selected-light)' : 'rgba(248, 248, 248, 0.5)'};
     font-weight: var(--weight-regular);
-    font-size: var (--font-xs);
+    font-size: var(--font-xs);
     line-height: 17px;
     cursor: pointer;
     transition: all 150ms ease-out;

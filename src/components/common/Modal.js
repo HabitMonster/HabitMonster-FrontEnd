@@ -54,7 +54,7 @@ const Modal = ({ open, onClose, children, blurmode }) => {
 
 Modal.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
   blurmode: PropTypes.bool,
@@ -71,26 +71,21 @@ const Backdrop = styled.div`
   bottom: 0;
   left: 0;
   background-color: ${({ blurmode }) =>
-    blurmode
-      ? 'linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper))'
-      : 'var(--bg-done)'};
+    blurmode ? 'rgba(0,0,0,0.7)' : 'var(--bg-done)'};
   opacity: 0;
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: var(--animation-duration);
   z-index: 10;
-
   & .modal-content {
     height: 100%;
     transform: translateY(100px);
     transition: all var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
   }
-
   &.active {
     transition-duration: 250ms;
     transition-delay: 0ms;
     opacity: 1;
-
     & .modal-content {
       transform: translateY(0);
       opacity: 1;

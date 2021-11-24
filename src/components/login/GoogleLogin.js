@@ -1,121 +1,137 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
+
 import { authState } from '../../recoil/states/auth';
+import { asyncHabitTogglerState } from '../../recoil/states/habit';
+import { monsterRefetchToggler } from '../../recoil/states/monster';
+import {
+  followerListRefetchToggler,
+  followingListRefetchToggler,
+} from '../../recoil/states/user';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { auth } from '../../api';
-import { setCookie } from '../../utils/cookie';
 import { GoogleSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
+import { loadGoogleScript } from '../../utils/loadGoogleScript';
 
+import { loginBtnStyle } from '../../styles/Mixin';
+
+/*
+  각 로그인 컴포넌트는 중복된 로직을 전부 가지고 있습니다(sdk 적용 뺴고)
+  해당 부분을 추상화하여 재사용을 할 수 있을 것 같습니다.
+
+*/
 const GoogleLogin = () => {
   const history = useHistory();
   const googleLoginBtn = useRef(null);
   const socialName = 'google';
   const setAuth = useSetRecoilState(authState);
-  console.log('googleLoginRender');
+  const refetchHabit = useSetRecoilState(asyncHabitTogglerState);
+  const refetchMonster = useSetRecoilState(monsterRefetchToggler);
+  const refetchFollowerList = useSetRecoilState(followerListRefetchToggler);
+  const refetchFollowingList = useSetRecoilState(followingListRefetchToggler);
+  const resetShrinkSection = useResetRecoilState(monsterSectionShirnkToggler);
 
   useEffect(() => {
-    googleSDK();
-  }, []);
-
-  const googleSDK = () => {
-    window.googleSDKLoaded = () => {
+    window.onGoogleScriptLoad = () => {
       window.gapi.load('auth2', () => {
-        const auth2 = window.gapi.auth2.init({
-          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-          scope: 'profile email',
-        });
+        (async () => {
+          const googleAuth2 = await window.gapi.auth2.init({
+            client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+            scope: 'profile email',
+          });
+          googleAuth2.attachClickHandler(
+            googleLoginBtn.current,
+            {},
+            (googleUser) => {
+              async function getTokenWithGoogle() {
+                try {
+                  const { data } = await auth.getSocialLogin(
+                    socialName,
+                    googleUser.getAuthResponse().id_token,
+                  );
 
-        auth2.attachClickHandler(
-          googleLoginBtn.current,
-          {},
-          (googleUser) => {
-            async function getTokenWithGoogle() {
-              console.log(googleUser);
-              try {
-                const { data } = await auth.getSocialLogin(
-                  socialName,
-                  googleUser.getAuthResponse().id_token,
-                );
-                console.log('성공');
+                  window.localStorage.setItem(
+                    'habitAccessToken',
+                    data.accessToken,
+                  );
+                  window.localStorage.setItem(
+                    'habitRefreshToken',
+                    data.refreshToken,
+                  );
 
-                window.localStorage.setItem('habitAccess', data.accessToken);
-                window.localStorage.setItem('habitRefresh', data.refreshToken);
+                  /*
+                    처음 로그인 하지 않은 유저는 습관과 몬스터 정보,
+                    팔로워 팔로잉 정보가 등록되어있기 때문에 리페칭을 실시합니다.
+                    유저 정보는 PrivateRoute에서 업데이팅을 하는 것 처럼 보이네요.
+                    리페치는 전부 토글러로 하였습니다.
+                  */
+                  refetchHabit((prev) => prev + 1);
+                  refetchMonster((prev) => prev + 1);
+                  refetchFollowerList((prev) => prev + 1);
+                  refetchFollowingList((prev) => prev + 1);
+                  resetShrinkSection();
 
-                if (data.statusCode === OK && data.isFirstLogin) {
-                  setAuth({
-                    isLogin: true,
-                    isFirstLogin: data.isFirstLogin,
-                  });
-                  history.replace('/monster');
-                  return;
+                  if (data.statusCode === OK && data.isFirstLogin) {
+                    setAuth({
+                      isLogin: true,
+                      isFirstLogin: data.isFirstLogin,
+                    });
+
+                    history.replace('/select');
+                    return;
+                  }
+
+                  if (data.statusCode === OK && !data.isFirstLogin) {
+                    setAuth({
+                      isLogin: true,
+                      isFirstLogin: data.isFirstLogin,
+                    });
+
+                    history.replace('/');
+                    return;
+                  }
+                } catch (err) {
+                  console.error(err.response);
                 }
-
-                if (data.statusCode === OK && !data.isFirstLogin) {
-                  setAuth({
-                    isLogin: true,
-                    isFirstLogin: data.isFirstLogin,
-                  });
-                  history.replace('/');
-                  return;
-                }
-              } catch (err) {
-                console.error(err);
               }
-            }
 
-            getTokenWithGoogle();
-          },
-          (error) => {
-            console.error(error);
-          },
-        );
+              getTokenWithGoogle();
+            },
+            (error) => {
+              console.log(error);
+            },
+          );
+        })();
       });
     };
 
-    (function (d, s, id) {
-      let js;
-      const fjs = d.getElementsByTagName(s)[0];
-
-      if (d.getElementById(id)) {
-        return;
-      }
-
-      js = d.createElement(s);
-      js.id = id;
-      js.src = 'https://apis.google.com/js/platform.js?onload=googleSDKLoaded';
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'google-jssdk');
-  };
+    loadGoogleScript();
+  }, [
+    setAuth,
+    history,
+    refetchHabit,
+    refetchMonster,
+    refetchFollowerList,
+    refetchFollowingList,
+    resetShrinkSection,
+  ]);
 
   return (
-    <React.Fragment>
-      <LoginBtn ref={googleLoginBtn} id="gSignInWrapper">
+    <>
+      <LoginBtn ref={googleLoginBtn} className="googleLogin">
         <GoogleSymbol />
         <SocialTitle>Google로 시작하기</SocialTitle>
       </LoginBtn>
-    </React.Fragment>
+    </>
   );
 };
 
 const LoginBtn = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 45px;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-checkBtn);
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.googleLogin {
-    background-color: var(--color-white);
-  }
+  ${loginBtnStyle('white')}
 
   & > svg {
     width: 20px;
@@ -127,10 +143,7 @@ const LoginBtn = styled.div`
 
 const SocialTitle = styled.span`
   height: 24px;
-  margin: 0 auto;
-  line-height: 24px;
-  font-family: Noto Sans KR Medium;
-  font-size: var(--font-m);
+  margin: 0px 78px 0px 99px;
 `;
 
 export default GoogleLogin;

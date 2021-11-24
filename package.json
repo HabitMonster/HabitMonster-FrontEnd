@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@loadable/component": "^5.15.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
     "date-fns": "^2.25.0",
+    "firebase": "^9.4.1",
     "react": "^17.0.2",
+    "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
+    "react-error-boundary": "^3.1.4",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "recoil": "^0.4.1",
@@ -17,7 +21,18 @@
     "styled-reset": "^4.3.4",
     "swiper": "6.8.4",
     "web-vitals": "^1.0.1",
-    "wicg-inert": "^3.1.1"
+    "wicg-inert": "^3.1.1",
+    "workbox-background-sync": "^6.3.0",
+    "workbox-broadcast-update": "^6.3.0",
+    "workbox-cacheable-response": "^6.3.0",
+    "workbox-core": "^6.3.0",
+    "workbox-expiration": "^6.3.0",
+    "workbox-google-analytics": "^6.3.0",
+    "workbox-navigation-preload": "^6.3.0",
+    "workbox-precaching": "^6.3.0",
+    "workbox-routing": "^6.3.0",
+    "workbox-strategies": "^6.3.0",
+    "workbox-streams": "^6.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,6 +61,8 @@
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "2.4.1"
-  }
+  },
+  "homepage": "./"
 }

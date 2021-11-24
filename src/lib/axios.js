@@ -4,9 +4,19 @@ import {
   BAD_REQUEST,
   OK,
   UNAUTHORIZED,
-  FORBIDDEN,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
 } from '../constants/statusCode';
-import { getCookie, setCookie } from '../utils/cookie';
+import {
+  ACCESS_TOKEN_EXPIRED,
+  ACCESS_TOKEN_SIGNATURE_EXCEPTION,
+  ACCESS_TOKEN_MALFORMED,
+  REFRESH_TOKEN_EXPIRED,
+  REFRESH_TOKEN_SIGNATURE_EXCEPTION,
+  REFRESH_TOKEN_MALFORMED,
+  INTERNAL_SERVER_ERROR_MESSAGE,
+} from '../constants/statusMessage';
+import { setMoveToLoginPage } from '../utils/setMoveToLoginPage';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 const instance = axios.create({ baseURL });
@@ -15,14 +25,8 @@ const setToken = (config) => {
   config.headers['Content-Type'] = 'application/json; charset=utf-8';
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
-
-  // config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
-
-  config.headers['A-AUTH-TOKEN'] = window.localStorage.getItem('habitAccess');
-  // config.headers['A-AUTH-TOKEN'] = `${getCookie('accessToken')}`;
-  // config.headers['A-AUTH-TOKEN'] =
-  //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0RyIsInR5cGUiOiJHT09HTEUiLCJpYXQiOjE2MzY2MTA5NzYsImV4cCI6MTYzOTIwMjk3Nn0.BWjWfcxqnbaIB8E55WfKJg6daaUacX4PG6j6mwrJOoY';
-
+  config.headers['A-AUTH-TOKEN'] =
+    window.localStorage.getItem('habitAccessToken');
   config.headers.withCredentials = true;
   return config;
 };
@@ -35,39 +39,139 @@ instance.interceptors.response.use(
   },
 
   async (error) => {
-    // const { data: responseData, config: originalRequest } = error.response;
-    console.log(error.response);
+    const { data: responseData, config: originalRequest } = error.response;
+    // console.log(responseData);
+    if (responseData.status === INTERNAL_SERVER_ERROR) {
+      // setMoveToLoginPage();
+      // window.location.href = '/';
+      if (process.env.NODE_ENV === 'development') {
+        window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
+        console.log(responseData, 'line 48');
+      }
+      return Promise.reject(error);
+    }
 
-    // if (responseData.statusCode === BAD_REQUEST) {
-    //   try {
-    //     const { data } = await axios({
-    //       method: 'GET',
-    //       url: `${process.env.REACT_APP_BASE_URL}user/loginCheck`,
-    //       headers: {
-    //         'Content-Type': 'application/json;charset=UTF-8',
-    //         'R-AUTH-TOKEN': `${getCookie('refreshToken')}`,
-    //       },
-    //     });
+    if (responseData.statusCode === UNAUTHORIZED) {
+      if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
+        if (process.env.NODE_ENV === 'development') {
+          window.alert(ACCESS_TOKEN_SIGNATURE_EXCEPTION);
+          console.log(responseData, 'line 56');
+        }
+        // setMoveToLoginPage();
+        return Promise.reject(error);
+      }
 
-    //     if (data.statusCode === OK) {
-    //       setCookie('accessToken', data.accessToken);
+      if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
+        if (process.env.NODE_ENV === 'development') {
+          window.alert(ACCESS_TOKEN_MALFORMED);
+          console.log(responseData, 'line 63');
+        }
+        // setMoveToLoginPage();
+        return Promise.reject(error);
+      }
+    }
 
-    //       try {
-    //         originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
-    //         return axios(originalRequest);
-    //       } catch (error) {
-    //         return error.response.data;
-    //       }
-    //     }
-    //   } catch (error) {
-    //     if (error.response.data.statusCode === BAD_REQUEST) {
-    //       console.log(error.response);
-    //       window.location.href = '/login';
-    //       return;
-    //     }
-    //   }
-    // }
-    return Promise.reject(error);
+    if (
+      responseData.statusCode === BAD_REQUEST &&
+      responseData.responseMessage === ACCESS_TOKEN_EXPIRED
+    ) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(responseData, 'line 72');
+        window.alert(ACCESS_TOKEN_EXPIRED);
+      }
+
+      try {
+        const { data } = await axios({
+          method: 'GET',
+          url: `${process.env.REACT_APP_BASE_URL}user/loginCheck`,
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'R-AUTH-TOKEN': `${window.localStorage.getItem(
+              'habitRefreshToken',
+            )}`,
+          },
+        });
+
+        if (data.statusCode === OK) {
+          if (process.env.NODE_ENV === 'development') {
+            window.alert(
+              'AccessToken Reissued Successfully. Press OK to Continue.',
+            );
+          }
+          window.localStorage.setItem('habitAccessToken', data.accessToken);
+          originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
+          // window.alert('Resend Original Request. Press OK to Continue.');
+          return axios(originalRequest);
+        }
+      } catch (error) {
+        if (
+          error.response.data.statusCode === BAD_REQUEST &&
+          error.response.data.responseMessage === REFRESH_TOKEN_EXPIRED
+        ) {
+          if (process.env.NODE_ENV === 'development') {
+            window.alert(REFRESH_TOKEN_EXPIRED);
+          }
+          // setMoveToLoginPage();
+          return Promise.reject(error);
+        }
+
+        if (error.response.data.statusCode === UNAUTHORIZED) {
+          if (
+            error.response.data.responseMessage ===
+            REFRESH_TOKEN_SIGNATURE_EXCEPTION
+          ) {
+            if (process.env.NODE_ENV === 'development') {
+              window.alert(REFRESH_TOKEN_SIGNATURE_EXCEPTION);
+              // setMoveToLoginPage();
+            }
+            return Promise.reject(error);
+          }
+
+          if (error.response.data.responseMessage === REFRESH_TOKEN_MALFORMED) {
+            if (process.env.NODE_ENV === 'development') {
+              window.alert(REFRESH_TOKEN_MALFORMED);
+              console.log(error.response.data, 'line 119');
+            }
+            // setMoveToLoginPage();
+            return Promise.reject(error);
+          }
+        }
+
+        if (process.env.NODE_ENV === 'development') {
+          window.alert(
+            'Unexpected Token Error Occured. Press OK to Move to Login Page.',
+          );
+          console.log(error.response.data, 'line 127');
+          setMoveToLoginPage();
+        }
+        return Promise.reject(error);
+      }
+    }
+
+    if (error.response.data.statusCode === NOT_FOUND) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(error.response.data, 'line 134');
+      }
+      return Promise.reject(error);
+    }
+
+    if (error.response.data.statusCode === INTERNAL_SERVER_ERROR) {
+      if (process.env.NODE_ENV === 'development') {
+        window.alert(INTERNAL_SERVER_ERROR);
+        console.log(error.response.data, 'line 142');
+      }
+      // setMoveToLoginPage();
+      // window.location.href = '/';
+      return Promise.reject(error);
+    }
+
+    // window.alert('Unexpected Error Occured. Please Check Your Console.');
+    // console.log(error.response.data);
+
+    const err = new Error();
+    err.statusCode = error.response.data.statusCode;
+    err.message = error.response.data.responseMessage;
+    return Promise.reject(err);
   },
 );
 

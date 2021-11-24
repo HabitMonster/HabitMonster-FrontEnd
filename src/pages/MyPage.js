@@ -2,30 +2,38 @@ import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { fontSize, whiteOpacity } from '../styles';
-import { UserInformation, History } from '../components/myPage';
+import { Gnb } from '../components/gnb';
+import { UserInformation } from '../components/myPage';
+import { MonsterCollection } from '../components/achievment';
 
 const MyPage = () => {
   return (
-    <AcheiveContainer>
-      <NavButtonWrap>
-        <NavButtonItem>
-          <NavButton to="/mypage/information" activeClassName="active">
-            마이페이지
-          </NavButton>
-        </NavButtonItem>
-        <NavButtonItem>
-          <NavButton to="/mypage/history" activeClassName="active">
-            히스토리
-          </NavButton>
-        </NavButtonItem>
-      </NavButtonWrap>
-      <Switch>
-        <Route exact path="/mypage/information" component={UserInformation} />
-        <Route exact path="/mypage/history" component={History} />
-        <Redirect from="*" to="/mypage/information" />
-      </Switch>
-    </AcheiveContainer>
+    <>
+      <AcheiveContainer>
+        <NavButtonWrap>
+          <NavButtonItem>
+            <NavButton to="/mypage/information" activeClassName="active">
+              마이페이지
+            </NavButton>
+          </NavButtonItem>
+          <NavButtonItem>
+            <NavButton to="/mypage/collection" activeClassName="active">
+              몬스터 도감
+            </NavButton>
+          </NavButtonItem>
+        </NavButtonWrap>
+        <Switch>
+          <Route exact path="/mypage/information" component={UserInformation} />
+          <Route
+            exact
+            path="/mypage/collection"
+            component={MonsterCollection}
+          />
+          <Redirect from="*" to="/mypage/information" />
+        </Switch>
+      </AcheiveContainer>
+      <Gnb />
+    </>
   );
 };
 
@@ -35,15 +43,25 @@ const AcheiveContainer = styled.div`
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
   width: 100%;
+  height: calc(100% - 80px);
+  padding-bottom: 64px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const NavButtonWrap = styled.ul`
   background-color: var(--color-background);
-  border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
+  border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
   display: flex;
   list-style: none;
   margin: 0;
-  padding-top: 52px;
+  padding-top: 48px;
 `;
 
 const NavButtonItem = styled.li`
@@ -52,20 +70,21 @@ const NavButtonItem = styled.li`
   justify-content: center;
   list-style: none;
   width: 50%;
-  height: 34px;
-  ${fontSize('16px')};
+  height: 40px;
+  font-size: var(--font-m);
   position: relative;
+  padding-top: 6px;
 `;
 
 const NavButton = styled(NavLink)`
   background-color: transparent;
   border: 0;
   border: 1px solid transparent;
-  color: var(--color-deemed3);
+  /* color: var(--color-deemed3); */
+  color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
-  ${fontSize('16px')};
-  ${whiteOpacity('0.6')};
-  font-weight: var(--weight-semi-regular);
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
   outline: 0;
   line-height: 19px;
   text-decoration: none;

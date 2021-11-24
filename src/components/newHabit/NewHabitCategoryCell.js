@@ -2,28 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { whiteOpacity } from '../../styles/Mixin';
+import { LoadingSpinner } from '../../assets/icons/common';
+import noop from '../../utils/noop';
 
-const NewHabitCategoryCell = ({ src, name, onClick }) => {
+const NewHabitCategoryCell = ({ src, name, onClick, skeleton }) => {
   return (
     <GategoryWrapper onClick={onClick}>
-      <img
-        style={{ width: '30px', height: '30px' }}
-        src={src}
-        alt={`category: ${name}`}
-      />
-      <span>{name}</span>
+      {skeleton ? (
+        <div style={{ width: '30px', height: '30px', background: 'eee' }}>
+          <LoadingSpinner style={{ width: '100%', height: '100%' }} />
+        </div>
+      ) : (
+        <>
+          <img
+            style={{ width: '30px', height: '30px' }}
+            src={src}
+            alt={`category: ${name}`}
+          />
+          <span>{name}</span>
+        </>
+      )}
     </GategoryWrapper>
   );
 };
 
 NewHabitCategoryCell.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  src: PropTypes.string,
+  name: PropTypes.string,
+  onClick: PropTypes.func,
+  skeleton: PropTypes.bool,
+};
+
+NewHabitCategoryCell.defaultProps = {
+  src: '',
+  name: '',
+  onClick: noop,
 };
 
 const GategoryWrapper = styled.div`
-  width: 150px;
+  width: 100%;
   height: 92px;
   display: flex;
   flex-direction: column;
@@ -32,7 +49,7 @@ const GategoryWrapper = styled.div`
   padding: 19px 28px 14px;
   background: var(--bg-primary);
   border: 1px solid #3c4254;
-  border-radius: 4px;
+  border-radius: var(--border-radius-semi);
   cursor: pointer;
 
   & span {

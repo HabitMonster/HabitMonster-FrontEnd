@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { fontSize, whiteOpacity } from '../../styles';
-import { EditIcon } from '../../assets/icons/common';
+
+import { whiteOpacity } from '../../styles';
+import { EditIcon, CopyIcon } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
-  const { title, contents, handleClick, isLogout } = userInfoItem;
+  const {
+    title,
+    contents,
+    handleClick,
+    handleClipBoard,
+    isLogout,
+    isDeleteAccount,
+    isCopy,
+  } = userInfoItem;
   const isPossibleEdit = !!handleClick;
 
   return (
@@ -13,10 +22,11 @@ const UserInfoItem = ({ userInfoItem }) => {
       <DefaultTitle>{title}</DefaultTitle>
       <PrivateTextWrap>
         {contents && <PrivateText>{contents}</PrivateText>}
-        {isPossibleEdit && !isLogout && (
-          <EditButton>
-            <EditIcon />
-          </EditButton>
+        {isPossibleEdit && !isLogout && !isDeleteAccount && <EditIcon />}
+        {isCopy && (
+          <CopyWrap onClick={handleClipBoard}>
+            <CopyIcon />
+          </CopyWrap>
         )}
       </PrivateTextWrap>
     </InfoListItem>
@@ -26,6 +36,7 @@ const UserInfoItem = ({ userInfoItem }) => {
 export default UserInfoItem;
 
 const InfoListItem = styled.li`
+  color: var(--color-primary);
   cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
   height: 64px;
   display: flex;
@@ -33,6 +44,7 @@ const InfoListItem = styled.li`
   align-items: center;
   padding: 0 24px;
   border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
+
   & :nth-child(4) {
     margin-right: 6px;
     border-bottom: none;
@@ -40,39 +52,37 @@ const InfoListItem = styled.li`
 `;
 
 const DefaultTitle = styled.p`
-  ${fontSize('15px')};
+  font-size: var(--font-s);
   line-height: 18px;
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--weight-bold);
   ${whiteOpacity('0.8')};
 `;
 
 const PrivateTextWrap = styled.div`
   display: flex;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  & > svg {
+    display: block;
+
+    margin-left: 8px;
+  }
+`;
+
+const CopyWrap = styled.div`
+  padding-left: 13px;
+  cursor: pointer;
 `;
 
 const PrivateText = styled.p`
-  ${fontSize('14px')};
-  font-weight: var(--font-weight-medium);
-  color: var(--color-primary);
+  font-size: var(--font-xs);
+  line-height: 16px;
+  font-weight: var(--weight-regular);
   ${whiteOpacity('0.8')};
-  height: 18px;
-`;
-
-const EditButton = styled.button`
-  background-color: transparent;
-  border: 0;
-  /* cursor: pointer; */
-  height: 18px;
-  outline: 0;
-  margin-left: 7px;
-`;
-
-const LogoutButton = styled.button`
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  outline: 0;
+  height: 17px;
 `;
 
 UserInfoItem.propTypes = {

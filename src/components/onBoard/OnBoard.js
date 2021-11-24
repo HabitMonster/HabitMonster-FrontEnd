@@ -1,66 +1,82 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination } from 'swiper';
 
-import { titleMonster } from '../../assets/images/login';
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+
 import {
   onboard01,
   onboard02,
   onboard03,
   onboard04,
 } from '../../assets/images/onboard';
-
 import { BottomFixedButton } from '../common';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
-import 'swiper/components/navigation/navigation.min.css';
-import { useHistory } from 'react-router';
+SwiperCore.use([Pagination]);
 
 const OnBoard = () => {
   const history = useHistory();
 
   return (
-    <>
-      <OnBoardContainer>
-        <TitleContainer>
-          <TitleWrapper>
-            <TitleImage />
-            <Title>Habit</Title>
-            <Title>Monster</Title>
-          </TitleWrapper>
-          <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
-          <Swiper
-            className="banner"
-            spaceBetween={8}
-            slidesPerView={1}
-            centeredSlides={true}
-            initialSlide={0}
-            style={{ width: '360px' }}
-          >
-            <SwiperSlide>
-              <Image bg={onboard01} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image bg={onboard02} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image bg={onboard03} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image bg={onboard04} />
-            </SwiperSlide>
-          </Swiper>
-        </TitleContainer>
-        <BottomFixedButton
-          text="시작하기"
-          condition={null}
-          onClick={() => {
-            history.replace('/login');
-            localStorage.setItem('isOnboarding', false);
+    <OnBoardContainer>
+      <TitleContainer>
+        <TitleWrapper>
+          <Title>Habit</Title>
+          <Title>Monster</Title>
+        </TitleWrapper>
+        <Swiper
+          className="banner"
+          initialSlide={0}
+          style={{
+            width: '100%',
+            maxWidth: '320px',
           }}
-        />
-      </OnBoardContainer>
-    </>
+          navigation
+          pagination={{
+            clickable: true,
+          }}
+        >
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard01} className="first-image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle>몬스터가 어떻게 변할지 궁굼하지 않으신가요?</SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard02} className="second-image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle className="doubleLine">진화하는 몬스터와 함께</SubTitle>
+              <SubTitle className="doubleLine">
+                변화 될 당신의 모습도 궁굼하군요!
+              </SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard03} className="third-image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle>지금 당장 해빗몬스터와 시작해볼까요?</SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard04} className="fourth-image" />
+          </SwiperSlide>
+        </Swiper>
+      </TitleContainer>
+      <BottomFixedButton
+        text="시작하기"
+        condition={null}
+        onClick={() => {
+          window.localStorage.setItem('isOnboarding', false);
+          history.replace('/login');
+        }}
+      />
+    </OnBoardContainer>
   );
 };
 
@@ -71,10 +87,18 @@ const OnBoardContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
-
-  & .swiper-button-next,
-  & .swiper-button-prev {
-    display: none;
+  & .swiper-wrapper {
+    height: 300px;
+  }
+  & .swiper-pagination {
+    top: 220px;
+  }
+  & .swiper-pagination-bullet {
+    background: var(--color-title);
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      background: var(--color-onboard);
+    }
   }
 `;
 
@@ -92,33 +116,30 @@ const TitleWrapper = styled.div`
   line-height: 43px;
 `;
 
-const TitleImage = styled.div`
-  position: absolute;
-  top: 100px;
-  left: 225px;
-  width: 38.8px;
-  height: 38.66px;
-  background-image: url(${titleMonster});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
-
 const Title = styled.p`
   color: var(--color-white);
   font-size: var(--font-maximum);
   font-weight: var(--weight-extra-bold);
 `;
 
+const SubTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 86px;
+  margin: 0 auto;
+`;
+
 const SubTitle = styled.p`
-  width: 213px;
+  display: flex;
+  justify-content: center;
   height: 17px;
   font-weight: var(--weight-semi-regular);
   font-size: var(--font-xs);
   line-height: 16.8px;
   color: var(--color-white);
   margin: 0 auto;
-  margin-bottom: 75px;
   opacity: 0.7;
 `;
 
