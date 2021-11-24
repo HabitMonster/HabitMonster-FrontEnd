@@ -1,7 +1,8 @@
 import HabitList from './HabitList';
 import HabitItems from './HabitItems';
 import Statistics from './Statistics';
-import UserStatistics from './Statistics';
+import GlobalStatistics from './GlobalStatistics';
+import GlobalListItem from './GlobalListItem';
 import MonsterCollection from './MonsterCollection';
 import CircleProgress from './CircleProgress';
 
@@ -11,5 +12,6 @@ export {
   Statistics,
   MonsterCollection,
   CircleProgress,
-  UserStatistics,
+  GlobalStatistics,
+  GlobalListItem,
 };
