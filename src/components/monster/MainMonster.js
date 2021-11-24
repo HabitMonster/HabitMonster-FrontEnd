@@ -20,6 +20,10 @@ const MainMonster = () => {
   const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
 
   useEffect(() => {
+    window.alert(`몬스터아이디:${monster.monsterId}`);
+  }, []);
+
+  useEffect(() => {
     setLevelUpMessage('');
     if (
       monster.monsterLevel === MAX_LEVEL &&

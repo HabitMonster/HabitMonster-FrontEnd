@@ -46,6 +46,9 @@ const UserInformation = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
 
+  useEffect(() => {
+    window.alert(`몬스터아이디:${monsterInfo.monsterId}`);
+  }, []);
   const openModal = useCallback((type) => {
     setEditModalType(type);
   }, []);
