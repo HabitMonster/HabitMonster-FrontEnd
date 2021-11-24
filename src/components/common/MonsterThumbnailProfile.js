@@ -13,8 +13,6 @@ import MONSTERS_PROFILE from '../../assets/images/monsters/svg/profile';
 const MonsterThumbnailProfile = ({ id, width, height }) => {
   const Monster = MONSTERS_PROFILE[id] ? MONSTERS_PROFILE[id] : MONSTERS[id];
 
-  window.alert(Monster.toString());
-
   if (!Monster) {
     window.alert('몬스터 안보일 예정');
     return null;

@@ -11,9 +11,10 @@ const ErrorLog = ({ error }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'white',
       }}
     >
-      <pre>{error.message}</pre>
+      <pre style={{ color: 'black' }}>{error.message}</pre>
       <Gnb />
     </div>
   );

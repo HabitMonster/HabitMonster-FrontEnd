@@ -11,8 +11,6 @@ import MONSTERS from '../../assets/images/monsters/svg';
 const MonsterThumbnail = ({ id, width, height }) => {
   const Monster = MONSTERS[id];
 
-  window.alert(Monster.toString());
-
   if (!Monster) {
     window.alert('몬스터 안보일 예정');
     return null;
