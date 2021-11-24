@@ -7,6 +7,7 @@ import { authState } from '../../recoil/states/auth';
 import { auth } from '../../api';
 import { NaverSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
+import { loginBtnStyle } from '../../styles/Mixin';
 
 const { naver } = window;
 
@@ -55,7 +56,7 @@ const NaverLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          history.replace('/monster');
+          history.replace('/select');
           return;
         }
 
@@ -91,19 +92,8 @@ const NaverLogin = () => {
 };
 
 const LoginBtn = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 45px;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-checkBtn);
-  cursor: pointer;
+  ${loginBtnStyle('naver')}
   color: var(--color-white);
-
-  &.naverLogin {
-    background-color: var(--color-naver);
-  }
 
   & .hide {
     display: none;
@@ -119,10 +109,7 @@ const LoginBtn = styled.div`
 
 const SocialTitle = styled.span`
   height: 24px;
-  margin: 0 auto;
-  line-height: 24px;
-  font-family: Noto Sans KR Medium;
-  font-size: var(--font-m);
+  margin: 0px 83px 0px 103px;
 `;
 
 export default NaverLogin;

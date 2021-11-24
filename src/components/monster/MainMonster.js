@@ -1,17 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { monsterState } from '../../recoil/states/monster';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
+
+import { MonsterThumbnail, Modal } from '../common';
+import { MonsterSearchSection } from '.';
+import { BottomDialog } from '../dialog';
 import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
-const MainMonster = ({ heightShrinked }) => {
+const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [levelUpMessage, setLevelUpMessage] = useState('');
+  const previousLevel = useRef(monster.monsterLevel);
+  const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
+
+  useEffect(() => {
+    setLevelUpMessage('');
+    if (
+      monster.monsterLevel === MAX_LEVEL &&
+      monster.monsterExpPoint === MAX_EXP
+    ) {
+      return;
+    }
+
+    const { current: previous } = previousLevel;
+    const current = monster.monsterLevel;
+    if (previous === current) {
+      return null;
+    }
+
+    setModalOpen((prev) => !prev);
+    setLevelUpMessage(
+      `레벨 ${previous}에서 레벨 ${current}로 업그레이드 했습니다!`,
+    );
+    previousLevel.current = monster.monsterLevel;
+  }, [monster.monsterLevel, monster.monsterExpPoint]);
 
   return (
     <MonsterContainer>
+      <MonsterSearchSection />
       <TitleWrapper heightShrinked={heightShrinked}>
         <Title>
           오늘{' '}
@@ -23,10 +55,11 @@ const MainMonster = ({ heightShrinked }) => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-      <MonsterImage
-        heightShrinked={heightShrinked}
-        image={monster.monsterImage}
-      />
+      <ThumbnailWrapper heightShrinked={heightShrinked}>
+        <div className="inner">
+          <MonsterThumbnail id={monster.monsterId} />
+        </div>
+      </ThumbnailWrapper>
       <ExpContainer>
         <ExpText>
           <MonsterLevel>lv.{monster.monsterLevel}</MonsterLevel>
@@ -39,12 +72,25 @@ const MainMonster = ({ heightShrinked }) => {
           <Gauge percentage={monster.monsterExpPoint} />
         </GuageBar>
       </ExpContainer>
+      {modalOpen && (
+        <Modal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          blurmode={true}
+        >
+          <BottomDialog
+            type="levelUp"
+            height="308px"
+            level={monster.monsterLevel}
+            onActive={() => setModalOpen(false)}
+            title="LEVEL UP!"
+            activeButtonText="확인"
+            description={levelUpMessage}
+          />
+        </Modal>
+      )}
     </MonsterContainer>
   );
-};
-
-MainMonster.propTypes = {
-  heightShrinked: PropTypes.bool,
 };
 
 const MonsterContainer = styled.div`
@@ -53,13 +99,15 @@ const MonsterContainer = styled.div`
   justify-content: flex-start;
   width: 100%;
   background: #1e135c;
-  padding: 24px;
+  padding: 0px 24px;
+  padding-top: 24px;
   transition: all 150ms ease-in;
+  position: relative;
 `;
 
 const TitleWrapper = styled.div`
   display: block;
-  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '56px' : '0px')};
+  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
   height: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
   opacity: ${({ heightShrinked }) => (!heightShrinked ? '1' : '0')};
   transition: all 350ms linear;
@@ -77,24 +125,34 @@ const Title = styled.p`
   }
 `;
 
-const MonsterImage = styled.div`
-  width: 128px;
-  height: 128px;
-  margin: auto;
-  // 아래 항목 주석처리 한 이유: 뷰가 640 기준으로 안나왔기 때문
-  /* margin-top: ${({ heightShrinked }) =>
-    !heightShrinked ? '68px' : '0px'}; */
-  background-image: ${(props) => `url(${props.image})`};
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-
+const ThumbnailWrapper = styled.div`
+  width: 100%;
+  height: 183px;
+  margin: 0 auto;
+  margin-top: ${({ heightShrinked }) => (heightShrinked ? '0px' : '24px')};
+  padding: 0px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
   transition: all 350ms linear;
+
+  & > .inner {
+    width: 152px;
+    height: 152px;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const ExpContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 10px;
+  position: relative;
+  top: -14px;
 `;
 
 const ExpText = styled.div`
@@ -114,7 +172,7 @@ const MonsterLevel = styled.span`
 `;
 
 const Exp = styled.p`
-  font-family: Apple SD Gothic Neo;
+  font-family: var(--font-name-apple);
   font-size: var(--font-xxxxl);
   font-weight: var(--weight-regular);
   color: var(--color-primary);

@@ -6,7 +6,7 @@ import '../assets/fonts/font.css';
 const Loading = () => {
   return (
     <Wrapper>
-      <Text>Loading...</Text>
+      <span>loading...</span>
     </Wrapper>
   );
 };
@@ -19,12 +19,12 @@ const Wrapper = styled.div`
   background: red;
   width: 100%;
   height: 100%;
-  background-color: transparent;
-`;
+  background-color: black;
 
-const Text = styled.p`
-  color: var(--color-white);
-  text-align: center;
+  & > span {
+    font-size: 72px;
+    color: white;
+  }
 `;
 
 export default Loading;

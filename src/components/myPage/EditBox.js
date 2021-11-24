@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
-import { useSetRecoilState, useRecoilStateLoadable } from 'recoil';
 import styled from 'styled-components';
 
 import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
-import { myPageDataState } from '../../recoil/states/user';
-import { asyncDefaultMonster } from '../../recoil/states/monster';
+import { userState } from '../../recoil/states/user';
+import { monsterState } from '../../recoil/states/monster';
 
 import { myPageApis } from '../../api';
-import { fontSize } from '../../styles';
+import { validateMonsterName } from '../../utils/validation';
 import { OK } from '../../constants/statusCode';
+import {
+  USER_NAME_UPDATE_SUCCESS,
+  MONSTER_NAME_UPDATE_SUCCESS,
+} from '../../constants/statusMessage';
 
-const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
-  const [originValue] = useState(editValue);
-  const isEnabled = editValue && editValue.length <= 10;
-  const setEditValue = useSetRecoilState(myPageDataState); // myPageData를 새로운 값으로 바꿔준다!
-  const [monster, refetchMonster] = useRecoilStateLoadable(asyncDefaultMonster); // 비동기 요청으로 담는 몬스터 값을 리페칭해주기!
+// 기존에 UserInformation에서 props로 넘겨받는 값 editValue, handleChangeValue를 editBox 내부로 옮겨옴
+const EditBox = ({ type, closeModal }) => {
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
+  const [editValue, setEditValue] = useState('');
+  const isEnabled =
+    type === 'monsterName'
+      ? editValue && validateMonsterName(editValue)
+      : editValue && editValue.length <= 12;
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;
@@ -24,38 +32,50 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
       if (type === 'monsterName') {
         editRequest = myPageApis.editMonsterName;
       }
-      //userName, monsterName
 
-      const { data } = await editRequest({ [type]: editValue });
+      // fieldKey: username / monsterName
+      const fieldKey = type === 'userName' ? 'username' : 'monsterName';
+      const { data } = await editRequest({
+        [fieldKey]: editValue,
+      });
 
       if (data.statusCode === OK) {
-        alert('변경되었습니다!');
-
-        if (type === 'monsterName') {
-          //메인 페이지에 몬스터의 이름을 변경해야 하므로 이것도 추가할게요!
-          // setMonster((prev) => ({ ...prev, [type]: editValue }));
-          // @jaekyung: default value가 비동기의 응답을 담고있는 아톰이기 때문에 useRecoilSet으로는 아직 지원하지 않는다고 에러가 나네요ㅠㅠ!
-          // 대신 api를 다시 리페칭하는 방법을 한 번 사용하겠습니다!
-          refetchMonster();
+        if (data.responseMessage === USER_NAME_UPDATE_SUCCESS) {
+          const newUserInfo = {
+            ...userInfo,
+            userName: data.userInfo.username,
+          };
+          // user atom 수정
+          setUserInfo(newUserInfo);
         }
+
+        if (data.responseMessage === MONSTER_NAME_UPDATE_SUCCESS) {
+          const newMonsterInfo = {
+            ...monsterInfo,
+            monsterName: data.monster.monsterName,
+          };
+          //몬스터 아톰 수정
+          setMonsterInfo(newMonsterInfo);
+        }
+
         closeModal();
-        // myPageData가 먼저 갱신되면서 closeModal callback 의존성에 영향을 주기 때문에 모달을 닫고 EditValue를 하도록 한다
-        setTimeout(() =>
-          setEditValue((myPageData) => ({ ...myPageData, [type]: editValue })),
-        );
       }
     } catch (err) {
       console.error(err);
     }
   };
 
+  useEffect(() => {
+    setEditValue(
+      type === 'userName' ? userInfo.userName : monsterInfo.monsterName,
+    );
+  }, [type, userInfo.userName, monsterInfo.monsterName]);
+
   return (
     <Container>
+      <BackButtonHeader onButtonClick={closeModal} />
       <PositionWrap>
-        <BackWrap>
-          <BackButtonHeader onButtonClick={closeModal} />
-        </BackWrap>
-        {type === 'username' && (
+        {type === 'userName' && (
           <EditTitle>
             제가 뭐라고
             <br /> 부르면 좋을까요?
@@ -69,10 +89,10 @@ const EditBox = ({ type, editValue, handleChangeValue, closeModal }) => {
         )}
         <TextInput
           text={editValue || ''}
-          placeholder={originValue}
-          onTextChanged={handleChangeValue}
-          maxLength={10}
-          idleHelperText="한글, 영문, 숫자 공백없이 최대 10자 입력 가능해요"
+          placeholder={editValue}
+          onTextChanged={setEditValue}
+          maxLength={12}
+          idleHelperText="한글, 영문, 숫자 공백없이 최대 12자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"
           lengthValidationMode={true}
         />
@@ -90,7 +110,6 @@ const Container = styled.div`
   max-width: 414px;
   width: 100%;
   height: 100%;
-  /* position: relative; */
   background: var(--bg-wrapper);
   margin: 0 auto;
   position: absolute;
@@ -99,17 +118,14 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const BackWrap = styled.div`
-  padding-top: 50px;
-`;
-
 const PositionWrap = styled.div`
+  margin-top: 24px;
   padding: 0 24px;
 `;
 
 const EditTitle = styled.p`
   color: var(--color-primary);
-  ${fontSize('24px')};
+  font-size: var(--font-xxl);
   font-weight: var(--weight-bold);
   line-height: 32px;
   margin-bottom: 32px;

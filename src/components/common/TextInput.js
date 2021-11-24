@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { whiteOpacity } from '../../styles';
 
 const TextInput = ({
   text,
@@ -10,17 +11,13 @@ const TextInput = ({
   errorMessage,
   maxLength,
   idleHelperText,
+  disabled,
 }) => {
   const isIdle = !text.length;
-  const isValidated = text.length < maxLength;
+  const isValidated = text.length <= maxLength;
 
   const handleInputChange = (event) => {
     const newValue = event.target.value;
-
-    if (lengthValidationMode && newValue.length > maxLength) {
-      return;
-    }
-
     onTextChanged(newValue);
   };
 
@@ -31,22 +28,26 @@ const TextInput = ({
         value={text}
         placeholder={placeholder}
         onChange={handleInputChange}
-        maxLength={maxLength}
         isValidated={isValidated}
         isIdle={isIdle}
+        disabled={disabled}
       />
+      <div />
       <HelperSection>
         {isIdle && <IdleHelperText>{idleHelperText}</IdleHelperText>}
         {lengthValidationMode ? (
           <>
             <div>
-              {maxLength === text.length && (
+              {!isValidated && (
                 <ErrorHelperMessage>{errorMessage}</ErrorHelperMessage>
               )}
             </div>
             <div>
               <LengthHelperMessage>
-                {text.length}/{maxLength}
+                <CurrentLength isValidated={isValidated}>
+                  {text.length}
+                </CurrentLength>
+                /{maxLength}
               </LengthHelperMessage>
             </div>
           </>
@@ -64,6 +65,7 @@ TextInput.propTypes = {
   errorMessage: PropTypes.string,
   maxLength: PropTypes.number,
   idleHelperText: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -72,6 +74,7 @@ TextInput.defaultProps = {
   idleHelperText: '',
   maxLength: Infinity,
   lengthValidationMode: false,
+  disabled: false,
 };
 
 const IdleHelperText = styled.span`
@@ -89,20 +92,31 @@ const Input = styled.input`
   display: flex;
   align-items: center;
   padding: 4px;
+  padding-bottom: 0px;
   color: var(--color-primary);
   border: none;
-  border-bottom: 1px solid
-    ${({ isValidated }) =>
-      isValidated ? 'rgba(248, 248, 248, 0.3)' : 'var(--color-danger)'};
   margin-bottom: 4px;
 
   transition: all 150ms ease-out;
 
+  & + div {
+    width: 100%;
+    height: 1px;
+    display: block;
+    margin: 4px 0px;
+    background-color: ${({ isValidated }) =>
+      isValidated ? 'rgba(248, 248, 248, 0.3)' : 'var(--color-danger)'};
+    transition: all 150ms ease-out;
+  }
+
   &:focus {
-    border-bottom: 1px solid
-      ${({ isValidated }) =>
-        isValidated ? 'var(--bg-active)' : 'var(--color-danger)'};
     outline: none;
+
+    & + div {
+      background-color: ${({ isValidated }) =>
+        isValidated ? 'var(--bg-active)' : 'var(--color-danger)'};
+      transition: all 150ms ease-out;
+    }
   }
 `;
 
@@ -120,10 +134,14 @@ const ErrorHelperMessage = styled.span`
 `;
 
 const LengthHelperMessage = styled.span`
-  color: #fff;
-  opacity: 0.6;
+  ${whiteOpacity('0.6')};
   font-size: var(--font-xxs);
   line-height: 14px;
+`;
+
+const CurrentLength = styled.b`
+  color: ${({ isValidated }) =>
+    !isValidated ? 'var(--color-danger)' : 'inherit'};
 `;
 
 export default TextInput;

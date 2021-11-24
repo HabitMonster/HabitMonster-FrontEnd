@@ -1,35 +1,38 @@
 import React from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
-import { Statistics, MonsterCollection } from '../components/achievment';
+import { Gnb } from '../components/gnb';
+import { Statistics, GlobalStatistics } from '../components/achievment';
 
 const Achievement = () => {
   return (
-    <AcheiveContainer>
-      <NavButtonWrap>
-        <NavButtonItem>
-          <NavButton to="/achievement/statistics" activeClassName="active">
-            월간 통계
-          </NavButton>
-        </NavButtonItem>
-        <NavButtonItem>
-          <NavButton to="/achievement/monster" activeClassName="active">
-            몬스터 도감
-          </NavButton>
-        </NavButtonItem>
-      </NavButtonWrap>
-      <Switch>
-        <Route exact path="/achievement/statistics" component={Statistics} />
-        <Route
-          exact
-          path="/achievement/monster"
-          component={MonsterCollection}
-        />
-        <Redirect from="*" to="/achievement/statistics" />
-      </Switch>
-    </AcheiveContainer>
+    <>
+      <AcheiveContainer>
+        <NavButtonWrap>
+          <NavButtonItem>
+            <NavButton to="/achievement/statistics" activeClassName="active">
+              월간 통계
+            </NavButton>
+          </NavButtonItem>
+          <NavButtonItem>
+            <NavButton to="/achievement/global" activeClassName="active">
+              사용자 통계
+            </NavButton>
+          </NavButtonItem>
+        </NavButtonWrap>
+        <Switch>
+          <Route exact path="/achievement/statistics" component={Statistics} />
+          <Route
+            exact
+            path="/achievement/global"
+            component={GlobalStatistics}
+          />
+          <Redirect from="*" to="/achievement/statistics" />
+        </Switch>
+      </AcheiveContainer>
+      <Gnb />
+    </>
   );
 };
 
@@ -37,9 +40,11 @@ export default Achievement;
 
 const AcheiveContainer = styled.div`
   background-color: var(--bg-wrapper);
+  font-family: var(--font-name-apple);
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - 80px);
   flex: 1 1 0;
+  position: relative;
 `;
 
 const NavButtonWrap = styled.ul`
@@ -47,7 +52,7 @@ const NavButtonWrap = styled.ul`
   display: flex;
   list-style: none;
   margin: 0;
-  padding-top: 52px;
+  padding-top: 24px;
 `;
 
 const NavButtonItem = styled.li`
@@ -55,8 +60,9 @@ const NavButtonItem = styled.li`
   justify-content: center;
   list-style: none;
   width: 50%;
-  height: 34px;
+  height: 40px;
   position: relative;
+  padding-top: 4px;
 `;
 
 const NavButton = styled(NavLink)`
@@ -65,8 +71,8 @@ const NavButton = styled(NavLink)`
   border: 1px solid transparent;
   color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
-  font-size: var(--font-xs);
-  font-weight: var(--weight-bold);
+  font-size: var(--font-m);
+  font-weight: var(--weight-semi-regular);
   outline: 0;
   line-height: 19px;
   text-decoration: none;

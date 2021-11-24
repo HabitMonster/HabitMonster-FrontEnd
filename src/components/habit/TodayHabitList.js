@@ -1,17 +1,38 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useRef, useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+
 import { habitIdListState } from '../../recoil/states/habit';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { TodayHabit, NoHabitHelper } from './';
+import { miniThrottle } from '../../utils/event';
 
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
+  const setShrink = useSetRecoilState(monsterSectionShirnkToggler);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const { current } = ref;
+    if (!current) {
+      return;
+    }
+    const handleScroll = miniThrottle(() => {
+      if (current.scrollTop >= 24) {
+        setShrink(true);
+        current.removeEventListener('scroll', handleScroll);
+      }
+    }, 50);
+    current.addEventListener('scroll', handleScroll);
+
+    return () => current.removeEventListener('scroll', handleScroll);
+  }, [setShrink]);
 
   return (
     <HabitContainer>
       {habitIdList.length ? (
-        <HabitList>
+        <HabitList ref={ref}>
           {habitIdList.map((id) => (
             <TodayHabit key={id} id={id} />
           ))}
@@ -29,9 +50,13 @@ const HabitContainer = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  /* padding: 24px;
-  overflow-y: scroll; */
+  padding: 0 24px;
   border-radius: var(--border-radius-semi);
+`;
+
+const HabitList = styled.div`
+  padding-bottom: 84px;
+  overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
@@ -39,12 +64,6 @@ const HabitContainer = styled.div`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
-`;
-
-const HabitList = styled.div`
-  &:last-child {
-    padding-bottom: 108px;
-  }
 `;
 
 export default TodayHabitList;

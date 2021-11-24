@@ -7,7 +7,10 @@ import { ReactComponent as Trash } from './trash.svg';
 import { ReactComponent as EditIcon } from './edit.svg';
 import { ReactComponent as ToggleUp } from './toggleUp.svg';
 import { ReactComponent as ToggleDown } from './toggleDown.svg';
-import { ReactComponent as Copy } from './copy.svg';
+import { ReactComponent as CopyIcon } from './copy.svg';
+import { ReactComponent as Pencil } from './pencil.svg';
+import { ReactComponent as SearchIcon } from './search.svg';
+import { ReactComponent as LoadingSpinner } from './loadingSpinner.svg';
 
 export {
   Back,
@@ -19,5 +22,8 @@ export {
   EditIcon,
   ToggleUp,
   ToggleDown,
-  Copy,
+  CopyIcon,
+  Pencil,
+  SearchIcon,
+  LoadingSpinner,
 };

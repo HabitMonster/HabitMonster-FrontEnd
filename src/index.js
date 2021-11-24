@@ -1,25 +1,22 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-
-import Loading from './pages/Loading';
+import DeviceDetector from './components/DeviceDetector';
 import App from './components/App';
 
 import { GlobalStyle } from './styles/';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <RecoilRoot>
     <Router>
       <GlobalStyle />
-      <RecoilRoot>
-        <Suspense fallback={<Loading />}>
-          <App />
-        </Suspense>
-      </RecoilRoot>
+      <DeviceDetector>
+        <App />
+      </DeviceDetector>
     </Router>
-  </React.StrictMode>,
+  </RecoilRoot>,
   document.getElementById('root'),
 );
 

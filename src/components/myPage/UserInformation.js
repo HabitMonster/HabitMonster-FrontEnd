@@ -1,69 +1,58 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState, useRecoilCallback } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import {
+  useRecoilValue,
+  useRecoilCallback,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil';
+import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
-import { myPageDataState, userState } from '../../recoil/states/user';
-import { habitIdListState } from '../../recoil/states/habit';
+import {
+  userState,
+  myFollowListCountSelector,
+  myFollowListByType,
+} from '../../recoil/states/user';
+import {
+  defaultHabitsState,
+  habitIdListState,
+  myHabitCountState,
+} from '../../recoil/states/habit';
+import { monsterState } from '../../recoil/states/monster';
 
-import UserInfoItem from './UserInfoItem';
-import { Modal } from '../../components/common';
-import { EditBox } from '../../components/myPage';
 import { BottomDialog } from '../dialog';
-import { myPageApis } from '../../api';
-import { fontSize } from '../../styles/Mixin';
+import { Modal } from '../../components/common';
+import { EditBox, UserInfoItem } from '../../components/myPage';
+import { MonsterThumbnailWrapper } from '../../components/monster';
 
+import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
+import { Pencil } from '../../assets/icons/common';
 
 const UserInformation = () => {
-  const setAuth = useSetRecoilState(authState);
-  const myPageData = useRecoilValue(myPageDataState); // 비동기요청
+  const userInfo = useRecoilValue(userState);
+  const monsterInfo = useRecoilValue(monsterState);
+  const myHabitCount = useRecoilValue(myHabitCountState);
+  const { followerListCount, followingListCount } = useRecoilValue(
+    myFollowListCountSelector,
+  );
+  const resetUserInfoState = useResetRecoilState(userState);
+  const resetHabitState = useResetRecoilState(defaultHabitsState);
+  const refetchFollowList = useSetRecoilState(myFollowListByType(''));
+
   const history = useHistory();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
 
-  const [editData, setEditData] = useState({
-    type: 'username',
-    title: '제가 뭐라고 부르면 좋을까요?',
-    value: myPageData.username,
-  }); // 수정할 값 (닉네임, 몬스터이름, 모달 제목)
-
-  const openModal = useCallback(
-    (type) => {
-      if (type === 'monsterName') {
-        setEditData({
-          type: 'monsterName',
-          title: '변경할 몬스터 이름을 적어주세요!',
-          value: myPageData.monsterName,
-        });
-      }
-
-      setIsEditModalOpen(true);
-    },
-    [myPageData.monsterName],
-  );
+  const openModal = useCallback((type) => {
+    setEditModalType(type);
+  }, []);
 
   const closeModal = useCallback(() => {
-    // state 초기화
-    setEditData({
-      type: 'username',
-      title: '제가 뭐라고 부르면 좋을까요?',
-      value: myPageData.username,
-    });
-    setIsEditModalOpen(false);
-  }, [myPageData.username]);
-
-  const handleChangeValue = useCallback(
-    (value) => {
-      setEditData((editData) => ({
-        ...editData,
-        value,
-      }));
-    },
-    [editData.value],
-  );
+    setEditModalType('');
+  }, []);
 
   const copyCode = (contents) => {
     // 흐름 1.
@@ -88,16 +77,21 @@ const UserInformation = () => {
     document.execCommand('copy');
     // 흐름 5.
     document.body.removeChild(textarea);
-    console.log('복사된거 맞나', contents, textarea.value);
-    alert('클립보드에 복사되었습니다.');
+    //console.log('복사된거 맞나', contents, textarea.value);
   };
 
-  const logoutUser = () => {
+  const logoutUser = useRecoilCallback(({ set }) => () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    setAuth({ isFirstLogin: null, isLogin: false });
+    set(authState, {
+      isFirstLogin: null,
+      isLogin: false,
+    });
+    resetUserInfoState();
+    resetHabitState();
+    set(userState, {});
     history.push('/login');
-  };
+  });
 
   const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
     try {
@@ -106,40 +100,34 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         window.localStorage.removeItem('habitAccessToken');
         window.localStorage.removeItem('habitRefreshToken');
-        set(authState, { isFirstLogin: null, isLogin: false });
+        resetUserInfoState();
+        set(authState, {
+          isFirstLogin: null,
+          isLogin: false,
+        });
         set(habitIdListState, []);
-        set(myPageDataState, {});
+        set(monsterState, {});
         set(userState, {});
-        window.location.href = '/login';
+        history.push('/login');
       }
     } catch (error) {
       console.error(error);
     }
   });
 
-  const userInfoList = Object.keys(myPageData).length
+  const userInfoList = Object.keys(userInfo).length
     ? [
         {
-          title: '닉네임',
-          contents: myPageData.username,
-          handleClick: () => openModal('username'),
-        },
-        {
           title: '몬스터 이름',
-          contents: myPageData.monsterName,
+          contents: monsterInfo.monsterName,
           handleClick: () => openModal('monsterName'),
         },
         {
           title: '몬스터 코드',
-          contents: myPageData.monsterCode,
+          contents: userInfo.monsterCode,
           isCopy: true,
-          handleClipBoard: () => copyCode(myPageData.monsterCode),
+          handleClipBoard: () => copyCode(userInfo.monsterCode),
         },
-        // {
-        //   title: '팔로워 목록보기',
-        //   contents: '',
-        //   handleClick: () => history.push('/follow'),
-        // },
         {
           title: '현재 버전',
           contents: 'V_1.0.0',
@@ -149,6 +137,11 @@ const UserInformation = () => {
           contents: '',
           handleClick: () => history.push('/notice'),
         },
+        // {
+        //   title: '신고하기',
+        //   contents: '',
+        //   handleClick: () => window.open('구글폼주소', '_blank'),
+        // },
         {
           title: '로그아웃',
           contents: '',
@@ -164,13 +157,68 @@ const UserInformation = () => {
       ]
     : [];
 
+  useEffect(() => {
+    console.log('mypage CleanUp', history.location.pathname);
+    return () => {
+      // 마이페이지에서 벗어날 때 리스트를 초기화한다
+      if (
+        !(
+          history.location.pathname.includes('mypage') ||
+          history.location.pathname.includes('login')
+        )
+      ) {
+        refetchFollowList();
+      }
+    };
+  }, [history, refetchFollowList]);
+
   return (
     <>
+      <UserInfoWrap>
+        <MonsterThumbnailWrapper
+          isProfile={true}
+          thumbnailSize="small"
+          monsterLevel={monsterInfo.monsterLevel}
+          monsterId={monsterInfo.monsterId}
+        />
+        <div>
+          <BoldText>{userInfo.userName}</BoldText>
+          <EditNicknameBtn onClick={() => openModal('userName')}>
+            <Pencil />
+          </EditNicknameBtn>
+        </div>
+        <Summary>
+          <li>
+            <BoldText>{myHabitCount ?? 0}</BoldText>
+            <span>총 습관</span>
+          </li>
+          <li>
+            <FollowLink
+              to={{
+                pathname: '/follow',
+                search: '?tab=followers',
+              }}
+            >
+              <BoldText>{followerListCount ?? 0}</BoldText>
+              <span>팔로워</span>
+            </FollowLink>
+          </li>
+          <li>
+            <FollowLink
+              to={{
+                pathname: '/follow',
+                search: '?tab=following',
+              }}
+            >
+              <BoldText>{followingListCount ?? 0}</BoldText>
+              <span>팔로잉</span>
+            </FollowLink>
+          </li>
+        </Summary>
+      </UserInfoWrap>
       <UserInfoList>
-        <TitleArea>
-          <PageTitle>마이페이지</PageTitle>
-        </TitleArea>
         {userInfoList.map((userInfoItem) => {
+          console.log('userInfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
@@ -179,15 +227,9 @@ const UserInformation = () => {
           );
         })}
       </UserInfoList>
-      {isEditModalOpen && (
-        <Modal open={isEditModalOpen} onClose={closeModal}>
-          <EditBox
-            type={editData.type}
-            editValue={editData.value}
-            handleChangeValue={handleChangeValue}
-            pageTitleText={editData.title}
-            closeModal={closeModal}
-          />
+      {editModalType && (
+        <Modal open={!!editModalType} onClose={closeModal}>
+          <EditBox type={editModalType} closeModal={closeModal} />
         </Modal>
       )}
       {isLogoutModalOpen && (
@@ -198,8 +240,9 @@ const UserInformation = () => {
         >
           <BottomDialog
             title="정말 로그아웃하시겠어요?"
+            height="141px"
             activeButtonText="로그아웃하기"
-            onActive={() => logoutUser()}
+            onActive={logoutUser}
             onClose={() => setIsLogoutModalOpen(false)}
           />
         </Modal>
@@ -211,11 +254,11 @@ const UserInformation = () => {
           blurmode={true}
         >
           <BottomDialog
+            height="182px"
             title="정말 탈퇴하시겠어요?"
             description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
             activeButtonText="탈퇴하기"
             onActive={() => {
-              console.log('탈퇴는 못참지');
               deleteUserAccount();
             }}
             onClose={() => setdeleteAccountModalOpen(false)}
@@ -228,23 +271,82 @@ const UserInformation = () => {
 
 export default UserInformation;
 
-const TitleArea = styled.div`
-  height: 44px;
-  margin: 20px 0 20px 24px;
-  align-items: center;
-  display: flex;
-  align-items: center;
-`;
-
-const PageTitle = styled.p`
-  ${fontSize('18px')};
-  font-weight: var(--weight-regular);
-  color: var(--color-primary);
-`;
-
 const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
-  height: 100%;
+`;
+
+const EditNicknameBtn = styled.button`
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 3px 0 0 2px;
+  height: 19px;
+`;
+
+const UserInfoWrap = styled.div`
+  color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+  }
+`;
+
+const BoldText = styled.p`
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
+  line-height: 19px;
+`;
+
+const FollowLink = styled(Link)`
+  color: var(--color-primary);
+  font-size: var(--font-xxs);
+  font-weight: var(--weight-semi-regular);
+  text-decoration: none;
+  text-align: center;
+`;
+
+const Summary = styled.ul`
+  height: 34px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 24px 0;
+  & li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1 1 0;
+    & span {
+      font-size: var(--font-xxs);
+      font-weight: var(--weight-semi-regular);
+      line-height: 15px;
+    }
+    &::after {
+      background-color: var(--color-title);
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: 25px;
+      opacity: 0.5;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+    &::last-child {
+      &::after {
+        width: 0;
+      }
+    }
+  }
 `;

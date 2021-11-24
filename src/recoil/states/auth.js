@@ -1,11 +1,17 @@
 import { atom, selector } from 'recoil';
 import { mainApis } from '../../api';
 
+export const authToggler = atom({
+  key: 'authToggler',
+  default: 1,
+});
+
 export const authState = atom({
   key: 'authState',
   default: selector({
     key: 'asyncAuth',
-    get: async () => {
+    get: async ({ get }) => {
+      get(authToggler);
       const loginStatus = {
         isLogin: false,
         isFirstLogin: null,

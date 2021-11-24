@@ -1,16 +1,17 @@
 import tokenInstance from '../lib/axios';
 
 export const userApis = {
-  searchUser: (monsterCode) => tokenInstance.get(`/monsterCode/${monsterCode}`),
+  searchUser: (monsterCode) => tokenInstance.get(`/user/${monsterCode}`),
+  getRecommendedUsers: () => tokenInstance.get('/users/recommended'),
+  getUserInfo: (monsterCode) => tokenInstance.get(`/user/${monsterCode}/info`),
   follow: (monsterCode, isFollowed = false) =>
     isFollowed
       ? tokenInstance.delete(`/unFollow/${monsterCode}`)
       : tokenInstance.patch(`/follow/${monsterCode}`),
   checkFollow: (monsterCode) =>
     tokenInstance.get(`/checkFollow/${monsterCode}`),
-  getUserInfo: (monsterCode) => tokenInstance.get(`/user/${monsterCode}/info`),
-  getUserFollower: (monsterCode) =>
+  getUserFollowers: (monsterCode) =>
     tokenInstance.get(`/followers/${monsterCode}`),
-  getUserFollowing: (monsterCode) =>
+  getUserFollowings: (monsterCode) =>
     tokenInstance.get(`/followings/${monsterCode}`),
 };

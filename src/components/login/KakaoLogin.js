@@ -7,6 +7,7 @@ import { authState } from '../../recoil/states/auth';
 import { auth } from '../../api';
 import { KakaoSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
+import { loginBtnStyle } from '../../styles/Mixin';
 
 const KakaoLogin = () => {
   const history = useHistory();
@@ -31,7 +32,7 @@ const KakaoLogin = () => {
             isLogin: true,
             isFirstLogin: data.isFirstLogin,
           });
-          history.replace('/monster');
+          history.replace('/select');
           return;
         }
 
@@ -48,7 +49,7 @@ const KakaoLogin = () => {
       }
     }
     getTokenWithKakao();
-  }, []);
+  }, [history, setAuth]);
 
   const loginWithKakao = () => {
     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_LOGIN_REDIRECT_URI}&response_type=code`;
@@ -65,19 +66,8 @@ const KakaoLogin = () => {
 };
 
 const LoginBtn = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 45px;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-checkBtn);
-  &:hover {
-    cursor: pointer;
-  }
-  &.kakaoLogin {
-    background-color: var(--color-kakao);
-  }
+  ${loginBtnStyle('kakao')}
+
   & > svg {
     width: 20px;
     height: 20px;
@@ -88,10 +78,7 @@ const LoginBtn = styled.div`
 
 const SocialTitle = styled.span`
   height: 24px;
-  margin: 0 auto;
-  line-height: 24px;
-  font-family: Noto Sans KR Medium;
-  font-size: var(--font-m);
+  margin: 0px 83px 0px 103px;
 `;
 
 export default KakaoLogin;

@@ -1,89 +1,97 @@
-import React, { useEffect } from 'react';
-import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
-import { authState } from '../recoil/states/auth';
+import React, { useRef, useEffect, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
+import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
 import Achievement from '../pages/Achievement';
 import New from '../pages/New';
 import MyPage from '../pages/MyPage';
-import Gnb from '../components/gnb/Gnb';
-import Monster from '../pages/Monster';
-import MonsterSetting from '../pages/MonsterSetting';
-import MonsterGuide from '../pages/MonsterGuide';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
-import OnBoard from './onBoard/OnBoard';
-import Notice from './myPage/Notice';
-import FollowList from '../pages/FollowList';
+import Notice from '../pages/Notice';
+import Follow from '../pages/Follow';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
+import Select from '../pages/Select';
+import SearchDetailHabit from '../pages/SearchDetailHabit';
+import SearchDetailFollow from '../pages/SearchDetailFollow';
+import Loading from '../pages/Loading';
 
 function App() {
-  const { isFirstLogin, isLogin } = useRecoilValue(authState);
-  const location = useLocation();
-  const history = useHistory();
+  const r = useRef(1);
 
-  useEffect(() => {
-    if (!isLogin) {
-      history.replace('/login');
-      return;
-    }
-
-    const monsterPath = ['select', 'guide', 'monster'];
-    const isMonsterPath = monsterPath.some((path) =>
-      location.pathname.includes(path),
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '%c ----------IN THE APP CONTEXT----------',
+      'background: #222; color: #bada55',
     );
 
-    if (isMonsterPath && isLogin && !isFirstLogin) {
-      history.replace('/');
-      return;
-    }
+    console.log(
+      `%c Rendering Count in App.js: << ${r.current} >>`,
+      'color: hotpink',
+    );
 
-    if (isFirstLogin) {
-      history.replace('/monster');
-      return;
-    }
-  }, []);
+    console.log(
+      '%c ----------IN THE APP CONTEXT----------',
+      'background: #222; color: #bada55',
+    );
+  }
+
+  useEffect(() => {
+    const preventShrinkViewportFromKeyboard = function () {
+      const viewport = document.querySelector('meta[name=viewport]');
+      viewport.setAttribute(
+        'content',
+        viewport.content + ', height=' + window.innerHeight,
+      );
+    };
+
+    window.addEventListener('load', preventShrinkViewportFromKeyboard);
+    return () =>
+      window.removeEventListener('load', preventShrinkViewportFromKeyboard);
+  });
 
   return (
-    <Layout>
+    <Suspense fallback={<Loading />}>
       <Switch>
-        {!window.localStorage.getItem('isOnboarding') ? <OnBoard /> : ''}
         <Route path="/login" component={Login} />
-        <Route path="/monster" component={Monster} />
-        <Route path="/select" component={MonsterSetting} />
-        <Route path="/guide" component={MonsterGuide} />
-        <>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/search" component={Search} />
-          <Route exact path="/search/:code" component={SearchDetail} />
-          <Route exact path="/habit/:habitId" component={HabitDetail} />
-          <Route exact path="/habit/:habitId/edit" component={HabitEdit} />
-          <Route path="/achievement" component={Achievement} />
-          <Route path="/new" component={New} />
-          <Route path="/mypage" component={MyPage} />
-          <Route path="/notice" component={Notice} />
-          <Route path="/follow" component={FollowList} />
-          <Gnb />
-        </>
+        <PrivateRoute path="/select" component={<Select />} />
+        <PrivateRoute exact path="/" component={<Main />} />
+        <PrivateRoute path="/new" component={<New />} />
+        <PrivateRoute path="/achievement" component={<Achievement />} />
+        <PrivateRoute path="/mypage" component={<MyPage />} />
+        <PrivateRoute exact path="/search" component={<Search />} />
+        <PrivateRoute
+          exact
+          path="/search/:monsterCode"
+          component={<SearchDetail />}
+        />
+        <PrivateRoute
+          exact
+          path="/search/:monsterCode/:habitId"
+          component={<SearchDetailHabit />}
+        />
+        <PrivateRoute
+          exact
+          path="/habit/:habitId"
+          component={<HabitDetail />}
+        />
+        <PrivateRoute
+          exact
+          path="/habit/:habitId/edit"
+          component={<HabitEdit />}
+        />
+        <PrivateRoute path="/notice" component={<Notice />} />
+        <PrivateRoute exact path="/follow" component={<Follow />} />
+        <PrivateRoute
+          exact
+          path="/follow/:monsterCode"
+          component={<SearchDetailFollow />}
+        />
       </Switch>
-    </Layout>
+    </Suspense>
   );
 }
-
-const Layout = styled.div`
-  background: var(--bg-wrapper);
-  display: flex;
-  max-width: 414px;
-  width: 100%;
-  min-width: 280px;
-  min-height: 100vh;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-`;
 
 export default App;

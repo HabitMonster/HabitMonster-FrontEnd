@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import '../assets/fonts/font.css';
 
 const GlobalStyle = createGlobalStyle`
   ${reset};
@@ -65,11 +66,15 @@ const GlobalStyle = createGlobalStyle`
     --bg-selected-light: #7d3cff;
     --bg-done: #000000;
     --bg-nope: #303236;
+    --bg-toast: #C5BEF4;
 
     }
     *, *::before, *::after {
       box-sizing: border-box;
-      font-family: var(--font-name-apple);
+    }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
     }
 `;
 

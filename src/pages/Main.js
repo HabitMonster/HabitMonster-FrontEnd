@@ -1,44 +1,65 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MainMonster } from '../components/monster';
-import { TodayHabitList } from '../components/habit';
-import Feedback from '../components/forTest/Feedback';
-import { miniThrottle } from '../utils/event';
-import '../assets/fonts/font.css';
+import {
+  monsterState,
+  monsterChangeTogglerState,
+} from '../recoil/states/monster';
 
-//TODOS
-//1.Refactor with getBoundingClientRect()
+import { MainMonster, LevelUp } from '../components/monster';
+import { Gnb } from '../components/gnb';
+import { TodayHabitList } from '../components/habit';
+import { Modal } from '../components/common';
 
 const Main = () => {
-  const habitSection = useRef(null);
-  const [shrinked, setShrinked] = useState(false);
+  const history = useHistory();
+  const monster = useRecoilValue(monsterState);
+  const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
+  const [changeModalOpen, setChangeModalOpen] = useRecoilState(
+    monsterChangeTogglerState,
+  );
 
   useEffect(() => {
-    const { current } = habitSection;
-
-    const handleScroll = miniThrottle(() => {
-      if (current.scrollTop >= 24) {
-        setShrinked(true);
-        current.removeEventListener('scroll', handleScroll);
-      }
-    }, 150);
-
-    current.addEventListener('scroll', handleScroll);
-
-    return () => current.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (changeModalOpen) {
+      setIsMonsterModalOpen(changeModalOpen);
+      return;
+    }
+  }, [changeModalOpen, monster.monsterExpPoint, monster.monsterLevel]);
 
   return (
-    <Wrapper>
-      <Feedback />
-      <MonsterSection>
-        <MainMonster heightShrinked={shrinked} />
-      </MonsterSection>
-      <HabitSection ref={habitSection}>
-        <TodayHabitList />
-      </HabitSection>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <MonsterSection>
+          <MainMonster />
+        </MonsterSection>
+        <HabitSection>
+          <TodayHabitList />
+        </HabitSection>
+        <Gnb />
+      </Wrapper>
+      {isMonsterModalOpen && (
+        <Modal
+          open={isMonsterModalOpen}
+          onClose={() => setIsMonsterModalOpen(false)}
+          blurmode={true}
+        >
+          <LevelUp
+            onClickSelect={() => {
+              history.push('/select', {
+                levelOneId: monster.levelOneId,
+                monsterLevel: monster.monsterLevel,
+              });
+            }}
+            onClickStay={() => {
+              setIsMonsterModalOpen(false);
+              setChangeModalOpen(false);
+            }}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 
@@ -50,7 +71,7 @@ const MonsterSection = styled.section`
 
 const HabitSection = styled.section`
   width: 100%;
-  padding: 24px;
+  padding-top: 24px;
   overflow-y: scroll;
   border-radius: var(--border-radius-semi);
 `;
@@ -61,7 +82,6 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100vh;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
 `;

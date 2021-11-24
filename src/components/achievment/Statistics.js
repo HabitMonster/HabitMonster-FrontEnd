@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
-import { fontSize } from '../../styles';
 import { statisticApi } from '../../api';
+
 import { formatMonth, addMonths, subMonths } from '../../utils/date';
+
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
+
 import { HabitList, CircleProgress } from '.';
 import { authState } from '../../recoil/states/auth';
 import { useRecoilValue } from 'recoil';
@@ -15,7 +17,7 @@ const Statistics = () => {
     formatMonth(new window.Date(), '-'),
   );
   const currentMonth = new Date(currentDate).getMonth() + 1;
-  const createdAtMonth = new Date(setAuth.createdAt).getMonth() + 1;
+  const createAtMonth = new Date(setAuth.createdAt).getMonth() + 1;
 
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
@@ -49,7 +51,7 @@ const Statistics = () => {
     setCurrentListName(listName);
   };
 
-  const getStatistic = async () => {
+  const getStatistic = useCallback(async () => {
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);
       if (statisticResponse.status === 200) {
@@ -62,10 +64,11 @@ const Statistics = () => {
           habitList,
         });
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }, [currentDate]);
+
   const currentList = getCurrentList(statisticData?.habitList ?? []);
   const circleValue =
     statisticData?.totalCount > 0
@@ -74,25 +77,18 @@ const Statistics = () => {
 
   useEffect(() => {
     getStatistic();
-  }, [currentDate]);
+  }, [getStatistic]);
 
   return (
     <>
       <DetailWrap>
         <DateWrap>
-          {createdAtMonth === currentMonth ? (
-            <DateButton
-              onClick={() => {
-                console.log('응안돼돌아가수정할거야', currentMonth);
-              }}
-            >
-              <AchieveLeft />
-            </DateButton>
-          ) : (
-            <DateButton onClick={() => handleClickChangeMonth('minus')}>
-              <AchieveLeft />
-            </DateButton>
-          )}
+          <DateButton
+            disabled={createAtMonth === currentMonth}
+            onClick={() => handleClickChangeMonth('minus')}
+          >
+            <AchieveLeft />
+          </DateButton>
           <DateText>{currentDate}</DateText>
           <DateButton onClick={() => handleClickChangeMonth('add')}>
             <AchieveRight />
@@ -165,6 +161,7 @@ const DateWrap = styled.div`
 `;
 
 const DateButton = styled.button`
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   background-color: transparent;
   color: #999999;
   border: 0;
@@ -175,7 +172,7 @@ const DateButton = styled.button`
 
 const DateText = styled.p`
   color: var(--color-primary);
-  ${fontSize('18px')};
+  font-size: var(--font-l);
   font-weight: var(--font-weight-medium);
   margin: 0 15px;
 `;
@@ -206,7 +203,7 @@ const GoalCount = styled.div`
   span {
     &:last-child {
       text-align: right;
-      ${fontSize('24px')};
+      font-size: var(--font-xxl);
       color: var(--color-primary);
     }
   }
@@ -217,7 +214,7 @@ const GoalCount = styled.div`
 
 const GoalText = styled.span`
   color: rgba(248, 248, 248, 0.6);
-  ${fontSize('12px')};
+  font-size: var(--font-xxs);
   width: 50%;
   display: inline-block;
 `;
@@ -234,7 +231,7 @@ const ButtonWrap = styled.div`
 `;
 
 const HabitsList = styled.p`
-  ${fontSize('18px')};
+  font-size: var(--font-l);
   font-weight: var(--weight-regular);
   line-height: 22px;
   color: var(--color-primary);
@@ -250,7 +247,7 @@ const AchieveNavBtn = styled.button`
     !props.isActive ? 'transparent' : 'var(--bg-selected)'};
   color: ${(props) =>
     !props.isActive ? 'var(--color-primary)' : 'var(--color-primary)'};
-  ${fontSize('14px')};
+  font-size: var(--font-xs);
   line-height: 16px;
   cursor: pointer;
   margin: 10px 0;
