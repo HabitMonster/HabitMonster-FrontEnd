@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
 import { OK, BAD_REQUEST } from '../constants/statusCode';
 import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../constants/statusMessage';
-import { refreshInfoState } from '../recoil/states/search';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { MonsterListItem } from '../components/monster';
@@ -22,7 +20,6 @@ const Search = () => {
   const [searchResult, setSearchResult] = useState(null);
   const [isFail, setIsFail] = useState(null);
   const [recommendedUserList, setRecommendedUserList] = useState([]);
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
   const debounceChange = useCallback(
     miniDebounce(function (nextValue) {
@@ -50,13 +47,12 @@ const Search = () => {
         }
         setSearchResult(data.userInfo);
         setIsFail(false);
-        setRefreshInfo((id) => id + 1);
       } catch (error) {
         console.log(error);
       }
     };
     queryUser();
-  }, [setRefreshInfo, debouncedMonsterCode]);
+  }, [debouncedMonsterCode]);
 
   useEffect(() => {
     const queryRecommendation = async () => {

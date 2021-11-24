@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+
 import { habitIdListState } from '../../recoil/states/habit';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
@@ -56,6 +57,7 @@ const HabitContainer = styled.div`
 const HabitList = styled.div`
   padding-bottom: 84px;
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     display: none;
   }

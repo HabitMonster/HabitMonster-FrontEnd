@@ -28,6 +28,8 @@ import { ReactComponent as RedLevelThree } from './red_3.svg';
 import { ReactComponent as RedLevelFour } from './red_4.svg';
 import { ReactComponent as RedLevelFive } from './red_5.svg';
 
+import { ReactComponent as NoMonsterImage } from './NoMonsterImage.svg';
+
 /*
   @ 객체의 프로퍼티 키: MonsterId
   @ 주석처리 한 것: 아직 나오지 않은 것.
@@ -46,9 +48,9 @@ const MONSTERS = {
   10: PinkLevelFive,
   11: BlueLevelOne,
   12: BlueLevelTwo,
-  //13: BlueLevelThree,
-  //14: BlueLevelFour,
-  //15: BlueLevelFive,
+  13: NoMonsterImage,
+  14: NoMonsterImage,
+  15: NoMonsterImage,
   16: YellowLevelOne,
   17: YellowLevelTwo,
   18: YellowLevelThree,
@@ -56,9 +58,9 @@ const MONSTERS = {
   20: YellowLevelFive,
   21: OrangeLevelOne,
   22: OrangeLevelTwo,
-  //23: OrangeLevelThree,
-  //24: OrangeLevelFour,
-  //25: OrangeLevelFive,
+  23: NoMonsterImage,
+  24: NoMonsterImage,
+  25: NoMonsterImage,
   26: RedLevelOne,
   27: RedLevelTwo,
   28: RedLevelThree,

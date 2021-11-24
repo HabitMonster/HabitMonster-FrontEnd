@@ -66,6 +66,7 @@ const GlobalStyle = createGlobalStyle`
     --bg-selected-light: #7d3cff;
     --bg-done: #000000;
     --bg-nope: #303236;
+    --bg-toast: #C5BEF4;
 
     }
     *, *::before, *::after {
