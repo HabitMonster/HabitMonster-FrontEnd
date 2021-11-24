@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { currentUserMonsterCodeSelector } from '../../recoil/states/user';
+import {
+  currentUserMonsterCodeSelector,
+  myFollowListByType,
+} from '../../recoil/states/user';
 import { refreshInfoState } from '../../recoil/states/search';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -28,6 +31,7 @@ const MonsterListItem = ({
   const history = useHistory();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
   const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const refetchFollowList = useSetRecoilState(myFollowListByType(''));
   const [_isFollowed, setIsFollowed] = useState(isFollowed);
 
   const handleRelationship = async (e) => {
@@ -38,6 +42,7 @@ const MonsterListItem = ({
       if (data.statusCode === OK) {
         setIsFollowed(data.isFollowed);
         setRefreshInfo((id) => id + 1);
+        refetchFollowList();
       }
     } catch (error) {
       console.error(error);
