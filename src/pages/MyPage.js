@@ -57,7 +57,7 @@ const AcheiveContainer = styled.div`
 
 const NavButtonWrap = styled.ul`
   background-color: var(--color-background);
-  border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
+  border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
   display: flex;
   list-style: none;
   margin: 0;
@@ -73,6 +73,7 @@ const NavButtonItem = styled.li`
   height: 40px;
   font-size: var(--font-m);
   position: relative;
+  padding-top: 6px;
 `;
 
 const NavButton = styled(NavLink)`

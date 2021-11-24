@@ -1,18 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   useRecoilValue,
-  useSetRecoilState,
   useRecoilCallback,
   useResetRecoilState,
+  useSetRecoilState,
 } from 'recoil';
 import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
 import {
   userState,
-  myFollowerListCountSelector,
-  myFollowingListCountSelector,
+  myFollowListCountSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
 import {
@@ -35,12 +34,12 @@ const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
   const monsterInfo = useRecoilValue(monsterState);
   const myHabitCount = useRecoilValue(myHabitCountState);
-  const followerListCount = useRecoilValue(myFollowerListCountSelector);
-  const followingListCount = useRecoilValue(myFollowingListCountSelector);
-  const setAuth = useSetRecoilState(authState);
+  const { followerListCount, followingListCount } = useRecoilValue(
+    myFollowListCountSelector,
+  );
   const resetUserInfoState = useResetRecoilState(userState);
-  const resetFollowList = useSetRecoilState(myFollowListByType());
   const resetHabitState = useResetRecoilState(defaultHabitsState);
+  const refetchFollowList = useSetRecoilState(myFollowListByType(''));
 
   const history = useHistory();
   const [editModalType, setEditModalType] = useState('');
@@ -164,21 +163,23 @@ const UserInformation = () => {
       ]
     : [];
 
-  // useEffect(() => {
-  //   return () => {
-  //     // 마이페이지에서 벗어날 때 리스트를 초기화한다
-  //     if (history.location.pathname !== 'mypage/information') {
-  //       console.log('mypage CleanUp');
-  //       resetFollowList();
-  //     }
-  //   };
-  // }, [history, resetFollowList]);
+  useEffect(() => {
+    console.log('mypage CleanUp', history.location.pathname);
+    return () => {
+      // 마이페이지에서 벗어날 때 리스트를 초기화한다
+      if (
+        !(
+          history.location.pathname.includes('mypage') ||
+          history.location.pathname.includes('login')
+        )
+      ) {
+        refetchFollowList();
+      }
+    };
+  }, [history, refetchFollowList]);
 
   return (
     <>
-      {/* <TitleArea>
-        <PageTitle>마이페이지</PageTitle>
-      </TitleArea> */}
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           isProfile={true}
@@ -300,20 +301,6 @@ const UserInformation = () => {
 };
 
 export default UserInformation;
-
-// const TitleArea = styled.div`
-//   height: 44px;
-//   margin: 24px;
-//   align-items: center;
-//   display: flex;
-//   align-items: center;
-// `;
-
-// const PageTitle = styled.p`
-//   font-size: var(--font-l);
-//   font-weight: var(--weight-regular);
-//   color: var(--color-primary);
-// `;
 
 const UserInfoList = styled.ul`
   color: var(--color-primary);
