@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import loadable from '@loadable/component';
 import Loading from '../pages/Loading';
 
@@ -92,6 +92,7 @@ function App() {
           path="/follow/:monsterCode"
           component={<SearchDetailFollow />}
         />
+        <Redirect from="*" to="/" />
       </Switch>
     </Suspense>
   );

@@ -9,8 +9,8 @@
   "categories": [],
   "screenshots": [],
   "shortcuts": [],
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "none",
+  "background_color": "none",
   "icons": [
     {
       "src": "favicon.ico",
