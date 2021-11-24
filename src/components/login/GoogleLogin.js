@@ -63,12 +63,24 @@ const GoogleLogin = () => {
                     data.refreshToken,
                   );
 
+                  /*
+                    처음 로그인 하지 않은 유저는 습관과 몬스터 정보,
+                    팔로워 팔로잉 정보가 등록되어있기 때문에 리페칭을 실시합니다.
+                    유저 정보는 PrivateRoute에서 업데이팅을 하는 것 처럼 보이네요.
+                    리페치는 전부 토글러로 하였습니다.
+                  */
+                  refetchHabit((prev) => prev + 1);
+                  refetchMonster((prev) => prev + 1);
+                  refetchFollowerList((prev) => prev + 1);
+                  refetchFollowingList((prev) => prev + 1);
+                  resetShrinkSection();
+
                   if (data.statusCode === OK && data.isFirstLogin) {
                     setAuth({
                       isLogin: true,
                       isFirstLogin: data.isFirstLogin,
                     });
-                    resetShrinkSection();
+
                     history.replace('/select');
                     return;
                   }
@@ -78,11 +90,7 @@ const GoogleLogin = () => {
                       isLogin: true,
                       isFirstLogin: data.isFirstLogin,
                     });
-                    refetchHabit((prev) => prev + 1);
-                    refetchMonster((prev) => prev + 1);
-                    refetchFollowerList((prev) => prev + 1);
-                    refetchFollowingList((prev) => prev + 1);
-                    resetShrinkSection();
+
                     history.replace('/');
                     return;
                   }
