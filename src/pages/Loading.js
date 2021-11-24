@@ -4,7 +4,11 @@ import styled from 'styled-components';
 import '../assets/fonts/font.css';
 
 const Loading = () => {
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <span>loading...</span>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
@@ -14,8 +18,13 @@ const Wrapper = styled.div`
   align-items: center;
   background: red;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: black;
+
+  & > span {
+    font-size: 72px;
+    color: white;
+  }
 `;
 
 export default Loading;

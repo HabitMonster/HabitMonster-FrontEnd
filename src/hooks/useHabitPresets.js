@@ -1,40 +1,42 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   habitIdListState,
   defaultHabitsState,
   myHabitCountState,
+  presetListSelector,
 } from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
 
 export default function useHabitPresets() {
-  const [presets, setPresets] = useState([]);
+  // const [presets, setPresets] = useState([]);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habits, setHabits] = useRecoilState(defaultHabitsState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
   const { categoryId } = useParams();
+  const presets = useRecoilValue(presetListSelector(categoryId));
   const history = useHistory();
 
-  useEffect(() => {
-    async function getHabitPresetFromServer() {
-      try {
-        const { data } = await addHabitApis.getHabitPreset(categoryId);
+  // useEffect(() => {
+  //   async function getHabitPresetFromServer() {
+  //     try {
+  //       const { data } = await addHabitApis.getHabitPreset(categoryId);
 
-        if (data.statusCode === OK) {
-          setPresets(data.preSets);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  //       if (data.statusCode === OK) {
+  //         setPresets(data.preSets);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
 
-    getHabitPresetFromServer();
-  }, [categoryId]);
+  //   getHabitPresetFromServer();
+  // }, [categoryId]);
 
   const onPresetChosen = useCallback((presetId) => {
     setSelectedPresetId(presetId);

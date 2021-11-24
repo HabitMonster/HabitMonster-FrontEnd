@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { whiteOpacity } from '../../styles/Mixin';
+import { LoadingSpinner } from '../../assets/icons/common';
 import noop from '../../utils/noop';
 
 const NewHabitCategoryCell = ({ src, name, onClick, skeleton }) => {
   return (
     <GategoryWrapper onClick={onClick}>
       {skeleton ? (
-        <div style={{ width: '30px', height: '30px', background: 'eee' }} />
+        <div style={{ width: '30px', height: '30px', background: 'eee' }}>
+          <LoadingSpinner style={{ width: '100%', height: '100%' }} />
+        </div>
       ) : (
         <>
           <img

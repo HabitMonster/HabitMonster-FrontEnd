@@ -24,9 +24,9 @@ NonePlaceHolder.propTypes = {
 const NoneTextWrapper = styled.section`
   width: 100%;
   position: absolute;
-  top: 60%;
-  left: 60%;
-  transform: translate(-60%, -60%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 0 24px;
   display: flex;
   flex-direction: column;

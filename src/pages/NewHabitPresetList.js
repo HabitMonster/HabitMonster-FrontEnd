@@ -16,10 +16,6 @@ const NewHabitPresetList = () => {
   const { presetList, onPresetClicked, selectedPresetId, onSaveButtonClicked } =
     useHabitPresets();
 
-  const skeletons = Array(2)
-    .fill(null)
-    .map((_, index) => ({ id: index }));
-
   if (!selectedHabitCategory) {
     return <Redirect to="/new" />;
   }
@@ -32,42 +28,21 @@ const NewHabitPresetList = () => {
       />
       <Inner>
         <HelperText>이런 습관은 어때요?</HelperText>
-        {presetList.length
-          ? presetList.map(
-              ({
-                count,
-                description,
-                period,
-                practiceDays,
-                title,
-                presetId,
-              }) => (
-                <NewHabitPresetItem
-                  key={presetId}
-                  frequency={count}
-                  description={description}
-                  period={period}
-                  days={practiceDays}
-                  title={title}
-                  id={presetId}
-                  onClick={() => onPresetClicked(presetId)}
-                  isSelected={selectedPresetId === presetId}
-                />
-              ),
-            )
-          : skeletons.map((skeleton, index) => (
-              <NewHabitPresetItem
-                key={skeleton.id * index}
-                skeleton
-                title=""
-                frequency={0}
-                days=""
-                period={0}
-                onClick={() => {}}
-                isSelected={false}
-                description=""
-              />
-            ))}
+        {presetList.map(
+          ({ count, description, period, practiceDays, title, presetId }) => (
+            <NewHabitPresetItem
+              key={presetId}
+              frequency={count}
+              description={description}
+              period={period}
+              days={practiceDays}
+              title={title}
+              id={presetId}
+              onClick={() => onPresetClicked(presetId)}
+              isSelected={selectedPresetId === presetId}
+            />
+          ),
+        )}
         <Hands
           isSelected={Boolean(selectedPresetId)}
           onClick={() =>
@@ -92,19 +67,19 @@ const NewHabitPresetList = () => {
   );
 };
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
   background: var(--bg-wrapper-gradient);
 `;
 
-const Inner = styled.div`
+export const Inner = styled.div`
   padding: 0 24px;
   background: inherit;
 `;
 
-const HelperText = styled.h2`
+export const HelperText = styled.h2`
   color: var(--color-primary);
   font-size: var(--font-xxl);
   font-weight: var(--weight-semi-regular);

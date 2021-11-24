@@ -10,6 +10,7 @@ import { ReactComponent as ToggleDown } from './toggleDown.svg';
 import { ReactComponent as CopyIcon } from './copy.svg';
 import { ReactComponent as Pencil } from './pencil.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
+import { ReactComponent as LoadingSpinner } from './loadingSpinner.svg';
 
 export {
   Back,
@@ -24,4 +25,5 @@ export {
   CopyIcon,
   Pencil,
   SearchIcon,
+  LoadingSpinner,
 };
