@@ -16,7 +16,6 @@ import SearchDetail from '../pages/SearchDetail';
 import Select from '../pages/Select';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
 import SearchDetailFollow from '../pages/SearchDetailFollow';
-
 import Loading from '../pages/Loading';
 
 function App() {

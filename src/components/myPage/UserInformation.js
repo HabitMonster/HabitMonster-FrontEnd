@@ -182,6 +182,7 @@ const UserInformation = () => {
     <>
       <UserInfoWrap>
         <MonsterThumbnailWrapper
+          isProfile={true}
           thumbnailSize="small"
           monsterLevel={monsterInfo.monsterLevel}
           monsterId={monsterInfo.monsterId}

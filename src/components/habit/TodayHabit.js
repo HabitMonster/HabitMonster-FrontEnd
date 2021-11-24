@@ -19,7 +19,7 @@ const TodayHabit = ({ id }) => {
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
   const [active, setActive] = useState(false);
-  const [activeToast, setActiveToast] = useState(false);
+  // const [activeToast, setActiveToast] = useState(false);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -41,7 +41,7 @@ const TodayHabit = ({ id }) => {
         setHabitDetail(data.habit);
 
         if (data.habit.isAccomplished) {
-          setActiveToast(true);
+          // setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
 
@@ -63,40 +63,44 @@ const TodayHabit = ({ id }) => {
   };
 
   return (
-    <Card onClick={onHabitClicked}>
-      <DetailContainer>
-        <div>
-          <CategoryIcon category={habitDetail.category} />
-          <Info>
-            <div>
-              <HabitTitle>{habitDetail.title}</HabitTitle>
-              <Count>
-                <b>{habitDetail.current}</b>/{habitDetail.count}
-              </Count>
-            </div>
-            <Period>
-              {durationStart}~{durationEnd}
-            </Period>
-          </Info>
-        </div>
-      </DetailContainer>
-      <CheckBtn
-        active={active}
-        isDone={habitDetail.isAccomplished}
-        disabled={habitDetail.isAccomplished}
-        onClick={(e) => {
-          e.stopPropagation();
-          clickHandler();
-        }}
-      >
-        {habitDetail.isAccomplished ? '완료' : '완료하기'}
-      </CheckBtn>
-      {/* <Toast
-        isActive={activeToast}
-        setIsActive={setActiveToast}
-        text="오늘의 습관 하나를 완료했어요!🎉"
-      /> */}
-    </Card>
+    <>
+      <Card onClick={onHabitClicked}>
+        <DetailContainer>
+          <div>
+            <CategoryIcon category={habitDetail.category} />
+            <Info>
+              <div>
+                <HabitTitle>{habitDetail.title}</HabitTitle>
+                <Count>
+                  <b>{habitDetail.current}</b>/{habitDetail.count}
+                </Count>
+              </div>
+              <Period>
+                {durationStart}~{durationEnd}
+              </Period>
+            </Info>
+          </div>
+        </DetailContainer>
+        <CheckBtn
+          active={active}
+          isDone={habitDetail.isAccomplished}
+          disabled={habitDetail.isAccomplished}
+          onClick={(e) => {
+            e.stopPropagation();
+            clickHandler();
+          }}
+        >
+          {habitDetail.isAccomplished ? '완료' : '완료하기'}
+        </CheckBtn>
+      </Card>
+      {/* {activeToast && (
+        <Toast
+          isActive={activeToast}
+          setIsActive={setActiveToast}
+          text="오늘의 습관 하나를 완료했어요!🎉"
+        />
+      )} */}
+    </>
   );
 };
 
