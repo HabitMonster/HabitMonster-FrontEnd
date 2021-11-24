@@ -1,22 +1,25 @@
 import React, { useRef, useEffect, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-
-import PrivateRoute from './PrivateRoute';
-import Login from '../pages/Login';
-import Main from '../pages/Main';
-import Achievement from '../pages/Achievement';
-import New from '../pages/New';
-import MyPage from '../pages/MyPage';
-import HabitDetail from '../pages/HabitDetail';
-import HabitEdit from '../pages/HabitEdit';
-import Notice from '../pages/Notice';
-import Follow from '../pages/Follow';
-import Search from '../pages/Search';
-import SearchDetail from '../pages/SearchDetail';
-import Select from '../pages/Select';
-import SearchDetailHabit from '../pages/SearchDetailHabit';
-import SearchDetailFollow from '../pages/SearchDetailFollow';
+import loadable from '@loadable/component';
 import Loading from '../pages/Loading';
+
+const PrivateRoute = loadable(() => import('./PrivateRoute'));
+const Login = loadable(() => import('../pages/Login'));
+const Main = loadable(() => import('../pages/Main'));
+const Achievement = loadable(() => import('../pages/Achievement'));
+const New = loadable(() => import('../pages/New'));
+const MyPage = loadable(() => import('../pages/MyPage'));
+const HabitDetail = loadable(() => import('../pages/HabitDetail'));
+const HabitEdit = loadable(() => import('../pages/HabitEdit'));
+const Notice = loadable(() => import('../pages/Notice'));
+const Follow = loadable(() => import('../pages/Follow'));
+const Select = loadable(() => import('../pages/Select'));
+const Search = loadable(() => import('../pages/Search'));
+const SearchDetail = loadable(() => import('../pages/SearchDetail'));
+const SearchDetailHabit = loadable(() => import('../pages/SearchDetailHabit'));
+const SearchDetailFollow = loadable(() =>
+  import('../pages/SearchDetailFollow'),
+);
 
 function App() {
   const r = useRef(1);
