@@ -1,6 +1,9 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { categoryListSelector } from '../recoil/states/habit';
 
 import {
   NewHabitCategoryCell,
@@ -14,37 +17,30 @@ import CATEGORIES from '../assets/images/habit';
 const NewHabitCategoryList = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
-  const categories = useFetchCategories();
-
-  const skeletons = [...Array(7).keys()].map((key) => ({
-    id: key,
-  }));
+  // const categories = useFetchCategories();
+  const categories = useRecoilValue(categoryListSelector);
 
   return (
     <>
       <Wrapper>
         <NewHabitCategoryHelperText />
         <NewHabitCategoryGrid>
-          {categories.length
-            ? categories.map(({ categoryId, category: categoryName }) => (
-                <NewHabitCategoryCell
-                  key={categoryId}
-                  src={CATEGORIES[categoryName].src}
-                  name={CATEGORIES[categoryName].name}
-                  onClick={() => {
-                    history.push({
-                      pathname: `${path}/${categoryId}/preset`,
-                      state: {
-                        categoryId,
-                        name: CATEGORIES[categoryName].name,
-                      },
-                    });
-                  }}
-                />
-              ))
-            : skeletons.map((skeleton) => (
-                <NewHabitCategoryCell key={skeleton.id} skeleton />
-              ))}
+          {categories.map(({ categoryId, category: categoryName }) => (
+            <NewHabitCategoryCell
+              key={categoryId}
+              src={CATEGORIES[categoryName].src}
+              name={CATEGORIES[categoryName].name}
+              onClick={() => {
+                history.push({
+                  pathname: `${path}/${categoryId}/preset`,
+                  state: {
+                    categoryId,
+                    name: CATEGORIES[categoryName].name,
+                  },
+                });
+              }}
+            />
+          ))}
         </NewHabitCategoryGrid>
       </Wrapper>
       <Gnb />

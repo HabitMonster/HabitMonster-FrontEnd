@@ -9,7 +9,7 @@ import {
   BackButtonHeader,
   Modal,
 } from '../components/common';
-import leveloneMonsters from '../assets/images/monsters/svg';
+import monsters from '../assets/images/monsters/svg';
 
 import {
   habitIdListState,
@@ -50,10 +50,10 @@ const HabitDetail = () => {
     try {
       const { data } = await habitApis.deleteHabit(id);
       if (data.statusCode === OK) {
+        history.replace('/');
         setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
         setTotalHabitCount(totalHabitCount - 1);
-        history.replace('/');
       }
     } catch (error) {
       console.error(error);
@@ -61,7 +61,7 @@ const HabitDetail = () => {
   };
 
   const progressbarRotationDegree = habitDetail.achievePercentage * 1.8 + 45;
-  const MonsterIcon = leveloneMonsters[levelOneMonsterId].component;
+  const MonsterIcon = monsters[levelOneMonsterId];
 
   return (
     <Container>

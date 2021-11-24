@@ -1,6 +1,12 @@
 import { atom, selector, atomFamily, selectorFamily } from 'recoil';
-import { mainApis } from '../../api';
+import { mainApis, addHabitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
+
+/*
+  LoadingPage 보이는 시간을 계산하기 위해 만든 유틸성 함수입니다.
+  ex) await testDelay(1000) => 1초동안 비동기 흐름을 멈춥니다.
+*/
+const testDelay = (wait) => new Promise((resolve) => setTimeout(resolve, wait));
 
 export const defaultHabitResponseSelector = selector({
   key: 'asyncDefaultHabitsSelector',
@@ -75,4 +81,33 @@ export const myHabitCountState = atom({
     key: 'defaultCountSelector',
     get: ({ get }) => get(defaultHabitResponseSelector).totalHabitCount,
   }),
+});
+
+export const categoryListSelector = selector({
+  key: 'categoryList',
+  get: async () => {
+    try {
+      const { data } = await addHabitApis.getCategoryList();
+      if (data.statusCode === OK) {
+        console.log(data);
+        return data.categories;
+      }
+    } catch (error) {
+      throw error;
+    }
+  },
+});
+
+export const presetListSelector = selectorFamily({
+  key: 'presetListByCategoryId',
+  get: (categoryId) => async () => {
+    try {
+      const { data } = await addHabitApis.getHabitPreset(categoryId);
+      if (data.statusCode === OK) {
+        return data.preSets;
+      }
+    } catch (error) {
+      throw error;
+    }
+  },
 });

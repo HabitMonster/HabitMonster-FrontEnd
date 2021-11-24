@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { Back } from '../../assets/icons/common';
+import noop from '../../utils/noop';
 
 const BackButtonHeader = ({ onButtonClick, pageTitleText, children }) => {
   return (
@@ -19,7 +20,7 @@ const BackButtonHeader = ({ onButtonClick, pageTitleText, children }) => {
 };
 
 BackButtonHeader.propTypes = {
-  onButtonClick: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func,
   pageTitleText: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -29,6 +30,7 @@ BackButtonHeader.propTypes = {
 
 BackButtonHeader.defaultProps = {
   pageTitleText: '',
+  onButtonClick: noop,
 };
 
 const Wrapper = styled.div`
