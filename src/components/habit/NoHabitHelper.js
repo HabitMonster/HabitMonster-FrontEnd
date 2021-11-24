@@ -18,20 +18,13 @@ const NoHabitHelper = () => {
 
 const Wrapper = styled.div`
   font-family: var(--font-name-apple);
-  width: 100%;
+  width: 264px;
   margin: 0 auto;
-  padding: 24px;
-  background: var(--bg-primary);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   border-radius: var(--border-radius-semi);
-  /* margin-bottom: 108px; */
 `;
+
 const HelperText = styled.div`
   width: 100%;
-  margin-bottom: 34px;
   font-size: var(--font-xs);
   line-height: 21px;
   ${whiteOpacity('0.6')};
@@ -39,17 +32,19 @@ const HelperText = styled.div`
 `;
 
 const AddButton = styled(Link)`
-  display: block;
   width: 100%;
-  height: 43px;
-  padding: 12px 0px;
-  text-align: center;
+  height: 40px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   background: var(--bg-active);
   color: var(--color-primary);
   font-size: var(--font-xs);
   line-height: 17px;
   font-weight: var(--weight-regular);
+  border-radius: 4px;
 
   &:active,
   &:visited {

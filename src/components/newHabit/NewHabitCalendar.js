@@ -165,6 +165,7 @@ const CalendarMonthPicker = styled.div`
   color: #4e4e4e;
   margin-bottom: 17px;
   height: 48px;
+  padding-top: 12px;
 
   & div {
     width: 48px;
@@ -215,28 +216,12 @@ const Calendarcell = styled.div`
     !isInRange && isStartDate
       ? 'none'
       : isStartDate
-      ? '-moz-linear-gradient(left, transparent 50%, var(--bg-selected) 50%)'
+      ? 'linear-gradient(to left, var(--bg-selected) 50%, transparent 50%)'
       : isEndDate
-      ? '-moz-linear-gradient(left, var(--bg-selected) 50%, transparent 50%)'
+      ? 'linear-gradient(to right, var(--bg-selected) 50%, transparent 50%)'
       : isInRange
       ? 'var(--bg-selected)'
       : 'none'};
-  background: ${({ isStartDate, isEndDate, isInRange }) =>
-    isStartDate
-      ? '-webkit-linear-gradient(left, transparent 50%, var(--bg-selected) 50%)'
-      : isEndDate
-      ? '-webkit-linear-gradient(left, var(--bg-selected) 50%, transparent 50%)'
-      : isInRange
-      ? 'var(--bg-selected)'
-      : 'none'};
-  background: ${({ isStartDate, isEndDate, isInRange }) =>
-    !isInRange
-      ? 'none'
-      : isStartDate
-      ? 'linear-gradient(left, transparent 50%, var(--bg-selected) 50%)'
-      : isEndDate
-      ? 'linear-gradient(left, var(--bg-selected) 50%, transparent 50%)'
-      : 'var(--bg-selected)'};
 
   font-weight: var(--weight-semi-bold);
 

@@ -25,9 +25,10 @@ const Button = styled.button`
   width: 100%;
   max-width: 414px;
   margin: 0 auto;
-  height: 68px;
+  height: 80px;
 
   position: fixed;
+  padding-left: inherit;
   bottom: 0;
   background: var(--bg-active);
   z-index: 3;

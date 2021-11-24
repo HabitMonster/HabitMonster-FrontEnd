@@ -1,129 +1,276 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router';
-import { useRecoilState, useRecoilValue } from 'recoil';
-
-import { userApis } from '../api/user';
-import { OK } from '../constants/statusCode';
+import React, { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import {
-  followerListSelector,
-  followingListSelector,
-  isFollowState,
-  userInfoSelector,
-} from '../recoil/states/follow';
+import { BackButtonHeader, NonePlaceHolder } from '../components/common';
+import { CategoryMenu, UserSection } from '../components/search';
+import { searchUserInfoState, refreshInfoState } from '../recoil/states/search';
+import { setFormattedDuration } from '../utils/setFormatDuration';
+import CategoryImage from '../assets/images/habit';
+import { userApis } from '../api';
+import { OK } from '../constants/statusCode';
 
 const SearchDetail = () => {
-  const { state: searchResultState } = useLocation();
-  const [searchResult, setSearchResult] = useState(searchResultState);
-  const [checkFollow, setCheckFollow] = useState('');
+  const { monsterCode } = useParams();
+  const history = useHistory();
 
-  const [isFollow, setIsFollow] = useRecoilState(isFollowState);
+  const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
+  const setRefreshInfo = useSetRecoilState(refreshInfoState);
 
+  const { habits, monster, userInfo } = searchResult;
+  const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
+  const [followers, setFollowers] = useState(userInfo.followersCount);
+  const [categorization, setCategorization] = useState({
+    id: 'all',
+    name: '전체',
+  });
+  const [filteredHabits, setFilteredHabits] = useState([]);
+
+  const toggleClass = (id, name) => {
+    setCategorization({ id, name });
+  };
+
+  useEffect(() => {
+    const categoryId = categorization.id;
+    if (categoryId === 'all') {
+      setFilteredHabits(habits);
+      return;
+    }
+
+    const filteredHabits = habits.filter((habit) => {
+      return habit.categoryId === categoryId;
+    });
+
+    setFilteredHabits(filteredHabits);
+  }, [categorization]);
+
+  // @sangjoon
+  // TODO : 페이지 이동 시 Loading 페이지가 출력됨.
+  // 로딩 자체를 없애거나 로딩 페이지를 제대로 만들어야 할 필요가 있음.
   const handleRelationship = async () => {
     try {
-      console.log('before :', isFollow);
-      const { data } = await userApis.follow(
-        searchResult.monsterCode,
-        isFollow,
-      );
+      const { data } = await userApis.follow(monsterCode, isFollowed);
 
       if (data.statusCode === OK) {
-        console.log('after :', data.isFollowed);
-        setIsFollow(data.isFollowed);
-        setSearchResult((prev) => ({ ...prev, isFollowed: data.isFollowed }));
+        setIsFollowed(data.isFollowed);
+        data.isFollowed
+          ? setFollowers(followers + 1)
+          : setFollowers(followers - 1);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const checkFollowTest = async () => {
-    try {
-      const { data } = await userApis.checkFollow(searchResult.monsterCode);
-
-      if (data.statusCode === OK) {
-        if (data.responseMessage === 'isFollowedTrue') {
-          setCheckFollow('팔로우 중');
-        }
-
-        if (data.responseMessage === 'isFollowedFalse') {
-          setCheckFollow('언팔로우 중');
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  // @sangjoon
+  // TODOS: 습관 카드 공용 컴포넌트로 추출
   return (
-    <>
-      <Container>
-        <Text className="title">검색 유저 상세 정보</Text>
-        <Card style={{ marginBottom: '50px' }}>
-          <Text>몬스터 이름: {searchResult.monsterName}</Text>
-          <Text>이메일 주소 : {searchResult.email}</Text>
-          <img
-            src={searchResult.monsterImg}
-            style={{ width: '50px', height: '50px' }}
-          />
-          <Text>몬스터 코드 : {searchResult.monsterCode}</Text>
-          <Text>
-            팔로우 여부 : {isFollow ? '팔로우' : '언팔로우'}
-            <button onClick={handleRelationship}>
-              {isFollow ? '언팔로우' : '팔로우'}
-            </button>
-          </Text>
-          <Text>팔로워 수 : </Text>
-          <Text>팔로잉 수 : </Text>
-          <Text>Follow Check API 테스트 : </Text>
-        </Card>
-
-        <Box>
-          <Text className="title">Follow Check API 테스트</Text>
-          <Text style={{ textAlign: 'center' }}>{checkFollow}</Text>
-          <button style={{ width: '100%' }} onClick={checkFollowTest}>
-            테스트
-          </button>
-        </Box>
-        <Box>
-          <Text className="title">팔로워 리스트</Text>
-        </Box>
-
-        <Box>
-          <Text className="title">팔로잉 리스트</Text>
-        </Box>
-
-        <Box>
-          <Text className="title">습관 리스트</Text>
-        </Box>
-      </Container>
-    </>
+    <Container>
+      <Header>
+        <BackButtonHeader
+          onButtonClick={() => {
+            history.push('/search');
+          }}
+          pageTitleText={userInfo.username}
+        />
+      </Header>
+      <UppserSection>
+        <UserSection
+          monster={monster}
+          habits={habits}
+          userInfo={userInfo}
+          followers={followers}
+        />
+        <FollowBtn isFollowed={isFollowed} onClick={handleRelationship}>
+          {isFollowed ? '팔로잉' : '팔로우'}
+        </FollowBtn>
+      </UppserSection>
+      <CategoryMenu
+        categorization={categorization}
+        classHandler={toggleClass}
+      />
+      <HabitSection>
+        <HabitList>
+          {filteredHabits.length ? (
+            filteredHabits.map((habit, idx) => {
+              return (
+                <Card
+                  key={idx}
+                  onClick={() => {
+                    setRefreshInfo((id) => id + 1);
+                    history.push(
+                      `/search/${userInfo.monsterCode}/${habit.habitId}`,
+                    );
+                  }}
+                >
+                  <DetailContainer>
+                    <div>
+                      <CategoryIcon category={habit.category} />
+                      <Info>
+                        <div>
+                          <HabitTitle>{habit.title}</HabitTitle>
+                          <Count>
+                            <b>{habit.achievePercentage}%</b>
+                          </Count>
+                        </div>
+                        <Period>
+                          {setFormattedDuration(
+                            habit.durationStart,
+                            'YMD',
+                            '.',
+                          )}{' '}
+                          ~{' '}
+                          {setFormattedDuration(habit.durationEnd, 'YMD', '.')}
+                        </Period>
+                      </Info>
+                    </div>
+                  </DetailContainer>
+                </Card>
+              );
+            })
+          ) : (
+            <NonePlaceHolder>
+              <span>습관이 아직 등록되지 않았어요</span>
+            </NonePlaceHolder>
+          )}
+        </HabitList>
+      </HabitSection>
+    </Container>
   );
 };
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
+  background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
+  position: relative;
+  font-family: var(--font-name-apple);
+  overflow-y: hidden;
+`;
+
+const Header = styled.section`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 68px;
+  background: #1e135c;
+`;
+
+const UppserSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background: #1e135c;
+`;
+
+const FollowBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 312px;
+  height: 38px;
+  margin: 20px auto;
   color: var(--color-white);
+  background-color: ${({ isFollowed }) =>
+    isFollowed ? '#181819' : 'var(--bg-active)'};
+  border: none;
+  border-radius: var(--border-radius-semi);
+  cursor: pointer;
+  font-family: var(--font-name-apple);
+  font-size: var(--font-s);
 `;
 
-const Box = styled.div`
+const HabitSection = styled.section`
   width: 100%;
-  margin-bottom: 50px;
-`;
+  border-radius: var(--border-radius-semi);
+  overflow-y: scroll;
 
-const Text = styled.p`
-  font-size: var(--font-xs);
-  &.title {
-    text-align: center;
-    border: 1px solid var(--color-white);
-    font-size: var(--font-l);
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
+const HabitList = styled.div`
+  width: 100%;
+  padding: 24px;
+  padding-bottom: 108px;
+`;
+
 const Card = styled.div`
-  border: 1px solid var(--color-white);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  margin-bottom: 16px;
+  color: var(--color-primary);
   background-color: var(--bg-primary);
+  border-radius: var(--border-radius-semi);
+  font-family: var(--font-name-apple);
+  cursor: pointer;
+`;
+
+const DetailContainer = styled.div`
+  display: flex;
+  width: 100%;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+`;
+
+const CategoryIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  margin-right: 13px;
+  background-image: url(${(props) => CategoryImage[props.category].src});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 43px);
+
+  & div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+`;
+
+const HabitTitle = styled.span`
+  font-size: var(--font-m);
+  font-weight: var(--weight-bold);
+  line-height: 19.2px;
+`;
+
+const Period = styled.p`
+  font-size: var(--font-xxs);
+  font-weight: var(--weight-regular);
+  opacity: 0.6;
+`;
+
+const Count = styled.span`
+  font-family: var(--font-name-apple);
+  font-size: var(--font-xs);
+  font-weight: var(--weight-regular);
+  line-height: 16.8px;
+  color: var(--color-primary-deemed);
+
+  & b {
+    font-weight: var(--weight-semi-bold);
+    color: var(--color-primary);
+  }
 `;
 
 export default SearchDetail;

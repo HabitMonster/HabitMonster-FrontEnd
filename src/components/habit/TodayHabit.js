@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -9,15 +9,17 @@ import { monsterState } from '../../recoil/states/monster';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 import CategoryImage from '../../assets/images/habit';
 
-import { habitApis } from '../../api';
-import { mainApis } from '../../api';
+import { mainApis, habitApis } from '../../api';
+import { miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
+import { Toast } from '../common';
 
 const TodayHabit = ({ id }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
   const [active, setActive] = useState(false);
+  // const [activeToast, setActiveToast] = useState(false);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -27,22 +29,22 @@ const TodayHabit = ({ id }) => {
 
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
 
-  const clickHandler = async (e) => {
-    e.stopPropagation();
+  const clickHandler = miniDebounce(async () => {
     setActive((prev) => !prev);
 
-    setTimeout(() => {
-      setActive((prev) => !prev);
-    }, 300);
-
     try {
+      setTimeout(() => {
+        setActive((prev) => !prev);
+      }, 150);
       const { data } = await habitApis.checkHabit(id);
       if (data.statusCode === OK) {
         setHabitDetail(data.habit);
 
         if (data.habit.isAccomplished) {
+          // setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
+
             setTimeout(() => {
               setMonster(data.monster);
             }, 500);
@@ -54,39 +56,51 @@ const TodayHabit = ({ id }) => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, 100);
 
   const onHabitClicked = () => {
     history.push(`/habit/${id}`);
   };
 
   return (
-    <Card onClick={onHabitClicked}>
-      <DetailContainer>
-        <div>
-          <CategoryIcon category={habitDetail.category} />
-          <Info>
-            <div>
-              <HabitTitle>{habitDetail.title}</HabitTitle>
-              <Count>
-                <b>{habitDetail.current}</b>/{habitDetail.count}
-              </Count>
-            </div>
-            <Period>
-              {durationStart}~{durationEnd}
-            </Period>
-          </Info>
-        </div>
-      </DetailContainer>
-      <CheckBtn
-        active={active}
-        isDone={habitDetail.isAccomplished}
-        disabled={habitDetail.isAccomplished}
-        onClick={clickHandler}
-      >
-        {habitDetail.isAccomplished ? '이미 완료!' : '완료하기'}
-      </CheckBtn>
-    </Card>
+    <>
+      <Card onClick={onHabitClicked}>
+        <DetailContainer>
+          <div>
+            <CategoryIcon category={habitDetail.category} />
+            <Info>
+              <div>
+                <HabitTitle>{habitDetail.title}</HabitTitle>
+                <Count>
+                  <b>{habitDetail.current}</b>/{habitDetail.count}
+                </Count>
+              </div>
+              <Period>
+                {durationStart}~{durationEnd}
+              </Period>
+            </Info>
+          </div>
+        </DetailContainer>
+        <CheckBtn
+          active={active}
+          isDone={habitDetail.isAccomplished}
+          disabled={habitDetail.isAccomplished}
+          onClick={(e) => {
+            e.stopPropagation();
+            clickHandler();
+          }}
+        >
+          {habitDetail.isAccomplished ? '완료' : '완료하기'}
+        </CheckBtn>
+      </Card>
+      {/* {activeToast && (
+        <Toast
+          isActive={activeToast}
+          setIsActive={setActiveToast}
+          text="오늘의 습관 하나를 완료했어요!🎉"
+        />
+      )} */}
+    </>
   );
 };
 
@@ -212,4 +226,6 @@ const CheckBtn = styled.button`
       : 'none'};
 `;
 
-export default memo(TodayHabit);
+// export default memo(TodayHabit);
+
+export default TodayHabit;

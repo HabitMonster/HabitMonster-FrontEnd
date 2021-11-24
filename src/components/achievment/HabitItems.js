@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { fontSize } from '../../styles';
 
 const HabitItems = ({ habit }) => {
   const goalTitle = habit.success ? '완료' : '미완료';
@@ -63,10 +62,8 @@ const TitleWrap = styled.div`
   font-size: 24px;
 `;
 
-const Title = styled.p``;
-
 const Percent = styled.p`
-  ${fontSize('16px')};
+  font-size: var(--font-m);
   font-weight: var(--weight-bold);
   color: ${(props) =>
     props.success ? 'var(--color-primary)' : 'var(--color-danger)'};
@@ -103,7 +100,7 @@ const Period = styled.p`
   color: var(--color-primary);
   margin-bottom: 7px;
   font-family: var(—font-name-apple);
-  ${fontSize('12px')};
+  font-size: var(--font-xxs);
   opacity: 0.6;
   line-height: 14px;
 `;

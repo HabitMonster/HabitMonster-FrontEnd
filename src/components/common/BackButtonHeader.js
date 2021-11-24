@@ -3,30 +3,52 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { Back } from '../../assets/icons/common';
+import noop from '../../utils/noop';
 
-const BackButtonHeader = ({ onButtonClick, pageTitleText }) => {
+const BackButtonHeader = ({
+  onButtonClick,
+  pageTitleText,
+  children,
+  marginBottom,
+}) => {
   return (
-    <Wrapper>
-      <Back fill="var(--color-primary)" onClick={() => onButtonClick()} />
+    <Wrapper marginBottom={marginBottom}>
+      <Back
+        style={{ marginRight: '4px' }}
+        fill="var(--color-primary)"
+        onClick={() => onButtonClick()}
+      />
       {pageTitleText && <PageTitle>{pageTitleText}</PageTitle>}
+      {children && children}
     </Wrapper>
   );
 };
 
 BackButtonHeader.propTypes = {
-  onButtonClick: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func,
   pageTitleText: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  marginBottom: PropTypes.string,
 };
 
 BackButtonHeader.defaultProps = {
   pageTitleText: '',
+  onButtonClick: noop,
 };
 
 const Wrapper = styled.div`
-  max-width: 360px;
+  max-width: 414px;
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: ${({ marginBottom }) =>
+    marginBottom ? marginBottom : '12px'};
   height: 44px;
   display: flex;
   align-items: center;
+  padding: 0 16px;
 
   & svg {
     cursor: pointer;
@@ -37,7 +59,6 @@ const PageTitle = styled.h1`
   font-weight: var(--weight-regular);
   font-size: var(--font-l);
   line-height: 21.6px;
-  margin-left: 4px;
   color: var(--color-primary);
 `;
 

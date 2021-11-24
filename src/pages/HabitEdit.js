@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, useHistory, Redirect } from 'react-router-dom';
-import { useRecoilCallback } from 'recoil';
-import { habitStateWithId } from '../recoil/states/habit';
+import { useLocation, useHistory, Redirect, useParams } from 'react-router-dom';
+import { useRecoilCallback, useRecoilState } from 'recoil';
+import {
+  habitStateWithId,
+  habitIdListState,
+  defaultHabitsState,
+  myHabitCountState,
+} from '../recoil/states/habit';
 
 import {
   NewHabitDetailTitle,
@@ -17,20 +22,42 @@ import {
   Modal,
 } from '../components/common';
 import { BottomDialog } from '../components/dialog';
+import { Trash } from '../assets/icons/common';
 
 import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
 
 const HabitEdit = () => {
   const history = useHistory();
+  const { habitId } = useParams();
   const { state: habitDetail } = useLocation();
 
   const [backModalOpen, setBackModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [title, setTitle] = useState(habitDetail.habitDetail.title);
   const [description, setDescription] = useState(
     habitDetail.habitDetail.description,
   );
   const [frequency, setFrequency] = useState(habitDetail.habitDetail.count);
+
+  const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
+  const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
+  const [totalHabitCount, setTotalHabitCount] =
+    useRecoilState(myHabitCountState);
+
+  const deleteHabit = async (id) => {
+    try {
+      const { data } = await habitApis.deleteHabit(id);
+      if (data.statusCode === OK) {
+        history.replace('/');
+        setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
+        setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
+        setTotalHabitCount(totalHabitCount - 1);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleEditButtonClick = useRecoilCallback(({ set }) => async () => {
     const body = {
@@ -60,14 +87,19 @@ const HabitEdit = () => {
 
   return (
     <Wrapper>
-      <Header>
-        <BackButtonHeader
-          onButtonClick={() => {
-            setBackModalOpen(true);
-          }}
-          pageTitleText="작성한 습관"
-        />
-      </Header>
+      <BackButtonHeader
+        onButtonClick={() => {
+          setBackModalOpen(true);
+        }}
+      >
+        <MenuBar>
+          <span>작성한 습관</span>{' '}
+          <Trash
+            onClick={() => setDeleteModalOpen(true)}
+            className="deleteBtn"
+          />
+        </MenuBar>
+      </BackButtonHeader>
       <Inner>
         <MarginInterval mb="24">
           <NewHabitDetailTitle
@@ -125,34 +157,48 @@ const HabitEdit = () => {
           />
         </Modal>
       )}
+      {deleteModalOpen && (
+        <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
+          <BottomDialog
+            title="습관을 정말 삭제할까요?"
+            description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"
+            activeButtonText="삭제할래요"
+            onClose={() => setDeleteModalOpen(false)}
+            onActive={() => deleteHabit(Number(habitId))}
+          />
+        </Modal>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
-  position: relative;
+  height: 100%;
   font-family: var(--font-name-apple);
   background: var(--bg-wrapper);
-  padding-top: 24px;
-  padding-bottom: 80px;
   overflow-y: scroll;
 `;
 
 const Inner = styled.div`
   padding: 0 24px;
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 102px; // BottomFixedButton(80px) + 22px
 `;
 
-const Header = styled.section`
+const MenuBar = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  height: 44px;
-  margin-bottom: 40px;
-  box-sizing: border-box;
-  padding-left: 16px;
-  padding-right: 12.43px;
+  align-items: center;
+
+  & > span {
+    font-weight: var(--weight-regular);
+    font-size: var(--font-l);
+    line-height: 21.6px;
+    color: var(--color-primary);
+  }
 `;
 
 const MarginInterval = styled.div`

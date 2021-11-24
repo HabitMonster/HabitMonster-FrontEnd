@@ -2,15 +2,16 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { fontSize, whiteOpacity } from '../../styles/Mixin';
+import NotiContent from './NotiContent';
+import { whiteOpacity } from '../../styles/Mixin';
 import { ToggleUp, ToggleDown } from '../../assets/icons/common';
 
 const NoticeItem = ({ notice, active, onToggle }) => {
-  const { title, content, createdAt } = notice;
+  const { title, createdAt, id } = notice;
   const contentArea = useRef();
 
   console.log('contentArea', contentArea?.current?.scrollHeight);
-  console.log('contentArea', contentArea?.current?.style?.padding);
+  console.log('contentAreaPadding', contentArea?.current?.style?.padding);
 
   return (
     <NotiListItem active={active}>
@@ -24,7 +25,7 @@ const NoticeItem = ({ notice, active, onToggle }) => {
         </ToggleButton>
       </HeaderWrap>
       <ContentsWrap ref={contentArea} contentArea={contentArea} active={active}>
-        <NotiBox active={active}>{content}</NotiBox>
+        <NotiContent active={active} id={id} />
       </ContentsWrap>
     </NotiListItem>
   );
@@ -52,7 +53,7 @@ const NotiTitleWrap = styled.div`
 `;
 
 const NotiTitle = styled.p`
-  ${fontSize('16px')};
+  font-size: var(--font-m);
   line-height: 19px;
   font-weight: var(--weight-bold);
   ${whiteOpacity('0.8')};
@@ -60,7 +61,7 @@ const NotiTitle = styled.p`
 `;
 
 const NotiDate = styled.p`
-  ${fontSize('13px')};
+  font-size: 13px;
   font-weight: var(--weight-semi-regular);
   line-height: 16px;
   ${whiteOpacity('0.6')};
@@ -82,20 +83,8 @@ const ContentsWrap = styled.div`
   transition: all 0.35s;
 `;
 
-const NotiBox = styled.p`
-  color: var(--color-primary);
-  ${fontSize('14px')};
-  ${whiteOpacity('0.8')};
-  font-weight: var(--weight-semi-regular);
-  line-height: 22px;
-  padding: 18px;
-`;
-
 NoticeItem.propTypes = {
   notice: PropTypes.object.isRequired,
   onToggle: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  contents: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
 };

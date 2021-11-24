@@ -1,7 +1,7 @@
-import { authState } from './auth';
 import { atom, selector } from 'recoil';
 import { mainApis, monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
 export const monsterRefetchToggler = atom({
   key: 'monsterRefetchToggler',
@@ -11,15 +11,7 @@ export const monsterRefetchToggler = atom({
 export const asyncDefaultMonster = selector({
   key: 'asyncDefaultMonster',
   get: async ({ get }) => {
-    const { isLogin, isFirstLogin } = get(authState);
-
-    if (!isLogin || isFirstLogin) {
-      return null;
-    }
     get(monsterRefetchToggler);
-
-    if (isFirstLogin) {
-    }
 
     try {
       const { data } = await mainApis.getMonsterInfo();
@@ -40,6 +32,25 @@ export const monsterState = atom({
   default: asyncDefaultMonster,
 });
 
+export const monsterChangeTogglerState = atom({
+  key: 'persistMonsterState',
+  default: selector({
+    key: 'defaultMonsterMaxLevelCheckSelector',
+    get: ({ get }) => {
+      const monster = get(monsterState);
+      return (
+        monster.monsterLevel === MAX_LEVEL &&
+        monster.monsterExpPoint === MAX_EXP
+      );
+    },
+  }),
+});
+
+export const monsterIdSelector = selector({
+  key: 'monsterId',
+  get: ({ get }) => get(monsterState).monsterId,
+});
+
 export const userLevelOneMonsterSelector = selector({
   key: 'userLevelOneMonster',
   get: ({ get }) => {
@@ -49,7 +60,7 @@ export const userLevelOneMonsterSelector = selector({
 
 const initiateMonsterSelector = selector({
   key: 'initiateMonster',
-  get: async ({ get }) => {
+  get: async () => {
     try {
       const { data, status } = await monsterApis.loadStartMonster();
       if (status === OK) {

@@ -28,13 +28,12 @@ const OnBoard = () => {
             <Title>Habit</Title>
             <Title>Monster</Title>
           </TitleWrapper>
-          <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
           <Swiper
             className="banner"
             initialSlide={0}
             style={{
               width: '100%',
-              maxWidth: '414px',
+              maxWidth: '320px',
             }}
             navigation
             pagination={{
@@ -42,16 +41,33 @@ const OnBoard = () => {
             }}
           >
             <SwiperSlide>
-              <Image bg={onboard01} />
+              <SubTitleBox>
+                <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
+              </SubTitleBox>
+              <Image bg={onboard01} className="first-image" />
             </SwiperSlide>
             <SwiperSlide>
-              <Image bg={onboard02} />
+              <SubTitleBox>
+                <SubTitle>몬스터가 어떻게 변할지 궁굼하지 않으신가요?</SubTitle>
+              </SubTitleBox>
+              <Image bg={onboard02} className="second-image" />
             </SwiperSlide>
             <SwiperSlide>
-              <Image bg={onboard03} />
+              <SubTitleBox>
+                <SubTitle className="doubleLine">
+                  진화하는 몬스터와 함께
+                </SubTitle>
+                <SubTitle className="doubleLine">
+                  변화 될 당신의 모습도 궁굼하군요!
+                </SubTitle>
+              </SubTitleBox>
+              <Image bg={onboard03} className="third-image" />
             </SwiperSlide>
             <SwiperSlide>
-              <Image bg={onboard04} />
+              <SubTitleBox>
+                <SubTitle>지금 당장 해빗몬스터와 시작해볼까요?</SubTitle>
+              </SubTitleBox>
+              <Image bg={onboard04} className="fourth-image" />
             </SwiperSlide>
           </Swiper>
         </TitleContainer>
@@ -59,8 +75,8 @@ const OnBoard = () => {
           text="시작하기"
           condition={null}
           onClick={() => {
-            history.replace('/login');
             window.localStorage.setItem('isOnboarding', false);
+            history.replace('/login');
           }}
         />
       </OnBoardContainer>
@@ -75,19 +91,15 @@ const OnBoardContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
-
-  & .swiper-container {
-    height: 200px;
+  & .swiper-wrapper {
+    height: 300px;
   }
-
   & .swiper-pagination {
-    top: 150px;
+    top: 220px;
   }
-
   & .swiper-pagination-bullet {
     background: var(--color-title);
     opacity: 1;
-
     &.swiper-pagination-bullet-active {
       background: var(--color-onboard);
     }
@@ -114,15 +126,24 @@ const Title = styled.p`
   font-weight: var(--weight-extra-bold);
 `;
 
+const SubTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 86px;
+  margin: 0 auto;
+`;
+
 const SubTitle = styled.p`
-  width: 213px;
+  display: flex;
+  justify-content: center;
   height: 17px;
   font-weight: var(--weight-semi-regular);
   font-size: var(--font-xs);
   line-height: 16.8px;
   color: var(--color-white);
   margin: 0 auto;
-  margin-bottom: 75px;
   opacity: 0.7;
 `;
 

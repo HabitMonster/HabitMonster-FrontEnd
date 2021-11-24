@@ -27,19 +27,10 @@ const HabitContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   padding: 0 16px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 `;
 
 const HabitListWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 108px;
-  overflow-y: scroll;
 `;

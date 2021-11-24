@@ -6,7 +6,7 @@ import life from './life.png';
 import relationship from './relationship.png';
 import study from './study.png';
 
-export default {
+const presets = {
   Emotion: {
     name: '감정관리',
     src: emotion,
@@ -36,3 +36,5 @@ export default {
     src: study,
   },
 };
+
+export default presets;
