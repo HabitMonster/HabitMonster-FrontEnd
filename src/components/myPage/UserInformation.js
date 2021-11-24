@@ -22,7 +22,7 @@ import {
 import { monsterState } from '../../recoil/states/monster';
 
 import { BottomDialog } from '../dialog';
-import { Modal, Toast } from '../../components/common';
+import { Modal } from '../../components/common';
 import { EditBox, UserInfoItem } from '../../components/myPage';
 import { MonsterThumbnailWrapper } from '../../components/monster';
 
@@ -45,10 +45,6 @@ const UserInformation = () => {
   const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
-  const [isEditToastOpen, setIsEditToastOpen] = useState(false);
-  const [isLogoutToastOpen, setIsLogoutToastOpen] = useState(false);
-  const [isCopyToastOpen, setIsCopyToastOpen] = useState(false);
-  const [deleteAccountToastOpen, setDeleteAccountToastOpen] = useState(false);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -82,11 +78,9 @@ const UserInformation = () => {
     // 흐름 5.
     document.body.removeChild(textarea);
     //console.log('복사된거 맞나', contents, textarea.value);
-    setIsCopyToastOpen(true);
   };
 
   const logoutUser = useRecoilCallback(({ set }) => () => {
-    setIsLogoutToastOpen(false);
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
     set(authState, {
@@ -235,11 +229,7 @@ const UserInformation = () => {
       </UserInfoList>
       {editModalType && (
         <Modal open={!!editModalType} onClose={closeModal}>
-          <EditBox
-            type={editModalType}
-            closeModal={closeModal}
-            activeToast={setIsEditToastOpen}
-          />
+          <EditBox type={editModalType} closeModal={closeModal} />
         </Modal>
       )}
       {isLogoutModalOpen && (
@@ -269,33 +259,12 @@ const UserInformation = () => {
             description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
             activeButtonText="탈퇴하기"
             onActive={() => {
-              setDeleteAccountToastOpen(true);
               deleteUserAccount();
             }}
             onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
       )}
-      <Toast
-        isActive={isCopyToastOpen}
-        setIsActive={setIsCopyToastOpen}
-        text="클립보드에 복사되었습니다!"
-      />
-      <Toast
-        isActive={isLogoutToastOpen}
-        setIsActive={setIsLogoutToastOpen}
-        text="로그아웃 되었습니다!"
-      />
-      <Toast
-        isActive={isEditToastOpen}
-        setIsActive={setIsEditToastOpen}
-        text="변경 되었습니다!"
-      />
-      <Toast
-        isActive={deleteAccountToastOpen}
-        setIsActive={setDeleteAccountToastOpen}
-        text="탈퇴는 못참지"
-      />
     </>
   );
 };

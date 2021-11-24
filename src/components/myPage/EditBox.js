@@ -16,7 +16,7 @@ import {
 } from '../../constants/statusMessage';
 
 // 기존에 UserInformation에서 props로 넘겨받는 값 editValue, handleChangeValue를 editBox 내부로 옮겨옴
-const EditBox = ({ type, closeModal, activeToast }) => {
+const EditBox = ({ type, closeModal }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
   const [editValue, setEditValue] = useState('');
@@ -59,7 +59,6 @@ const EditBox = ({ type, closeModal, activeToast }) => {
         }
 
         closeModal();
-        activeToast(true);
       }
     } catch (err) {
       console.error(err);
@@ -138,7 +137,6 @@ EditBox.propTypes = {
   handleChangeValue: PropTypes.func.isRequired,
   pageTitleText: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
-  activeToast: PropTypes.func.isRequired,
 };
 
 export default EditBox;

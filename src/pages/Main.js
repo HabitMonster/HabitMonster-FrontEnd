@@ -15,8 +15,8 @@ import { Modal } from '../components/common';
 
 const Main = () => {
   const history = useHistory();
-  const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
   const monster = useRecoilValue(monsterState);
+  const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
   const [changeModalOpen, setChangeModalOpen] = useRecoilState(
     monsterChangeTogglerState,
   );
