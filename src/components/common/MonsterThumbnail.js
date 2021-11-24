@@ -27,4 +27,9 @@ MonsterThumbnail.propTypes = {
   height: PropTypes.string,
 };
 
+MonsterThumbnail.defaultProps = {
+  width: '100%',
+  height: '100%',
+};
+
 export default MonsterThumbnail;

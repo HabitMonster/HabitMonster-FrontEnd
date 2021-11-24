@@ -45,6 +45,7 @@ instance.interceptors.response.use(
       // window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
       // setMoveToLoginPage();
       // window.location.href = '/';
+      console.log(responseData, 'line 48');
       return Promise.reject(error);
     }
 
@@ -52,12 +53,14 @@ instance.interceptors.response.use(
       if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
         // window.alert(ACCESS_TOKEN_SIGNATURE_EXCEPTION);
         // setMoveToLoginPage();
+        console.log(responseData, 'line 56');
         return Promise.reject(error);
       }
 
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
         // window.alert(ACCESS_TOKEN_MALFORMED);
         // setMoveToLoginPage();
+        console.log(responseData, 'line 63');
         return Promise.reject(error);
       }
     }
@@ -66,6 +69,7 @@ instance.interceptors.response.use(
       responseData.statusCode === BAD_REQUEST &&
       responseData.responseMessage === ACCESS_TOKEN_EXPIRED
     ) {
+      console.log(responseData, 'line 72');
       // window.alert(ACCESS_TOKEN_EXPIRED);
 
       try {
@@ -112,6 +116,7 @@ instance.interceptors.response.use(
           if (error.response.data.responseMessage === REFRESH_TOKEN_MALFORMED) {
             // window.alert(REFRESH_TOKEN_MALFORMED);
             // setMoveToLoginPage();
+            console.log(error.response.data, 'line 119');
             return Promise.reject(error);
           }
         }
@@ -120,11 +125,13 @@ instance.interceptors.response.use(
         //   'Unexpected Token Error Occured. Press OK to Move to Login Page.',
         // );
         // setMoveToLoginPage();
+        console.log(error.response.data, 'line 127');
         return Promise.reject(error);
       }
     }
 
     if (error.response.data.statusCode === NOT_FOUND) {
+      console.log(error.response.data, 'line 134');
       return Promise.reject(error);
     }
 
@@ -132,6 +139,7 @@ instance.interceptors.response.use(
       // window.alert(INTERNAL_SERVER_ERROR);
       // setMoveToLoginPage();
       // window.location.href = '/';
+      console.log(error.response.data, 'line 142');
       return Promise.reject(error);
     }
 
@@ -141,6 +149,7 @@ instance.interceptors.response.use(
     // const err = new Error();
     // err.statusCode = error.response.data.statusCode;
     // err.message = error.response.data.responseMessage;
+    console.log(error.response.data, 'line 152');
     return Promise.reject(error);
   },
 );
