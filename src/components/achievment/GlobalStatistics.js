@@ -6,53 +6,37 @@ import { statisticApi } from '../../api';
 import { GlobalListItem } from './';
 
 const GlobalStatistics = () => {
-  //const [statisticList, setStatisticList] = useState([]);
+  const [statisticList, setStatisticList] = useState([]);
 
-  // const getGlobalStatistic = useCallback(async () => {
-  //   try {
-  //     const { data } = await statisticApi.getGlobalStatistics();
-  //     if (data.status === 200) {
-  //       console.log('globalData', data);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
+  const getGlobalStatistic = useCallback(async () => {
+    try {
+      const { data } = await statisticApi.getGlobalStatistics();
+      if (data.statusCode === 200) {
+        console.log('globalData', data);
+        setStatisticList(data.statistics);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   getGlobalStatistic();
-  // }, [getGlobalStatistic]);
-
-  const statisticsList = [
-    {
-      content: '가장 많은 감점을 받은 카테고리는?',
-      value: '관계',
-    },
-    {
-      content: '지난 달 성공된 습관의 총 개수',
-      value: '144',
-    },
-    {
-      content: '지난 달 운동 카테고리의 평균 성공률',
-      value: '50%',
-    },
-    {
-      content: '지난 달 가장 많이 선택된 카테고리는?',
-      value: '기타',
-    },
-    {
-      content: '사람들이 평균적으로 유지하고 있는 습관 수',
-      value: '16',
-    },
-  ];
+  useEffect(() => {
+    getGlobalStatistic();
+  }, [getGlobalStatistic]);
 
   return (
     <GlobalContainer>
       <GlobalStatisticList>
-        {statisticsList.map((data) => {
-          return <GlobalListItem key={data.value} data={data} />;
-        })}
+        {statisticList?.length >= 0 &&
+          statisticList.map((data) => {
+            return <GlobalListItem key={data.value} data={data} />;
+          })}
       </GlobalStatisticList>
+      {statisticList?.length === null && (
+        <EmptyPlace>
+          <p>Global Statistics is Empty!</p>
+        </EmptyPlace>
+      )}
     </GlobalContainer>
   );
 };
@@ -69,4 +53,18 @@ const GlobalStatisticList = styled.ul`
   color: var(--color-primary);
   margin: 0;
   padding: 0;
+`;
+
+const EmptyPlace = styled.div`
+  height: calc(100% - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & p {
+    color: var(--color-primary);
+    opacity: 0.6;
+    font-size: var(--font-xs);
+    line-height: 21px;
+    font-weight: var(--weight-semi-regular);
+  }
 `;
