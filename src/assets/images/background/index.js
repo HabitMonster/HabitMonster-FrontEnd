@@ -1,5 +1,4 @@
 import webBackground from './web2.png';
-import webAppBackground from './web.png';
 import cloudBackground from './web3.png';
 import clayPhone from './clay.png';
 
@@ -10,7 +9,6 @@ import clayPhone from './clay.png';
 const background = {
   1: webBackground,
   2: clayPhone,
-  3: webAppBackground,
   4: cloudBackground,
 };
 

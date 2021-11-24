@@ -40,24 +40,24 @@ instance.interceptors.response.use(
 
   async (error) => {
     const { data: responseData, config: originalRequest } = error.response;
-    console.log(responseData);
+    // console.log(responseData);
     if (responseData.status === INTERNAL_SERVER_ERROR) {
-      window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
+      // window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
       // setMoveToLoginPage();
-      window.location.href = '/';
+      // window.location.href = '/';
       return Promise.reject(error);
     }
 
     if (responseData.statusCode === UNAUTHORIZED) {
       if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
-        window.alert(ACCESS_TOKEN_SIGNATURE_EXCEPTION);
-        setMoveToLoginPage();
+        // window.alert(ACCESS_TOKEN_SIGNATURE_EXCEPTION);
+        // setMoveToLoginPage();
         return Promise.reject(error);
       }
 
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
-        window.alert(ACCESS_TOKEN_MALFORMED);
-        setMoveToLoginPage();
+        // window.alert(ACCESS_TOKEN_MALFORMED);
+        // setMoveToLoginPage();
         return Promise.reject(error);
       }
     }
@@ -66,7 +66,7 @@ instance.interceptors.response.use(
       responseData.statusCode === BAD_REQUEST &&
       responseData.responseMessage === ACCESS_TOKEN_EXPIRED
     ) {
-      window.alert(ACCESS_TOKEN_EXPIRED);
+      // window.alert(ACCESS_TOKEN_EXPIRED);
 
       try {
         const { data } = await axios({
@@ -81,12 +81,12 @@ instance.interceptors.response.use(
         });
 
         if (data.statusCode === OK) {
-          window.alert(
-            'AccessToken Reissued Successfully. Press OK to Continue.',
-          );
+          // window.alert(
+          //   'AccessToken Reissued Successfully. Press OK to Continue.',
+          // );
           window.localStorage.setItem('habitAccessToken', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
-          window.alert('Resend Original Request. Press OK to Continue.');
+          // window.alert('Resend Original Request. Press OK to Continue.');
           return axios(originalRequest);
         }
       } catch (error) {
@@ -94,8 +94,8 @@ instance.interceptors.response.use(
           error.response.data.statusCode === BAD_REQUEST &&
           error.response.data.responseMessage === REFRESH_TOKEN_EXPIRED
         ) {
-          window.alert(REFRESH_TOKEN_EXPIRED);
-          setMoveToLoginPage();
+          // window.alert(REFRESH_TOKEN_EXPIRED);
+          // setMoveToLoginPage();
           return Promise.reject(error);
         }
 
@@ -104,22 +104,22 @@ instance.interceptors.response.use(
             error.response.data.responseMessage ===
             REFRESH_TOKEN_SIGNATURE_EXCEPTION
           ) {
-            window.alert(REFRESH_TOKEN_SIGNATURE_EXCEPTION);
-            setMoveToLoginPage();
+            // window.alert(REFRESH_TOKEN_SIGNATURE_EXCEPTION);
+            // setMoveToLoginPage();
             return Promise.reject(error);
           }
 
           if (error.response.data.responseMessage === REFRESH_TOKEN_MALFORMED) {
-            window.alert(REFRESH_TOKEN_MALFORMED);
-            setMoveToLoginPage();
+            // window.alert(REFRESH_TOKEN_MALFORMED);
+            // setMoveToLoginPage();
             return Promise.reject(error);
           }
         }
 
-        window.alert(
-          'Unexpected Token Error Occured. Press OK to Move to Login Page.',
-        );
-        setMoveToLoginPage();
+        // window.alert(
+        //   'Unexpected Token Error Occured. Press OK to Move to Login Page.',
+        // );
+        // setMoveToLoginPage();
         return Promise.reject(error);
       }
     }
@@ -129,18 +129,19 @@ instance.interceptors.response.use(
     }
 
     if (error.response.data.statusCode === INTERNAL_SERVER_ERROR) {
-      window.alert(INTERNAL_SERVER_ERROR);
+      // window.alert(INTERNAL_SERVER_ERROR);
       // setMoveToLoginPage();
-      window.location.href = '/';
+      // window.location.href = '/';
       return Promise.reject(error);
     }
 
-    window.alert('Unexpected Error Occured. Please Check Your Console.');
-    console.log(error.response.data);
+    // window.alert('Unexpected Error Occured. Please Check Your Console.');
+    // console.log(error.response.data);
 
     // const err = new Error();
     // err.statusCode = error.response.data.statusCode;
     // err.message = error.response.data.responseMessage;
+    return Promise.reject(error);
   },
 );
 
