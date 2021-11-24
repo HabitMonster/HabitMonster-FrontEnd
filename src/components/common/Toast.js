@@ -1,30 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
 
-const Toast = ({ isActive, setIsActive, text }) => {
-  useEffect(() => {
-    if (isActive) {
-      setTimeout(() => {
-        setIsActive(false);
-      }, 3000);
-    }
-  });
-
+const Toast = ({ text, activeToast }) => {
   return (
     <>
-      {isActive ? (
-        <ToastBar active={true}>{text}</ToastBar>
-      ) : (
-        <ToastBar active={false} />
-      )}
+      <ToastBar className="ToastMessage" active={activeToast}>
+        {text}
+      </ToastBar>
     </>
   );
 };
 
 Toast.propTypes = {
-  isActive: PropTypes.bool.isRequired,
-  setIsActive: PropTypes.func.isRequired,
+  activeToast: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
 };
 
@@ -54,12 +43,13 @@ const ToastBar = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 235px;
+  width: 100%;
+  max-width: 235px;
   font-family: var(--font-name-apple);
   font-size: var(--font-xs);
   border-radius: var(--border-radius-semi);
-  color: var(--color-white);
-  background-color: var(--color-title);
+  color: var(--bg-active);
+  background-color: var(--bg-toast);
   padding: 12px 20px;
   margin-left: auto;
   margin-right: auto;

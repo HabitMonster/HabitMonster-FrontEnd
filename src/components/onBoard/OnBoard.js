@@ -21,66 +21,62 @@ const OnBoard = () => {
   const history = useHistory();
 
   return (
-    <>
-      <OnBoardContainer>
-        <TitleContainer>
-          <TitleWrapper>
-            <Title>Habit</Title>
-            <Title>Monster</Title>
-          </TitleWrapper>
-          <Swiper
-            className="banner"
-            initialSlide={0}
-            style={{
-              width: '100%',
-              maxWidth: '320px',
-            }}
-            navigation
-            pagination={{
-              clickable: true,
-            }}
-          >
-            <SwiperSlide>
-              <SubTitleBox>
-                <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
-              </SubTitleBox>
-              <Image bg={onboard01} className="first-image" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SubTitleBox>
-                <SubTitle>몬스터가 어떻게 변할지 궁굼하지 않으신가요?</SubTitle>
-              </SubTitleBox>
-              <Image bg={onboard02} className="second-image" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SubTitleBox>
-                <SubTitle className="doubleLine">
-                  진화하는 몬스터와 함께
-                </SubTitle>
-                <SubTitle className="doubleLine">
-                  변화 될 당신의 모습도 궁굼하군요!
-                </SubTitle>
-              </SubTitleBox>
-              <Image bg={onboard03} className="third-image" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SubTitleBox>
-                <SubTitle>지금 당장 해빗몬스터와 시작해볼까요?</SubTitle>
-              </SubTitleBox>
-              <Image bg={onboard04} className="fourth-image" />
-            </SwiperSlide>
-          </Swiper>
-        </TitleContainer>
-        <BottomFixedButton
-          text="시작하기"
-          condition={null}
-          onClick={() => {
-            window.localStorage.setItem('isOnboarding', false);
-            history.replace('/login');
+    <OnBoardContainer>
+      <TitleContainer>
+        <TitleWrapper>
+          <Title>Habit</Title>
+          <Title>Monster</Title>
+        </TitleWrapper>
+        <Swiper
+          className="banner"
+          initialSlide={0}
+          style={{
+            width: '100%',
+            maxWidth: '320px',
           }}
-        />
-      </OnBoardContainer>
-    </>
+          navigation
+          pagination={{
+            clickable: true,
+          }}
+        >
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle>몬스터와 함께하는 새로운 습관의 시작!</SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard01} className="first-image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle>몬스터가 어떻게 변할지 궁굼하지 않으신가요?</SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard02} className="second-image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle className="doubleLine">진화하는 몬스터와 함께</SubTitle>
+              <SubTitle className="doubleLine">
+                변화 될 당신의 모습도 궁굼하군요!
+              </SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard03} className="third-image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <SubTitleBox>
+              <SubTitle>지금 당장 해빗몬스터와 시작해볼까요?</SubTitle>
+            </SubTitleBox>
+            <Image bg={onboard04} className="fourth-image" />
+          </SwiperSlide>
+        </Swiper>
+      </TitleContainer>
+      <BottomFixedButton
+        text="시작하기"
+        condition={null}
+        onClick={() => {
+          window.localStorage.setItem('isOnboarding', false);
+          history.replace('/login');
+        }}
+      />
+    </OnBoardContainer>
   );
 };
 

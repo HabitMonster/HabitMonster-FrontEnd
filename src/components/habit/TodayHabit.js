@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
 
+import { Toast } from '../common';
+
 import { habitStateWithId } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
-import { setFormattedDuration } from '../../utils/setFormatDuration';
-import CategoryImage from '../../assets/images/habit';
 
 import { mainApis, habitApis } from '../../api';
+import { setFormattedDuration } from '../../utils/setFormatDuration';
 import { miniDebounce } from '../../utils/event';
+
 import { OK } from '../../constants/statusCode';
-import { Toast } from '../common';
+import CategoryImage from '../../assets/images/habit';
 
 const TodayHabit = ({ id }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
   const [active, setActive] = useState(false);
-  // const [activeToast, setActiveToast] = useState(false);
+  const [activeToast, setActiveToast] = useState(false);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -28,6 +30,14 @@ const TodayHabit = ({ id }) => {
   );
 
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
+
+  useEffect(() => {
+    if (activeToast) {
+      setTimeout(() => {
+        setActiveToast(false);
+      }, 2500);
+    }
+  }, [activeToast]);
 
   const clickHandler = miniDebounce(async () => {
     setActive((prev) => !prev);
@@ -41,10 +51,9 @@ const TodayHabit = ({ id }) => {
         setHabitDetail(data.habit);
 
         if (data.habit.isAccomplished) {
-          // setActiveToast(true);
+          setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
-
             setTimeout(() => {
               setMonster(data.monster);
             }, 500);
@@ -93,13 +102,12 @@ const TodayHabit = ({ id }) => {
           {habitDetail.isAccomplished ? '완료' : '완료하기'}
         </CheckBtn>
       </Card>
-      {/* {activeToast && (
+      {activeToast && (
         <Toast
-          isActive={activeToast}
-          setIsActive={setActiveToast}
-          text="오늘의 습관 하나를 완료했어요!🎉"
+          activeToast={activeToast}
+          text="오늘의 습관 하나를 완료했어요!"
         />
-      )} */}
+      )}
     </>
   );
 };
