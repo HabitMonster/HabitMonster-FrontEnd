@@ -47,7 +47,7 @@ const OnBoard = () => {
           </SwiperSlide>
           <SwiperSlide>
             <SubTitleBox>
-              <SubTitle>몬스터가 어떻게 변할지 궁굼하지 않으신가요?</SubTitle>
+              <SubTitle>몬스터가 어떻게 변할지 궁금하지 않으신가요?</SubTitle>
             </SubTitleBox>
             <Image bg={onboard02} className="second-image" />
           </SwiperSlide>
