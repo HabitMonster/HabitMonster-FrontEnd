@@ -67,13 +67,12 @@ const PrivateTextWrap = styled.div`
 
   & > svg {
     display: block;
-
     margin-left: 8px;
   }
 `;
 
 const CopyWrap = styled.div`
-  padding-left: 13px;
+  padding-left: 8px;
   cursor: pointer;
 `;
 

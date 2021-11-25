@@ -10,8 +10,8 @@ const NoticeItem = ({ notice, active, onToggle }) => {
   const { title, createdAt, id } = notice;
   const contentArea = useRef();
 
-  // console.log('contentArea', contentArea?.current?.scrollHeight);
-  // console.log('contentAreaPadding', contentArea?.current?.style?.padding);
+  console.log('contentArea', contentArea?.current?.scrollHeight);
+  console.log('contentAreaPadding', contentArea?.current?.style?.padding);
 
   return (
     <NotiListItem active={active}>
@@ -78,7 +78,7 @@ const ToggleButton = styled.button`
 const ContentsWrap = styled.div`
   background-color: var(--bg-primary);
   height: ${({ active, contentArea }) =>
-    active ? `${contentArea.current.scrollHeight}px` : '0px'};
+    active ? `${contentArea.current.scrollHeight + 20}px` : '0px'};
   overflow: hidden;
   transition: all 0.35s;
 `;
