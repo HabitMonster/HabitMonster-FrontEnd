@@ -104,7 +104,7 @@ const UserSearchSection = () => {
   return (
     <>
       <Header>
-        <BackButtonHeader onButtonClick={() => history.goBack()}>
+        <BackButtonHeader onButtonClick={() => history.replace('/')}>
           <InputSection>
             <SearchInput
               type="text"
