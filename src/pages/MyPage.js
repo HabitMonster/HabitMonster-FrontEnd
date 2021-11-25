@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Gnb } from '../components/gnb';
 import { UserInformation } from '../components/myPage';
 import { MonsterCollection } from '../components/achievment';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const MyPage = () => {
   return (
@@ -46,13 +47,7 @@ const AcheiveContainer = styled.div`
   height: calc(100% - 80px);
   padding-bottom: 64px;
   overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  ${disappearScrollbar()};
 `;
 
 const NavButtonWrap = styled.ul`

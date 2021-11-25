@@ -1,25 +1,24 @@
 import React, { useRef, useEffect, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { lazy } from '@loadable/component';
+
 import Loading from '../pages/Loading';
 import ErrorLog from './ErrorLog';
-
-const PrivateRoute = lazy(() => import('./PrivateRoute'));
-const Login = lazy(() => import('../pages/Login'));
-const Main = lazy(() => import('../pages/Main'));
-const Achievement = lazy(() => import('../pages/Achievement'));
-const New = lazy(() => import('../pages/New'));
-const MyPage = lazy(() => import('../pages/MyPage'));
-const HabitDetail = lazy(() => import('../pages/HabitDetail'));
-const HabitEdit = lazy(() => import('../pages/HabitEdit'));
-const Notice = lazy(() => import('../pages/Notice'));
-const Follow = lazy(() => import('../pages/Follow'));
-const Select = lazy(() => import('../pages/Select'));
-const Search = lazy(() => import('../pages/Search'));
-const SearchDetail = lazy(() => import('../pages/SearchDetail'));
-const SearchDetailHabit = lazy(() => import('../pages/SearchDetailHabit'));
-const SearchDetailFollow = lazy(() => import('../pages/SearchDetailFollow'));
+import PrivateRoute from '../components/PrivateRoute';
+import Login from '../pages/Login';
+import Main from '../pages/Main';
+import Achievement from '../pages/Achievement';
+import New from '../pages/New';
+import MyPage from '../pages/MyPage';
+import HabitDetail from '../pages/HabitDetail';
+import HabitEdit from '../pages/HabitEdit';
+import Notice from '../pages/Notice';
+import Follow from '../pages/Follow';
+import Select from '../pages/Select';
+import Search from '../pages/Search';
+import SearchDetail from '../pages/SearchDetail';
+import SearchDetailHabit from '../pages/SearchDetailHabit';
+import SearchDetailFollow from '../pages/SearchDetailFollow';
 
 function App() {
   const r = useRef(1);

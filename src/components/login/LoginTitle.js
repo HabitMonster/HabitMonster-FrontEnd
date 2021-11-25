@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { loginMonster } from '../../assets/images/login';
+import { onboard01 } from '../../assets/images/onboard';
 
 const LoginTitle = () => {
   return (
@@ -41,10 +40,11 @@ const Image = styled.div`
   height: 129px;
   margin: 0 auto;
   margin-bottom: 24px;
-  background-image: url(${loginMonster});
+  background-image: url(${onboard01});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 0.5;
 `;
 
 const SubTitle = styled.p`

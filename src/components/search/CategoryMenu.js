@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const CategoryMenu = ({ categorization, classHandler }) => {
   const categoryList = [
@@ -53,9 +54,7 @@ const CategorySection = styled.section`
   border-collapse: collapse;
   box-sizing: border-box;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${disappearScrollbar()};
 `;
 
 const Menu = styled.div`

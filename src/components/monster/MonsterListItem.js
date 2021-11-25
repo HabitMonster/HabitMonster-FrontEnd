@@ -86,12 +86,13 @@ MonsterListItem.propTypes = {
   handleRelationship: PropTypes.func,
 };
 
-const MonsterListItemWrap = styled.li`
+export const MonsterListItemWrap = styled.li`
   height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
+  cursor: pointer;
 `;
 
 const ProfileWrap = styled.div`

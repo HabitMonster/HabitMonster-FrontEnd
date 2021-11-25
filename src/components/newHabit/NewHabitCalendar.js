@@ -29,13 +29,7 @@ const NewHabitCalendar = ({ onClick }) => {
     convertYMD(startDate).split('-').slice(0, 2).join('-');
 
   const movePreviousMonth = () => {
-    const previousMonth = getPreviousMonth(startDateOfCurrentMonth).split(
-      '-',
-    )[1];
-    const currentMonth = convertYMD(today).split('-')[1];
-    setStartDate(
-      new Date(previousMonth === currentMonth ? today : previousMonth),
-    );
+    setStartDate(new Date(getPreviousMonth(startDateOfCurrentMonth)));
   };
 
   const moveNextMonth = () =>

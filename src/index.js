@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import DeviceDetector from './components/DeviceDetector';
+import reportWebVitals from './reportWebVitals';
 import App from './components/App';
 
 import { GlobalStyle } from './styles/';
@@ -18,3 +19,7 @@ ReactDOM.render(
   </RecoilRoot>,
   document.getElementById('root'),
 );
+
+if (process.env.NODE_ENV === 'development') {
+  reportWebVitals(console.log);
+}

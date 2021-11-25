@@ -1,6 +1,6 @@
-import webBackground from './web2.png';
-import cloudBackground from './web3.png';
-import clayPhone from './clay.png';
+import webBackground from './web2.webp';
+import cloudBackground from './web3.webp';
+import clayPhone from './clay.webp';
 
 // 프로퍼티 키 목록
 // 1: 웹 배경화면

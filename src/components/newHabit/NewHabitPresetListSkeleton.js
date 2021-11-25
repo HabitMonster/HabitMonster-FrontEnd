@@ -22,7 +22,7 @@ const NewHabitPresetListSkeleton = () => {
           </SkeletonPresetItem>
         ))}
       </Inner>
-      <BottomFixedButton text="저장하기" />
+      <BottomFixedButton onClick={() => {}} text="저장하기" />
     </Wrapper>
   );
 };
