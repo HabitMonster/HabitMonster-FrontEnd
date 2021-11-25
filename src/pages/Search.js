@@ -12,109 +12,10 @@ import {
   UserSearchSection,
 } from '../components/search';
 
-import { BackButtonHeader, NonePlaceHolder } from '../components/common';
-import { miniDebounce } from '../utils/event';
-
-import { useDebounceInput } from '../hooks';
-
 const Search = () => {
-  const history = useHistory();
-  // const { path } = useRouteMatch();
-
-  const [monsterCode, debouncedMonsterCode, handleMonsterCodeChange] =
-    useDebounceInput('', 1000);
-  console.log(monsterCode);
-  console.log(debouncedMonsterCode);
-
-  // const [monsterCode, setMonsterCode] = useState('');
-  // const [debouncedMonsterCode, setDebouncedMonsterCode] = useState('');
-  // const [searchResult, setSearchResult] = useState(null);
-  // const [isFail, setIsFail] = useState(null);
-
-  // const debounceChange = useCallback(
-  //   miniDebounce(function (nextValue) {
-  //     setDebouncedMonsterCode(nextValue);
-  //   }, 600),
-  //   [setDebouncedMonsterCode],
-  // );
-
-  // useEffect(() => {
-  //   const queryUser = async () => {
-  //     if (!debouncedMonsterCode || debouncedMonsterCode.length < 6) {
-  //       setDebouncedMonsterCode('');
-  //       return;
-  //     }
-  //     try {
-  //       const { data } = await userApis.searchUser(debouncedMonsterCode);
-  //       setSearchResult(null);
-
-  //       if (
-  //         data.statusCode === BAD_REQUEST &&
-  //         data.responseMessage === NOT_FOUND_USER_VIA_MONSTER_CODE
-  //       ) {
-  //         setIsFail(true);
-  //         return;
-  //       }
-  //       setSearchResult(data.userInfo);
-  //       setIsFail(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   queryUser();
-  // }, [debouncedMonsterCode]);
-
   return (
     <Wrapper>
       <UserSearchSection />
-      <BackButtonWrapper>
-        <BackButtonHeader onButtonClick={() => history.replace('/')}>
-          <SearchInput
-            type="text"
-            value={monsterCode}
-            // onChange={(e) => {
-            //   setIsFail(false);
-            //   setSearchResult(null);
-            //   setMonsterCode(e.target.value);
-            //   debounceChange(e.target.value);
-            // }}
-            onChange={handleMonsterCodeChange}
-            placeholder="몬스터 코드를 입력하세요"
-          />
-          {/* {monsterCode && (
-            <CancelButton
-              onClick={() => {
-                setMonsterCode('');
-                setDebouncedMonsterCode('');
-                setIsFail(null);
-              }}
-            >
-              <div>
-                <div></div>
-                <div></div>
-              </div>
-            </CancelButton>
-          )} */}
-        </BackButtonHeader>
-      </BackButtonWrapper>
-      {/* {isFail && (
-        <SearchFailSection>
-          <NonePlaceHolder>
-            <span>검색한 유저를 찾지 못했어요</span>
-          </NonePlaceHolder>
-        </SearchFailSection>
-      )}
-      {searchResult && (
-        <ul>
-          <MonsterListItem
-            nickName={searchResult.nickName}
-            monsterCode={searchResult.monsterCode}
-            isFollowed={searchResult.isFollowed}
-            monsterId={searchResult.monsterId}
-            path={`${path}/${searchResult.monsterCode}`}
-          />
-        </ul>
-      )} */}
       <Suspense fallback={<RecommendedUserSectionSkeleton />}>
         <RecommendedUserSection />
       </Suspense>
@@ -127,6 +28,13 @@ const Wrapper = styled.section`
   height: 100%;
   position: relative;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 const BackButtonWrapper = styled.div`
   margin: 24px 0;

@@ -24,5 +24,5 @@ export default function useDebounceInput(initialState, wait) {
     [debounceChange],
   );
 
-  return [value, debouncedValue, onValueChange];
+  return [value, debouncedValue, onValueChange, setValue];
 }
