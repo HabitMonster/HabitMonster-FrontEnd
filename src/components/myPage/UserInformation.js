@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
 
@@ -36,6 +36,8 @@ const UserInformation = () => {
   const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+
+  const test = useRef(null);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -164,7 +166,7 @@ const UserInformation = () => {
 
   return (
     <>
-      <UserInfoWrap>
+      <UserInfoWrap ref={test}>
         <MonsterThumbnailWrapper
           isProfile={true}
           thumbnailSize="small"

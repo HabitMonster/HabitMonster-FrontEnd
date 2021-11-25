@@ -1,10 +1,10 @@
-import emotion from './emotion.png';
-import etc from './etc.png';
-import health from './health.png';
-import hobby from './hobby.png';
-import life from './life.png';
-import relationship from './relationship.png';
-import study from './study.png';
+import emotion from './emotion.webp';
+import etc from './etc.webp';
+import health from './health.webp';
+import hobby from './hobby.webp';
+import life from './life.webp';
+import relationship from './relationship.webp';
+import study from './study.webp';
 
 const presets = {
   Emotion: {
