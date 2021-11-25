@@ -82,8 +82,13 @@ const GlobalStyle = createGlobalStyle`
       height: -webkit-fill-available;
     }
     body {
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
+      /* min-height: 100vh; */
+      /* min-height: -webkit-fill-available; */
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+      height: -webkit-fill-available;
+      overflow: hidden;
+      touch-action: none;
     }
 
     body {

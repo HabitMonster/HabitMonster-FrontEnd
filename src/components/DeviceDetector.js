@@ -27,8 +27,10 @@ const Layout = styled.div`
   width: 100%;
   max-width: 414px;
   min-width: 280px;
-  height: 100%;
-  max-height: 100vh;
+  /* height: 100%; */
+  /* max-height: 100vh; */
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
 `;
 
@@ -66,7 +68,9 @@ const ClayPhone = styled.div`
 
 const WebBackgroundWrapper = styled.div`
   width: 100vw;
+
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   background: url(${backgroundSrcs[4]}) no-repeat fixed;
   -webkit-background-size: cover;

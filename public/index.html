@@ -1,32 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="id=edge" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="%REACT_APP_GOOGLE_CLIENT_ID%"
+    />
+    <meta name="apple-mobile-web-app-title" content="[Habit Monster]" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link
+      rel="manifest"
+      crossorigin="use-credentials"
+      href="%PUBLIC_URL%/manifest.json"
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="X-UA-Compatible" content="id=edge" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <meta name="google-signin-client_id" content="%REACT_APP_GOOGLE_CLIENT_ID%" />
-  <meta name="apple-mobile-web-app-title" content="[Habit Monster]" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <link rel="manifest" crossorigin="use-credentials" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="green192x192.png" />
 
-  <link rel="apple-touch-icon" href="green192x192.png" />
+    <link rel="stylesheet" href="index.css" />
+    <base href="./" />
+    <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
+      charset="utf-8"
+    ></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>Habit Monster</title>
+  </head>
 
-  <link rel="stylesheet" href="index.css" />
-  <base href="./" />
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
-    charset="utf-8"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <title>Habit Monster</title>
-</head>
-
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-</body>
-
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      window.addEventListener('resize', () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      });
+      window.addEventListener('touchend', () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      });
+    </script>
+  </body>
 </html>
