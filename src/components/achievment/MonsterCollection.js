@@ -77,6 +77,7 @@ const MonsterCollection = () => {
 const Wrapper = styled.div`
   padding-left: 24px;
   position: relative;
+  height: 100%;
 `;
 
 const EachCollectionWrapper = styled.div`
