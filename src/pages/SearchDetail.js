@@ -10,6 +10,7 @@ import { setFormattedDuration } from '../utils/setFormatDuration';
 import CategoryImage from '../assets/images/habit';
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
@@ -193,9 +194,7 @@ const HabitSection = styled.section`
   border-radius: var(--border-radius-semi);
   overflow-y: scroll;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${disappearScrollbar()};
 `;
 
 const HabitList = styled.div`

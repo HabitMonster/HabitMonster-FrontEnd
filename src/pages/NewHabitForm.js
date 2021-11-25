@@ -19,6 +19,7 @@ import { BackButtonHeader, BottomFixedButton } from '../components/common';
 
 import { OK } from '../constants/statusCode';
 import { addHabitApis } from '../api';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const NewHabitForm = () => {
   const history = useHistory();
@@ -45,8 +46,6 @@ const NewHabitForm = () => {
     duration.end &&
     practiceDays &&
     frequency;
-
-  console.log(broughtHabitState);
 
   const handleSaveButtonClick = async () => {
     const body = {
@@ -142,12 +141,7 @@ const Wrapper = styled.div`
   background: var(--bg-wrapper);
   overflow-y: scroll;
   padding-bottom: 120px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  ${disappearScrollbar()};
 `;
 
 const Inner = styled.div`

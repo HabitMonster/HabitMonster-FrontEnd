@@ -1,16 +1,13 @@
-import React, { useEffect, useState, useCallback, Suspense } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
-
-import { userApis } from '../api/user';
-import { BAD_REQUEST } from '../constants/statusCode';
-import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../constants/statusMessage';
 
 import {
   RecommendedUserSection,
   RecommendedUserSectionSkeleton,
   UserSearchSection,
 } from '../components/search';
+
+import { disappearScrollbar } from '../styles/Mixin';
 
 const Search = () => {
   return (
@@ -29,12 +26,7 @@ const Wrapper = styled.section`
   position: relative;
   overflow-y: scroll;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  ${disappearScrollbar()};
 `;
 const BackButtonWrapper = styled.div`
   margin: 24px 0;
