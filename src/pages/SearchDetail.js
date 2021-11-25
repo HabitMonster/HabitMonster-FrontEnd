@@ -155,7 +155,7 @@ const Container = styled.div`
 
 const Header = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   height: 68px;
   background: #1e135c;
