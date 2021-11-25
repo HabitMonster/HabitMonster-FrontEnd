@@ -68,12 +68,6 @@ const AvatarContainer = styled.div`
   padding-top: 80px;
   padding-bottom: 128px;
   overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 `;
 
 const ThumbnailWrap = styled.div`

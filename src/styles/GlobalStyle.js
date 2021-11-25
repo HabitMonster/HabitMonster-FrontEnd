@@ -72,6 +72,15 @@ const GlobalStyle = createGlobalStyle`
     *, *::before, *::after {
       box-sizing: border-box;
     }
+    
+    html {
+      height: -webkit-fill-available;
+    }
+    body {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+    }
+
     html, body {
       overscroll-behavior-y: contain;
     }

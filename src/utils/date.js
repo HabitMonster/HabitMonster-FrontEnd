@@ -37,6 +37,8 @@ export const getPreviousMonth = (dateString) => {
     arr[1] = `0${arr[1]}`;
   }
 
+  console.log(arr);
+
   return arr.join('-');
 };
 

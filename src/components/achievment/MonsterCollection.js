@@ -109,10 +109,6 @@ const ImageScroller = styled.div`
   flex-wrap: nowrap;
   overflow-x: auto;
   width: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const MonsterImageWrapper = styled.div`

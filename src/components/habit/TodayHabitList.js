@@ -7,6 +7,7 @@ import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { TodayHabit, NoHabitHelper } from './';
 import { miniThrottle } from '../../utils/event';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
@@ -59,13 +60,7 @@ const HabitContainer = styled.div`
 const HabitList = styled.div`
   padding-bottom: 84px;
   overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  ${disappearScrollbar()};
 `;
 
 export default TodayHabitList;

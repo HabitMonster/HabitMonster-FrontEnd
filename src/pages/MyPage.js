@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Gnb } from '../components/gnb';
 import { UserInformation } from '../components/myPage';
 import { MonsterCollection } from '../components/achievment';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const MyPage = () => {
   return (
@@ -22,21 +23,15 @@ const MyPage = () => {
             </NavButton>
           </NavButtonItem>
         </NavButtonWrap>
-        <PageContentWrap>
-          <Switch>
-            <Route
-              exact
-              path="/mypage/information"
-              component={UserInformation}
-            />
-            <Route
-              exact
-              path="/mypage/collection"
-              component={MonsterCollection}
-            />
-            <Redirect from="*" to="/mypage/information" />
-          </Switch>
-        </PageContentWrap>
+        <Switch>
+          <Route exact path="/mypage/information" component={UserInformation} />
+          <Route
+            exact
+            path="/mypage/collection"
+            component={MonsterCollection}
+          />
+          <Redirect from="*" to="/mypage/information" />
+        </Switch>
       </AcheiveContainer>
       <Gnb />
     </>
@@ -46,32 +41,22 @@ const MyPage = () => {
 export default MyPage;
 
 const AcheiveContainer = styled.div`
-  background-color: var(—bg-wrapper);
-  font-family: var(—font-name-apple);
+  background-color: var(--bg-wrapper);
+  font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 80px);
-`;
-
-const PageContentWrap = styled.div`
-  height: calc(100% - 64px);
   padding-bottom: 64px;
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-y: scroll;
+  ${disappearScrollbar()};
 `;
 
 const NavButtonWrap = styled.ul`
   background-color: var(--color-background);
-  border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
+  border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
   display: flex;
   list-style: none;
   margin: 0;
-  padding-top: 24px;
+  padding-top: 48px;
 `;
 
 const NavButtonItem = styled.li`

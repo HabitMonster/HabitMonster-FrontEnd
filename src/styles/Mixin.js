@@ -1,9 +1,5 @@
 import { css } from 'styled-components';
 
-// export const fontSize = (size) => css`
-//   font-size: ${size};
-// `;
-
 export const whiteOpacity = (degree) => css`
   color: rgba(248, 248, 248, ${degree});
 `;
@@ -18,4 +14,13 @@ export const loginBtnStyle = (colorType) => css`
   border-radius: var(--border-radius-checkBtn);
   cursor: pointer;
   font-size: var(--font-s);
+`;
+
+export const disappearScrollbar = () => css`
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
