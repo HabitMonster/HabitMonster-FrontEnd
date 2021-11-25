@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import DeviceDetector from './components/DeviceDetector';
 import reportWebVitals from './reportWebVitals';
 import App from './components/App';
@@ -23,3 +24,4 @@ ReactDOM.render(
 if (process.env.NODE_ENV === 'development') {
   reportWebVitals(console.log);
 }
+serviceWorkerRegistration.register();
