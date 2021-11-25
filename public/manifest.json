@@ -9,8 +9,10 @@
   "categories": [],
   "screenshots": [],
   "shortcuts": [],
+  "prefer_related_applications": true,
   "theme_color": "#ffffff",
   "background_color": "none",
+  "scope": "/",
   "icons": [
     {
       "src": "favicon.ico",
