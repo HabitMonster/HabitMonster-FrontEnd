@@ -86,7 +86,7 @@ MonsterListItem.propTypes = {
   handleRelationship: PropTypes.func,
 };
 
-const MonsterListItemWrap = styled.li`
+export const MonsterListItemWrap = styled.li`
   height: 80px;
   display: flex;
   justify-content: space-between;

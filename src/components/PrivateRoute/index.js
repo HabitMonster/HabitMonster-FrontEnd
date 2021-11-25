@@ -30,41 +30,47 @@ const PrivateRoute = ({ component, ...rest }) => {
   }, [setUserInfoState]);
 
   useEffect(() => {
-    console.log(
-      `%c RENDERING count: ${renderingCount.current}`,
-      'color: #f73378',
-    );
-    renderingCount.current += 1;
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        `%c RENDERING count: ${renderingCount.current}`,
+        'color: #f73378',
+      );
+      renderingCount.current += 1;
 
+      console.log(
+        '%c ----------IN THE PRIVATE ROUTE----------',
+        'background: #222; color: #00e5ff',
+      );
+    }
+  });
+
+  if (process.env.NODE_ENV === 'development') {
     console.log(
       '%c ----------IN THE PRIVATE ROUTE----------',
       'background: #222; color: #00e5ff',
     );
-  });
-
-  console.log(
-    '%c ----------IN THE PRIVATE ROUTE----------',
-    'background: #222; color: #00e5ff',
-  );
-  console.log(
-    `%c The current target is: ${component.type.name}`,
-    'color: #f73378',
-  );
-  console.log(`%c user's isLogin value: ${isLogin}`, 'color: #f73378');
-  console.log(
-    `%c user's isFirstLogin value: ${isFirstLogin}`,
-    'color: #f73378',
-  );
-  console.log(
-    `%c current location path in the privateRoute: ${location.pathname}`,
-    'color: #f73378',
-  );
-
-  if (!isLogin) {
     console.log(
-      `%c if user does not login, WE SHOULD REDIRECT TO LOGIN, CHECK THIS PRIVATE ROUTE!`,
+      `%c The current target is: ${component.type.name}`,
       'color: #f73378',
     );
+    console.log(`%c user's isLogin value: ${isLogin}`, 'color: #f73378');
+    console.log(
+      `%c user's isFirstLogin value: ${isFirstLogin}`,
+      'color: #f73378',
+    );
+    console.log(
+      `%c current location path in the privateRoute: ${location.pathname}`,
+      'color: #f73378',
+    );
+  }
+
+  if (!isLogin) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        `%c if user does not login, WE SHOULD REDIRECT TO LOGIN, CHECK THIS PRIVATE ROUTE!`,
+        'color: #f73378',
+      );
+    }
 
     return <Redirect to="/login" />;
   }
@@ -72,12 +78,14 @@ const PrivateRoute = ({ component, ...rest }) => {
   //*Important Note
   // when user CHANGE mosnter, the isFirstLogin must be true at that time.
   if (isFirstLogin && location.pathname !== '/select') {
-    console.log(
-      `%c if user DOES login but NOT SELECT MONSTER
-  and ENTER the url EXCEPT /select, WE SHOULD REDIRECT TO /select.
-  The current location is [${location.pathname}]. CHECK THIS PRIVATE ROUTE!`,
-      'color: #f73378',
-    );
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        `%c if user DOES login but NOT SELECT MONSTER
+    and ENTER the url EXCEPT /select, WE SHOULD REDIRECT TO /select.
+    The current location is [${location.pathname}]. CHECK THIS PRIVATE ROUTE!`,
+        'color: #f73378',
+      );
+    }
 
     return <Redirect to="/select" />;
   }
@@ -97,12 +105,14 @@ const PrivateRoute = ({ component, ...rest }) => {
     // !history.state
     (!location.state?.monsterLevel || !location.state?.levelOneId)
   ) {
-    console.log(
-      `%c Maybe this time, user level is under five and he/she just typed '/select' url.
-      The state should be undefined so that Program will redirect to root.
-      the current state of history is [${location.state}]`,
-      'color: #f73378',
-    );
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        `%c Maybe this time, user level is under five and he/she just typed '/select' url.
+        The state should be undefined so that Program will redirect to root.
+        the current state of history is [${location.state}]`,
+        'color: #f73378',
+      );
+    }
     return <Redirect to="/" />;
   }
 

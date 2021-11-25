@@ -22,6 +22,8 @@ import { ReactComponent as PeachBearThreeProfile } from './monster_peach_bear_lv
 import { ReactComponent as PeachBearFourProfile } from './monster_peach_bear_lv04_prf.svg';
 import { ReactComponent as PeachBearFiveProfile } from './monster_peach_bear_lv05_prf.svg';
 
+import { ReactComponent as NoMonsterImage } from './NoMonsterImage.svg';
+
 const MONSTERS_PROFILE = {
   1: AvocadoSnowmanOneProfile,
   2: AvocadoSnowmanTwoProfile,
@@ -33,21 +35,21 @@ const MONSTERS_PROFILE = {
   8: DonutRabbitThreeProfile,
   9: DonutRabbitFourProfile,
   10: DonutRabbitFiveProfile,
-  //   11: null,
-  //   12: null,
-  //   13: null,
-  //   14: null,
-  //   15: null,
+  // 11: NoMonsterImage,
+  // 12: NoMonsterImage,
+  // 13: NoMonsterImage,
+  // 14: NoMonsterImage,
+  // 15: NoMonsterImage,
   16: BananaElephantOneProfile,
   17: BananaElephantTwoProfile,
   18: BananaElephantThreeProfile,
   19: BananaElephantFourProfile,
   20: BananaElephantFiveProfile,
-  //   21: null,
-  //   22: null,
-  //   23: null,
-  //   24: null,
-  //   25: null,
+  // 21: NoMonsterImage,
+  // 22: NoMonsterImage,
+  // 23: NoMonsterImage,
+  // 24: NoMonsterImage,
+  // 25: NoMonsterImage,
   26: PeachBearOneProfile,
   27: PeachBearTwoProfile,
   28: PeachBearThreeProfile,

@@ -89,7 +89,6 @@ const Statistics = () => {
           >
             <AchieveLeft />
           </DateButton>
-
           <DateText>{currentDate}</DateText>
           <DateButton onClick={() => handleClickChangeMonth('add')}>
             <AchieveRight />

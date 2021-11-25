@@ -172,7 +172,7 @@ const MonsterLevel = styled.span`
 `;
 
 const Exp = styled.p`
-  font-family: Apple SD Gothic Neo;
+  font-family: var(--font-name-apple);
   font-size: var(--font-xxxxl);
   font-weight: var(--weight-regular);
   color: var(--color-primary);

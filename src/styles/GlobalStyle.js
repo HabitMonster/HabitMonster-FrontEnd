@@ -66,10 +66,14 @@ const GlobalStyle = createGlobalStyle`
     --bg-selected-light: #7d3cff;
     --bg-done: #000000;
     --bg-nope: #303236;
+    --bg-toast: #C5BEF4;
 
     }
     *, *::before, *::after {
       box-sizing: border-box;
+    }
+    html, body {
+      overscroll-behavior-y: contain;
     }
 
     body {

@@ -32,7 +32,7 @@ export const myFollowerListState = atom({
       get(followerListRefetchToggler);
       try {
         const { data } = await myPageApis.getFollowerList();
-        console.log('myFollowerListState', data);
+        // console.log('myFollowerListState', data);
         return data?.followers ?? [];
       } catch (error) {
         console.error('myFollowerList error', error);
@@ -50,7 +50,7 @@ export const myFollowingListState = atom({
       get(followingListRefetchToggler);
       try {
         const { data } = await myPageApis.getFollowingList();
-        console.log('myFollowingState', data);
+        // console.log('myFollowingState', data);
         return data?.followings ?? [];
       } catch (error) {
         console.error('myFollowing error', error);
@@ -96,15 +96,15 @@ export const myFollowListByType = selectorFamily({
       // followerList, followingList를 초기화 시켜주는 selectorFamily set 함수
       switch (refetchType) {
         case 'followers':
-          console.log('refetch followers');
+          // console.log('refetch followers');
           set(followerListRefetchToggler, (v) => v + 1);
           break;
         case 'following':
-          console.log('refetch following');
+          // console.log('refetch following');
           set(followingListRefetchToggler, (v) => v + 1);
           break;
         default:
-          console.log('refetch all follow list');
+          // console.log('refetch all follow list');
           set(followerListRefetchToggler, (v) => v + 1);
           set(followingListRefetchToggler, (v) => v + 1);
           break;

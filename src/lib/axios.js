@@ -40,24 +40,33 @@ instance.interceptors.response.use(
 
   async (error) => {
     const { data: responseData, config: originalRequest } = error.response;
-    console.log(responseData);
+    // console.log(responseData);
     if (responseData.status === INTERNAL_SERVER_ERROR) {
-      window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
       // setMoveToLoginPage();
-      window.location.href = '/';
+      // window.location.href = '/';
+      if (process.env.NODE_ENV === 'development') {
+        window.alert(INTERNAL_SERVER_ERROR_MESSAGE);
+        console.log(responseData, 'line 48');
+      }
       return Promise.reject(error);
     }
 
     if (responseData.statusCode === UNAUTHORIZED) {
       if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
-        window.alert(ACCESS_TOKEN_SIGNATURE_EXCEPTION);
-        setMoveToLoginPage();
+        if (process.env.NODE_ENV === 'development') {
+          window.alert(ACCESS_TOKEN_SIGNATURE_EXCEPTION);
+          console.log(responseData, 'line 56');
+        }
+        // setMoveToLoginPage();
         return Promise.reject(error);
       }
 
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
-        window.alert(ACCESS_TOKEN_MALFORMED);
-        setMoveToLoginPage();
+        if (process.env.NODE_ENV === 'development') {
+          window.alert(ACCESS_TOKEN_MALFORMED);
+          console.log(responseData, 'line 63');
+        }
+        // setMoveToLoginPage();
         return Promise.reject(error);
       }
     }
@@ -66,7 +75,10 @@ instance.interceptors.response.use(
       responseData.statusCode === BAD_REQUEST &&
       responseData.responseMessage === ACCESS_TOKEN_EXPIRED
     ) {
-      window.alert(ACCESS_TOKEN_EXPIRED);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(responseData, 'line 72');
+        window.alert(ACCESS_TOKEN_EXPIRED);
+      }
 
       try {
         const { data } = await axios({
@@ -81,12 +93,14 @@ instance.interceptors.response.use(
         });
 
         if (data.statusCode === OK) {
-          window.alert(
-            'AccessToken Reissued Successfully. Press OK to Continue.',
-          );
+          if (process.env.NODE_ENV === 'development') {
+            window.alert(
+              'AccessToken Reissued Successfully. Press OK to Continue.',
+            );
+          }
           window.localStorage.setItem('habitAccessToken', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
-          window.alert('Resend Original Request. Press OK to Continue.');
+          // window.alert('Resend Original Request. Press OK to Continue.');
           return axios(originalRequest);
         }
       } catch (error) {
@@ -94,8 +108,10 @@ instance.interceptors.response.use(
           error.response.data.statusCode === BAD_REQUEST &&
           error.response.data.responseMessage === REFRESH_TOKEN_EXPIRED
         ) {
-          window.alert(REFRESH_TOKEN_EXPIRED);
-          setMoveToLoginPage();
+          if (process.env.NODE_ENV === 'development') {
+            window.alert(REFRESH_TOKEN_EXPIRED);
+          }
+          // setMoveToLoginPage();
           return Promise.reject(error);
         }
 
@@ -104,43 +120,58 @@ instance.interceptors.response.use(
             error.response.data.responseMessage ===
             REFRESH_TOKEN_SIGNATURE_EXCEPTION
           ) {
-            window.alert(REFRESH_TOKEN_SIGNATURE_EXCEPTION);
-            setMoveToLoginPage();
+            if (process.env.NODE_ENV === 'development') {
+              window.alert(REFRESH_TOKEN_SIGNATURE_EXCEPTION);
+              // setMoveToLoginPage();
+            }
             return Promise.reject(error);
           }
 
           if (error.response.data.responseMessage === REFRESH_TOKEN_MALFORMED) {
-            window.alert(REFRESH_TOKEN_MALFORMED);
-            setMoveToLoginPage();
+            if (process.env.NODE_ENV === 'development') {
+              window.alert(REFRESH_TOKEN_MALFORMED);
+              console.log(error.response.data, 'line 119');
+            }
+            // setMoveToLoginPage();
             return Promise.reject(error);
           }
         }
 
-        window.alert(
-          'Unexpected Token Error Occured. Press OK to Move to Login Page.',
-        );
-        setMoveToLoginPage();
+        if (process.env.NODE_ENV === 'development') {
+          window.alert(
+            'Unexpected Token Error Occured. Press OK to Move to Login Page.',
+          );
+          console.log(error.response.data, 'line 127');
+          setMoveToLoginPage();
+        }
         return Promise.reject(error);
       }
     }
 
     if (error.response.data.statusCode === NOT_FOUND) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(error.response.data, 'line 134');
+      }
       return Promise.reject(error);
     }
 
     if (error.response.data.statusCode === INTERNAL_SERVER_ERROR) {
-      window.alert(INTERNAL_SERVER_ERROR);
+      if (process.env.NODE_ENV === 'development') {
+        window.alert(INTERNAL_SERVER_ERROR);
+        console.log(error.response.data, 'line 142');
+      }
       // setMoveToLoginPage();
-      window.location.href = '/';
+      // window.location.href = '/';
       return Promise.reject(error);
     }
 
-    window.alert('Unexpected Error Occured. Please Check Your Console.');
-    console.log(error.response.data);
+    // window.alert('Unexpected Error Occured. Please Check Your Console.');
+    // console.log(error.response.data);
 
-    // const err = new Error();
-    // err.statusCode = error.response.data.statusCode;
-    // err.message = error.response.data.responseMessage;
+    const err = new Error();
+    err.statusCode = error.response.data.statusCode;
+    err.message = error.response.data.responseMessage;
+    return Promise.reject(err);
   },
 );
 
