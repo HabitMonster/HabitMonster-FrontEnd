@@ -1,16 +1,12 @@
 import React, { Suspense } from 'react';
-import { lazy } from '@loadable/component';
 import { Switch, useRouteMatch, Route } from 'react-router-dom';
 
-// import NewHabitCategoryList from './NewHabitCategoryList';
+import NewHabitCategoryList from './NewHabitCategoryList';
 import NewHabitForm from './NewHabitForm';
 
 import NewHabitCategorySkeleton from '../components/newHabit/NewHabitCategorySkeleton';
 import NewHabitPresetListSkeleton from '../components/newHabit/NewHabitPresetListSkeleton';
-// import NewHabitPresetList from './NewHabitPresetList';
-
-const NewHabitCategoryList = lazy(() => import('./NewHabitCategoryList'));
-const NewHabitPresetList = lazy(() => import('./NewHabitPresetList'));
+import NewHabitPresetList from './NewHabitPresetList';
 
 const New = () => {
   const { path } = useRouteMatch();

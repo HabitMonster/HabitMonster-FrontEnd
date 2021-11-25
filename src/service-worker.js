@@ -12,13 +12,6 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-import { initializeApp } from 'firebase/app';
-import { onMessage } from 'firebase/messaging';
-import {
-  getMessaging,
-  onBackgroundMessage,
-  isSupported,
-} from 'firebase/messaging/sw';
 
 clientsClaim();
 
@@ -76,54 +69,3 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
-
-// Any other custom service worker logic can go here.
-
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_API_KEY,
-//   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-//   projectId: process.env.REACT_APP_PROJECT_ID,
-//   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-//   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-//   appId: process.env.REACT_APP_APP_ID,
-//   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
-// };
-
-// // Initialize Firebase
-// const firebaseApp = initializeApp(firebaseConfig);
-
-// // messaging 객체가 지원하는지 판단하는 메서드 isSupported() -> promise 리턴해준다.
-// isSupported().then((result) => {
-//   console.log('isSupported():: ', result);
-//   if (result) {
-//     const messaging = getMessaging(firebaseApp);
-//     console.log('messaging:: ', messaging);
-//     onMessage(messaging, (payload) => {
-//       // 앱이 포그라운드 상태일 때,
-//       // Handle incoming messages. Called when:
-//       // - a message is received while the app has focus
-//       // - the user clicks on an app notification created by a service worker
-//       //   `messaging.onBackgroundMessage` handler
-//       // Retrieve an instance of Firebase Messaging so that it can handle background messages.
-//       console.log('Message received. ', payload);
-//       // ...
-//     });
-
-//     onBackgroundMessage(messaging, (payload) => {
-//       console.log(
-//         '[firebase-messaging-sw.js] Received background message ',
-//         payload,
-//       );
-//       // Customize notification here
-//       const notificationTitle = 'Background Message Title';
-//       const notificationOptions = {
-//         body: 'Background Message body.',
-//       };
-
-//       self.registration.showNotification(
-//         notificationTitle,
-//         notificationOptions,
-//       );
-//     });
-//   }
-// });
