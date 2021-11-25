@@ -42,19 +42,21 @@ const Notice = () => {
         }}
         pageTitleText="공지사항"
       />
-      <NotiList>
-        {noticeList?.length > 0 &&
-          noticeList.map((notice, index) => {
-            return (
-              <NoticeItem
-                key={index}
-                notice={notice}
-                active={isToggleOpen === index}
-                onToggle={() => handleToggle(index)}
-              />
-            );
-          })}
-      </NotiList>
+      <NotiListWrap>
+        <NotiList>
+          {noticeList?.length > 0 &&
+            noticeList.map((notice, index) => {
+              return (
+                <NoticeItem
+                  key={index}
+                  notice={notice}
+                  active={isToggleOpen === index}
+                  onToggle={() => handleToggle(index)}
+                />
+              );
+            })}
+        </NotiList>
+      </NotiListWrap>
     </Container>
   );
 };
@@ -72,6 +74,11 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const NotiListWrap = styled.div`
+  height: calc(100% - 80px);
+  overflow-y: auto;
 `;
 
 const NotiList = styled.ul`

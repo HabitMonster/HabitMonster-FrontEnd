@@ -39,32 +39,41 @@ const NotiContent = ({ id }) => {
       <NotiBox>
         <p>여러분 다들 약속한 습관 잘 지키고 계신가요?</p>
         <p>
-          저희 팀이 여러분들의 습관을 위한 더 나은 서비스를 제공하기 위해 사용
-          경험에 대한 피드백을 받고 있지만, 피드백 작성이 손이 많이 가는 일인 것
-          같아요.
+          저희 팀은 헤빗몬스터를 이용해주시는 많은 분들께 더 나은 서비스를
+          제공하기 위해 사용 경험에 대한 피드백을 받고 있어요, 이렇게
+          작성해주시는 것이 손이 많이 가는 일인 만큼 여러분이 정성스럽게
+          작성해주신 내용을 발판삼아 저희 헤빗 몬스터는 쑥쑥 자라날거에요!
         </p>
         <p>
           그래서 저희의 감사한 마음을 담아 작은 이벤트를 준비했습니다! 피드백을
           작성해주신 분들께 추첨을 통해 저희의 마음이 담긴 선물을 드리려고
-          합니다. 참여방법은 아래 글을 참고해주세요!
+          합니다.
         </p>
-        <p>* 참여방법 첫번째!</p>
-        <p>
+        <p>참여방법은 아래 글을 참고해주세요!</p>
+        <br />
+        <ListNumbering>* 참여방법 첫번째!</ListNumbering>
+        <ListText>
           1. HabitMonster 페이지에서 서비스 이용 후 메인페이지의 “FeedBack”
           아이콘을 누른 후 구글 폼을 사용해 피드백을 제출한다.
-        </p>{' '}
-        <p>2. 0월 0일 추첨을 통해 스타벅스 기프티콘을 받아 맛있게 마신다.</p>
-        <p>* 참여방법 두번째!</p>
-        <p>1. HabitMonster 페이지에서 서비스 이용 후 인스타그램에 접속한다.</p>
-        <p>
+        </ListText>{' '}
+        <ListText>
+          2. 0월 0일 추첨을 통해 스타벅스 기프티콘을 받아 맛있게 마신다.
+        </ListText>
+        <ListNumbering>* 참여방법 두번째!</ListNumbering>
+        <ListText>
+          1. HabitMonster 페이지에서 서비스 이용 후 인스타그램에 접속한다.
+        </ListText>
+        <ListText>
           2. HabitMonster를 이용하며 느끼신 장점과 불편한 점을 #HabitMonster
           #습관 #몬스터 태그와 함께 게시글로 작성한다.
-        </p>
-        <p>
+        </ListText>
+        <ListText>
           3. 0월 0일 추첨을 통해 베스킨라빈스 파인트 기프티콘을 받아 맛있게
           먹는다.
-        </p>
-        <p>많은 참여와 더불어 앞으로도 관심과 사랑 부탁드립니다. 감사합니다.</p>
+        </ListText>
+        <br />
+        <p>많은 참여와 더불어 앞으로도 관심과 사랑 부탁드립니다.</p>
+        <p> 감사합니다.</p>
       </NotiBox>
     );
   }
@@ -87,6 +96,22 @@ const NotiBox = styled.div`
   & :first-child {
     margin-bottom: 15px;
   }
+`;
+
+const ListNumbering = styled.h6`
+  font-size: var(--font-xs);
+  ${whiteOpacity('0.8')};
+  font-weight: var(--weight-semi-regular);
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+`;
+
+const ListText = styled.p`
+  font-size: var(--font-xs);
+  ${whiteOpacity('0.8')};
+  font-weight: var(--weight-semi-regular);
+  white-space: pre-wrap;
+  padding-left: 15px;
 `;
 
 NotiContent.propTypes = {
