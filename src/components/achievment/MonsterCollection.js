@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { NonePlaceHolder } from '../common';
+import { NonePlaceHolder, MonsterThumbnail } from '../common';
 import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
-import { None } from '../../assets/images/placeholder';
-
-import { MonsterThumbnail } from '../common';
+import { useHorizontalScroll } from '../../hooks';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
+  const wheelScrollRef = useHorizontalScroll();
 
   useEffect(() => {
     async function fetchList() {
@@ -20,10 +19,6 @@ const MonsterCollection = () => {
 
       if (data.statusCode === OK) {
         setCollectionList(data.monsters);
-        // console.log(data.monsters[0].monsterDatabases[0].monsterId);
-        // window.alert(
-        //   `몬스터아이디:${data.monsters[0].monsterDatabases[0].monsterId}`,
-        // );
       }
     }
 
@@ -48,7 +43,7 @@ const MonsterCollection = () => {
               <span>최고 레벨 LV.{monster.maxLevel}</span>
               <span>{monster.createdAt} 생성</span>
             </MonsterInformationWrapper>
-            <ImageScroller>
+            <ImageScroller ref={wheelScrollRef}>
               {Array(MAX_LEVEL)
                 .fill(null)
                 .map((_, i) => (
@@ -77,6 +72,8 @@ const MonsterCollection = () => {
 const Wrapper = styled.div`
   padding-left: 24px;
   position: relative;
+  height: 100%;
+  overflow-y: hidden;
 `;
 
 const EachCollectionWrapper = styled.div`
@@ -106,8 +103,8 @@ const MonsterInformationWrapper = styled.div`
 const ImageScroller = styled.div`
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
   width: auto;
+  overflow-x: auto;
 
   &::-webkit-scrollbar {
     display: none;

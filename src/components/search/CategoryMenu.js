@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { useHorizontalScroll } from '../../hooks';
+
 const CategoryMenu = ({ categorization, classHandler }) => {
+  const wheelScrollRef = useHorizontalScroll();
+
   const categoryList = [
     { id: 'all', name: '전체' },
     { id: 1, name: '건강' },
@@ -15,7 +19,7 @@ const CategoryMenu = ({ categorization, classHandler }) => {
   ];
 
   return (
-    <CategorySection>
+    <CategorySection ref={wheelScrollRef}>
       {categoryList.map((category) => {
         return (
           <Menu
@@ -49,9 +53,10 @@ const CategorySection = styled.section`
   padding-right: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   white-space: nowrap;
-  overflow-x: scroll;
   border-collapse: collapse;
   box-sizing: border-box;
+  overflow: auto;
+  white-space: nowrap;
 
   &::-webkit-scrollbar {
     display: none;
@@ -62,7 +67,6 @@ const Menu = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 54px;
   margin-right: 28px;
   cursor: pointer;
   box-sizing: border-box;
