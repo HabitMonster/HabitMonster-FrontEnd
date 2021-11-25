@@ -80,6 +80,7 @@ const GlobalStyle = createGlobalStyle`
       position: fixed;
       height: 100%;
       height: -webkit-fill-available;
+      overflow-x: hidden;
     }
     body {
       /* min-height: 100vh; */
@@ -87,7 +88,8 @@ const GlobalStyle = createGlobalStyle`
       height: 100vh;
       height: calc(var(--vh, 1vh) * 100);
       height: -webkit-fill-available;
-      overflow: hidden;
+      /* overflow: hidden; */
+      overflow-x: hidden;
       touch-action: none;
     }
 

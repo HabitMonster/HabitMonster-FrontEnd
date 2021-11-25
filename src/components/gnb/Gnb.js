@@ -44,6 +44,7 @@ const TabBar = styled.nav`
   max-width: 414px;
   position: fixed;
   bottom: 0;
+  margin: 0 auto;
   background-color: #141517;
   box-shadow: 0px -1px 1px rgba(255, 255, 255, 0.16);
   padding: 12px 29px 24px;
