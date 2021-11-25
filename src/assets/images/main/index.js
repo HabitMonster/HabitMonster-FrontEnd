@@ -1,4 +1,3 @@
-import SampleCategory from './SampleCategory.png';
-import Congrats from './Congrats.png';
+import Congrats from './Congrats.webp';
 
-export { SampleCategory, Congrats };
+export { Congrats };
