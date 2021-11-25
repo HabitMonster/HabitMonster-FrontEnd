@@ -78,7 +78,8 @@ const GlobalStyle = createGlobalStyle`
 
     html {
       position: fixed;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       height: -webkit-fill-available;
       overflow-x: hidden;
     }
@@ -88,8 +89,8 @@ const GlobalStyle = createGlobalStyle`
       height: 100vh;
       height: calc(var(--vh, 1vh) * 100);
       height: -webkit-fill-available;
-      /* overflow: hidden; */
-      overflow-x: hidden;
+      overflow: hidden;
+      /* overflow-x: hidden; */
       touch-action: none;
     }
 

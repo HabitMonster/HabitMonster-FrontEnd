@@ -37,8 +37,8 @@ const Main = () => {
         <HabitSection>
           <TodayHabitList />
         </HabitSection>
-        <Gnb />
       </Wrapper>
+      <Gnb />
       {isMonsterModalOpen && (
         <Modal
           open={isMonsterModalOpen}
@@ -65,6 +65,7 @@ const Main = () => {
 
 const MonsterSection = styled.section`
   width: 100%;
+  height: 100%;
   max-height: 434px;
   z-index: 2;
 `;
@@ -82,6 +83,7 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  height: 100%;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
 `;
