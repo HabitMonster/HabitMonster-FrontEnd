@@ -5,6 +5,4 @@ export const monsterApis = {
   setMonster: (monsterInfo) =>
     tokenInstance.patch('/user/monster', monsterInfo),
   loadMonsterCollection: () => tokenInstance.get('/user/monsters'),
-  updateMonsterName: (monsterName) =>
-    tokenInstance.patch('/monster/name', monsterName),
 };

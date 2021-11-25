@@ -1,11 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import {
-  useRecoilValue,
-  useRecoilCallback,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
+
 import { useHistory, Link } from 'react-router-dom';
 
 import { authState } from '../../recoil/states/auth';
@@ -14,11 +10,8 @@ import {
   myFollowListCountSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
-import {
-  defaultHabitsState,
-  habitIdListState,
-  myHabitCountState,
-} from '../../recoil/states/habit';
+
+import { myHabitCountState } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
 import { BottomDialog } from '../dialog';
@@ -37,8 +30,6 @@ const UserInformation = () => {
   const { followerListCount, followingListCount } = useRecoilValue(
     myFollowListCountSelector,
   );
-  const resetUserInfoState = useResetRecoilState(userState);
-  const resetHabitState = useResetRecoilState(defaultHabitsState);
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
 
   const history = useHistory();
@@ -80,6 +71,12 @@ const UserInformation = () => {
     //console.log('복사된거 맞나', contents, textarea.value);
   };
 
+  /*
+    유저가 로그아웃을 하든 계정을 삭제하든 본질적으로 토큰이 없어지는 것과 auth를 말 그대로 직접 초기화하는 것은 공통적입니다.
+    즉, 리코일에 아무리 정보가 남아있다고 하더라도 PrivateRoute에서 isLogin이 false이기 때문에 반드시 '/login'으로 리다이렉팅합니다.
+    로그인 페이지에서는 각 아이템들에 대해 "다시 페칭하는 로직"을 짭니다.
+  */
+
   const logoutUser = useRecoilCallback(({ set }) => () => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
@@ -87,9 +84,6 @@ const UserInformation = () => {
       isFirstLogin: null,
       isLogin: false,
     });
-    resetUserInfoState();
-    resetHabitState();
-    set(userState, {});
     history.push('/login');
   });
 
@@ -100,14 +94,10 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         window.localStorage.removeItem('habitAccessToken');
         window.localStorage.removeItem('habitRefreshToken');
-        resetUserInfoState();
         set(authState, {
           isFirstLogin: null,
           isLogin: false,
         });
-        set(habitIdListState, []);
-        set(monsterState, {});
-        set(userState, {});
         history.push('/login');
       }
     } catch (error) {
@@ -158,7 +148,7 @@ const UserInformation = () => {
     : [];
 
   useEffect(() => {
-    console.log('mypage CleanUp', history.location.pathname);
+    // console.log('mypage CleanUp', history.location.pathname);
     return () => {
       // 마이페이지에서 벗어날 때 리스트를 초기화한다
       if (
@@ -218,7 +208,7 @@ const UserInformation = () => {
       </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
-          console.log('userInfoItem', userInfoItem);
+          // console.log('userInfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}

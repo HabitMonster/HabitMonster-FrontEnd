@@ -12,7 +12,7 @@ const GlobalStatistics = () => {
     try {
       const { data } = await statisticApi.getGlobalStatistics();
       if (data.statusCode === 200) {
-        console.log('globalData', data);
+        // console.log('globalData', data);
         setStatisticList(data.statistics);
       }
     } catch (error) {

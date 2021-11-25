@@ -10,8 +10,8 @@ const NoticeItem = ({ notice, active, onToggle }) => {
   const { title, createdAt, id } = notice;
   const contentArea = useRef();
 
-  console.log('contentArea', contentArea?.current?.scrollHeight);
-  console.log('contentAreaPadding', contentArea?.current?.style?.padding);
+  // console.log('contentArea', contentArea?.current?.scrollHeight);
+  // console.log('contentAreaPadding', contentArea?.current?.style?.padding);
 
   return (
     <NotiListItem active={active}>

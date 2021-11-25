@@ -72,6 +72,9 @@ const GlobalStyle = createGlobalStyle`
     *, *::before, *::after {
       box-sizing: border-box;
     }
+    html, body {
+      overscroll-behavior-y: contain;
+    }
 
     body {
       font-family: 'Apple SD Gothic Neo', sans-serif;
