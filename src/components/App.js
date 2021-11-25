@@ -92,7 +92,7 @@ function App() {
             path="/follow/:monsterCode"
             component={<SearchDetailFollow />}
           />
-          {/* <Redirect from="*" to="/" /> */}
+          <Redirect from="*" to="/" />
         </Switch>
       </Suspense>
     </ErrorBoundary>

@@ -23,15 +23,21 @@ const MyPage = () => {
             </NavButton>
           </NavButtonItem>
         </NavButtonWrap>
-        <Switch>
-          <Route exact path="/mypage/information" component={UserInformation} />
-          <Route
-            exact
-            path="/mypage/collection"
-            component={MonsterCollection}
-          />
-          <Redirect from="*" to="/mypage/information" />
-        </Switch>
+        <PageContentWrap>
+          <Switch>
+            <Route
+              exact
+              path="/mypage/information"
+              component={UserInformation}
+            />
+            <Route
+              exact
+              path="/mypage/collection"
+              component={MonsterCollection}
+            />
+            <Redirect from="*" to="/mypage/information" />
+          </Switch>
+        </PageContentWrap>
       </AcheiveContainer>
       <Gnb />
     </>
@@ -41,10 +47,14 @@ const MyPage = () => {
 export default MyPage;
 
 const AcheiveContainer = styled.div`
-  background-color: var(--bg-wrapper);
-  font-family: var(--font-name-apple);
+  background-color: var(—bg-wrapper);
+  font-family: var(—font-name-apple);
   width: 100%;
   height: calc(100% - 80px);
+`;
+
+const PageContentWrap = styled.div`
+  height: calc(100% - 64px);
   padding-bottom: 64px;
   overflow-y: scroll;
   ${disappearScrollbar()};
@@ -52,11 +62,11 @@ const AcheiveContainer = styled.div`
 
 const NavButtonWrap = styled.ul`
   background-color: var(--color-background);
-  border-bottom: 0.7px solid rgba(248, 248, 248, 0.1);
+  border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
   display: flex;
   list-style: none;
   margin: 0;
-  padding-top: 48px;
+  padding-top: 24px;
 `;
 
 const NavButtonItem = styled.li`

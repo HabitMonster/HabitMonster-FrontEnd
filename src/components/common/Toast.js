@@ -4,11 +4,9 @@ import styled, { keyframes, css } from 'styled-components';
 
 const Toast = ({ text, activeToast }) => {
   return (
-    <>
-      <ToastBar className="ToastMessage" active={activeToast}>
-        {text}
-      </ToastBar>
-    </>
+    <ToastBar className="ToastMessage" active={activeToast}>
+      {text}
+    </ToastBar>
   );
 };
 
