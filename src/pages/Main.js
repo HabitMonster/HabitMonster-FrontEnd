@@ -65,7 +65,7 @@ const Main = () => {
 
 const MonsterSection = styled.section`
   width: 100%;
-  height: 100%;
+  height: fit-content;
   max-height: 434px;
   z-index: 2;
 `;
