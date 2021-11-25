@@ -1,3 +1,4 @@
+import { isMobile } from 'react-device-detect';
 import { css } from 'styled-components';
 
 export const whiteOpacity = (degree) => css`
@@ -24,3 +25,5 @@ export const disappearScrollbar = () => css`
     display: none;
   }
 `;
+
+export const determineViewPort = (isMobile) => css``;

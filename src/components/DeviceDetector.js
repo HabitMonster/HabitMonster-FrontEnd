@@ -22,16 +22,13 @@ DeviceDetector.propTypes = {
 const Layout = styled.div`
   background: var(--bg-wrapper);
   display: flex;
-  max-width: 414px;
-  width: 100%;
-  min-width: 280px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 100vh;
-  max-height: 100vh;
+  position: relative;
   margin: 0 auto;
+  width: 100%;
+  max-width: 414px;
+  min-width: 280px;
+  height: 100%;
+  max-height: 100vh;
   overflow: hidden;
 `;
 
@@ -39,6 +36,10 @@ const WebViewLayout = styled(Layout)`
   max-width: 360px;
   border-radius: 18px;
   height: 640px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const ClayPhone = styled.div`

@@ -3,4 +3,9 @@ import useDebounceInput from './useDebounceInput';
 import useHabitPresets from './useHabitPresets';
 import { useHorizontalScroll } from './useHorizontalScroll';
 
-export { useDebounceInput, useFetchCategories, useHabitPresets, useHorizontalScroll };
+export {
+  useDebounceInput,
+  useFetchCategories,
+  useHabitPresets,
+  useHorizontalScroll,
+};
