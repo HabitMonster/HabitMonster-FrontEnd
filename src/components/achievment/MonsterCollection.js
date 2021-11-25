@@ -77,11 +77,6 @@ const MonsterCollection = () => {
 const Wrapper = styled.div`
   padding-left: 24px;
   position: relative;
-  height: 100%;
-
-  &:last-child {
-    margin-bottom: 64px;
-  }
 `;
 
 const EachCollectionWrapper = styled.div`
@@ -144,27 +139,27 @@ const MonsterImageWrapper = styled.div`
   }
 `;
 
-const NoneTextWrapper = styled.section`
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+// const NoneTextWrapper = styled.section`
+//   width: 100%;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   padding: 0 24px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
 
-  & svg {
-    margin-bottom: 32px;
-  }
-`;
+//   & svg {
+//     margin-bottom: 32px;
+//   }
+// `;
 
-const NoneTextDescription = styled.p`
-  ${whiteOpacity('0.6')};
-  font-size: var(--font-xs);
-  line-height: 21px;
-  text-align: center;
-`;
+// const NoneTextDescription = styled.p`
+//   ${whiteOpacity('0.6')};
+//   font-size: var(--font-xs);
+//   line-height: 21px;
+//   text-align: center;
+// `;
 
 export default MonsterCollection;
