@@ -92,6 +92,7 @@ export const MonsterListItemWrap = styled.li`
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
+  cursor: pointer;
 `;
 
 const ProfileWrap = styled.div`

@@ -103,7 +103,7 @@ const UserSearchSection = () => {
 
   return (
     <>
-      <BackButtonWrapper>
+      <Header>
         <BackButtonHeader onButtonClick={() => history.goBack()}>
           <InputSection>
             <SearchInput
@@ -159,12 +159,12 @@ const UserSearchSection = () => {
             />
           </ul>
         )}
-      </BackButtonWrapper>
+      </Header>
     </>
   );
 };
 
-const BackButtonWrapper = styled.div`
+const Header = styled.div`
   margin: 24px 0;
   position: relative;
 `;
