@@ -188,6 +188,8 @@ const FollowBtn = styled.button`
 
 const HabitSection = styled.section`
   width: 100%;
+  height: 100%;
+  position: relative;
   border-radius: var(--border-radius-semi);
   overflow-y: scroll;
 

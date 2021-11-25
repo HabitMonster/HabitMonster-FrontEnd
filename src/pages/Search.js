@@ -1,97 +1,87 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { userApis } from '../api/user';
-import { OK, BAD_REQUEST } from '../constants/statusCode';
+import { BAD_REQUEST } from '../constants/statusCode';
 import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../constants/statusMessage';
-import { refreshInfoState } from '../recoil/states/search';
+
+import {
+  RecommendedUserSection,
+  RecommendedUserSectionSkeleton,
+  UserSearchSection,
+} from '../components/search';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
-import { MonsterListItem } from '../components/monster';
-
 import { miniDebounce } from '../utils/event';
+
+import { useDebounceInput } from '../hooks';
 
 const Search = () => {
   const history = useHistory();
-  const { path } = useRouteMatch();
+  // const { path } = useRouteMatch();
 
-  const [monsterCode, setMonsterCode] = useState('');
-  const [debouncedMonsterCode, setDebouncedMonsterCode] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
-  const [isFail, setIsFail] = useState(null);
-  const [recommendedUserList, setRecommendedUserList] = useState([]);
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const [monsterCode, debouncedMonsterCode, handleMonsterCodeChange] =
+    useDebounceInput('', 1000);
+  console.log(monsterCode);
+  console.log(debouncedMonsterCode);
 
-  const debounceChange = useCallback(
-    miniDebounce(function (nextValue) {
-      setDebouncedMonsterCode(nextValue);
-    }, 600),
-    [setDebouncedMonsterCode],
-  );
+  // const [monsterCode, setMonsterCode] = useState('');
+  // const [debouncedMonsterCode, setDebouncedMonsterCode] = useState('');
+  // const [searchResult, setSearchResult] = useState(null);
+  // const [isFail, setIsFail] = useState(null);
 
-  useEffect(() => {
-    const queryUser = async () => {
-      if (!debouncedMonsterCode || debouncedMonsterCode.length < 6) {
-        setDebouncedMonsterCode('');
-        return;
-      }
-      try {
-        const { data } = await userApis.searchUser(debouncedMonsterCode);
-        setSearchResult(null);
+  // const debounceChange = useCallback(
+  //   miniDebounce(function (nextValue) {
+  //     setDebouncedMonsterCode(nextValue);
+  //   }, 600),
+  //   [setDebouncedMonsterCode],
+  // );
 
-        if (
-          data.statusCode === BAD_REQUEST &&
-          data.responseMessage === NOT_FOUND_USER_VIA_MONSTER_CODE
-        ) {
-          setIsFail(true);
-          return;
-        }
-        setSearchResult(data.userInfo);
-        setIsFail(false);
-        setRefreshInfo((id) => id + 1);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    queryUser();
-  }, [setRefreshInfo, debouncedMonsterCode]);
+  // useEffect(() => {
+  //   const queryUser = async () => {
+  //     if (!debouncedMonsterCode || debouncedMonsterCode.length < 6) {
+  //       setDebouncedMonsterCode('');
+  //       return;
+  //     }
+  //     try {
+  //       const { data } = await userApis.searchUser(debouncedMonsterCode);
+  //       setSearchResult(null);
 
-  useEffect(() => {
-    const queryRecommendation = async () => {
-      try {
-        const { data } = await userApis.getRecommendedUsers();
-        if (data.statusCode === OK) {
-          const mappedUserList = data.userList.map(({ title, userInfo }) => ({
-            title,
-            ...userInfo,
-          }));
-          setRecommendedUserList(mappedUserList);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    queryRecommendation();
-  }, []);
+  //       if (
+  //         data.statusCode === BAD_REQUEST &&
+  //         data.responseMessage === NOT_FOUND_USER_VIA_MONSTER_CODE
+  //       ) {
+  //         setIsFail(true);
+  //         return;
+  //       }
+  //       setSearchResult(data.userInfo);
+  //       setIsFail(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   queryUser();
+  // }, [debouncedMonsterCode]);
 
   return (
     <Wrapper>
+      <UserSearchSection />
       <BackButtonWrapper>
         <BackButtonHeader onButtonClick={() => history.replace('/')}>
           <SearchInput
             type="text"
             value={monsterCode}
-            onChange={(e) => {
-              setIsFail(false);
-              setSearchResult(null);
-              setMonsterCode(e.target.value);
-              debounceChange(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   setIsFail(false);
+            //   setSearchResult(null);
+            //   setMonsterCode(e.target.value);
+            //   debounceChange(e.target.value);
+            // }}
+            onChange={handleMonsterCodeChange}
             placeholder="몬스터 코드를 입력하세요"
           />
-          {monsterCode && (
+          {/* {monsterCode && (
             <CancelButton
               onClick={() => {
                 setMonsterCode('');
@@ -104,10 +94,10 @@ const Search = () => {
                 <div></div>
               </div>
             </CancelButton>
-          )}
+          )} */}
         </BackButtonHeader>
       </BackButtonWrapper>
-      {isFail && (
+      {/* {isFail && (
         <SearchFailSection>
           <NonePlaceHolder>
             <span>검색한 유저를 찾지 못했어요</span>
@@ -124,27 +114,10 @@ const Search = () => {
             path={`${path}/${searchResult.monsterCode}`}
           />
         </ul>
-      )}
-      {recommendedUserList.length && (
-        <RecommendationSection>
-          <h2>추천 유저</h2>
-          {recommendedUserList.map(
-            ({ isFollowed, monsterCode, monsterId, nickName, title }) => {
-              return (
-                <MonsterListItem
-                  key={title + nickName + monsterId}
-                  nickName={nickName}
-                  monsterId={monsterId}
-                  monsterCode={monsterCode}
-                  recommendationTitle={title}
-                  isFollowed={isFollowed}
-                  path={`${path}/${monsterCode}`}
-                />
-              );
-            },
-          )}
-        </RecommendationSection>
-      )}
+      )} */}
+      <Suspense fallback={<RecommendedUserSectionSkeleton />}>
+        <RecommendedUserSection />
+      </Suspense>
     </Wrapper>
   );
 };
