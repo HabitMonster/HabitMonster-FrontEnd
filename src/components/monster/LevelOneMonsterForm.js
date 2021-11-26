@@ -13,7 +13,7 @@ import {
   monsterState,
 } from '../../recoil/states/monster';
 
-import { authState } from '../../recoil/states/auth';
+import { defaultAuthSelector } from '../../recoil/states/auth';
 
 import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
@@ -21,7 +21,7 @@ import { validateMonsterName } from '../../utils/validation';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
-  const { isFirstLogin } = useRecoilValue(authState);
+  const { isFirstLogin } = useRecoilValue(defaultAuthSelector);
   const [selectedMonster, setSelectedMonster] =
     useRecoilState(selectedMonsterState);
 

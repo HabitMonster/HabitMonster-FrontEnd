@@ -1,12 +1,15 @@
-import { atom, selector, atomFamily, selectorFamily } from 'recoil';
+import {
+  atom,
+  selector,
+  atomFamily,
+  selectorFamily,
+  DefaultValue,
+} from 'recoil';
+
+import { defaultAuthSelector } from './auth';
+
 import { mainApis, addHabitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
-
-/*
-  LoadingPage 보이는 시간을 계산하기 위해 만든 유틸성 함수입니다.
-  ex) await testDelay(1000) => 1초동안 비동기 흐름을 멈춥니다.
-*/
-const testDelay = (wait) => new Promise((resolve) => setTimeout(resolve, wait));
 
 export const asyncHabitTogglerState = atom({
   key: 'asyncHabitTogglerState',
@@ -16,11 +19,17 @@ export const asyncHabitTogglerState = atom({
 export const defaultHabitResponseSelector = selector({
   key: 'asyncDefaultHabitsSelector',
   get: async ({ get }) => {
-    get(asyncHabitTogglerState);
+    const { isLogin } = get(defaultAuthSelector);
+    console.log('habitResponse');
+
     const defaultValue = {
       totalHabitCount: null,
       habits: [],
     };
+
+    if (!isLogin) {
+      return defaultValue;
+    }
 
     try {
       const { data } = await mainApis.getHabitsInfo();
@@ -36,34 +45,42 @@ export const defaultHabitResponseSelector = selector({
       return defaultValue;
     }
   },
+  set: ({ set }, value) => {
+    if (value instanceof DefaultValue) {
+      set(asyncHabitTogglerState, (v) => v + 1);
+    }
+  },
+});
+
+export const defaultHabitsSelector = selector({
+  key: 'defaultHabitsSelector',
+  get: ({ get }) => {
+    get(defaultAuthSelector);
+    console.log('habits');
+    const { habits } = get(defaultHabitResponseSelector);
+    return habits;
+    // return get(defaultHabitResponseSelector).habits;
+  },
+});
+
+export const defaultHabitIdListSelector = selector({
+  key: 'defaultHabitIdListSelector',
+  get: ({ get }) => {
+    console.log('habitIdList');
+    get(defaultAuthSelector);
+    const { habits } = get(defaultHabitResponseSelector);
+    return habits.map(({ habitId }) => habitId);
+  },
 });
 
 export const defaultHabitsState = atom({
-  key: 'asyncDefaultHabitsState',
-  default: selector({
-    key: 'habitsList',
-    get: ({ get }) => get(defaultHabitResponseSelector).habits,
-  }),
+  key: 'defaultHabitsState',
+  default: defaultHabitsSelector,
 });
 
 export const habitIdListState = atom({
   key: 'habitId',
-  default: selector({
-    key: 'defaultHabitIdSelector',
-    get: ({ get }) => {
-      const test = get(defaultHabitsState).map(({ habitId }) => habitId);
-      return test;
-    },
-  }),
-});
-
-export const habitsHashSelector = selector({
-  key: 'defaultHabitsHashSelector',
-  get: ({ get }) =>
-    get(defaultHabitsState).reduce((hash, cur) => {
-      hash[cur.habitId] = cur;
-      return hash;
-    }, {}),
+  default: defaultHabitIdListSelector,
 });
 
 export const habitStateWithId = atomFamily({
@@ -72,21 +89,33 @@ export const habitStateWithId = atomFamily({
     key: 'habitById',
     get:
       (habitId) =>
-      ({ get }) =>
-        get(habitsHashSelector)[habitId],
+      ({ get }) => {
+        return get(defaultHabitsState).find(
+          ({ habitId: id }) => id === habitId,
+        );
+      },
   }),
 });
 
-/*
-  습관이 추가되고, 제거될 때 myHabitCountState의 값 역시 변화를 해야하므로
-  selector에서 atom으로 바꾸겠습니다
-*/
+export const defaultMyHabitCountSelector = selector({
+  key: 'defaultMyHabitCountSelector',
+  get: ({ get }) => get(defaultHabitResponseSelector).totalHabitCount,
+});
+
 export const myHabitCountState = atom({
   key: 'myHabitCountState',
-  default: selector({
-    key: 'defaultCountSelector',
-    get: ({ get }) => get(defaultHabitResponseSelector).totalHabitCount,
-  }),
+  default: defaultMyHabitCountSelector,
+});
+
+export const refresher = selector({
+  key: 'refresher',
+  get: ({ get }) => {
+    return {
+      habitResponse: get(defaultHabitResponseSelector),
+      // habits: get(defaultHabitsSelector),
+      // habitIdList: get(defaultHabitIdListSelector),
+    };
+  },
 });
 
 export const categoryListSelector = selector({
@@ -117,3 +146,42 @@ export const presetListSelector = selectorFamily({
     }
   },
 });
+
+// export const defaultHabitsState = atom({
+//   key: 'asyncDefaultHabitsState',
+//   default: selector({
+//     key: 'habitsList',
+//     get: ({ get }) => get(defaultHabitResponseSelector).habits,
+//   }),
+// });
+
+// export const habitIdListState = atom({
+//   key: 'habitId',
+//   default: selector({
+//     key: 'defaultHabitIdSelector',
+//     get: ({ get }) => {
+//       const test = get(defaultHabitsState).map(({ habitId }) => habitId);
+//       return test;
+//     },
+//   }),
+// });
+
+// export const habitsHashSelector = selector({
+//   key: 'defaultHabitsHashSelector',
+//   get: ({ get }) =>
+//     get(defaultHabitsState).reduce((hash, cur) => {
+//       hash[cur.habitId] = cur;
+//       return hash;
+//     }, {}),
+// });
+
+// export const habitStateWithId = atomFamily({
+//   key: 'habitState',
+//   default: selectorFamily({
+//     key: 'habitById',
+//     get:
+//       (habitId) =>
+//       ({ get }) =>
+//         get(habitsHashSelector)[habitId],
+//   }),
+// });
