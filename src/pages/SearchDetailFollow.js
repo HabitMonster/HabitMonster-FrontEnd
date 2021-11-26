@@ -17,8 +17,13 @@ const SearchDetailFollow = () => {
   const userMonsterCode = location.pathname.split('/')[2];
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
   const isActiveTab = (type) => tabType === type;
-  const goToMyPage = () => {
-    history.push(`/search/${userMonsterCode}`);
+
+  const onClickgoBack = () => {
+    if (history.length <= 2) {
+      history.replace(`/`);
+      return;
+    }
+    history.goBack();
   };
 
   useEffect(() => {
@@ -58,7 +63,7 @@ const SearchDetailFollow = () => {
   return (
     <>
       <FollowContainer>
-        <BackButtonHeader onButtonClick={goToMyPage} />
+        <BackButtonHeader onButtonClick={onClickgoBack} />
         <NavButtonWrap>
           <NavButtonItem>
             <NavButton
@@ -94,6 +99,7 @@ const SearchDetailFollow = () => {
                   monsterId={user.monsterId}
                   nickName={user.nickName}
                   monsterCode={user.monsterCode}
+                  path={`/search/${user.monsterCode}`}
                 />
               );
             })}

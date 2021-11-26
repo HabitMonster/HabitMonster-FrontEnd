@@ -72,17 +72,27 @@ const GlobalStyle = createGlobalStyle`
     *, *::before, *::after {
       box-sizing: border-box;
     }
-    
-    html {
-      height: -webkit-fill-available;
-    }
-    body {
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-    }
-
     html, body {
       overscroll-behavior-y: contain;
+    }
+
+    html {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      height: -webkit-fill-available;
+      overflow-x: hidden;
+    }
+    body {
+      
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+      height: -webkit-fill-available;
+      overflow: hidden;
+      /* overflow-x: hidden; */
+      /* min-height: 100vh; */
+      /* min-height: -webkit-fill-available; */
+      touch-action: none;
     }
 
     body {

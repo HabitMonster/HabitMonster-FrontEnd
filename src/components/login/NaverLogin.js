@@ -112,7 +112,7 @@ const NaverLogin = () => {
   return (
     <>
       <LoginBtn className="naverLogin" onClick={handleClick}>
-        <div ref={naverRef} id="naverIdLogin"></div>
+        <div ref={naverRef} id="naverIdLogin" className="hide"></div>
         <NaverSymbol />
         <SocialTitle>네이버로 시작하기</SocialTitle>
       </LoginBtn>
