@@ -15,7 +15,7 @@ import { myHabitCountState } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
 import { BottomDialog } from '../dialog';
-import { Modal } from '../../components/common';
+import { Modal, Toast } from '../../components/common';
 import { EditBox, UserInfoItem } from '../../components/myPage';
 import { MonsterThumbnailWrapper } from '../../components/monster';
 
@@ -36,8 +36,16 @@ const UserInformation = () => {
   const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
-
+  const [activeToast, setActiveToast] = useState(false);
   const test = useRef(null);
+
+  useEffect(() => {
+    if (activeToast) {
+      setTimeout(() => {
+        setActiveToast(false);
+      }, 2500);
+    }
+  }, [activeToast]);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -75,6 +83,7 @@ const UserInformation = () => {
     // navigator.clipboard.writeText(contents).then(function () {
     //   alert('URL 복사가 완료되었습니다.');
     // });
+    setActiveToast(true);
   };
 
   /*
@@ -260,6 +269,9 @@ const UserInformation = () => {
             onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
+      )}
+      {activeToast && (
+        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
     </>
   );

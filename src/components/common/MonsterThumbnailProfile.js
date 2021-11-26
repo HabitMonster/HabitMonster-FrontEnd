@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MONSTERS from '../../assets/images/monsters/svg';
 import MONSTERS_PROFILE from '../../assets/images/monsters/svg/profile';
 
 /*
@@ -11,7 +10,7 @@ import MONSTERS_PROFILE from '../../assets/images/monsters/svg/profile';
 */
 
 const MonsterThumbnailProfile = ({ id, width, height }) => {
-  const Monster = MONSTERS_PROFILE[id] ? MONSTERS_PROFILE[id] : MONSTERS[id];
+  const Monster = MONSTERS_PROFILE[id];
 
   if (!Monster) {
     return null;
