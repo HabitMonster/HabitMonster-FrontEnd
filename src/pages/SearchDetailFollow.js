@@ -9,6 +9,8 @@ import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
 import { Gnb } from '../components/gnb';
 
+import { disappearScrollbar } from '../styles/Mixin';
+
 const SearchDetailFollow = () => {
   const history = useHistory();
   const location = useLocation();
@@ -92,17 +94,20 @@ const SearchDetailFollow = () => {
         </NavButtonWrap>
         {followList?.length >= 1 && (
           <FollowListWrap>
-            {followList.map((user) => {
-              return (
-                <MonsterListItem
-                  key={user.monsterCode}
-                  monsterId={user.monsterId}
-                  nickName={user.nickName}
-                  monsterCode={user.monsterCode}
-                  path={`/search/${user.monsterCode}`}
-                />
-              );
-            })}
+            <FollowList>
+              {followList.map((user) => {
+                return (
+                  <MonsterListItem
+                    key={user.monsterCode}
+                    monsterId={user.monsterId}
+                    nickName={user.nickName}
+                    monsterCode={user.monsterCode}
+                    isFollowed={user.isFollowed}
+                    path={`/search/${user.monsterCode}`}
+                  />
+                );
+              })}
+            </FollowList>
           </FollowListWrap>
         )}
         {followList?.length === 0 && (
@@ -125,7 +130,7 @@ export default SearchDetailFollow;
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - 80px);
   flex: 1 1 0;
 `;
 
@@ -142,8 +147,9 @@ const NavButtonItem = styled.li`
   justify-content: center;
   list-style: none;
   width: 50%;
-  height: 34px;
+  height: 40px;
   position: relative;
+  padding-top: 4px;
 `;
 
 const NavButton = styled(NavLink)`
@@ -157,12 +163,10 @@ const NavButton = styled(NavLink)`
   outline: 0;
   line-height: 19px;
   text-decoration: none;
-
   &:hover {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
   }
-
   &.active {
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-primary);
@@ -170,17 +174,23 @@ const NavButton = styled(NavLink)`
 `;
 
 const FollowListWrap = styled.ul`
+  height: calc(100% - 120px);
+  padding-top: 16px;
+  overflow-y: auto;
+  ${disappearScrollbar()};
+`;
+
+const FollowList = styled.ul`
   color: var(--color-primary);
   margin: 0;
-  padding: 16px 0 0;
+  padding: 0;
 `;
 
 const EmptyPlace = styled.div`
-  height: calc(100vh - (68px + 108px));
+  height: calc(100% - 120px);
   display: flex;
   justify-content: center;
   align-items: center;
-
   & p {
     color: var(--color-primary);
     opacity: 0.6;
