@@ -20,7 +20,6 @@ export const defaultHabitResponseSelector = selector({
   key: 'asyncDefaultHabitsSelector',
   get: async ({ get }) => {
     const { isLogin } = get(defaultAuthSelector);
-    console.log('habitResponse');
 
     const defaultValue = {
       totalHabitCount: null,
@@ -56,17 +55,14 @@ export const defaultHabitsSelector = selector({
   key: 'defaultHabitsSelector',
   get: ({ get }) => {
     get(defaultAuthSelector);
-    console.log('habits');
     const { habits } = get(defaultHabitResponseSelector);
     return habits;
-    // return get(defaultHabitResponseSelector).habits;
   },
 });
 
 export const defaultHabitIdListSelector = selector({
   key: 'defaultHabitIdListSelector',
   get: ({ get }) => {
-    console.log('habitIdList');
     get(defaultAuthSelector);
     const { habits } = get(defaultHabitResponseSelector);
     return habits.map(({ habitId }) => habitId);
@@ -124,7 +120,6 @@ export const categoryListSelector = selector({
     try {
       const { data } = await addHabitApis.getCategoryList();
       if (data.statusCode === OK) {
-        console.log(data);
         return data.categories;
       }
     } catch (error) {

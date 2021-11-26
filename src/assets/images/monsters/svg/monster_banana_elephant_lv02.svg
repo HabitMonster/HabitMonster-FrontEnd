@@ -1,0 +1,74 @@
+<svg
+  id="yellow_2"
+  data-name="yellow_2"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 993.6 707"
+>
+  <defs>
+    <radialGradient
+      id="gradient-default-188-yellow-level-two"
+      cx="298"
+      cy="460.7"
+      r="107.2"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0" stop-color="#fd3400" stop-opacity=".6" />
+      <stop offset="1" stop-color="#fd3700" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient
+      id="gradient-default-188-yellow-level-two-2"
+      cx="676"
+      cy="460.7"
+      r="107.2"
+      xlink:href="#gradient-default-188-yellow-level-two"
+    />
+    <style>
+      .cls-4-yellow-level-two {
+        fill: #fff;
+      }
+      .cls-5-yellow-level-two {
+        fill: #fd0300;
+      }
+    </style>
+  </defs>
+  <path
+    d="M871 297a156 156 0 0 0 12-61C883 105 716 0 511 0S138 105 138 236a154 154 0 0 0 8 48C57 327 0 395 0 471c0 130 167 236 373 236a571 571 0 0 0 124-13 571 571 0 0 0 124 13c206 0 373-106 373-236 0-69-48-131-123-174Z"
+    style="fill: #fdd301"
+  />
+  <circle
+    cx="298"
+    cy="460.7"
+    r="107.2"
+    style="fill: url(#gradient-default-188-yellow-level-two)"
+  />
+  <circle
+    cx="676"
+    cy="460.7"
+    r="107.2"
+    style="fill: url(#gradient-default-188-yellow-level-two-2)"
+  />
+  <circle class="cls-4-yellow-level-two" cx="441.1" cy="426" r="21.7" />
+  <circle class="cls-4-yellow-level-two" cx="507.5" cy="426" r="21.7" />
+  <path
+    d="M395 418a5 5 0 0 1-4-8 108 108 0 0 1 23-24c18-14 39-21 60-21 22 0 41 7 59 20a107 107 0 0 1 23 22 5 5 0 0 1-9 6c-2-3-28-37-73-37-19 0-37 6-54 19a98 98 0 0 0-20 21 5 5 0 0 1-5 2Z"
+  />
+  <rect
+    class="cls-5-yellow-level-two"
+    x="445.6"
+    y="460.7"
+    width="62"
+    height="29.2"
+    rx="3.9"
+  />
+  <rect
+    class="cls-5-yellow-level-two"
+    x="445.6"
+    y="493"
+    width="62"
+    height="29.2"
+    rx="3.9"
+  />
+  <circle cx="441.1" cy="428.1" r="11.5" />
+  <circle cx="507.5" cy="428.1" r="11.5" />
+</svg>

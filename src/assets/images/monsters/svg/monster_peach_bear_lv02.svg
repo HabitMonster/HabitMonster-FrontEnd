@@ -1,0 +1,30 @@
+<svg
+  id="red_2"
+  data-name="red_2"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 751.6 801.2"
+>
+  <defs>
+    <style>
+      .cls-3-red-level-two {
+        fill: #070707;
+      }
+      .cls-4-red-level-two {
+        fill: #fc4401;
+      }
+    </style>
+  </defs>
+  <path
+    d="M752 138a138 138 0 0 0-267-49 325 325 0 0 0-109 17 325 325 0 0 0-110-17A138 138 0 1 0 33 227C-14 321 2 430 5 453c0 0 32 218 309 335 27 11 48 14 62 13 14 1 34-2 62-13 277-117 308-335 308-335 4-23 19-132-27-226a137 137 0 0 0 33-89Z"
+    style="fill: #fd0300"
+  />
+  <ellipse cx="380.8" cy="624.5" rx="32.9" ry="17.5" style="fill: #fdd301" />
+  <circle class="cls-3-red-level-two" cx="306.7" cy="596.4" r="24.6" />
+  <circle class="cls-3-red-level-two" cx="444.9" cy="596.4" r="24.6" />
+  <path
+    class="cls-3-red-level-two"
+    d="m328 680 39 1 38 1h22a7 7 0 0 0 7-7 7 7 0 0 0-2-4 7 7 0 0 0-5-2l-39-1-38-1-22-1a7 7 0 0 0-6 7 7 7 0 0 0 2 5 7 7 0 0 0 4 2Z"
+  />
+  <circle class="cls-4-red-level-two" cx="229.4" cy="648.6" r="43" />
+  <circle class="cls-4-red-level-two" cx="524.7" cy="648.6" r="43" />
+</svg>

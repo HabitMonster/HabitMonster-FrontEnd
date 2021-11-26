@@ -1,1 +1,61 @@
-<svg version="1.1" id="green-profile-level-three" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 859.1 720.2" style="enable-background:new 0 0 859.1 720.2" xml:space="preserve"><style>.cls-1-avocado-snowman-level-three{fill:#08fd50}.cls-4-avocado-snowman-level-three{fill:#070707}.cls-5-avocado-snowman-level-three{fill:#fff}</style><path class="cls-1-avocado-snowman-level-three" d="M430 720c236 0 427-159 429-357C857 177 693 24 481 3a544 544 0 0 0-100-1C168 23 2 176 0 363c2 198 194 357 430 357z"/><ellipse cx="462" cy="360.9" rx="285.2" ry="234.8" style="fill:#00da2c"/><ellipse cx="451.9" cy="372.6" rx="269.1" ry="221.6" style="fill:#04b564"/><path class="cls-4-avocado-snowman-level-three" d="M399 433v4-3 4-2l-1 4 1-1-2 4 1-2-4 4 2-1-4 2 2-1-4 1h2-4 2-4l-3 1c-1 1-3 3-3 5-1 2-1 4 1 6 1 2 2 3 4 3a21 21 0 0 0 11 0 24 24 0 0 0 10-5l2-3 4-4a32 32 0 0 0 3-9v-5l-1-6-4-5-3-1h-3l-5 4v6zM606 421a31 31 0 0 0 12 11 28 28 0 0 0 13 3 32 32 0 0 0 15-4l4-5v-3l-1-3-5-4-6 1-2 1 2-1-6 2h2-5 2l-6-2 2 1-5-3 2 1-4-4 1 2-1-1c-1-2-3-4-5-4h-3l-3 1c-4 2-5 7-3 11z"/><path class="cls-5-avocado-snowman-level-three" d="M584 477c-1 0-10-9-16-23-2-5-1-7-1-9 3-4 8-3 12-2l12 5c3 2 6 7 6 11s-2 7-5 9c-5 3-9 1-11 3s3 6 3 6z"/><circle class="cls-4-avocado-snowman-level-three" cx="482.7" cy="393" r="17.5"/><circle class="cls-4-avocado-snowman-level-three" cx="579.5" cy="393" r="17.5"/><path d="M460 485c-15-10-21-23-25-31-6-12-11-24-8-38 2-13 12-25 25-27s28 7 29 20c1 16-11 23-6 39 2 4 6 13 14 20 3 4 7 6 8 11 2 4 2 10-1 13s-9 2-16 0c-6-1-12-3-20-7z" style="fill:#fd0300"/><path class="cls-5-avocado-snowman-level-three" d="M451 418a74 74 0 0 0 24 66c1 1 3-1 2-2a71 71 0 0 1-23-64c0-1-2-2-3 0z"/><path class="cls-4-avocado-snowman-level-three" d="M405 457a157 157 0 0 0 95 44c17 2 34 2 51-2a120 120 0 0 0 61-36 100 100 0 0 0 13-22l2-6c1-4-1-8-5-9-5-2-9 1-10 5l-3 7 1-2c-2 5-5 11-9 16l1-2c-4 6-9 11-15 15l1-1c-7 6-15 10-23 14l1-1c-10 4-20 7-31 9l2-1c-13 2-26 2-39 0l2 1c-14-2-27-6-40-11l2 1c-12-6-24-12-34-20l1 1-13-12c-3-2-8-3-11 0s-3 8 0 12z"/><path class="cls-1-avocado-snowman-level-three" d="M481 3z"/></svg>
+<svg
+  version="1.1"
+  id="green-profile-level-three"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 859.1 720.2"
+  style="enable-background: new 0 0 859.1 720.2"
+  xml:space="preserve"
+>
+  <style>
+    .cls-1-avocado-snowman-level-three-profile {
+      fill: #08fd50;
+    }
+    .cls-4-avocado-snowman-level-three-profile {
+      fill: #070707;
+    }
+    .cls-5-avocado-snowman-level-three-profile {
+      fill: #fff;
+    }
+  </style>
+  <path
+    class="cls-1-avocado-snowman-level-three-profile"
+    d="M430 720c236 0 427-159 429-357C857 177 693 24 481 3a544 544 0 0 0-100-1C168 23 2 176 0 363c2 198 194 357 430 357z"
+  />
+  <ellipse cx="462" cy="360.9" rx="285.2" ry="234.8" style="fill: #00da2c" />
+  <ellipse cx="451.9" cy="372.6" rx="269.1" ry="221.6" style="fill: #04b564" />
+  <path
+    class="cls-4-avocado-snowman-level-three-profile"
+    d="M399 433v4-3 4-2l-1 4 1-1-2 4 1-2-4 4 2-1-4 2 2-1-4 1h2-4 2-4l-3 1c-1 1-3 3-3 5-1 2-1 4 1 6 1 2 2 3 4 3a21 21 0 0 0 11 0 24 24 0 0 0 10-5l2-3 4-4a32 32 0 0 0 3-9v-5l-1-6-4-5-3-1h-3l-5 4v6zM606 421a31 31 0 0 0 12 11 28 28 0 0 0 13 3 32 32 0 0 0 15-4l4-5v-3l-1-3-5-4-6 1-2 1 2-1-6 2h2-5 2l-6-2 2 1-5-3 2 1-4-4 1 2-1-1c-1-2-3-4-5-4h-3l-3 1c-4 2-5 7-3 11z"
+  />
+  <path
+    class="cls-5-avocado-snowman-level-three-profile"
+    d="M584 477c-1 0-10-9-16-23-2-5-1-7-1-9 3-4 8-3 12-2l12 5c3 2 6 7 6 11s-2 7-5 9c-5 3-9 1-11 3s3 6 3 6z"
+  />
+  <circle
+    class="cls-4-avocado-snowman-level-three-profile"
+    cx="482.7"
+    cy="393"
+    r="17.5"
+  />
+  <circle
+    class="cls-4-avocado-snowman-level-three-profile"
+    cx="579.5"
+    cy="393"
+    r="17.5"
+  />
+  <path
+    d="M460 485c-15-10-21-23-25-31-6-12-11-24-8-38 2-13 12-25 25-27s28 7 29 20c1 16-11 23-6 39 2 4 6 13 14 20 3 4 7 6 8 11 2 4 2 10-1 13s-9 2-16 0c-6-1-12-3-20-7z"
+    style="fill: #fd0300"
+  />
+  <path
+    class="cls-5-avocado-snowman-level-three-profile"
+    d="M451 418a74 74 0 0 0 24 66c1 1 3-1 2-2a71 71 0 0 1-23-64c0-1-2-2-3 0z"
+  />
+  <path
+    class="cls-4-avocado-snowman-level-three-profile"
+    d="M405 457a157 157 0 0 0 95 44c17 2 34 2 51-2a120 120 0 0 0 61-36 100 100 0 0 0 13-22l2-6c1-4-1-8-5-9-5-2-9 1-10 5l-3 7 1-2c-2 5-5 11-9 16l1-2c-4 6-9 11-15 15l1-1c-7 6-15 10-23 14l1-1c-10 4-20 7-31 9l2-1c-13 2-26 2-39 0l2 1c-14-2-27-6-40-11l2 1c-12-6-24-12-34-20l1 1-13-12c-3-2-8-3-11 0s-3 8 0 12z"
+  />
+  <path class="cls-1-avocado-snowman-level-three-profile" d="M481 3z" />
+</svg>
