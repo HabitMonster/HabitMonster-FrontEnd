@@ -4,7 +4,10 @@ import {
   currentUserMonsterCodeSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
-import { refreshInfoState } from '../../recoil/states/search';
+import {
+  refreshRecommendedUserState,
+  refreshSearchUserState,
+} from '../../recoil/states/search';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -30,7 +33,8 @@ const MonsterListItem = ({
   //   monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
   const history = useHistory();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
   const [_isFollowed, setIsFollowed] = useState(isFollowed);
 
@@ -41,7 +45,7 @@ const MonsterListItem = ({
 
       if (data.statusCode === OK) {
         setIsFollowed(data.isFollowed);
-        setRefreshInfo((id) => id + 1);
+        refreshSearchUserInfo((id) => id + 1);
         refetchFollowList();
       }
     } catch (error) {
@@ -49,8 +53,21 @@ const MonsterListItem = ({
     }
   };
 
+  /*
+    @SangJoon
+
+    추천 유저를 페이지 이동할 때 갱신하는 이유는,
+    팔로우 버튼을 누를 때 추천 유저를 갱신하게 되면
+    버튼을 누르는 즉시 추천 유저의 순서가 바뀌게 됩니다.
+    따라서 페이지를 이동할 때 갱신하도록 했습니다.
+  */
   return (
-    <MonsterListItemWrap onClick={() => history.push(path)}>
+    <MonsterListItemWrap
+      onClick={() => {
+        refreshRecommendedUser((id) => id + 1);
+        history.push(path);
+      }}
+    >
       <ProfileWrap>
         <div>
           <MonsterThumbnailWrapper isProfile={true} monsterId={monsterId} />

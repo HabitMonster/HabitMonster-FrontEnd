@@ -12,7 +12,7 @@ import { setFormattedDuration } from '../utils/setFormatDuration';
 import { renderDays } from '../utils/date';
 import {
   searchUserHabitSelector,
-  refreshInfoState,
+  refreshSearchUserState,
 } from '../recoil/states/search';
 
 const MOCKUP_CATEGORY_ID = {
@@ -31,7 +31,7 @@ const SearchDetailHabit = () => {
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
 
   // 백엔드에서 HabitCategoryId를 내려주면 코드를 삭제할 예정.
   const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
@@ -48,7 +48,7 @@ const SearchDetailHabit = () => {
       <MenuBar>
         <BackButtonHeader
           onButtonClick={() => {
-            setRefreshInfo((id) => id + 1);
+            refreshSearchUserInfo((id) => id + 1);
             history.push(`/search/${monsterCode}`);
           }}
           pageTitleText={habitDetail.title}
