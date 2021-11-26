@@ -11,7 +11,7 @@
   "shortcuts": [],
   "prefer_related_applications": true,
   "theme_color": "#ffffff",
-  "background_color": "none",
+  "background_color": "#ffffff",
   "scope": "/",
   "icons": [
     {
