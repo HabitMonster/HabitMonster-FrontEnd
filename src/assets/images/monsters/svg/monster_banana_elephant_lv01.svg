@@ -1,0 +1,70 @@
+<svg
+  id="yellow_1"
+  data-name="yellow_1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 669 669.2"
+>
+  <defs>
+    <radialGradient
+      id="gradient-default-10-yellow-level-one"
+      cx="203.4"
+      cy="450.8"
+      r="89"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0" stop-color="#ff3400" stop-opacity=".6" />
+      <stop offset="1" stop-color="#ff3600" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient
+      id="gradient-default-10-yellow-level-one-2"
+      cx="517.2"
+      cy="450.8"
+      r="89"
+      xlink:href="#gradient-default-10-yellow-level-one"
+    />
+    <style>
+      .cls-5-yellow-level-one {
+        fill: red;
+      }
+    </style>
+  </defs>
+  <path
+    d="M360 61c127 0 237 71 294 175A335 335 0 0 0 0 335a333 333 0 0 0 41 160 334 334 0 0 1-15-99C26 211 176 61 360 61Z"
+    style="fill: #ffc500"
+  />
+  <path
+    d="M335 669c184 0 334-150 334-334a334 334 0 0 0-15-99A334 334 0 0 0 26 396a334 334 0 0 0 15 99 334 334 0 0 0 294 174Z"
+    style="fill: #ffd500"
+  />
+  <circle
+    cx="203.4"
+    cy="450.8"
+    r="89"
+    style="fill: url(#gradient-default-10-yellow-level-one)"
+  />
+  <circle
+    cx="517.2"
+    cy="450.8"
+    r="89"
+    style="fill: url(#gradient-default-10-yellow-level-one-2)"
+  />
+  <rect
+    class="cls-5-yellow-level-one"
+    x="325.9"
+    y="450.8"
+    width="51.4"
+    height="24.2"
+    rx="9.7"
+  />
+  <rect
+    class="cls-5-yellow-level-one"
+    x="325.9"
+    y="477.6"
+    width="51.4"
+    height="24.2"
+    rx="9.7"
+  />
+  <circle cx="322.2" cy="423.8" r="9.5" />
+  <circle cx="377.4" cy="423.8" r="9.5" />
+</svg>

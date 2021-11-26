@@ -1,1 +1,60 @@
-<svg version="1.1" id="peach-profile-level-one" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 669 666.4" style="enable-background:new 0 0 669 666.4" xml:space="preserve"><style>.cls-2-peach-bear-level-one{fill:red}.cls-4-peach-bear-level-one{fill:#070707}.cls-5-peach-bear-level-one{fill:#ff4300}</style><path d="M352 637.4A317 317 0 1 1 405.5 7.9 333.2 333.2 0 1 0 662.4 385 317.2 317.2 0 0 1 352 637.4z" style="fill:#ce0b0b"/><path class="cls-2-peach-bear-level-one" d="M666.4 333.2c0 17.3-1.3 34.7-4 51.8A317 317 0 0 0 405.5 7.9a333.2 333.2 0 0 1 260.9 325.3z"/><path class="cls-2-peach-bear-level-one" d="M35 320.4A317 317 0 0 0 662.4 385 333.2 333.2 0 0 0 405.5 7.9 317 317 0 0 0 35 320.4z"/><ellipse cx="332.5" cy="331" rx="20" ry="10.6" style="fill:#ffd500"/><circle class="cls-4-peach-bear-level-one" cx="287.5" cy="313.9" r="15"/><circle class="cls-4-peach-bear-level-one" cx="371.6" cy="313.9" r="15"/><circle transform="rotate(-80.8 240.5 345.6)" class="cls-5-peach-bear-level-one" cx="240.5" cy="345.6" r="26.2"/><circle class="cls-5-peach-bear-level-one" cx="420" cy="345.6" r="26.2"/></svg>
+<svg
+  version="1.1"
+  id="peach-profile-level-one"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 669 666.4"
+  style="enable-background: new 0 0 669 666.4"
+  xml:space="preserve"
+>
+  <style>
+    .cls-2-peach-bear-level-one-profile {
+      fill: red;
+    }
+    .cls-4-peach-bear-level-one-profile {
+      fill: #070707;
+    }
+    .cls-5-peach-bear-level-one-profile {
+      fill: #ff4300;
+    }
+  </style>
+  <path
+    d="M352 637.4A317 317 0 1 1 405.5 7.9 333.2 333.2 0 1 0 662.4 385 317.2 317.2 0 0 1 352 637.4z"
+    style="fill: #ce0b0b"
+  />
+  <path
+    class="cls-2-peach-bear-level-one-profile"
+    d="M666.4 333.2c0 17.3-1.3 34.7-4 51.8A317 317 0 0 0 405.5 7.9a333.2 333.2 0 0 1 260.9 325.3z"
+  />
+  <path
+    class="cls-2-peach-bear-level-one-profile"
+    d="M35 320.4A317 317 0 0 0 662.4 385 333.2 333.2 0 0 0 405.5 7.9 317 317 0 0 0 35 320.4z"
+  />
+  <ellipse cx="332.5" cy="331" rx="20" ry="10.6" style="fill: #ffd500" />
+  <circle
+    class="cls-4-peach-bear-level-one-profile"
+    cx="287.5"
+    cy="313.9"
+    r="15"
+  />
+  <circle
+    class="cls-4-peach-bear-level-one-profile"
+    cx="371.6"
+    cy="313.9"
+    r="15"
+  />
+  <circle
+    transform="rotate(-80.8 240.5 345.6)"
+    class="cls-5-peach-bear-level-one-profile"
+    cx="240.5"
+    cy="345.6"
+    r="26.2"
+  />
+  <circle
+    class="cls-5-peach-bear-level-one-profile"
+    cx="420"
+    cy="345.6"
+    r="26.2"
+  />
+</svg>

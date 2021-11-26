@@ -1,0 +1,34 @@
+<svg
+  version="1.1"
+  id="pink_1"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 669 669.2"
+  style="enable-background: new 0 0 669 669.2"
+  xml:space="preserve"
+>
+  <style>
+    .st2-pink-level-one {
+      fill: #070707;
+    }
+  </style>
+  <path
+    d="M317 43a335 335 0 0 1 319 436A335 335 0 1 0 15 233 335 335 0 0 1 318 43z"
+    style="fill: #e51570"
+  />
+  <path
+    d="M335 669c132 0 247-77 301-190A335 335 0 0 0 15 233a335 335 0 0 0 320 436z"
+    style="fill: #ff007e"
+  />
+  <circle class="st2-pink-level-one" cx="242" cy="422.8" r="16.7" />
+  <circle class="st2-pink-level-one" cx="394.9" cy="422.8" r="16.7" />
+  <path
+    d="M317 414a61 61 0 1 0 61 61c0-34-27-61-61-61zm0 88a27 27 0 1 1 26-27c0 15-12 27-26 27z"
+    style="fill: #ff89c5"
+  />
+  <path
+    class="st2-pink-level-one"
+    d="m200 391 1-1 2-2 2-1h1c1 0 0 0 0 0h1l4-2h2s-1 0 0 0h6s-1 0 0 0l4 1h1l1 1h-1 1l1 1a22 22 0 0 1 4 2l1 1 2 2 1 1 1 2c1 2 4 2 5 1s3-3 2-5c-4-5-10-10-16-12-7-3-14-3-20-1l-11 7v5h5zM440 386a31 31 0 0 0-47 7c-1 1 0 3 1 4 2 1 4 1 5-1l2-2h-1 1v-1l4-3s-1 0 0 0l1-1 2-1 1-1 1-1c1 0 0 1 0 0h1l4-1h8s-1 0 0 0l4 1 1 1h1-1 1l2 1 2 1 1 1h-1 2c1 2 3 1 5 0v-4z"
+  />
+</svg>
