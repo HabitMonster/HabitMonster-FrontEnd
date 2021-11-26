@@ -19,7 +19,7 @@ import { myHabitCountState } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
 import { BottomDialog } from '../dialog';
-import { Modal } from '../../components/common';
+import { Modal, Toast } from '../../components/common';
 import { EditBox, UserInfoItem } from '../../components/myPage';
 import { MonsterThumbnailWrapper } from '../../components/monster';
 
@@ -40,6 +40,15 @@ const UserInformation = () => {
   const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+  const [activeToast, setActiveToast] = useState(false);
+
+  useEffect(() => {
+    if (activeToast) {
+      setTimeout(() => {
+        setActiveToast(false);
+      }, 2500);
+    }
+  }, [activeToast]);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -54,7 +63,6 @@ const UserInformation = () => {
     if (!document.queryCommandSupported('copy')) {
       return alert('복사하기가 지원되지 않는 브라우저입니다.');
     }
-
     // 흐름 2.
     const textarea = document.createElement('textarea');
     textarea.value = contents;
@@ -68,11 +76,17 @@ const UserInformation = () => {
     textarea.focus();
     // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
     textarea.select();
+    textarea.setSelectionRange(0, 99999);
     // 흐름 4.
     document.execCommand('copy');
+    textarea.setSelectionRange(0, 0);
     // 흐름 5.
     document.body.removeChild(textarea);
     //console.log('복사된거 맞나', contents, textarea.value);
+    // navigator.clipboard.writeText(contents).then(function () {
+    //   alert('URL 복사가 완료되었습니다.');
+    // });
+    setActiveToast(true);
   };
 
   const deleteToken = useCallback(() => {
@@ -249,6 +263,9 @@ const UserInformation = () => {
             onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
+      )}
+      {activeToast && (
+        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
     </>
   );
