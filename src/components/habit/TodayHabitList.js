@@ -14,15 +14,7 @@ const TodayHabitList = () => {
   return (
     <HabitContainer ref={parent}>
       {habitIdList.length ? (
-        habitIdList.map((id, index) => (
-          <TodayHabit
-            parent={parent}
-            key={id}
-            id={id}
-            order={index}
-            onMouseUp={(e) => console.log(e)}
-          />
-        ))
+        habitIdList.map((id) => <TodayHabit parent={parent} key={id} id={id} />)
       ) : (
         <NoHabitHelper />
       )}
