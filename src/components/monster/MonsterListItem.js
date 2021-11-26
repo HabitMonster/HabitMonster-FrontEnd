@@ -4,7 +4,7 @@ import {
   currentUserMonsterCodeSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
-import { refreshInfoState } from '../../recoil/states/search';
+import { refreshSearchUserState } from '../../recoil/states/search';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -30,7 +30,7 @@ const MonsterListItem = ({
   //   monsterName && monsterCode ? `${monsterName} - ${monsterCode}` : '';
   const history = useHistory();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
   const [_isFollowed, setIsFollowed] = useState(isFollowed);
 
@@ -41,7 +41,7 @@ const MonsterListItem = ({
 
       if (data.statusCode === OK) {
         setIsFollowed(data.isFollowed);
-        setRefreshInfo((id) => id + 1);
+        refreshSearchUserInfo((id) => id + 1);
         refetchFollowList();
       }
     } catch (error) {

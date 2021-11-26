@@ -2,8 +2,8 @@ import { atom, selector, selectorFamily } from 'recoil';
 import { userApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-export const refreshInfoState = atom({
-  key: 'refreshInfoState',
+export const refreshSearchUserState = atom({
+  key: 'refreshSearchUserState',
   default: 0,
 });
 
@@ -13,7 +13,7 @@ export const searchUserInfoState = selectorFamily({
     (monsterCode) =>
     async ({ get }) => {
       try {
-        get(refreshInfoState);
+        get(refreshSearchUserState);
         const { data } = await userApis.getUserInfo(monsterCode);
         return data;
       } catch (error) {

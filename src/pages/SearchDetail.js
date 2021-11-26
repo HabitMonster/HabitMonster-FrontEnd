@@ -5,7 +5,10 @@ import styled from 'styled-components';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { CategoryMenu, UserSection } from '../components/search';
-import { searchUserInfoState, refreshInfoState } from '../recoil/states/search';
+import {
+  searchUserInfoState,
+  refreshSearchUserState,
+} from '../recoil/states/search';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import CategoryImage from '../assets/images/habit';
 import { userApis } from '../api';
@@ -17,7 +20,7 @@ const SearchDetail = () => {
   const history = useHistory();
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
 
   const { habits, monster, userInfo } = searchResult;
   const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
@@ -99,7 +102,7 @@ const SearchDetail = () => {
                 <Card
                   key={idx}
                   onClick={() => {
-                    setRefreshInfo((id) => id + 1);
+                    refreshSearchUserInfo((id) => id + 1);
                     history.push(
                       `/search/${userInfo.monsterCode}/${habit.habitId}`,
                     );
