@@ -11,10 +11,6 @@ import MONSTERS from '../../assets/images/monsters/svg';
 const MonsterThumbnail = ({ id, width, height }) => {
   const Monster = MONSTERS[id];
 
-  if (!Monster) {
-    return null;
-  }
-
   return (
     <Monster style={{ width, height, maxWidth: '100%', maxHeight: '100%' }} />
   );

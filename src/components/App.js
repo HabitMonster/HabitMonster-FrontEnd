@@ -40,19 +40,19 @@ function App() {
     );
   }
 
-  useEffect(() => {
-    const preventShrinkViewportFromKeyboard = function () {
-      const viewport = document.querySelector('meta[name=viewport]');
-      viewport.setAttribute(
-        'content',
-        viewport.content + ', height=' + window.innerHeight,
-      );
-    };
+  // useEffect(() => {
+  //   const preventShrinkViewportFromKeyboard = function () {
+  //     const viewport = document.querySelector('meta[name=viewport]');
+  //     viewport.setAttribute(
+  //       'content',
+  //       viewport.content + ', height=' + window.innerHeight,
+  //     );
+  //   };
 
-    window.addEventListener('load', preventShrinkViewportFromKeyboard);
-    return () =>
-      window.removeEventListener('load', preventShrinkViewportFromKeyboard);
-  });
+  //   window.addEventListener('load', preventShrinkViewportFromKeyboard);
+  //   return () =>
+  //     window.removeEventListener('load', preventShrinkViewportFromKeyboard);
+  // });
 
   return (
     <ErrorBoundary FallbackComponent={ErrorLog}>

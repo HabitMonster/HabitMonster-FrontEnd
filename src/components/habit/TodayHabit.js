@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styled, { keyframes, css } from 'styled-components';
 
 import { Toast } from '../common';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { habitStateWithId } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
 import { mainApis, habitApis } from '../../api';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
-import { miniDebounce } from '../../utils/event';
+import { miniThrottle, miniDebounce } from '../../utils/event';
 
 import { OK } from '../../constants/statusCode';
 import CategoryImage from '../../assets/images/habit';
 
-const TodayHabit = ({ id }) => {
+const TodayHabit = ({ id, order, parent }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
@@ -30,6 +31,43 @@ const TodayHabit = ({ id }) => {
     '.',
   );
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
+
+  const [shrink, setShrink] = useRecoilState(monsterSectionShirnkToggler);
+  const scroller = useRef(null);
+  const previousParentScrollTop = useRef(null);
+
+  useEffect(() => {
+    const { current } = scroller;
+
+    if (!current || shrink) {
+      return;
+    }
+    const parentElement = parent.current;
+    console.log(parentElement);
+
+    const initializeParentScrollTop = () => {
+      previousParentScrollTop.current = parentElement.scrollTop;
+    };
+
+    const getDifferenceOfScrollTop = miniThrottle((e) => {
+      const { current: previous } = previousParentScrollTop;
+      const { scrollTop: current } = parentElement;
+      console.log(previous);
+      console.log(current);
+
+      if (current - previous >= 10) {
+        setShrink(true);
+      }
+    }, 100);
+
+    current.addEventListener('touchstart', initializeParentScrollTop);
+    current.addEventListener('touchmove', getDifferenceOfScrollTop);
+
+    return () => {
+      current.removeEventListener('touchstart', initializeParentScrollTop);
+      current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+    };
+  }, [setShrink, shrink, parent]);
 
   useEffect(() => {
     if (activeToast) {
@@ -73,7 +111,7 @@ const TodayHabit = ({ id }) => {
 
   return (
     <>
-      <Card onClick={onHabitClicked}>
+      <Card onClick={onHabitClicked} ref={order === 0 ? scroller : null}>
         <DetailContainer>
           <div>
             <CategoryIcon category={habitDetail.category} />
@@ -114,18 +152,24 @@ const TodayHabit = ({ id }) => {
 
 TodayHabit.propTypes = {
   id: PropTypes.number.isRequired,
+  order: PropTypes.number.isRequired,
+  parent: PropTypes.object,
 };
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-  margin-bottom: 16px;
   font-family: var(--font-name-apple);
   background-color: var(--bg-primary);
   color: var(--color-primary);
   border-radius: var(--border-radius-semi);
   cursor: pointer;
+  margin-bottom: 16px;
+
+  /* &:last-of-type {
+    margin-bottom: 89px;
+  } */
 `;
 
 const DetailContainer = styled.div`

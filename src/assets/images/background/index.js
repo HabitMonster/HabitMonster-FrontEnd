@@ -1,6 +1,7 @@
 import webBackground from './web2.webp';
 import cloudBackground from './web3.webp';
 import clayPhone from './clay.webp';
+import loading from './loading.webp';
 
 // 프로퍼티 키 목록
 // 1: 웹 배경화면
@@ -9,6 +10,7 @@ import clayPhone from './clay.webp';
 const background = {
   1: webBackground,
   2: clayPhone,
+  3: loading,
   4: cloudBackground,
 };
 

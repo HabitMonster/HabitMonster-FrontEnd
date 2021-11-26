@@ -31,12 +31,8 @@ const Main = () => {
   return (
     <>
       <Wrapper>
-        <MonsterSection>
-          <MainMonster />
-        </MonsterSection>
-        <HabitSection>
-          <TodayHabitList />
-        </HabitSection>
+        <MainMonster />
+        <TodayHabitList />
       </Wrapper>
       <Gnb />
       {isMonsterModalOpen && (
@@ -63,27 +59,13 @@ const Main = () => {
   );
 };
 
-const MonsterSection = styled.section`
-  width: 100%;
-  height: fit-content;
-  max-height: 434px;
-  z-index: 2;
-`;
-
-const HabitSection = styled.section`
-  width: 100%;
-  padding-top: 24px;
-  overflow-y: scroll;
-  border-radius: var(--border-radius-semi);
-`;
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px);
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
 `;

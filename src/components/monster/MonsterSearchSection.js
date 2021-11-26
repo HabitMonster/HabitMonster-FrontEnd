@@ -30,10 +30,10 @@ const MonsterSearchSection = () => {
 };
 
 const Header = styled.header`
-  width: calc(100% - 48px); // 100% width - (paddingLeft + paddingRight)
+  /* width: calc(100% - 48px); // 100% width - (paddingLeft + paddingRight) */
   height: 32px;
-  z-index: 3;
-  position: absolute;
+  margin-top: 24px;
+  /* position: absolute; */
   display: flex;
   justify-content: space-between;
   align-items: center;
