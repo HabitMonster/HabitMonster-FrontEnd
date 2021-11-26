@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
 import { monsterState } from '../../recoil/states/monster';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
@@ -42,7 +41,7 @@ const MainMonster = () => {
   }, [monster.monsterLevel, monster.monsterExpPoint]);
 
   return (
-    <MonsterContainer>
+    <MonsterContainer heightShrinked={heightShrinked}>
       <MonsterSearchSection />
       <TitleWrapper heightShrinked={heightShrinked}>
         <Title>
@@ -94,28 +93,31 @@ const MainMonster = () => {
 };
 
 const MonsterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   width: 100%;
   background: #1e135c;
   padding: 0px 24px;
-  padding-top: 24px;
-  transition: all 150ms ease-in;
+  transition: all 350ms ease-in;
   position: relative;
+  height: fit-content;
+  max-height: 434px;
 `;
 
 const TitleWrapper = styled.div`
-  display: block;
-  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
-  height: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0px')};
-  opacity: ${({ heightShrinked }) => (!heightShrinked ? '1' : '0')};
-  transition: all 350ms linear;
+  line-height: ${({ heightShrinked }) => (heightShrinked ? '0' : '1rem')};
+  height: ${({ heightShrinked }) => (!heightShrinked ? '64px' : '0')};
+  overflow: ${({ heightShrinked }) => (!heightShrinked ? 'auto' : 'hidden')};
+  margin-top: ${({ heightShrinked }) => (!heightShrinked ? '24px' : '0')};
+
+  transition: all 300ms ease-in-out 50ms;
+
+  & > p {
+    opacity: ${({ heightShrinked }) => (!heightShrinked ? '1' : '0')};
+    transition: opacity 50ms ease-in-out;
+  }
 `;
 
 const Title = styled.p`
   font-family: var(--font-name-apple);
-  font-weight: var(--weight-regular);
   font-size: var(--font-xxl);
   line-height: 32px;
   color: var(--color-primary);
@@ -126,25 +128,15 @@ const Title = styled.p`
 `;
 
 const ThumbnailWrapper = styled.div`
-  width: 100%;
-  height: 183px;
+  width: 152px;
+  height: 152px;
+  padding: 29px;
   margin: 0 auto;
-  margin-top: ${({ heightShrinked }) => (heightShrinked ? '0px' : '24px')};
-  padding: 0px 28px;
+  margin-top: ${({ heightShrinked }) => (heightShrinked ? '-24px' : '24px')};
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  position: relative;
-  transition: all 350ms linear;
-
-  & > .inner {
-    width: 152px;
-    height: 152px;
-    padding: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  transition: all 250ms ease-in-out 50ms;
 `;
 
 const ExpContainer = styled.div`

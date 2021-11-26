@@ -41,6 +41,13 @@ const getThumbnailSize = (size) => {
         height: '80px',
         padding: '14px 17px',
       };
+    case 'large': {
+      return {
+        width: '152px',
+        height: '152px',
+        padding: '29px',
+      };
+    }
     default:
       return {
         backgroundColor: 'rgba(248, 248, 248, 0.2)',

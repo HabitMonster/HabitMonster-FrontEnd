@@ -9,6 +9,26 @@ import App from './components/App';
 
 import { GlobalStyle } from './styles/';
 
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+window.addEventListener('load', function () {
+  var viewport = document.querySelector('meta[name=viewport]');
+  viewport.setAttribute(
+    'content',
+    viewport.content + ', height=' + window.innerHeight,
+  );
+});
+
+window.addEventListener('resize', () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+window.addEventListener('touchend', () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+
 ReactDOM.render(
   <RecoilRoot>
     <Router>
