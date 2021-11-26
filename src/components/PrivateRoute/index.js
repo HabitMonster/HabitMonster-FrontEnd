@@ -3,12 +3,12 @@ import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
-import { authState } from '../../recoil/states/auth';
+import { defaultAuthSelector } from '../../recoil/states/auth';
 import { userState } from '../../recoil/states/user';
 import { mainApis } from '../../api';
 
 const PrivateRoute = ({ component, ...rest }) => {
-  const { isLogin, isFirstLogin } = useRecoilValue(authState);
+  const { isLogin, isFirstLogin } = useRecoilValue(defaultAuthSelector);
   const setUserInfoState = useSetRecoilState(userState);
   const location = useLocation();
   const renderingCount = useRef(1);

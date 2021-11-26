@@ -111,3 +111,10 @@ export const myFollowListByType = selectorFamily({
       }
     },
 });
+
+// export const updaterSelector = selector({
+//   key: 'updaterSelector',
+//   get: ({get}) => {
+
+//   },
+// })

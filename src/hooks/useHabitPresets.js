@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -12,7 +12,6 @@ import { addHabitApis } from '../api';
 import { OK } from '../constants/statusCode';
 
 export default function useHabitPresets() {
-  // const [presets, setPresets] = useState([]);
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habits, setHabits] = useRecoilState(defaultHabitsState);
@@ -21,22 +20,6 @@ export default function useHabitPresets() {
   const { categoryId } = useParams();
   const presets = useRecoilValue(presetListSelector(categoryId));
   const history = useHistory();
-
-  // useEffect(() => {
-  //   async function getHabitPresetFromServer() {
-  //     try {
-  //       const { data } = await addHabitApis.getHabitPreset(categoryId);
-
-  //       if (data.statusCode === OK) {
-  //         setPresets(data.preSets);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-
-  //   getHabitPresetFromServer();
-  // }, [categoryId]);
 
   const onPresetChosen = useCallback((presetId) => {
     setSelectedPresetId(presetId);
@@ -47,6 +30,7 @@ export default function useHabitPresets() {
   const onPresetSaved = async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
+      console.log(data);
 
       if (
         data.statusCode === OK &&
@@ -54,9 +38,14 @@ export default function useHabitPresets() {
       ) {
         setHabitIdList([data.habit.habitId, ...habitIdList]);
         setHabits([data.habit, ...habits]);
+        console.log('zc');
       }
       setTotalHabitCount(totalHabitCount + 1);
-      history.replace('/');
+      // 버그가 일어날 가능성이 있지만..
+      // 동기적으로 리코일 업데이트가 모두 끝난 다음에 히스토리를 보낸다.
+      setTimeout(() => {
+        history.replace('/');
+      }, 0);
     } catch (error) {
       console.error(error);
     }
