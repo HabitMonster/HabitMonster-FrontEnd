@@ -19,7 +19,7 @@ import { myHabitCountState } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
 import { BottomDialog } from '../dialog';
-import { Modal } from '../../components/common';
+import { Modal, Toast } from '../../components/common';
 import { EditBox, UserInfoItem } from '../../components/myPage';
 import { MonsterThumbnailWrapper } from '../../components/monster';
 
@@ -40,6 +40,7 @@ const UserInformation = () => {
   const [editModalType, setEditModalType] = useState('');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
+  const [activeToast, setActiveToast] = useState(false);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -70,13 +71,12 @@ const UserInformation = () => {
     textarea.setSelectionRange(0, 99999);
     // 흐름 4.
     document.execCommand('copy');
-    textarea.setSelectionRange(0, 0);
+    // textarea.setSelectionRange(0, 0);
     // 흐름 5.
     document.body.removeChild(textarea);
-    //console.log('복사된거 맞나', contents, textarea.value);
-    // navigator.clipboard.writeText(contents).then(function () {
-    //   alert('URL 복사가 완료되었습니다.');
-    // });
+    console.log('복사된거 맞나', contents, textarea.value);
+
+    setTimeout(() => setActiveToast(true));
   };
 
   const deleteToken = useCallback(() => {
@@ -148,6 +148,16 @@ const UserInformation = () => {
         },
       ]
     : [];
+
+  useEffect(() => {
+    if (activeToast) {
+      console.log('copy');
+      setTimeout(() => {
+        setActiveToast(false);
+        console.log('copy2');
+      }, 2500);
+    }
+  }, [activeToast]);
 
   useEffect(() => {
     // console.log('mypage CleanUp', history.location.pathname);
@@ -253,6 +263,9 @@ const UserInformation = () => {
             onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>
+      )}
+      {activeToast && (
+        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
     </>
   );
