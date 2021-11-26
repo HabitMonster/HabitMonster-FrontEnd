@@ -2,12 +2,6 @@ import { atom, selector, selectorFamily } from 'recoil';
 import { userApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-/*
-  LoadingPage 보이는 시간을 계산하기 위해 만든 유틸성 함수입니다.
-  ex) await testDelay(1000) => 1초동안 비동기 흐름을 멈춥니다.
-*/
-const testDelay = (wait) => new Promise((resolve) => setTimeout(resolve, wait));
-
 export const refreshInfoState = atom({
   key: 'refreshInfoState',
   default: 0,

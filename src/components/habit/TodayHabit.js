@@ -20,6 +20,7 @@ const TodayHabit = ({ id }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
+
   const [active, setActive] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
 
@@ -28,7 +29,6 @@ const TodayHabit = ({ id }) => {
     'MD',
     '.',
   );
-
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
 
   useEffect(() => {
