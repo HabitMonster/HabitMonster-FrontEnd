@@ -55,7 +55,7 @@ const OnBoard = () => {
             <SubTitleBox>
               <SubTitle className="doubleLine">진화하는 몬스터와 함께</SubTitle>
               <SubTitle className="doubleLine">
-                변화 될 당신의 모습도 궁굼하군요!
+                변화 될 당신의 모습도 궁금하군요!
               </SubTitle>
             </SubTitleBox>
             <Image bg={onboard03} className="third-image" />
