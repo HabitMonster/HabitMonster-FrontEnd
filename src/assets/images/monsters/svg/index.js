@@ -1,71 +1,70 @@
-import { ReactComponent as GreenLevelOne } from './green_1.svg';
-import { ReactComponent as GreenLevelTwo } from './green_2.svg';
-import { ReactComponent as GreenLevelThree } from './green_3.svg';
-import { ReactComponent as GreenLevelFour } from './green_4.svg';
-import { ReactComponent as GreenLevelFive } from './green_5.svg';
+import { ReactComponent as AvocadoSnowmanOne } from './monster_avocado_snowman_lv01.svg';
+import { ReactComponent as AvocadoSnowmanTwo } from './monster_avocado_snowman_lv02.svg';
+import { ReactComponent as AvocadoSnowmanThree } from './monster_avocado_snowman_lv03.svg';
+import { ReactComponent as AvocadoSnowmanFour } from './monster_avocado_snowman_lv04.svg';
+import { ReactComponent as AvocadoSnowmanFive } from './monster_avocado_snowman_lv05.svg';
 
-import { ReactComponent as PinkLevelOne } from './pink_1.svg';
-import { ReactComponent as PinkLevelTwo } from './pink_2.svg';
-import { ReactComponent as PinkLevelThree } from './pink_3.svg';
-import { ReactComponent as PinkLevelFour } from './pink_4.svg';
-import { ReactComponent as PinkLevelFive } from './pink_5.svg';
+import { ReactComponent as BananaElephantOne } from './monster_banana_elephant_lv01.svg';
+import { ReactComponent as BananaElephantTwo } from './monster_banana_elephant_lv02.svg';
+import { ReactComponent as BananaElephantThree } from './monster_banana_elephant_lv03.svg';
+import { ReactComponent as BananaElephantFour } from './monster_banana_elephant_lv04.svg';
+import { ReactComponent as BananaElephantFive } from './monster_banana_elephant_lv05.svg';
 
-import { ReactComponent as BlueLevelOne } from './blue_1.svg';
-import { ReactComponent as BlueLevelTwo } from './blue_2.svg';
+import { ReactComponent as BlueberryOctoOne } from './monster_blueberry_octo_lv01.svg';
+import { ReactComponent as BlueberryOctoTwo } from './monster_blueberry_octo_lv02.svg';
+import { ReactComponent as BlueberryOctoThree } from './monster_blueberry_octo_lv03.svg';
+import { ReactComponent as BlueberryOctoFour } from './monster_blueberry_octo_lv04.svg';
+import { ReactComponent as BlueberryOctoFive } from './monster_blueberry_octo_lv05.svg';
 
-import { ReactComponent as YellowLevelOne } from './yellow_1.svg';
-import { ReactComponent as YellowLevelTwo } from './yellow_2.svg';
-import { ReactComponent as YellowLevelThree } from './yellow_3.svg';
-import { ReactComponent as YellowLevelFour } from './yellow_4.svg';
-import { ReactComponent as YellowLevelFive } from './yellow_5.svg';
+import { ReactComponent as DonutRabbitOne } from './monster_donut_rabbit_lv01.svg';
+import { ReactComponent as DonutRabbitTwo } from './monster_donut_rabbit_lv02.svg';
+import { ReactComponent as DonutRabbitThree } from './monster_donut_rabbit_lv03.svg';
+import { ReactComponent as DonutRabbitFour } from './monster_donut_rabbit_lv04.svg';
+import { ReactComponent as DonutRabbitFive } from './monster_donut_rabbit_lv05.svg';
 
-import { ReactComponent as OrangeLevelOne } from './orange_1.svg';
-import { ReactComponent as OrangeLevelTwo } from './orange_1.svg';
+import { ReactComponent as LemonMouseOne } from './monster_lemon_mouse_lv01.svg';
+import { ReactComponent as LemonMouseTwo } from './monster_lemon_mouse_lv02.svg';
+import { ReactComponent as LemonMouseThree } from './monster_lemon_mouse_lv03.svg';
+import { ReactComponent as LemonMouseFour } from './monster_lemon_mouse_lv04.svg';
+import { ReactComponent as LemonMouseFive } from './monster_lemon_mouse_lv05.svg';
 
-import { ReactComponent as RedLevelOne } from './red_1.svg';
-import { ReactComponent as RedLevelTwo } from './red_2.svg';
-import { ReactComponent as RedLevelThree } from './red_3.svg';
-import { ReactComponent as RedLevelFour } from './red_4.svg';
-import { ReactComponent as RedLevelFive } from './red_5.svg';
-
-// import { ReactComponent as NoMonsterImage } from './NoMonsterImage.svg';
-
-/*
-  @ 객체의 프로퍼티 키: MonsterId
-  @ 주석처리 한 것: 아직 나오지 않은 것.
-*/
+import { ReactComponent as PeachBearOne } from './monster_peach_bear_lv01.svg';
+import { ReactComponent as PeachBearTwo } from './monster_peach_bear_lv02.svg';
+import { ReactComponent as PeachBearThree } from './monster_peach_bear_lv03.svg';
+import { ReactComponent as PeachBearFour } from './monster_peach_bear_lv04.svg';
+import { ReactComponent as PeachBearFive } from './monster_peach_bear_lv05.svg';
 
 const MONSTERS = {
-  1: GreenLevelOne,
-  2: GreenLevelTwo,
-  3: GreenLevelThree,
-  4: GreenLevelFour,
-  5: GreenLevelFive,
-  6: PinkLevelOne,
-  7: PinkLevelTwo,
-  8: PinkLevelThree,
-  9: PinkLevelFour,
-  10: PinkLevelFive,
-  11: BlueLevelOne,
-  12: BlueLevelTwo,
-  // 13: NoMonsterImage,
-  // 14: NoMonsterImage,
-  // 15: NoMonsterImage,
-  16: YellowLevelOne,
-  17: YellowLevelTwo,
-  18: YellowLevelThree,
-  19: YellowLevelFour,
-  20: YellowLevelFive,
-  21: OrangeLevelOne,
-  22: OrangeLevelTwo,
-  // 23: NoMonsterImage,
-  // 24: NoMonsterImage,
-  // 25: NoMonsterImage,
-  26: RedLevelOne,
-  27: RedLevelTwo,
-  28: RedLevelThree,
-  29: RedLevelFour,
-  30: RedLevelFive,
+  1: AvocadoSnowmanOne,
+  2: AvocadoSnowmanTwo,
+  3: AvocadoSnowmanThree,
+  4: AvocadoSnowmanFour,
+  5: AvocadoSnowmanFive,
+  6: DonutRabbitOne,
+  7: DonutRabbitTwo,
+  8: DonutRabbitThree,
+  9: DonutRabbitFour,
+  10: DonutRabbitFive,
+  11: BlueberryOctoOne,
+  12: BlueberryOctoTwo,
+  13: BlueberryOctoThree,
+  14: BlueberryOctoFour,
+  15: BlueberryOctoFive,
+  16: BananaElephantOne,
+  17: BananaElephantTwo,
+  18: BananaElephantThree,
+  19: BananaElephantFour,
+  20: BananaElephantFive,
+  21: LemonMouseOne,
+  22: LemonMouseTwo,
+  23: LemonMouseThree,
+  24: LemonMouseFour,
+  25: LemonMouseFive,
+  26: PeachBearOne,
+  27: PeachBearTwo,
+  28: PeachBearThree,
+  29: PeachBearFour,
+  30: PeachBearFive,
 };
 
 export default MONSTERS;

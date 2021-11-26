@@ -1,1 +1,114 @@
-<svg version="1.1" id="banana-profile-level-three" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 1284.8 640.4" style="enable-background:new 0 0 1284.8 640.4" xml:space="preserve"><style>.cls-1-banana-elephant-level-three{fill:#ffc500}.cls-2-banana-elephant-level-three{fill:#fdd301}.cls-5-banana-elephant-level-three{fill:#fff}.cls-6-banana-elephant-level-three{fill:#fd0300}</style><path class="cls-1-banana-elephant-level-three" d="M1273 291a186 186 0 0 1-356 107 186 186 0 1 0 356-107z"/><path class="cls-2-banana-elephant-level-three" d="M1092 520a186 186 0 0 0 181-229 186 186 0 0 0-356 107c27 73 97 122 175 122z"/><path class="cls-1-banana-elephant-level-three" d="M11 291a186 186 0 0 0 356 107A186 186 0 1 1 12 291z"/><path class="cls-2-banana-elephant-level-three" d="M193 520A186 186 0 0 1 11 291a186 186 0 0 1 357 107c-27 73-97 122-175 122z"/><path class="cls-1-banana-elephant-level-three" d="M957 268c8-17 12-36 12-55C969 95 817-1 631-1h-1c142 2 313 83 327 197 4 29-3 55-12 76 95 61 99 117 99 132 2 104-174 202-320 202-36 0-71-4-106-12-35 8-71 12-107 12-144 0-322-97-319-202 1-75 92-130 118-144-7-20-13-46-9-74C318 82 465 9 598 0 426 10 292 102 292 213c0 15 3 30 7 44-80 39-132 101-132 170 0 118 152 213 339 213 37 1 75-4 112-12 37 8 75 13 113 12 186 0 338-95 338-213 0-63-43-120-112-159z"/><path class="cls-2-banana-elephant-level-three" d="M301 186c-4 28 2 54 9 74-25 15-117 69-118 144-3 105 175 202 320 202 35 0 71-4 106-12 35 8 71 12 106 12 146 0 323-98 320-202 0-15-4-71-99-132 9-21 16-47 13-76C943 82 772 1 630-1l-32 1C465 9 318 82 301 186z"/><radialGradient id="SVGID_1_banana-elephant-level-three" cx="397.7" cy="1990" r="97.3" gradientTransform="scale(1 -1) rotate(28 5233 861)" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:#fd3400;stop-opacity:.6"/><stop offset="1" style="stop-color:#fd3700;stop-opacity:0"/></radialGradient><circle cx="438" cy="417" r="97.3" style="fill:url(#SVGID_1_banana-elephant-level-three)"/><radialGradient id="SVGID_00000162327406786031554150000009653731713479500479_banana-elephant-level-three" cx="780.9" cy="569" r="97.3" gradientTransform="matrix(1 0 0 -1 0 986)" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:#fd3400;stop-opacity:.6"/><stop offset="1" style="stop-color:#fd3700;stop-opacity:0"/></radialGradient><circle style="fill:url(#SVGID_00000162327406786031554150000009653731713479500479_banana-elephant-level-three)" cx="780.9" cy="417" r="97.3"/><path d="m496 378-5-1c-3-2-4-5-2-8l1-1a147 147 0 0 1 115-55 146 146 0 0 1 112 52c2 2 2 6-1 9h-1c-3 2-8 2-10-1-4-5-39-47-101-47-26 0-52 8-74 23-17 12-27 25-28 26-1 2-4 3-6 3z"/><circle class="cls-5-banana-elephant-level-three" cx="551.4" cy="407" r="33.9"/><circle cx="551.4" cy="410.3" r="28.4"/><circle class="cls-5-banana-elephant-level-three" cx="655" cy="407" r="33.9"/><circle cx="655" cy="410.3" r="28.4"/><path class="cls-6-banana-elephant-level-three" d="M573 492h72c8 0 14 6 14 13s-6 13-13 13h-73c-7 0-13-6-13-13s6-13 13-13z"/><path class="cls-5-banana-elephant-level-three" d="M632 473h9c4 0 7 6 5 11l-5 12-4 11c-2 5-7 5-9 0l-5-11-4-12c-2-5 0-11 4-11h9z"/><path class="cls-6-banana-elephant-level-three" d="M573 460h72c8 0 14 6 14 13s-6 13-13 13h-73c-7 0-13-6-13-13s6-13 13-13z"/></svg>
+<svg
+  version="1.1"
+  id="banana-profile-level-three"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 1284.8 640.4"
+  style="enable-background: new 0 0 1284.8 640.4"
+  xml:space="preserve"
+>
+  <style>
+    .cls-1-banana-elephant-level-three-profile {
+      fill: #ffc500;
+    }
+    .cls-2-banana-elephant-level-three-profile {
+      fill: #fdd301;
+    }
+    .cls-5-banana-elephant-level-three-profile {
+      fill: #fff;
+    }
+    .cls-6-banana-elephant-level-three-profile {
+      fill: #fd0300;
+    }
+  </style>
+  <path
+    class="cls-1-banana-elephant-level-three-profile"
+    d="M1273 291a186 186 0 0 1-356 107 186 186 0 1 0 356-107z"
+  />
+  <path
+    class="cls-2-banana-elephant-level-three-profile"
+    d="M1092 520a186 186 0 0 0 181-229 186 186 0 0 0-356 107c27 73 97 122 175 122z"
+  />
+  <path
+    class="cls-1-banana-elephant-level-three-profile"
+    d="M11 291a186 186 0 0 0 356 107A186 186 0 1 1 12 291z"
+  />
+  <path
+    class="cls-2-banana-elephant-level-three-profile"
+    d="M193 520A186 186 0 0 1 11 291a186 186 0 0 1 357 107c-27 73-97 122-175 122z"
+  />
+  <path
+    class="cls-1-banana-elephant-level-three-profile"
+    d="M957 268c8-17 12-36 12-55C969 95 817-1 631-1h-1c142 2 313 83 327 197 4 29-3 55-12 76 95 61 99 117 99 132 2 104-174 202-320 202-36 0-71-4-106-12-35 8-71 12-107 12-144 0-322-97-319-202 1-75 92-130 118-144-7-20-13-46-9-74C318 82 465 9 598 0 426 10 292 102 292 213c0 15 3 30 7 44-80 39-132 101-132 170 0 118 152 213 339 213 37 1 75-4 112-12 37 8 75 13 113 12 186 0 338-95 338-213 0-63-43-120-112-159z"
+  />
+  <path
+    class="cls-2-banana-elephant-level-three-profile"
+    d="M301 186c-4 28 2 54 9 74-25 15-117 69-118 144-3 105 175 202 320 202 35 0 71-4 106-12 35 8 71 12 106 12 146 0 323-98 320-202 0-15-4-71-99-132 9-21 16-47 13-76C943 82 772 1 630-1l-32 1C465 9 318 82 301 186z"
+  />
+  <radialGradient
+    id="SVGID_1_banana-elephant-level-three"
+    cx="397.7"
+    cy="1990"
+    r="97.3"
+    gradientTransform="scale(1 -1) rotate(28 5233 861)"
+    gradientUnits="userSpaceOnUse"
+  >
+    <stop offset="0" style="stop-color: #fd3400; stop-opacity: 0.6" />
+    <stop offset="1" style="stop-color: #fd3700; stop-opacity: 0" />
+  </radialGradient>
+  <circle
+    cx="438"
+    cy="417"
+    r="97.3"
+    style="fill: url(#SVGID_1_banana-elephant-level-three-profile)"
+  />
+  <radialGradient
+    id="SVGID_00000162327406786031554150000009653731713479500479_banana-elephant-level-three-profile"
+    cx="780.9"
+    cy="569"
+    r="97.3"
+    gradientTransform="matrix(1 0 0 -1 0 986)"
+    gradientUnits="userSpaceOnUse"
+  >
+    <stop offset="0" style="stop-color: #fd3400; stop-opacity: 0.6" />
+    <stop offset="1" style="stop-color: #fd3700; stop-opacity: 0" />
+  </radialGradient>
+  <circle
+    style="
+      fill: url(#SVGID_00000162327406786031554150000009653731713479500479_banana-elephant-level-three-profile);
+    "
+    cx="780.9"
+    cy="417"
+    r="97.3"
+  />
+  <path
+    d="m496 378-5-1c-3-2-4-5-2-8l1-1a147 147 0 0 1 115-55 146 146 0 0 1 112 52c2 2 2 6-1 9h-1c-3 2-8 2-10-1-4-5-39-47-101-47-26 0-52 8-74 23-17 12-27 25-28 26-1 2-4 3-6 3z"
+  />
+  <circle
+    class="cls-5-banana-elephant-level-three-profile"
+    cx="551.4"
+    cy="407"
+    r="33.9"
+  />
+  <circle cx="551.4" cy="410.3" r="28.4" />
+  <circle
+    class="cls-5-banana-elephant-level-three-profile"
+    cx="655"
+    cy="407"
+    r="33.9"
+  />
+  <circle cx="655" cy="410.3" r="28.4" />
+  <path
+    class="cls-6-banana-elephant-level-three-profile"
+    d="M573 492h72c8 0 14 6 14 13s-6 13-13 13h-73c-7 0-13-6-13-13s6-13 13-13z"
+  />
+  <path
+    class="cls-5-banana-elephant-level-three-profile"
+    d="M632 473h9c4 0 7 6 5 11l-5 12-4 11c-2 5-7 5-9 0l-5-11-4-12c-2-5 0-11 4-11h9z"
+  />
+  <path
+    class="cls-6-banana-elephant-level-three-profile"
+    d="M573 460h72c8 0 14 6 14 13s-6 13-13 13h-73c-7 0-13-6-13-13s6-13 13-13z"
+  />
+</svg>

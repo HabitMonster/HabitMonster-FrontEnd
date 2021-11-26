@@ -1,1 +1,491 @@
-<svg version="1.1" id="peach-profile-level-five" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 1654.7 1278" style="enable-background:new 0 0 1654.7 1278" xml:space="preserve"><style>.st0{fill:#87ff7b}.st1{fill:#00f082}.st3{fill:#625300}.st5{fill:#d11022}.st6{fill:#fd0300}.st9{fill:#ffc2ff}.st10{fill:#070707}.st13{fill:#fc4401}.st14{fill:#fff}.st15{opacity:.2}.st16{opacity:.3}.st17{fill:#e72500}.st18{opacity:.15}.st19,.st20,.st21,.st22{opacity:.3;fill:#fff;enable-background:new}.st20,.st21,.st22{opacity:.6}.st21,.st22{opacity:.2}.st22{opacity:.8}</style><path class="st0" d="M631 69c3 35 25 65 57 79a58 58 0 0 0-23-47c-9-7-12-6-20-13-6-5-11-11-14-19zM682 208c-1-10-6-44-34-71-22-19-45-25-55-28 5 5 11 9 15 15 7 8 10 15 17 31 9 22 14 33 17 36 6 7 17 15 40 17zM611 205c9 6 18 13 25 21 11 11 14 19 23 21 6 1 14 0 26-10-8-1-15-4-21-8-8-6-10-12-16-16-6-6-17-10-37-8zM689 280c-11-3-16-10-23-14-7-5-18-8-38-4 4 11 11 20 20 28 9 6 19 14 32 11 15-3 22-19 23-21h-14zM690 101c-3-1-20-13-23-35-4-26 17-44 18-45-1 23 3 37 8 46 2 5 6 13 4 22-1 6-4 10-7 12z"/><path class="st1" d="M735 239c17 40 50 74 91 91l2-1c-9-8-21-22-29-41-11-29-2-47-5-75-5-36-23-48-44-84-15-27-31-68-35-129l-1 2 4 123c1 38 3 78 17 114z"/><path class="st0" d="M735 239c-14-36-16-76-17-114L714 2c-39 63-53 119-58 153-9 62 2 92 5 100 5 13 21 54 67 74 45 20 87 5 98 1-40-17-74-51-91-91z"/><path class="st1" d="M710 76c-4 10-11 17-20 21 8 4 15 9 20 17V76zM709 123c-4 9-11 17-20 20 8 4 15 10 20 17v-37zM707 169c-2 10-8 18-17 23 9 3 17 8 23 14l-6-37zM715 217c-1 9-6 18-14 24 9 2 17 6 24 12l-10-36zM728 261c1 10-1 20-7 28 9-1 18 0 26 4l-19-32zM753 297c5 9 6 19 4 28 8-4 17-6 26-6l-30-22z"/><path d="M857 255c25-34 61-59 102-71l-38-32c-16 8-69 37-99 101-25 55-19 105-15 123l11 1c-1-43 13-87 39-122z" style="fill:#663606"/><path class="st3" d="M959 184c-41 12-77 37-102 71-26 35-40 79-39 122h1c6-22 28-88 93-133 24-16 51-27 80-33l-33-27z"/><path d="M921 152c-3 4-3 8-2 13 5 33 51 44 60 46 4 1 9 2 13 0 8-5 9-22 6-32-10-29-67-41-77-27z" style="fill:#528c00"/><path class="st0" d="M926 147c-3 3-2 8-1 13 5 32 50 43 60 46 4 0 8 1 12-1 9-5 10-21 6-32-10-29-66-41-77-26z"/><path class="st3" d="M922 181a22 22 0 0 0 7 9c-14 5-27 13-38 23l-1-1-1-1 33-30z"/><path class="st5" d="M1360 710a608 608 0 0 1-160 290 805 805 0 0 1-364 226v2l-3-1-2 1v-1c-99-25-246-79-376-207a608 608 0 0 1-175-281c-6-24-15-62-18-108-4 69 10 128 18 159a607 607 0 0 0 175 281 805 805 0 0 0 376 207v1h5v-1c97-29 241-92 364-227 56-61 130-150 160-290 6-28 15-78 12-136-2 28-6 57-12 85z"/><path class="st6" d="M1308 421a368 368 0 0 0-278-146c-107-5-188 39-221 60-35-20-118-59-224-48-31 3-183 23-270 160-48 76-57 156-53 220l2-17c3 30 8 59 16 89a607 607 0 0 0 175 281 806 806 0 0 0 376 207v1l2-1 3 1v-1c97-30 241-92 364-227a609 609 0 0 0 170-356l2 17c4-68-6-158-64-240z"/><path d="M839 1063c13-34 46-56 83-55a1097 1097 0 0 0 7-75c0-2-2-4-4-4l-4 2a53 53 0 0 1-44 23c-27-1-42-23-43-25-2 2-17 24-43 25-17 0-34-8-44-23-2-2-4-2-6-1s-2 2-2 4c0 15 1 31 3 46 7 48 10 75 29 98 20-14 44-19 68-15z" style="fill:#7c0d17"/><path d="M877 1019a88 88 0 0 0-38 44c-24-4-48 1-67 15v1c4 4 28 33 61 37h1c33-4 57-33 61-37 16-19 22-39 26-71-15 0-30 3-44 11z" style="fill:#c9354e"/><path class="st5" d="M822 356c17 11 32 26 43 43 6 8 19 28 25 65 11 60-3 109-2 110 2 0 1-73 42-143a241 241 0 0 1 198-122 374 374 0 0 0-306 47zM348 934c-8-12-146-222-38-429 12-24 33-63 72-100a359 359 0 0 1 290-97 528 528 0 0 0-295 275c-88 210 53 433 67 455-26-21-63-56-96-104z"/><path class="st9" d="m908 947-1-2h-1a51 51 0 0 1-33 9l-1 1 5 12 8 19c1 1 3 2 5 1l1-1M792 1066l2-8c2-5-2-11-7-13l-8 1-7 3-6 3c-5 2-6 7-4 11v1c3 5 6 11 10 15l14 13 6-26zM889 1046c-5-3-12 0-14 5l-1 7 2 8 3 12a8 8 0 0 0 14 3l2-2 11-16c2-4 1-9-3-11h-1l-6-3-7-3zM760 947l9 20 1 4a10 10 0 0 0 19 0l1-4 6-12-1-1h-4c-11 0-21-3-29-9h-2v2z"/><path class="st10" d="M831 903v28c-1 4 5 4 6 0v-28c0-4-6-4-6 0z"/><path class="st10" d="M733 923a64 64 0 0 0 103 12c2-2 3-5 1-7s-5-2-7 0l-4 4-1 2-1 1h-1c-1 0 0 0 0 0l-9 6-3 1s-1 1 0 0l-2 1-5 2-5 1h-3c1 0 0 0 0 0h-17l-5-2-5-1-1-1h-1l-2-1-9-6h-1l-1-1-2-2-5-5a38 38 0 0 1-2-2l-1-1-3-6c-1-2-4-3-6-1-2 1-3 4-2 6z"/><path class="st10" d="M830 903v28c0 3 2 5 5 5s4-2 4-5v-28c0-3-2-5-5-5s-4 2-4 5z"/><path class="st10" d="m927 918-2 5-2 2c-1 1 0 0 0 0l-1 1-8 8-1 1-1 1-1 1a49 49 0 0 1-9 5h-2s1 0 0 0l-3 1a54 54 0 0 1-10 3h-15l-5-1-5-2-3-1h-1c-1 0 0 0 0 0l-11-6-1-1-1-1-2-2-5-4c-2-2-4-2-6 0s-2 4 0 6a63 63 0 0 0 103-12c1-2 1-4-1-6s-5 0-7 2z"/><path d="M834 904c24 1 29 1 32-2 4-6 0-18-7-25-13-11-37-11-49 1-7 6-12 17-8 22 3 4 7 4 32 4z" style="fill:#ff8033"/><path d="M834 894c17 1 20 1 22-2 4-4 0-12-5-17-8-8-25-8-34 0-5 5-9 12-6 16 2 3 6 3 23 3z" style="fill:#fdd301"/><circle class="st13" cx="1103.6" cy="953.7" r="50.4"/><circle class="st13" cx="586.1" cy="952.1" r="50.4"/><path class="st14" d="M819 878v4c1 2 4 2 4 2 2 0 4-1 5-3 0-3-1-4-3-5s-5 0-6 2z"/><g class="st15"><path class="st14" d="M768 343c-12-7-54-28-87-15-4 2-24 10-24 22s19 22 23 23c13 3 26 2 39 4 26 4 47 21 61 40s19 42 24 64c6 26 19 28 24 28 11 1 22-17 27-28 18-46-29-109-87-138z"/></g><g class="st16"><path class="st14" d="M839 525c-12 1-23 15-20 28 2 13 16 22 28 18s18-19 14-30c-3-9-12-16-22-16z"/></g><g class="st15"><path class="st14" d="M1217 365c-4-5-36-46-74-41-5 1-14 2-21 10-8 10-7 22-6 23 2 8 7 15 13 22 10 12 22 24 35 35 7 5 15 11 24 13 3 1 15 3 26-4 13-9 14-27 12-39-1-5-3-11-9-19z"/></g><path class="st5" d="M418 582a218 218 0 0 1-206 167c-104-2-172-86-197-150-30-78-7-150 1-175 20-59 55-98 75-116 28 38 54 51 74 55 48 10 84-25 150-7 7 2 19 5 31 11 61 34 92 134 72 215z"/><path class="st6" d="M397 431c-21-41-57-76-102-84-22-4-45-1-68-3-8 0-15-1-23-3l-22-2c-19-5-46-17-73-56a285 285 0 0 0-76 292c25 64 93 148 196 150 94 1 171-66 200-144l-1-17c-4-51-10-89-31-133z"/><path class="st5" d="M363 343c-12-7-23-10-30-12-56-14-90 9-129 10 8 2 15 3 23 3 23 2 46-1 68 3 45 8 81 43 102 84a327 327 0 0 1 32 150l7-23c20-81-11-181-73-215z"/><circle class="st17" cx="250" cy="558.1" r="137.9"/><circle class="st13" cx="265.4" cy="564.4" r="131.3"/><path class="st5" d="M87 174c-18 0-31 35-32 63 0 9 1 17 3 26s11 44 46 56c3 1 8 3 10 1 7-3-24-25-32-59-3-13-1-23 0-32 3-21 11-38 18-49-6-5-10-6-13-6z"/><path class="st6" d="M101 168c-18 0-31 36-32 63 0 9 1 18 3 26 3 10 12 44 46 56 4 1 8 3 10 2 7-4-23-26-31-60-3-12-2-23-1-31 3-22 11-39 19-50-6-5-11-6-14-6z"/><circle class="st5" cx="102.7" cy="125.5" r="76.9"/><circle class="st6" cx="99.4" cy="122.9" r="73"/><circle class="st14" cx="99.4" cy="142" r="46.5"/><circle class="st10" cx="117.8" cy="160.5" r="18.5"/><path class="st6" d="M168 136c-5 7-25-11-66-11-40-1-61 16-65 10-7-9 23-61 65-61s73 53 66 62z"/><path class="st5" d="M109 81a36 36 0 0 1 12 34c10 1 18 4 25 11 0-6-1-19-10-31-3-4-9-11-19-13l-8-1zM90 84c-6 5-10 11-11 18-2 5-2 11-1 16-9 0-18 4-25 10 0-6 1-19 10-30 4-4 10-12 19-14h8z"/><g class="st15"><path class="st14" d="M72 372c-15 1-24 55-26 62-12 73 3 148 25 169 3 2 10 9 16 5s9-15 8-25-5-18-8-27c-14-41-15-90-3-133 0-2 4-10 5-22 0-4 1-15-4-22-4-5-9-8-13-7z"/></g><g class="st18"><path class="st14" d="M255 460c-2 0-6 3-9 7-5 7-4 21 3 23 9 3 18-6 28-3 9 2 14 16 24 16 6 0 11-7 12-14 1-6-4-11-9-17a51 51 0 0 0-41-15c-3 0-6 1-8 3z"/></g><g class="st18"><path class="st14" d="M323 505c-3 6 2 14 7 15 6 1 14-8 12-14-2-5-7-8-12-8-3 1-6 3-7 7z"/></g><g class="st16"><path class="st14" d="m95 205-4 1c-8 5-12 22-10 39 0 1 4 28 14 30h4c2-2-2-7-4-9-12-16-4-43-4-45 2-7 6-14 4-16z"/></g><circle class="st19" cx="99.6" cy="280.7" r="3"/><path class="st5" d="M1237 548c21 87 104 168 206 166 104-1 172-85 197-150 30-78 7-150-2-174-19-60-55-98-74-117-28 39-54 51-74 55-49 11-84-24-150-7-8 2-19 5-31 12-62 33-92 134-72 215z"/><path class="st6" d="M1258 397c20-41 57-76 102-84 22-4 45-2 68-3l22-4c8 1 15 0 22-2 20-4 46-16 74-55 20 19 55 57 75 116 8 25 31 97 1 175-25 64-93 149-196 150-94 2-171-66-200-144l1-17c3-50 9-89 31-132z"/><path class="st5" d="M1292 309c12-7 23-10 30-12 56-14 90 8 128 9l-22 4c-23 1-46-1-68 3-45 8-82 43-102 84a327 327 0 0 0-32 149l-7-22c-20-82 11-182 73-215z"/><circle class="st17" cx="1404.7" cy="523.7" r="137.9"/><circle class="st13" cx="1389.3" cy="530" r="131.3"/><path class="st5" d="M1568 139c18 1 31 36 32 64l-3 26c-3 9-12 44-46 56-4 1-8 2-10 1-7-4 23-25 31-59 3-13 2-23 1-32-3-22-11-39-19-50 7-5 11-6 14-6z"/><path class="st6" d="M1554 134c18 0 31 35 31 63 1 9 0 17-2 26-3 9-12 44-46 56-4 1-8 3-11 1-6-3 24-25 32-59 3-13 2-23 1-32-3-21-12-38-19-50 6-4 11-5 14-5z"/><circle class="st5" cx="1552.1" cy="91.1" r="76.9"/><circle class="st6" cx="1555.4" cy="88.5" r="73"/><circle class="st14" cx="1555.4" cy="107.6" r="46.5"/><circle class="st10" cx="1537" cy="126.1" r="18.5"/><path class="st6" d="M1487 102c4 6 25-12 66-12 40 0 61 17 65 10 7-9-23-60-65-60-43 0-73 53-66 62z"/><path class="st5" d="M1546 47c-6 5-10 11-12 18v16c-10 1-19 4-26 10 1-6 2-19 11-30 3-4 9-12 19-14h8zM1565 49c5 5 9 12 11 19 2 5 2 11 1 16 9 0 18 4 25 10 0-6-2-19-11-31-3-4-9-11-19-13l-7-1z"/><g class="st15"><path class="st14" d="M1583 337c15 2 24 55 25 63 13 72-2 147-24 168-3 3-10 9-16 6-7-4-9-15-8-25s4-18 7-27c15-41 16-91 4-133-1-2-5-11-5-22 0-4-1-15 4-23 3-5 9-7 13-7z"/></g><g class="st18"><path class="st14" d="M1400 425c1 1 6 3 9 7 4 8 4 22-3 24-9 3-19-6-28-4-10 3-15 17-25 17-6 0-11-8-11-14-1-7 4-12 9-17 13-14 31-16 40-15l9 2z"/></g><g class="st18"><path class="st14" d="M1332 470c2 6-2 14-7 15-6 1-14-7-12-14 2-5 6-8 11-7 4 1 7 3 8 6z"/></g><g class="st16"><path class="st14" d="M1560 171c1-1 3 0 4 1 8 5 11 22 10 38-1 2-4 29-14 31h-4c-2-2 2-7 4-9 12-16 4-44 4-45-2-8-6-15-4-16z"/></g><circle class="st19" cx="1555.1" cy="246.3" r="3"/><g><circle class="st14" cx="1049" cy="866.2" r="81.6"/><circle class="st10" cx="1044.6" cy="874.1" r="64.5"/><circle class="st20" cx="1025" cy="823.2" r="14.5"/><circle class="st21" cx="1083.7" cy="889.2" r="10.2"/><circle class="st14" cx="1076.8" cy="842.8" r="27.6"/><circle class="st20" cx="1083.7" cy="889.2" r="4.8"/><circle class="st22" cx="1025" cy="823.2" r="4.8"/><circle transform="rotate(-81 1020 838)" class="st22" cx="1019.8" cy="837.7" r="7.8"/><circle class="st21" cx="1034.5" cy="930.9" r="10"/></g><g><circle class="st14" cx="625.6" cy="857.5" r="81.6"/><circle class="st10" cx="630" cy="865.4" r="64.5"/><circle class="st20" cx="649.6" cy="814.4" r="14.5"/><circle class="st21" cx="590.9" cy="880.5" r="10.2"/><circle class="st14" cx="597.8" cy="834.1" r="27.5"/><circle class="st20" cx="590.9" cy="880.5" r="4.8"/><circle class="st22" cx="649.6" cy="814.4" r="4.8"/><circle class="st22" cx="654.8" cy="829" r="7.8"/><circle class="st21" cx="640" cy="922.2" r="10"/></g></svg>
+<svg
+  version="1.1"
+  id="peach-profile-level-five-profile"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 1654.7 1278"
+  style="enable-background: new 0 0 1654.7 1278"
+  xml:space="preserve"
+>
+  <style>
+    .cls-1-peach-bear-level-five-profile {
+      fill: #87ff7b;
+    }
+    .cls-2-peach-bear-level-five-profile {
+      fill: #00f082;
+    }
+    .cls-4-peach-bear-level-five-profile {
+      fill: #625300;
+    }
+    .cls-6-peach-bear-level-five-profile {
+      fill: #d11022;
+    }
+    .cls-7-peach-bear-level-five-profile {
+      fill: #fd0300;
+    }
+    .cls-10-peach-bear-level-five-profile {
+      fill: #ffc2ff;
+    }
+    .cls-11-peach-bear-level-five-profile {
+      fill: #070707;
+    }
+    .cls-14-peach-bear-level-five-profile {
+      fill: #fc4401;
+    }
+    .cls-15-peach-bear-level-five-profile {
+      fill: #fff;
+    }
+    .cls-16-peach-bear-level-five-profile {
+      opacity: 0.2;
+    }
+    .cls-17-peach-bear-level-five-profile {
+      opacity: 0.3;
+    }
+    .cls-18-peach-bear-level-five-profile {
+      fill: #e72500;
+    }
+    .cls-19-peach-bear-level-five-profile {
+      opacity: 0.15;
+    }
+    .cls-20-peach-bear-level-five-profile,
+    .cls-21-peach-bear-level-five-profile,
+    .cls-22-peach-bear-level-five-profile,
+    .cls-23-peach-bear-level-five-profile {
+      opacity: 0.3;
+      fill: #fff;
+      enable-background: new;
+    }
+    .cls-21-peach-bear-level-five-profile,
+    .cls-22-peach-bear-level-five-profile,
+    .cls-23-peach-bear-level-five-profile {
+      opacity: 0.6;
+    }
+    .cls-22-peach-bear-level-five-profile,
+    .cls-23-peach-bear-level-five-profile {
+      opacity: 0.2;
+    }
+    .cls-23-peach-bear-level-five-profile {
+      opacity: 0.8;
+    }
+  </style>
+  <path
+    class="cls-1-peach-bear-level-five-profile"
+    d="M631 69c3 35 25 65 57 79a58 58 0 0 0-23-47c-9-7-12-6-20-13-6-5-11-11-14-19zM682 208c-1-10-6-44-34-71-22-19-45-25-55-28 5 5 11 9 15 15 7 8 10 15 17 31 9 22 14 33 17 36 6 7 17 15 40 17zM611 205c9 6 18 13 25 21 11 11 14 19 23 21 6 1 14 0 26-10-8-1-15-4-21-8-8-6-10-12-16-16-6-6-17-10-37-8zM689 280c-11-3-16-10-23-14-7-5-18-8-38-4 4 11 11 20 20 28 9 6 19 14 32 11 15-3 22-19 23-21h-14zM690 101c-3-1-20-13-23-35-4-26 17-44 18-45-1 23 3 37 8 46 2 5 6 13 4 22-1 6-4 10-7 12z"
+  />
+  <path
+    class="cls-2-peach-bear-level-five-profile"
+    d="M735 239c17 40 50 74 91 91l2-1c-9-8-21-22-29-41-11-29-2-47-5-75-5-36-23-48-44-84-15-27-31-68-35-129l-1 2 4 123c1 38 3 78 17 114z"
+  />
+  <path
+    class="cls-1-peach-bear-level-five-profile"
+    d="M735 239c-14-36-16-76-17-114L714 2c-39 63-53 119-58 153-9 62 2 92 5 100 5 13 21 54 67 74 45 20 87 5 98 1-40-17-74-51-91-91z"
+  />
+  <path
+    class="cls-2-peach-bear-level-five-profile"
+    d="M710 76c-4 10-11 17-20 21 8 4 15 9 20 17V76zM709 123c-4 9-11 17-20 20 8 4 15 10 20 17v-37zM707 169c-2 10-8 18-17 23 9 3 17 8 23 14l-6-37zM715 217c-1 9-6 18-14 24 9 2 17 6 24 12l-10-36zM728 261c1 10-1 20-7 28 9-1 18 0 26 4l-19-32zM753 297c5 9 6 19 4 28 8-4 17-6 26-6l-30-22z"
+  />
+  <path
+    d="M857 255c25-34 61-59 102-71l-38-32c-16 8-69 37-99 101-25 55-19 105-15 123l11 1c-1-43 13-87 39-122z"
+    style="fill: #663606"
+  />
+  <path
+    class="cls-4-peach-bear-level-five-profile"
+    d="M959 184c-41 12-77 37-102 71-26 35-40 79-39 122h1c6-22 28-88 93-133 24-16 51-27 80-33l-33-27z"
+  />
+  <path
+    d="M921 152c-3 4-3 8-2 13 5 33 51 44 60 46 4 1 9 2 13 0 8-5 9-22 6-32-10-29-67-41-77-27z"
+    style="fill: #528c00"
+  />
+  <path
+    class="cls-1-peach-bear-level-five-profile"
+    d="M926 147c-3 3-2 8-1 13 5 32 50 43 60 46 4 0 8 1 12-1 9-5 10-21 6-32-10-29-66-41-77-26z"
+  />
+  <path
+    class="cls-4-peach-bear-level-five-profile"
+    d="M922 181a22 22 0 0 0 7 9c-14 5-27 13-38 23l-1-1-1-1 33-30z"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M1360 710a608 608 0 0 1-160 290 805 805 0 0 1-364 226v2l-3-1-2 1v-1c-99-25-246-79-376-207a608 608 0 0 1-175-281c-6-24-15-62-18-108-4 69 10 128 18 159a607 607 0 0 0 175 281 805 805 0 0 0 376 207v1h5v-1c97-29 241-92 364-227 56-61 130-150 160-290 6-28 15-78 12-136-2 28-6 57-12 85z"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M1308 421a368 368 0 0 0-278-146c-107-5-188 39-221 60-35-20-118-59-224-48-31 3-183 23-270 160-48 76-57 156-53 220l2-17c3 30 8 59 16 89a607 607 0 0 0 175 281 806 806 0 0 0 376 207v1l2-1 3 1v-1c97-30 241-92 364-227a609 609 0 0 0 170-356l2 17c4-68-6-158-64-240z"
+  />
+  <path
+    d="M839 1063c13-34 46-56 83-55a1097 1097 0 0 0 7-75c0-2-2-4-4-4l-4 2a53 53 0 0 1-44 23c-27-1-42-23-43-25-2 2-17 24-43 25-17 0-34-8-44-23-2-2-4-2-6-1s-2 2-2 4c0 15 1 31 3 46 7 48 10 75 29 98 20-14 44-19 68-15z"
+    style="fill: #7c0d17"
+  />
+  <path
+    d="M877 1019a88 88 0 0 0-38 44c-24-4-48 1-67 15v1c4 4 28 33 61 37h1c33-4 57-33 61-37 16-19 22-39 26-71-15 0-30 3-44 11z"
+    style="fill: #c9354e"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M822 356c17 11 32 26 43 43 6 8 19 28 25 65 11 60-3 109-2 110 2 0 1-73 42-143a241 241 0 0 1 198-122 374 374 0 0 0-306 47zM348 934c-8-12-146-222-38-429 12-24 33-63 72-100a359 359 0 0 1 290-97 528 528 0 0 0-295 275c-88 210 53 433 67 455-26-21-63-56-96-104z"
+  />
+  <path
+    class="cls-10-peach-bear-level-five-profile"
+    d="m908 947-1-2h-1a51 51 0 0 1-33 9l-1 1 5 12 8 19c1 1 3 2 5 1l1-1M792 1066l2-8c2-5-2-11-7-13l-8 1-7 3-6 3c-5 2-6 7-4 11v1c3 5 6 11 10 15l14 13 6-26zM889 1046c-5-3-12 0-14 5l-1 7 2 8 3 12a8 8 0 0 0 14 3l2-2 11-16c2-4 1-9-3-11h-1l-6-3-7-3zM760 947l9 20 1 4a10 10 0 0 0 19 0l1-4 6-12-1-1h-4c-11 0-21-3-29-9h-2v2z"
+  />
+  <path
+    class="cls-11-peach-bear-level-five-profile"
+    d="M831 903v28c-1 4 5 4 6 0v-28c0-4-6-4-6 0z"
+  />
+  <path
+    class="cls-11-peach-bear-level-five-profile"
+    d="M733 923a64 64 0 0 0 103 12c2-2 3-5 1-7s-5-2-7 0l-4 4-1 2-1 1h-1c-1 0 0 0 0 0l-9 6-3 1s-1 1 0 0l-2 1-5 2-5 1h-3c1 0 0 0 0 0h-17l-5-2-5-1-1-1h-1l-2-1-9-6h-1l-1-1-2-2-5-5a38 38 0 0 1-2-2l-1-1-3-6c-1-2-4-3-6-1-2 1-3 4-2 6z"
+  />
+  <path
+    class="cls-11-peach-bear-level-five-profile"
+    d="M830 903v28c0 3 2 5 5 5s4-2 4-5v-28c0-3-2-5-5-5s-4 2-4 5z"
+  />
+  <path
+    class="cls-11-peach-bear-level-five-profile"
+    d="m927 918-2 5-2 2c-1 1 0 0 0 0l-1 1-8 8-1 1-1 1-1 1a49 49 0 0 1-9 5h-2s1 0 0 0l-3 1a54 54 0 0 1-10 3h-15l-5-1-5-2-3-1h-1c-1 0 0 0 0 0l-11-6-1-1-1-1-2-2-5-4c-2-2-4-2-6 0s-2 4 0 6a63 63 0 0 0 103-12c1-2 1-4-1-6s-5 0-7 2z"
+  />
+  <path
+    d="M834 904c24 1 29 1 32-2 4-6 0-18-7-25-13-11-37-11-49 1-7 6-12 17-8 22 3 4 7 4 32 4z"
+    style="fill: #ff8033"
+  />
+  <path
+    d="M834 894c17 1 20 1 22-2 4-4 0-12-5-17-8-8-25-8-34 0-5 5-9 12-6 16 2 3 6 3 23 3z"
+    style="fill: #fdd301"
+  />
+  <circle
+    class="cls-14-peach-bear-level-five-profile"
+    cx="1103.6"
+    cy="953.7"
+    r="50.4"
+  />
+  <circle
+    class="cls-14-peach-bear-level-five-profile"
+    cx="586.1"
+    cy="952.1"
+    r="50.4"
+  />
+  <path
+    class="cls-15-peach-bear-level-five-profile"
+    d="M819 878v4c1 2 4 2 4 2 2 0 4-1 5-3 0-3-1-4-3-5s-5 0-6 2z"
+  />
+  <g class="cls-16-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M768 343c-12-7-54-28-87-15-4 2-24 10-24 22s19 22 23 23c13 3 26 2 39 4 26 4 47 21 61 40s19 42 24 64c6 26 19 28 24 28 11 1 22-17 27-28 18-46-29-109-87-138z"
+    />
+  </g>
+  <g class="cls-17-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M839 525c-12 1-23 15-20 28 2 13 16 22 28 18s18-19 14-30c-3-9-12-16-22-16z"
+    />
+  </g>
+  <g class="cls-16-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M1217 365c-4-5-36-46-74-41-5 1-14 2-21 10-8 10-7 22-6 23 2 8 7 15 13 22 10 12 22 24 35 35 7 5 15 11 24 13 3 1 15 3 26-4 13-9 14-27 12-39-1-5-3-11-9-19z"
+    />
+  </g>
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M418 582a218 218 0 0 1-206 167c-104-2-172-86-197-150-30-78-7-150 1-175 20-59 55-98 75-116 28 38 54 51 74 55 48 10 84-25 150-7 7 2 19 5 31 11 61 34 92 134 72 215z"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M397 431c-21-41-57-76-102-84-22-4-45-1-68-3-8 0-15-1-23-3l-22-2c-19-5-46-17-73-56a285 285 0 0 0-76 292c25 64 93 148 196 150 94 1 171-66 200-144l-1-17c-4-51-10-89-31-133z"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M363 343c-12-7-23-10-30-12-56-14-90 9-129 10 8 2 15 3 23 3 23 2 46-1 68 3 45 8 81 43 102 84a327 327 0 0 1 32 150l7-23c20-81-11-181-73-215z"
+  />
+  <circle
+    class="cls-18-peach-bear-level-five-profile"
+    cx="250"
+    cy="558.1"
+    r="137.9"
+  />
+  <circle
+    class="cls-14-peach-bear-level-five-profile"
+    cx="265.4"
+    cy="564.4"
+    r="131.3"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M87 174c-18 0-31 35-32 63 0 9 1 17 3 26s11 44 46 56c3 1 8 3 10 1 7-3-24-25-32-59-3-13-1-23 0-32 3-21 11-38 18-49-6-5-10-6-13-6z"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M101 168c-18 0-31 36-32 63 0 9 1 18 3 26 3 10 12 44 46 56 4 1 8 3 10 2 7-4-23-26-31-60-3-12-2-23-1-31 3-22 11-39 19-50-6-5-11-6-14-6z"
+  />
+  <circle
+    class="cls-6-peach-bear-level-five-profile"
+    cx="102.7"
+    cy="125.5"
+    r="76.9"
+  />
+  <circle
+    class="cls-7-peach-bear-level-five-profile"
+    cx="99.4"
+    cy="122.9"
+    r="73"
+  />
+  <circle
+    class="cls-15-peach-bear-level-five-profile"
+    cx="99.4"
+    cy="142"
+    r="46.5"
+  />
+  <circle
+    class="cls-11-peach-bear-level-five-profile"
+    cx="117.8"
+    cy="160.5"
+    r="18.5"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M168 136c-5 7-25-11-66-11-40-1-61 16-65 10-7-9 23-61 65-61s73 53 66 62z"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M109 81a36 36 0 0 1 12 34c10 1 18 4 25 11 0-6-1-19-10-31-3-4-9-11-19-13l-8-1zM90 84c-6 5-10 11-11 18-2 5-2 11-1 16-9 0-18 4-25 10 0-6 1-19 10-30 4-4 10-12 19-14h8z"
+  />
+  <g class="cls-16-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M72 372c-15 1-24 55-26 62-12 73 3 148 25 169 3 2 10 9 16 5s9-15 8-25-5-18-8-27c-14-41-15-90-3-133 0-2 4-10 5-22 0-4 1-15-4-22-4-5-9-8-13-7z"
+    />
+  </g>
+  <g class="cls-19-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M255 460c-2 0-6 3-9 7-5 7-4 21 3 23 9 3 18-6 28-3 9 2 14 16 24 16 6 0 11-7 12-14 1-6-4-11-9-17a51 51 0 0 0-41-15c-3 0-6 1-8 3z"
+    />
+  </g>
+  <g class="cls-19-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M323 505c-3 6 2 14 7 15 6 1 14-8 12-14-2-5-7-8-12-8-3 1-6 3-7 7z"
+    />
+  </g>
+  <g class="cls-17-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="m95 205-4 1c-8 5-12 22-10 39 0 1 4 28 14 30h4c2-2-2-7-4-9-12-16-4-43-4-45 2-7 6-14 4-16z"
+    />
+  </g>
+  <circle
+    class="cls-20-peach-bear-level-five-profile"
+    cx="99.6"
+    cy="280.7"
+    r="3"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M1237 548c21 87 104 168 206 166 104-1 172-85 197-150 30-78 7-150-2-174-19-60-55-98-74-117-28 39-54 51-74 55-49 11-84-24-150-7-8 2-19 5-31 12-62 33-92 134-72 215z"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M1258 397c20-41 57-76 102-84 22-4 45-2 68-3l22-4c8 1 15 0 22-2 20-4 46-16 74-55 20 19 55 57 75 116 8 25 31 97 1 175-25 64-93 149-196 150-94 2-171-66-200-144l1-17c3-50 9-89 31-132z"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M1292 309c12-7 23-10 30-12 56-14 90 8 128 9l-22 4c-23 1-46-1-68 3-45 8-82 43-102 84a327 327 0 0 0-32 149l-7-22c-20-82 11-182 73-215z"
+  />
+  <circle
+    class="cls-18-peach-bear-level-five-profile"
+    cx="1404.7"
+    cy="523.7"
+    r="137.9"
+  />
+  <circle
+    class="cls-14-peach-bear-level-five-profile"
+    cx="1389.3"
+    cy="530"
+    r="131.3"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M1568 139c18 1 31 36 32 64l-3 26c-3 9-12 44-46 56-4 1-8 2-10 1-7-4 23-25 31-59 3-13 2-23 1-32-3-22-11-39-19-50 7-5 11-6 14-6z"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M1554 134c18 0 31 35 31 63 1 9 0 17-2 26-3 9-12 44-46 56-4 1-8 3-11 1-6-3 24-25 32-59 3-13 2-23 1-32-3-21-12-38-19-50 6-4 11-5 14-5z"
+  />
+  <circle
+    class="cls-6-peach-bear-level-five-profile"
+    cx="1552.1"
+    cy="91.1"
+    r="76.9"
+  />
+  <circle
+    class="cls-7-peach-bear-level-five-profile"
+    cx="1555.4"
+    cy="88.5"
+    r="73"
+  />
+  <circle
+    class="cls-15-peach-bear-level-five-profile"
+    cx="1555.4"
+    cy="107.6"
+    r="46.5"
+  />
+  <circle
+    class="cls-11-peach-bear-level-five-profile"
+    cx="1537"
+    cy="126.1"
+    r="18.5"
+  />
+  <path
+    class="cls-7-peach-bear-level-five-profile"
+    d="M1487 102c4 6 25-12 66-12 40 0 61 17 65 10 7-9-23-60-65-60-43 0-73 53-66 62z"
+  />
+  <path
+    class="cls-6-peach-bear-level-five-profile"
+    d="M1546 47c-6 5-10 11-12 18v16c-10 1-19 4-26 10 1-6 2-19 11-30 3-4 9-12 19-14h8zM1565 49c5 5 9 12 11 19 2 5 2 11 1 16 9 0 18 4 25 10 0-6-2-19-11-31-3-4-9-11-19-13l-7-1z"
+  />
+  <g class="cls-16-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M1583 337c15 2 24 55 25 63 13 72-2 147-24 168-3 3-10 9-16 6-7-4-9-15-8-25s4-18 7-27c15-41 16-91 4-133-1-2-5-11-5-22 0-4-1-15 4-23 3-5 9-7 13-7z"
+    />
+  </g>
+  <g class="cls-19-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M1400 425c1 1 6 3 9 7 4 8 4 22-3 24-9 3-19-6-28-4-10 3-15 17-25 17-6 0-11-8-11-14-1-7 4-12 9-17 13-14 31-16 40-15l9 2z"
+    />
+  </g>
+  <g class="cls-19-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M1332 470c2 6-2 14-7 15-6 1-14-7-12-14 2-5 6-8 11-7 4 1 7 3 8 6z"
+    />
+  </g>
+  <g class="cls-17-peach-bear-level-five-profile">
+    <path
+      class="cls-15-peach-bear-level-five-profile"
+      d="M1560 171c1-1 3 0 4 1 8 5 11 22 10 38-1 2-4 29-14 31h-4c-2-2 2-7 4-9 12-16 4-44 4-45-2-8-6-15-4-16z"
+    />
+  </g>
+  <circle
+    class="cls-20-peach-bear-level-five-profile"
+    cx="1555.1"
+    cy="246.3"
+    r="3"
+  />
+  <g>
+    <circle
+      class="cls-15-peach-bear-level-five-profile"
+      cx="1049"
+      cy="866.2"
+      r="81.6"
+    />
+    <circle
+      class="cls-11-peach-bear-level-five-profile"
+      cx="1044.6"
+      cy="874.1"
+      r="64.5"
+    />
+    <circle
+      class="cls-21-peach-bear-level-five-profile"
+      cx="1025"
+      cy="823.2"
+      r="14.5"
+    />
+    <circle
+      class="cls-22-peach-bear-level-five-profile"
+      cx="1083.7"
+      cy="889.2"
+      r="10.2"
+    />
+    <circle
+      class="cls-15-peach-bear-level-five-profile"
+      cx="1076.8"
+      cy="842.8"
+      r="27.6"
+    />
+    <circle
+      class="cls-21-peach-bear-level-five-profile"
+      cx="1083.7"
+      cy="889.2"
+      r="4.8"
+    />
+    <circle
+      class="cls-23-peach-bear-level-five-profile"
+      cx="1025"
+      cy="823.2"
+      r="4.8"
+    />
+    <circle
+      transform="rotate(-81 1020 838)"
+      class="cls-23-peach-bear-level-five-profile"
+      cx="1019.8"
+      cy="837.7"
+      r="7.8"
+    />
+    <circle
+      class="cls-22-peach-bear-level-five-profile"
+      cx="1034.5"
+      cy="930.9"
+      r="10"
+    />
+  </g>
+  <g>
+    <circle
+      class="cls-15-peach-bear-level-five-profile"
+      cx="625.6"
+      cy="857.5"
+      r="81.6"
+    />
+    <circle
+      class="cls-11-peach-bear-level-five-profile"
+      cx="630"
+      cy="865.4"
+      r="64.5"
+    />
+    <circle
+      class="cls-21-peach-bear-level-five-profile"
+      cx="649.6"
+      cy="814.4"
+      r="14.5"
+    />
+    <circle
+      class="cls-22-peach-bear-level-five-profile"
+      cx="590.9"
+      cy="880.5"
+      r="10.2"
+    />
+    <circle
+      class="cls-15-peach-bear-level-five-profile"
+      cx="597.8"
+      cy="834.1"
+      r="27.5"
+    />
+    <circle
+      class="cls-21-peach-bear-level-five-profile"
+      cx="590.9"
+      cy="880.5"
+      r="4.8"
+    />
+    <circle
+      class="cls-23-peach-bear-level-five-profile"
+      cx="649.6"
+      cy="814.4"
+      r="4.8"
+    />
+    <circle
+      class="cls-23-peach-bear-level-five-profile"
+      cx="654.8"
+      cy="829"
+      r="7.8"
+    />
+    <circle
+      class="cls-22-peach-bear-level-five-profile"
+      cx="640"
+      cy="922.2"
+      r="10"
+    />
+  </g>
+</svg>

@@ -1,1 +1,53 @@
-<svg version="1.1" id="peach-profile-level-two" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 751.6 801.2" style="enable-background:new 0 0 751.6 801.2" xml:space="preserve"><style>.cls-3-peach-bear-level-two{fill:#070707}.cls-4-peach-bear-level-two{fill:#fc4401}</style><path d="M752 138a138 138 0 0 0-267-49c-37-1-74 5-109 17-35-12-72-18-110-17A138 138 0 1 0 33 227C-14 321 2 430 5 453c0 0 32 218 309 335 27 11 47 14 62 13 14 1 34-2 62-13 277-117 308-335 308-335 4-23 19-132-27-226 21-25 33-57 33-89z" style="fill:#fd0300"/><ellipse cx="380.8" cy="624.5" rx="32.9" ry="17.5" style="fill:#fdd301"/><circle class="cls-3-peach-bear-level-two" cx="306.7" cy="596.4" r="24.6"/><circle class="cls-3-peach-bear-level-two" cx="445" cy="596.4" r="24.6"/><path class="cls-3-peach-bear-level-two" d="M360 667h42c1 0 3-1 3-3l-1-2-2-1h-42c-2 1-3 2-3 4l1 2h2z"/><circle class="cls-4-peach-bear-level-two" cx="229.4" cy="648.6" r="43"/><circle transform="rotate(-45 525 649)" class="cls-4-peach-bear-level-two" cx="524.7" cy="648.6" r="43"/></svg>
+<svg
+  version="1.1"
+  id="peach-profile-level-two"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 751.6 801.2"
+  style="enable-background: new 0 0 751.6 801.2"
+  xml:space="preserve"
+>
+  <style>
+    .cls-3-peach-bear-level-two-profile {
+      fill: #070707;
+    }
+    .cls-4-peach-bear-level-two-profile {
+      fill: #fc4401;
+    }
+  </style>
+  <path
+    d="M752 138a138 138 0 0 0-267-49c-37-1-74 5-109 17-35-12-72-18-110-17A138 138 0 1 0 33 227C-14 321 2 430 5 453c0 0 32 218 309 335 27 11 47 14 62 13 14 1 34-2 62-13 277-117 308-335 308-335 4-23 19-132-27-226 21-25 33-57 33-89z"
+    style="fill: #fd0300"
+  />
+  <ellipse cx="380.8" cy="624.5" rx="32.9" ry="17.5" style="fill: #fdd301" />
+  <circle
+    class="cls-3-peach-bear-level-two-profile"
+    cx="306.7"
+    cy="596.4"
+    r="24.6"
+  />
+  <circle
+    class="cls-3-peach-bear-level-two-profile"
+    cx="445"
+    cy="596.4"
+    r="24.6"
+  />
+  <path
+    class="cls-3-peach-bear-level-two-profile"
+    d="M360 667h42c1 0 3-1 3-3l-1-2-2-1h-42c-2 1-3 2-3 4l1 2h2z"
+  />
+  <circle
+    class="cls-4-peach-bear-level-two-profile"
+    cx="229.4"
+    cy="648.6"
+    r="43"
+  />
+  <circle
+    transform="rotate(-45 525 649)"
+    class="cls-4-peach-bear-level-two-profile"
+    cx="524.7"
+    cy="648.6"
+    r="43"
+  />
+</svg>

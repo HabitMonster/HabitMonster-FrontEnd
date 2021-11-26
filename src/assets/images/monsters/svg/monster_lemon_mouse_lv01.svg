@@ -1,0 +1,57 @@
+<svg
+  id="lemon-mouse-level-one"
+  data-name="lemon-mouse-level-one"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 668.99 668.99"
+>
+  <defs>
+    <style>
+      .cls-lemon-mouse-level-one-1 {
+        fill: #ff1c00;
+      }
+      .cls-lemon-mouse-level-one-2 {
+        fill: #ff4300;
+      }
+      .cls-lemon-mouse-level-one-3 {
+        fill: #ff1900;
+      }
+      .cls-lemon-mouse-level-one-4 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path
+    class="cls-lemon-mouse-level-one-1"
+    d="M315.1,50.84c184.74,0,334.5,149.76,334.5,334.5a334.71,334.71,0,0,1-13.22,93.4A333.24,333.24,0,0,0,669,334.5C669,149.76,519.23,0,334.5,0,182.18,0,53.64,101.81,13.22,241.1,67.09,128.57,182,50.84,315.1,50.84Z"
+  />
+  <path
+    class="cls-lemon-mouse-level-one-2"
+    d="M334.5,669c133.08,0,248-77.72,301.88-190.25a334.71,334.71,0,0,0,13.22-93.4c0-184.74-149.76-334.5-334.5-334.5-133.09,0-248,77.73-301.88,190.26A334.71,334.71,0,0,0,0,334.5C0,519.23,149.76,669,334.5,669Z"
+  />
+  <circle
+    class="cls-lemon-mouse-level-one-3"
+    cx="197.64"
+    cy="483.55"
+    r="52.13"
+  />
+  <circle
+    class="cls-lemon-mouse-level-one-3"
+    cx="499.03"
+    cy="409.93"
+    r="52.13"
+  />
+  <circle
+    class="cls-lemon-mouse-level-one-4"
+    cx="284.85"
+    cy="365.37"
+    r="16.44"
+  />
+  <circle
+    class="cls-lemon-mouse-level-one-4"
+    cx="359.81"
+    cy="341.35"
+    r="16.44"
+  />
+  <circle cx="286.93" cy="368.83" r="6.15" />
+  <circle cx="359.81" cy="346.52" r="6.15" />
+</svg>

@@ -1,1 +1,41 @@
-<svg version="1.1" id="donut-profile-level-two" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 855.9 1163.6" style="enable-background:new 0 0 855.9 1163.6" xml:space="preserve"><style>.cls-3-donut-rabbit-level-two{fill:#070707}</style><path d="M592 340c67-72 128-192 107-261-5-15-16-51-49-69-23-12-47-9-56-8-73 9-118 92-125 107-33 61-42 139-33 199h-16c9-60 1-139-32-200-8-14-52-97-125-107-10-1-33-4-57 9-33 17-44 54-48 68-21 69 40 190 107 262a428 428 0 1 0 327 0z" style="fill:#fd037f"/><circle cx="428" cy="778" r="233.3" style="fill:#ffb6c7"/><circle class="cls-3-donut-rabbit-level-two" cx="368.4" cy="846.6" r="13.3"/><circle class="cls-3-donut-rabbit-level-two" cx="490.4" cy="846.6" r="13.3"/><path d="M428 839a49 49 0 1 0 49 50v-1c0-27-22-49-49-49zm0 71a21 21 0 0 1 0-43 21 21 0 0 1 0 42v1z" style="fill:#fd016f"/><path class="cls-3-donut-rabbit-level-two" d="M335 821v-1c1 0 0 0 0 0h1l1-1 2-1h1-1 1l4-1h1s-1 0 0 0l2-1h3s-1 0 0 0a34 34 0 0 1 4 1v1c1 0 0 0 0 0h2l3 2 1 1 1 1 1 1v1-1l1 2c1 1 3 2 4 1s2-2 1-4c-3-5-7-8-12-10a24 24 0 0 0-25 5v4h4zM526 817c-4-4-10-6-16-6a25 25 0 0 0-21 11c-1 2 0 3 1 4s3 1 4-1l1-1c1 0 0 0 0 0l1-1 2-2v-1s0 1 0 0h1l2-1 1-1h1s-1 0 0 0l3-1h2l2-1h2l1 1s-1 0 0 0l3 1h2l1 1 2 1 1 1-1-1 1 1h4v-4z"/></svg>
+<svg
+  version="1.1"
+  id="donut-profile-level-two"
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  viewBox="0 0 855.9 1163.6"
+  style="enable-background: new 0 0 855.9 1163.6"
+  xml:space="preserve"
+>
+  <style>
+    .cls-3-donut-rabbit-level-two-profile {
+      fill: #070707;
+    }
+  </style>
+  <path
+    d="M592 340c67-72 128-192 107-261-5-15-16-51-49-69-23-12-47-9-56-8-73 9-118 92-125 107-33 61-42 139-33 199h-16c9-60 1-139-32-200-8-14-52-97-125-107-10-1-33-4-57 9-33 17-44 54-48 68-21 69 40 190 107 262a428 428 0 1 0 327 0z"
+    style="fill: #fd037f"
+  />
+  <circle cx="428" cy="778" r="233.3" style="fill: #ffb6c7" />
+  <circle
+    class="cls-3-donut-rabbit-level-two-profile"
+    cx="368.4"
+    cy="846.6"
+    r="13.3"
+  />
+  <circle
+    class="cls-3-donut-rabbit-level-two-profile"
+    cx="490.4"
+    cy="846.6"
+    r="13.3"
+  />
+  <path
+    d="M428 839a49 49 0 1 0 49 50v-1c0-27-22-49-49-49zm0 71a21 21 0 0 1 0-43 21 21 0 0 1 0 42v1z"
+    style="fill: #fd016f"
+  />
+  <path
+    class="cls-3-donut-rabbit-level-two-profile"
+    d="M335 821v-1c1 0 0 0 0 0h1l1-1 2-1h1-1 1l4-1h1s-1 0 0 0l2-1h3s-1 0 0 0a34 34 0 0 1 4 1v1c1 0 0 0 0 0h2l3 2 1 1 1 1 1 1v1-1l1 2c1 1 3 2 4 1s2-2 1-4c-3-5-7-8-12-10a24 24 0 0 0-25 5v4h4zM526 817c-4-4-10-6-16-6a25 25 0 0 0-21 11c-1 2 0 3 1 4s3 1 4-1l1-1c1 0 0 0 0 0l1-1 2-2v-1s0 1 0 0h1l2-1 1-1h1s-1 0 0 0l3-1h2l2-1h2l1 1s-1 0 0 0l3 1h2l1 1 2 1 1 1-1-1 1 1h4v-4z"
+  />
+</svg>
