@@ -1,12 +1,5 @@
 /*
-  Description
-  - useRecoilRefresh는 Selector에 캐싱된 값을 초기화하기 위해 사용합니다.
-  - 로그아웃 시 authSelector을 초기화하고 로그인해서 보낸 다음에,
-  - 로그인해서 성공하면
-
-  - snapShot을 통해 refresh된 셀렉터가 가지는 값을 불러옵니다.
-  - 이후 '이전에 관리했던 아톰'에 새로운 값을 끼워줍니다.
-
+  @semyung
   - 이 인터페이스는 아직 불안하므로, 지속적인 관리가 필요합니다.
 */
 
@@ -69,9 +62,3 @@ export default function useRefresh() {
 
   return refresher;
 }
-
-/*
-  @semyung
-    - TODO: refresh ALL of information.
-    - 동의 구하고 진행하기.
-*/
