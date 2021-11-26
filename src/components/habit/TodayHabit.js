@@ -17,7 +17,7 @@ import { miniThrottle, miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
 import CategoryImage from '../../assets/images/habit';
 
-const TodayHabit = ({ id, order, parent }) => {
+const TodayHabit = ({ id, parent }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
@@ -42,6 +42,7 @@ const TodayHabit = ({ id, order, parent }) => {
     if (!current || shrink) {
       return;
     }
+
     const parentElement = parent.current;
     console.log(parentElement);
 
@@ -111,7 +112,7 @@ const TodayHabit = ({ id, order, parent }) => {
 
   return (
     <>
-      <Card onClick={onHabitClicked} ref={order === 0 ? scroller : null}>
+      <Card onClick={onHabitClicked} ref={scroller}>
         <DetailContainer>
           <div>
             <CategoryIcon category={habitDetail.category} />
@@ -152,7 +153,6 @@ const TodayHabit = ({ id, order, parent }) => {
 
 TodayHabit.propTypes = {
   id: PropTypes.number.isRequired,
-  order: PropTypes.number.isRequired,
   parent: PropTypes.object,
 };
 
