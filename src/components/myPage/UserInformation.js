@@ -1,10 +1,14 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useRecoilCallback, useSetRecoilState } from 'recoil';
+import {
+  useRecoilValue,
+  useSetRecoilState,
+  useRecoilRefresher_UNSTABLE,
+} from 'recoil';
 
 import { useHistory, Link } from 'react-router-dom';
 
-import { authState } from '../../recoil/states/auth';
+import { defaultAuthSelector } from '../../recoil/states/auth';
 import {
   userState,
   myFollowListCountSelector,
@@ -37,7 +41,6 @@ const UserInformation = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
-  const test = useRef(null);
 
   useEffect(() => {
     if (activeToast) {
@@ -86,39 +89,33 @@ const UserInformation = () => {
     setActiveToast(true);
   };
 
-  /*
-    유저가 로그아웃을 하든 계정을 삭제하든 본질적으로 토큰이 없어지는 것과 auth를 말 그대로 직접 초기화하는 것은 공통적입니다.
-    즉, 리코일에 아무리 정보가 남아있다고 하더라도 PrivateRoute에서 isLogin이 false이기 때문에 반드시 '/login'으로 리다이렉팅합니다.
-    로그인 페이지에서는 각 아이템들에 대해 "다시 페칭하는 로직"을 짭니다.
-  */
-
-  const logoutUser = useRecoilCallback(({ set }) => () => {
+  const deleteToken = useCallback(() => {
     window.localStorage.removeItem('habitAccessToken');
     window.localStorage.removeItem('habitRefreshToken');
-    set(authState, {
-      isFirstLogin: null,
-      isLogin: false,
-    });
-    history.push('/login');
-  });
+  }, []);
 
-  const deleteUserAccount = useRecoilCallback(({ set }) => async () => {
+  /*
+    토큰을 삭제하고 로그인으로 보냅니다.
+  */
+
+  const dispatcher = async (type) => {
+    if (type === 'logout') {
+      deleteToken();
+      history.push('/login');
+      return;
+    }
+
     try {
       const { data } = await myPageApis.deleteUser();
-
       if (data.responseMessage === USER_DELETED) {
-        window.localStorage.removeItem('habitAccessToken');
-        window.localStorage.removeItem('habitRefreshToken');
-        set(authState, {
-          isFirstLogin: null,
-          isLogin: false,
-        });
+        deleteToken();
         history.push('/login');
       }
     } catch (error) {
       console.error(error);
+      throw error;
     }
-  });
+  };
 
   const userInfoList = Object.keys(userInfo).length
     ? [
@@ -179,7 +176,7 @@ const UserInformation = () => {
 
   return (
     <>
-      <UserInfoWrap ref={test}>
+      <UserInfoWrap>
         <MonsterThumbnailWrapper
           isProfile={true}
           thumbnailSize="small"
@@ -223,7 +220,6 @@ const UserInformation = () => {
       </UserInfoWrap>
       <UserInfoList>
         {userInfoList.map((userInfoItem) => {
-          // console.log('userInfoItem', userInfoItem);
           return (
             <UserInfoItem
               key={userInfoItem.title}
@@ -247,7 +243,7 @@ const UserInformation = () => {
             title="정말 로그아웃하시겠어요?"
             height="141px"
             activeButtonText="로그아웃하기"
-            onActive={logoutUser}
+            onActive={() => dispatcher('logout')}
             onClose={() => setIsLogoutModalOpen(false)}
           />
         </Modal>
@@ -263,9 +259,7 @@ const UserInformation = () => {
             title="정말 탈퇴하시겠어요?"
             description="탈퇴하시면 기존에 있던 정보들이 다 사라져요!"
             activeButtonText="탈퇴하기"
-            onActive={() => {
-              deleteUserAccount();
-            }}
+            onActive={() => dispatcher('delete')}
             onClose={() => setdeleteAccountModalOpen(false)}
           />
         </Modal>

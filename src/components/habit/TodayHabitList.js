@@ -2,7 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { habitIdListState } from '../../recoil/states/habit';
+import {
+  habitIdListState,
+  defaultHabitIdListSelector,
+} from '../../recoil/states/habit';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { TodayHabit, NoHabitHelper } from './';
@@ -11,6 +14,8 @@ import { disappearScrollbar } from '../../styles/Mixin';
 
 const TodayHabitList = () => {
   const habitIdList = useRecoilValue(habitIdListState);
+  console.log(habitIdList);
+  // const habitIdList = useRecoilValue(defaultHabitIdListSelector);
   const setShrink = useSetRecoilState(monsterSectionShirnkToggler);
   const ref = useRef(null);
 
@@ -29,8 +34,6 @@ const TodayHabitList = () => {
 
     return () => current.removeEventListener('scroll', handleScroll);
   }, [setShrink]);
-
-  // console.log(habitIdList);
 
   return (
     <HabitContainer>

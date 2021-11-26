@@ -1,20 +1,20 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
 import styled from 'styled-components';
 
 import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { monsterState } from '../../recoil/states/monster';
-import { authState } from '../../recoil/states/auth';
+import { defaultAuthSelector } from '../../recoil/states/auth';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 
 const MonsterGuide = () => {
   const history = useHistory();
+  const refreshAuth = useRecoilRefresher_UNSTABLE(defaultAuthSelector);
   const monster = useRecoilValue(monsterState);
-  const [auth, setAuth] = useRecoilState(authState);
 
   const handleButtonClick = () => {
-    setAuth({ ...auth, isFirstLogin: false });
+    refreshAuth();
     setTimeout(() => {
       history.replace('/new');
     }, 0);

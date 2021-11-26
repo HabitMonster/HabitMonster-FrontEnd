@@ -8,16 +8,16 @@ import { formatMonth, addMonths, subMonths } from '../../utils/date';
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
 import { HabitList, CircleProgress } from '.';
-import { authState } from '../../recoil/states/auth';
+import { defaultAuthSelector } from '../../recoil/states/auth';
 import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
-  const setAuth = useRecoilValue(authState);
+  const { createdAt } = useRecoilValue(defaultAuthSelector);
   const [currentDate, setCurrentDate] = useState(
     formatMonth(new window.Date(), '-'),
   );
   const currentMonth = new Date(currentDate).getMonth() + 1;
-  const createAtMonth = new Date(setAuth.createdAt).getMonth() + 1;
+  const createAtMonth = new Date(createdAt).getMonth() + 1;
 
   const [currentListName, setCurrentListName] = useState('total');
   const [statisticData, setStatisticData] = useState({
