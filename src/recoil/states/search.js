@@ -7,6 +7,11 @@ export const refreshSearchUserState = atom({
   default: 0,
 });
 
+export const refreshRecommendedUserState = atom({
+  key: 'refreshRecommendedUserState',
+  default: 0,
+});
+
 export const searchUserInfoState = selectorFamily({
   key: 'searchUserInfoSelector',
   get:
@@ -38,7 +43,8 @@ export const searchUserHabitSelector = selectorFamily({
 
 export const recommendedUserSelector = selector({
   key: 'recommendedUserSelector',
-  get: async () => {
+  get: async ({ get }) => {
+    get(refreshRecommendedUserState);
     try {
       const { data } = await userApis.getRecommendedUsers();
 
