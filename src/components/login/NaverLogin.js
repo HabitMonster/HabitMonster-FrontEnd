@@ -21,7 +21,7 @@ const NaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
       callbackUrl: process.env.REACT_APP_LOGIN_REDIRECT_URI,
-      isPopup: false,
+      isPopup: true,
       loginButton: {
         color: 'green',
         type: 3,

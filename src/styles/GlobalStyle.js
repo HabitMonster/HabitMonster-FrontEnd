@@ -88,7 +88,7 @@ const GlobalStyle = createGlobalStyle`
       height: calc(var(--vh, 1vh) * 100);
       height: -webkit-fill-available;
       overflow: hidden;
-      touch-action: none;
+      ${'' /* touch-action: none; */}
     }
 
     body {

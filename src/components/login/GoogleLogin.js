@@ -35,7 +35,6 @@ const GoogleLogin = () => {
                     socialName,
                     googleUser.getAuthResponse().id_token,
                   );
-                  console.log(data);
 
                   window.localStorage.setItem(
                     'habitAccessToken',

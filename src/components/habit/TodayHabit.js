@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 
 import { Toast } from '../common';
@@ -44,29 +45,39 @@ const TodayHabit = ({ id, parent }) => {
     }
 
     const parentElement = parent.current;
-    console.log(parentElement);
 
     const initializeParentScrollTop = () => {
       previousParentScrollTop.current = parentElement.scrollTop;
     };
 
-    const getDifferenceOfScrollTop = miniThrottle((e) => {
+    const getDifferenceOfScrollTop = miniThrottle(() => {
       const { current: previous } = previousParentScrollTop;
       const { scrollTop: current } = parentElement;
-      console.log(previous);
-      console.log(current);
 
       if (current - previous >= 10) {
         setShrink(true);
+        current.removeEventListener('touchstart', initializeParentScrollTop);
+        current.removeEventListener('touchmove', getDifferenceOfScrollTop);
       }
     }, 100);
 
-    current.addEventListener('touchstart', initializeParentScrollTop);
-    current.addEventListener('touchmove', getDifferenceOfScrollTop);
+    if (isMobile) {
+      current.addEventListener('touchstart', initializeParentScrollTop);
+      current.addEventListener('touchmove', getDifferenceOfScrollTop);
+      return;
+    }
+
+    parent.current.addEventListener('scroll', (e) => {
+      console.log(parent.current.scrollTop);
+      console.log(e);
+    });
 
     return () => {
-      current.removeEventListener('touchstart', initializeParentScrollTop);
-      current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+      if (isMobile) {
+        current.removeEventListener('touchstart', initializeParentScrollTop);
+        current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+        return;
+      }
     };
   }, [setShrink, shrink, parent]);
 
