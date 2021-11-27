@@ -8,7 +8,9 @@
 // resources are updated in the background.
 
 // To learn more about the benefits of this model and instructions on how to
-// opt-in, read https://cra.link/PWA
+// opt-in, read https://bit.ly/CRA-PWA
+
+import SWHelper from './serviceWorkerHelper';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -20,11 +22,17 @@ const isLocalhost = Boolean(
     ),
 );
 
+window.addEventListener('beforeunload', async () => {
+  if (window.swNeedUpdate) {
+    await SWHelper.skipWaiting();
+  }
+});
+
 export function register(config) {
-  console.log('register', 'serviceWorker' in navigator);
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    const publicUrl = new URL('', window.location.href);
+
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -33,11 +41,11 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-      console.log('swUrl', swUrl);
+      const swUrl = '/service-worker.js';
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
+        // eslint-disable-next-line no-use-before-define
         checkValidServiceWorker(swUrl, config);
 
         // Add some additional logging to localhost, pointing developers to the
@@ -45,11 +53,12 @@ export function register(config) {
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://cra.link/PWA',
+              'worker. To learn more, visit https://bit.ly/CRA-PWA',
           );
         });
       } else {
         // Is not localhost. Just register service worker
+        // eslint-disable-next-line no-use-before-define
         registerValidSW(swUrl, config);
       }
     });
@@ -59,20 +68,27 @@ export function register(config) {
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
-    .then(async (registration) => {
-      console.log('registerValidSW', registration);
+    .then((registration) => {
+      if (registration.waiting && registration.active) {
+        window.swNeedUpdate = true;
+      }
+      // eslint-disable-next-line no-param-reassign
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
-        if (!installingWorker) return;
+        if (installingWorker == null) {
+          return;
+        }
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
+              window.swNeedUpdate = true;
+              SWHelper.prepareCachesForUpdate().then();
               console.log(
                 'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://cra.link/PWA.',
+                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.',
               );
 
               // Execute callback
@@ -133,7 +149,7 @@ export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
       .then((registration) => {
-        registration.unregister();
+        registration.unregister().then();
       })
       .catch((error) => {
         console.error(error.message);
