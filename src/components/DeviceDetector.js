@@ -13,17 +13,19 @@ const DeviceDetector = ({ children }) => {
         viewport.content + ', height=' + window.innerHeight,
       );
     };
-    window.addEventListener('load', preventShrink);
 
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
+    window.addEventListener('load', setVh);
+    window.addEventListener('load', preventShrink);
     window.addEventListener('resize', setVh);
     window.addEventListener('touchend', setVh);
 
     return () => {
+      window.RemoveEventListener('load', setVh);
       window.removeEventListener('load', preventShrink);
       window.removeEventListener('resize', setVh);
       window.removeEventListener('touchend', setVh);

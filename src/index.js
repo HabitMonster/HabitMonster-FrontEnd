@@ -9,9 +9,6 @@ import App from './components/App';
 
 import { GlobalStyle } from './styles/';
 
-let vh = window.innerHeight * 0.01;
-document.documentElement.style.setProperty('--vh', `${vh}px`);
-
 ReactDOM.render(
   <RecoilRoot>
     <Router>
