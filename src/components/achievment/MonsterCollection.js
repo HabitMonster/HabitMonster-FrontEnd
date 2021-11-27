@@ -71,8 +71,9 @@ const MonsterCollection = () => {
 
 const Wrapper = styled.div`
   padding-left: ${({ isPlaceholder }) => !isPlaceholder && '24px'};
+  padding-bottom: ${({ isPlaceholder }) => !isPlaceholder && '64px'};
   position: relative;
-  height: ${({ isPlaceholder }) => isPlaceholder && 'calc(100% + 64px)'};
+  height: ${({ isPlaceholder }) => isPlaceholder && '100%'};
 `;
 
 const EachCollectionWrapper = styled.div`
