@@ -26,7 +26,7 @@ const MonsterCollection = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper isPlaceholder={!collectionList?.length}>
       {!collectionList?.length ? (
         <NonePlaceHolder>
           <span>
@@ -70,10 +70,10 @@ const MonsterCollection = () => {
 };
 
 const Wrapper = styled.div`
-  padding-left: 24px;
+  padding-left: ${({ isPlaceholder }) => !isPlaceholder && '24px'};
+  padding-bottom: ${({ isPlaceholder }) => !isPlaceholder && '64px'};
   position: relative;
-  height: 100%;
-  overflow-y: hidden;
+  height: ${({ isPlaceholder }) => isPlaceholder && '100%'};
 `;
 
 const EachCollectionWrapper = styled.div`
