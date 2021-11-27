@@ -44,17 +44,14 @@ const TodayHabit = ({ id, parent }) => {
     }
 
     const parentElement = parent.current;
-    console.log(parentElement);
 
     const initializeParentScrollTop = () => {
       previousParentScrollTop.current = parentElement.scrollTop;
     };
 
-    const getDifferenceOfScrollTop = miniThrottle((e) => {
+    const getDifferenceOfScrollTop = miniThrottle(() => {
       const { current: previous } = previousParentScrollTop;
       const { scrollTop: current } = parentElement;
-      console.log(previous);
-      console.log(current);
 
       if (current - previous >= 10) {
         setShrink(true);
