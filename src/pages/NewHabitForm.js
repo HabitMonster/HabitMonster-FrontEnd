@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -38,10 +38,13 @@ const NewHabitForm = () => {
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habitCount, setHabitCount] = useRecoilState(myHabitCountState);
 
+  const formReference = useRef(null);
+
   const condition =
     title &&
     title.length <= 10 &&
     description &&
+    description.length <= 120 &&
     duration.start &&
     duration.end &&
     practiceDays &&
@@ -82,7 +85,7 @@ const NewHabitForm = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className="newHabitWrapper" ref={formReference}>
       <Header>
         <BackButtonHeader
           onButtonClick={() => history.goBack()}
@@ -110,6 +113,7 @@ const NewHabitForm = () => {
             isEditMode={false}
             duration={duration}
             onDurationChecked={setDuration}
+            parent={formReference}
           />
         </MarginInterval>
         <MarginInterval mb="24">
@@ -140,12 +144,12 @@ const Wrapper = styled.div`
   position: relative;
   background: var(--bg-wrapper);
   overflow-y: scroll;
-  padding-bottom: 120px;
   ${disappearScrollbar()};
 `;
 
 const Inner = styled.div`
   padding: 0 24px;
+  padding-bottom: 100px;
 `;
 
 const Header = styled.section`

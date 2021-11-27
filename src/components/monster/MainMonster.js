@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 import { monsterState } from '../../recoil/states/monster';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
@@ -11,12 +12,23 @@ import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
-const MainMonster = () => {
+const MainMonster = ({ webViewWrapper }) => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
   const [levelUpMessage, setLevelUpMessage] = useState('');
   const previousLevel = useRef(monster.monsterLevel);
   const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
+
+  const [animation, setAnimation] = useState(false);
+
+  const handleMonsterClick = () => {
+    if (animation) {
+      return;
+    }
+
+    setAnimation((prev) => !prev);
+    setTimeout(() => setAnimation((prev) => !prev), 2000);
+  };
 
   useEffect(() => {
     setLevelUpMessage('');
@@ -54,10 +66,13 @@ const MainMonster = () => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-      <ThumbnailWrapper heightShrinked={heightShrinked}>
-        <div className="inner">
-          <MonsterThumbnail id={monster.monsterId} />
-        </div>
+      <ThumbnailWrapper
+        onClick={handleMonsterClick}
+        animation={animation}
+        id={monster.monsterId}
+        heightShrinked={heightShrinked}
+      >
+        <MonsterThumbnail id={monster.monsterId} />
       </ThumbnailWrapper>
       <ExpContainer>
         <ExpText>
@@ -74,6 +89,7 @@ const MainMonster = () => {
       {modalOpen && (
         <Modal
           open={modalOpen}
+          webViewWrapper={webViewWrapper}
           onClose={() => setModalOpen(false)}
           blurmode={true}
         >
@@ -90,6 +106,10 @@ const MainMonster = () => {
       )}
     </MonsterContainer>
   );
+};
+
+MainMonster.propTypes = {
+  webViewWrapper: PropTypes.object,
 };
 
 const MonsterContainer = styled.div`
@@ -127,15 +147,41 @@ const Title = styled.p`
   }
 `;
 
+const upAndDown = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(12.5px) scale(1.1);
+  }
+
+  50% {
+    transform: translateY(0px) scale(1.1);
+  }
+
+  75% {
+    transform: translateY(-12.5px) scale(1.1);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
 const ThumbnailWrapper = styled.div`
-  width: 152px;
-  height: 152px;
-  padding: 29px;
+  width: ${({ id }) => (id === 25 ? 'auto' : '152px')};
+  height: ${({ id }) => (id === 25 ? 'auto' : '152px')};
+  padding: ${({ id }) => (id % 5 !== 1 && id % 5 !== 2 ? '0px' : '29px')};
   margin: 0 auto;
   margin-top: ${({ heightShrinked }) => (heightShrinked ? '-24px' : '24px')};
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  position: relative;
+  top: 14px;
+  animation: ${({ animation }) => animation && upAndDown} linear 500ms 2
+    forwards;
   transition: all 250ms ease-in-out 50ms;
 `;
 
@@ -189,6 +235,7 @@ const Gauge = styled.div`
   height: 6px;
   background-color: var(--color-primary);
   border-radius: var(--border-radius-semi);
+  transition: all 150ms ease-in;
 `;
 
 export default MainMonster;

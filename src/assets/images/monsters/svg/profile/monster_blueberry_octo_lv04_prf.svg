@@ -11,7 +11,7 @@
 >
   <style type="text/css">
     .st0-blueberry-octo-level-four {
-      fill: url(#SVGID_1_);
+      fill: url(#SVGID_1_blueberry-octo-profile-level-four);
     }
     .st1-blueberry-octo-level-four {
       opacity: 0.2;
@@ -20,10 +20,10 @@
       fill: #00ace7;
     }
     .st3-blueberry-octo-level-four {
-      fill: url(#SVGID_00000118359887341069059460000005850580012415393205_);
+      fill: url(#SVGID_00000118359887341069059460000005850580012415393205_blueberry-octo-profile-level-four);
     }
     .st4-blueberry-octo-level-four {
-      fill: url(#SVGID_00000134950547533600233100000017525069569242817434_);
+      fill: url(#SVGID_00000134950547533600233100000017525069569242817434_blueberry-octo-profile-level-four);
     }
     .st5-blueberry-octo-level-four {
       fill: #ffffff;
@@ -42,7 +42,7 @@
     }
   </style>
   <linearGradient
-    id="SVGID_1_"
+    id="SVGID_1_blueberry-octo-profile-level-four"
     gradientUnits="userSpaceOnUse"
     x1="472.5042"
     y1="1843.05"

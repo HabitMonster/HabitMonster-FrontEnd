@@ -19,6 +19,7 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
     );
   return (
     <SubTitleOuter subTitle="빈도">
+      <HelperText>숫자 영역을 클릭하여 직접 입력할 수 있어요</HelperText>
       <Wrapper>
         <div onClick={decrement}>
           <div></div>
@@ -77,7 +78,13 @@ const Wrapper = styled.div`
     transform: rotate(90deg);
   }
 `;
-
+const HelperText = styled.span`
+  display: block;
+  color: var(--color-primary-deemed);
+  font-size: var(--font-xxs);
+  line-height: 14px;
+  margin-bottom: 6px;
+`;
 const NumberInput = styled.input`
   height: 100%;
   flex: 1;

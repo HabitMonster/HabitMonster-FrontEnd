@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 
 import { Toast } from '../common';
@@ -55,15 +56,46 @@ const TodayHabit = ({ id, parent }) => {
 
       if (current - previous >= 10) {
         setShrink(true);
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
       }
-    }, 100);
+    }, 50);
 
-    current.addEventListener('touchstart', initializeParentScrollTop);
-    current.addEventListener('touchmove', getDifferenceOfScrollTop);
+    const calculateScrollShirnk = miniThrottle(() => {
+      if (parentElement.scrollTop >= 10) {
+        setShrink(true);
+        parentElement.removeEventListener('scroll', calculateScrollShirnk);
+      }
+    }, 150);
+
+    if (isMobile) {
+      parentElement.addEventListener('touchstart', initializeParentScrollTop);
+      parentElement.addEventListener('touchmove', getDifferenceOfScrollTop);
+      return;
+    }
+
+    parentElement.addEventListener('scroll', calculateScrollShirnk);
 
     return () => {
-      current.removeEventListener('touchstart', initializeParentScrollTop);
-      current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+      if (isMobile) {
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
+        return;
+      }
+
+      parentElement.removeEventListener('scroll', calculateScrollShirnk);
     };
   }, [setShrink, shrink, parent]);
 
@@ -90,9 +122,10 @@ const TodayHabit = ({ id, parent }) => {
           setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
-            setTimeout(() => {
+
+            if (data.statusCode === OK) {
               setMonster(data.monster);
-            }, 500);
+            }
           } catch (error) {
             console.error(error);
           }
