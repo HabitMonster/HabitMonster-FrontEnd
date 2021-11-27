@@ -1,4 +1,5 @@
 import { useMemo, useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
@@ -6,7 +7,8 @@ const Portal = ({ children, parent, className }) => {
   const element = useMemo(() => document.createElement('div'), []);
 
   useEffect(() => {
-    const target = parent && parent.appendChild ? parent : document.body;
+    const target =
+      parent && parent.appendChild && !isMobile ? parent : document.body;
     const classList = ['portal-container'];
 
     if (className) {
@@ -24,7 +26,7 @@ const Portal = ({ children, parent, className }) => {
 Portal.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
-  parent: PropTypes.instanceOf(Element),
+  parent: PropTypes.oneOfType([PropTypes.object, PropTypes.Element]),
   className: PropTypes.string,
 };
 

@@ -70,13 +70,7 @@ LevelUp.propTypes = {
 
 const Container = styled.div`
   width: 100%;
-
-  // INMOBILE START
-  max-width: 360px;
-  max-width: ${isMobile ? '414px' : '360px'};
   height: 100%;
-  // INMOBILE END
-
   display: flex;
   flex-direction: column;
   justify-content: center;

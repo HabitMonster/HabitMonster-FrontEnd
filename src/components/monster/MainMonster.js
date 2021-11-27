@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { monsterState } from '../../recoil/states/monster';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
@@ -11,7 +12,7 @@ import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
-const MainMonster = () => {
+const MainMonster = ({ webViewWrapper }) => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
   const [levelUpMessage, setLevelUpMessage] = useState('');
@@ -72,6 +73,7 @@ const MainMonster = () => {
       {modalOpen && (
         <Modal
           open={modalOpen}
+          webViewWrapper={webViewWrapper}
           onClose={() => setModalOpen(false)}
           blurmode={true}
         >
@@ -88,6 +90,10 @@ const MainMonster = () => {
       )}
     </MonsterContainer>
   );
+};
+
+MainMonster.propTypes = {
+  webViewWrapper: PropTypes.object,
 };
 
 const MonsterContainer = styled.div`
