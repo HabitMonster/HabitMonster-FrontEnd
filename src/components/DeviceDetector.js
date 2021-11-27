@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import backgroundSrcs from '../assets/images/background';
 
-const DeviceDetector = ({ children }) =>
-  isMobile || window.matchMedia('max-width: 500px').matches ? (
+const DeviceDetector = ({ children }) => {
+  useEffect(() => {
+    const preventShrink = function () {
+      var viewport = document.querySelector('meta[name=viewport]');
+      viewport.setAttribute(
+        'content',
+        viewport.content + ', height=' + window.innerHeight,
+      );
+    };
+    window.addEventListener('load', preventShrink);
+
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    window.addEventListener('resize', setVh);
+    window.addEventListener('touchend', setVh);
+
+    return () => {
+      window.removeEventListener('load', preventShrink);
+      window.removeEventListener('resize', setVh);
+      window.removeEventListener('touchend', setVh);
+    };
+  });
+  return isMobile || window.matchMedia('max-width: 500px').matches ? (
     <Layout>{children}</Layout>
   ) : (
     <WebBackgroundWrapper>
@@ -14,7 +38,7 @@ const DeviceDetector = ({ children }) =>
       </ClayPhone>
     </WebBackgroundWrapper>
   );
-
+};
 DeviceDetector.propTypes = {
   children: PropTypes.element.isRequired,
 };
