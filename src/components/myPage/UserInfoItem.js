@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -6,25 +6,22 @@ import { whiteOpacity } from '../../styles';
 import { EditIcon, CopyIcon } from '../../assets/icons/common';
 
 const UserInfoItem = ({ userInfoItem }) => {
-  const {
-    title,
-    contents,
-    handleClick,
-    handleClipBoard,
-    isLogout,
-    isDeleteAccount,
-    isCopy,
-  } = userInfoItem;
-  const isPossibleEdit = !!handleClick;
+  const { title, contents, handleClick, isLogout, isDeleteAccount, isCopy } =
+    userInfoItem;
+  const isPossibleEdit = useMemo(() => !!handleClick, [handleClick]);
+  const isNeedEditIcon = useMemo(
+    () => isPossibleEdit && !isLogout && !isDeleteAccount && !isCopy,
+    [isPossibleEdit, isLogout, isDeleteAccount, isCopy],
+  );
 
   return (
     <InfoListItem isCursor={isPossibleEdit} onClick={handleClick}>
       <DefaultTitle>{title}</DefaultTitle>
       <PrivateTextWrap>
         {contents && <PrivateText>{contents}</PrivateText>}
-        {isPossibleEdit && !isLogout && !isDeleteAccount && <EditIcon />}
+        {isNeedEditIcon && <EditIcon />}
         {isCopy && (
-          <CopyWrap onClick={handleClipBoard}>
+          <CopyWrap>
             <CopyIcon />
           </CopyWrap>
         )}
