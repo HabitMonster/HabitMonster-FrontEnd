@@ -37,11 +37,12 @@ export const monsterChangeTogglerState = atom({
   default: selector({
     key: 'defaultMonsterMaxLevelCheckSelector',
     get: ({ get }) => {
-      const monster = get(monsterState);
-      return (
-        monster.monsterLevel === MAX_LEVEL &&
-        monster.monsterExpPoint === MAX_EXP
-      );
+      // const monster = get(monsterState);
+      // return (
+      //   monster.monsterLevel === MAX_LEVEL &&
+      //   monster.monsterExpPoint === MAX_EXP
+      // );
+      return true;
     },
   }),
 });

@@ -42,6 +42,7 @@ const Main = () => {
           blurmode={true}
         >
           <LevelUp
+            monsterId={monster.monsterId}
             onClickSelect={() => {
               history.push('/select', {
                 levelOneId: monster.levelOneId,
