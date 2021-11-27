@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 import { monsterState } from '../../recoil/states/monster';
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
@@ -11,12 +12,23 @@ import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
-const MainMonster = () => {
+const MainMonster = ({ webViewWrapper }) => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
   const [levelUpMessage, setLevelUpMessage] = useState('');
   const previousLevel = useRef(monster.monsterLevel);
   const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
+
+  const [animation, setAnimation] = useState(false);
+
+  const handleMonsterClick = () => {
+    if (animation) {
+      return;
+    }
+
+    setAnimation((prev) => !prev);
+    setTimeout(() => setAnimation((prev) => !prev), 2000);
+  };
 
   useEffect(() => {
     setLevelUpMessage('');
@@ -54,7 +66,12 @@ const MainMonster = () => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-      <ThumbnailWrapper id={monster.monsterId} heightShrinked={heightShrinked}>
+      <ThumbnailWrapper
+        onClick={handleMonsterClick}
+        animation={animation}
+        id={monster.monsterId}
+        heightShrinked={heightShrinked}
+      >
         <MonsterThumbnail id={monster.monsterId} />
       </ThumbnailWrapper>
       <ExpContainer>
@@ -72,6 +89,7 @@ const MainMonster = () => {
       {modalOpen && (
         <Modal
           open={modalOpen}
+          webViewWrapper={webViewWrapper}
           onClose={() => setModalOpen(false)}
           blurmode={true}
         >
@@ -88,6 +106,10 @@ const MainMonster = () => {
       )}
     </MonsterContainer>
   );
+};
+
+MainMonster.propTypes = {
+  webViewWrapper: PropTypes.object,
 };
 
 const MonsterContainer = styled.div`
@@ -124,10 +146,28 @@ const Title = styled.p`
     font-weight: var(--weight-bold);
   }
 `;
-//몬스터 단계가 4, 5단계일 때
-//패딩값을 줄이면 됨.
-// 몬스터 아이디 9 svg 교체
-// 몬스터 아이디 25 width 152 height 152
+
+const upAndDown = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(12.5px) scale(1.1);
+  }
+
+  50% {
+    transform: translateY(0px) scale(1.1);
+  }
+
+  75% {
+    transform: translateY(-12.5px) scale(1.1);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+`;
 
 const ThumbnailWrapper = styled.div`
   width: ${({ id }) => (id === 25 ? 'auto' : '152px')};
@@ -140,6 +180,8 @@ const ThumbnailWrapper = styled.div`
   align-items: flex-end;
   position: relative;
   top: 14px;
+  animation: ${({ animation }) => animation && upAndDown} linear 500ms 2
+    forwards;
   transition: all 250ms ease-in-out 50ms;
 `;
 
@@ -193,6 +235,7 @@ const Gauge = styled.div`
   height: 6px;
   background-color: var(--color-primary);
   border-radius: var(--border-radius-semi);
+  transition: all 150ms ease-in;
 `;
 
 export default MainMonster;

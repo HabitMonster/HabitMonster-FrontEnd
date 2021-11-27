@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'wicg-inert';
 
 import Portal from './Portal';
 
-const Modal = ({ open, onClose, children, blurmode }) => {
+const Modal = ({ open, onClose, children, blurmode, webViewWrapper }) => {
   const [active, setActive] = useState(false);
   const backdropReference = useRef(null);
 
@@ -21,7 +22,9 @@ const Modal = ({ open, onClose, children, blurmode }) => {
       window.setTimeout(() => {
         document.activeElement.blur();
         setActive(open);
-        document.querySelector('#root').setAttribute('inert', 'true');
+        if (isMobile) {
+          document.querySelector('#root').setAttribute('inert', 'true');
+        }
       }, 10);
     }
 
@@ -29,14 +32,16 @@ const Modal = ({ open, onClose, children, blurmode }) => {
       if (current) {
         current.removeEventListener('transitionend', handleTransitionEnd);
       }
-      document.querySelector('#root').removeAttribute('inert');
+      if (isMobile) {
+        document.querySelector('#root').removeAttribute('inert');
+      }
     };
   }, [open, onClose]);
 
   return (
     <>
       {(open || active) && (
-        <Portal className="modal-portal">
+        <Portal className="modal-portal" parent={webViewWrapper.current}>
           <Backdrop
             ref={backdropReference}
             className={active && open && 'active'}
@@ -58,6 +63,7 @@ Modal.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
   blurmode: PropTypes.bool,
+  webViewWrapper: PropTypes.object,
 };
 
 Modal.defaultProps = {
@@ -65,7 +71,8 @@ Modal.defaultProps = {
 };
 
 const Backdrop = styled.div`
-  position: fixed;
+  position: ${isMobile ? 'fixed' : 'absolute'};
+  height: ${isMobile ? 'auto' : '720px'};
   top: 0;
   right: 0;
   bottom: 0;
@@ -76,8 +83,18 @@ const Backdrop = styled.div`
   transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: var(--animation-duration);
   z-index: 10;
+
   & .modal-content {
     height: 100%;
+
+    ${!isMobile &&
+    `
+      position: fixed;
+      height: 640px;
+      width: 100%;
+      transform: translateX(-50%);
+      transform: translateY(100px);
+    `}
     transform: translateY(100px);
     transition: all var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import React, { useState, useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -17,10 +17,8 @@ const Main = () => {
   const history = useHistory();
   const monster = useRecoilValue(monsterState);
   const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
-  // const [changeModalOpen, setChangeModalOpen] = useRecoilState(
-  //   monsterChangeTogglerState,
-  // );
   const changeModalOpen = useRecoilValue(monsterChangeTogglerState);
+  const webViewWrapper = useRef(null);
 
   useEffect(() => {
     if (changeModalOpen) {
@@ -31,13 +29,14 @@ const Main = () => {
 
   return (
     <>
-      <Wrapper>
-        <MainMonster />
+      <Wrapper ref={webViewWrapper}>
+        <MainMonster webViewWrapper={webViewWrapper} />
         <TodayHabitList />
       </Wrapper>
       <Gnb />
       {isMonsterModalOpen && (
         <Modal
+          webViewWrapper={webViewWrapper}
           open={isMonsterModalOpen}
           onClose={() => setIsMonsterModalOpen(false)}
           blurmode={true}
@@ -66,7 +65,9 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: calc(100% - 80px);
+  // esacpe for issue.
+  /* height: calc(100% - 80px); */
+  height: 100%;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
 `;

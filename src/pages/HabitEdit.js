@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect, useParams } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState } from 'recoil';
@@ -26,6 +26,7 @@ import { Trash } from '../assets/icons/common';
 
 import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const HabitEdit = () => {
   const history = useHistory();
@@ -44,6 +45,8 @@ const HabitEdit = () => {
   const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
+
+  const webViewWrapper = useRef(null);
 
   const deleteHabit = async (id) => {
     try {
@@ -86,7 +89,7 @@ const HabitEdit = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={webViewWrapper}>
       <BackButtonHeader
         onButtonClick={() => {
           setBackModalOpen(true);
@@ -147,7 +150,11 @@ const HabitEdit = () => {
         onClick={handleEditButtonClick}
       />
       {backModalOpen && (
-        <Modal open={backModalOpen} onClose={() => setBackModalOpen(false)}>
+        <Modal
+          webViewWrapper={webViewWrapper}
+          open={backModalOpen}
+          onClose={() => setBackModalOpen(false)}
+        >
           <BottomDialog
             title="작성 중인 화면에서 나갈까요?"
             description="현재 작성한 내용은 저장되지 않아요. 저희가 더 노력해서 저장하기 만들어볼게요!"
@@ -158,7 +165,11 @@ const HabitEdit = () => {
         </Modal>
       )}
       {deleteModalOpen && (
-        <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
+        <Modal
+          webViewWrapper={webViewWrapper}
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+        >
           <BottomDialog
             title="습관을 정말 삭제할까요?"
             description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"
@@ -177,14 +188,14 @@ const Wrapper = styled.div`
   height: 100%;
   font-family: var(--font-name-apple);
   background: var(--bg-wrapper);
+  position: relative;
   overflow-y: scroll;
+  ${disappearScrollbar()};
 `;
 
 const Inner = styled.div`
   padding: 0 24px;
-  height: 100%;
-  overflow-y: scroll;
-  padding-bottom: 102px; // BottomFixedButton(80px) + 22px
+  padding-bottom: 100px; // BottomFixedButton(80px) + 20px
 `;
 
 const MenuBar = styled.div`

@@ -18,7 +18,9 @@ const NewHabitDetailDescription = ({
         placeholder={
           isEditMode ? originDescription : '예) 100일이면 10만원이다 이말이야'
         }
-        lengthValidationMode={false}
+        maxLength={120}
+        lengthValidationMode
+        errorMessage="최대 글자 수를 초과했어요"
       />
     </SubTitleOuter>
   );
