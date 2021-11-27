@@ -56,8 +56,14 @@ const TodayHabit = ({ id, parent }) => {
 
       if (current - previous >= 10) {
         setShrink(true);
-        current.removeEventListener('touchstart', initializeParentScrollTop);
-        current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
       }
     }, 50);
 
@@ -69,8 +75,8 @@ const TodayHabit = ({ id, parent }) => {
     }, 150);
 
     if (isMobile) {
-      current.addEventListener('touchstart', initializeParentScrollTop);
-      current.addEventListener('touchmove', getDifferenceOfScrollTop);
+      parentElement.addEventListener('touchstart', initializeParentScrollTop);
+      parentElement.addEventListener('touchmove', getDifferenceOfScrollTop);
       return;
     }
 
@@ -78,8 +84,14 @@ const TodayHabit = ({ id, parent }) => {
 
     return () => {
       if (isMobile) {
-        current.removeEventListener('touchstart', initializeParentScrollTop);
-        current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
         return;
       }
 
