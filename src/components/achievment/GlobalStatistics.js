@@ -46,8 +46,6 @@ export default GlobalStatistics;
 const GlobalContainer = styled.div`
   background-color: var(--bg-wrapper);
   width: 100%;
-  overflow-y: auto;
-  height: calc(100% - 64px);
 `;
 
 const GlobalStatisticList = styled.ul`

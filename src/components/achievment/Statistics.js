@@ -133,11 +133,7 @@ const Statistics = () => {
             미완료
           </AchieveNavBtn>
         </ButtonWrap>
-        {currentList.length > 0 ? (
-          <HabitList habitList={currentList} />
-        ) : (
-          <div>데이터 없다!</div>
-        )}
+        {currentList.length > 0 && <HabitList habitList={currentList} />}
       </ListContainer>
     </>
   );
@@ -220,7 +216,7 @@ const GoalText = styled.span`
 `;
 
 const ListContainer = styled.div`
-  height: 100%;
+  /* height: 100%; */
 `;
 
 const ButtonWrap = styled.div`
