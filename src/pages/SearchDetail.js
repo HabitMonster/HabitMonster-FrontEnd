@@ -5,7 +5,11 @@ import styled from 'styled-components';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { CategoryMenu, UserSection } from '../components/search';
-import { searchUserInfoState, refreshInfoState } from '../recoil/states/search';
+import {
+  searchUserInfoState,
+  refreshSearchUserState,
+  refreshRecommendedUserState,
+} from '../recoil/states/search';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import CategoryImage from '../assets/images/habit';
 import { userApis } from '../api';
@@ -17,7 +21,8 @@ const SearchDetail = () => {
   const history = useHistory();
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
-  const setRefreshInfo = useSetRecoilState(refreshInfoState);
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
 
   const { habits, monster, userInfo } = searchResult;
   const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
@@ -46,9 +51,6 @@ const SearchDetail = () => {
     setFilteredHabits(filteredHabits);
   }, [categorization]);
 
-  // @sangjoon
-  // TODO : 페이지 이동 시 Loading 페이지가 출력됨.
-  // 로딩 자체를 없애거나 로딩 페이지를 제대로 만들어야 할 필요가 있음.
   const handleRelationship = async () => {
     try {
       const { data } = await userApis.follow(monsterCode, isFollowed);
@@ -64,13 +66,22 @@ const SearchDetail = () => {
     }
   };
 
-  // @sangjoon
-  // TODOS: 습관 카드 공용 컴포넌트로 추출
+  /*
+    @sangjoon
+    TODOS: 습관 카드 공용 컴포넌트로 추출
+
+    페이지를 이동하는 순간, 또 다른 유저의 조작에 의해 
+    데이터가 변경될 수 있다고 생각이 들었습니다.
+    페이지 이동 시에 갱신하면 대응할 수 있을 것 같다고 생각합니다.
+  */
+
   return (
     <Container>
       <Header>
         <BackButtonHeader
           onButtonClick={() => {
+            refreshSearchUserInfo((id) => id + 1);
+            refreshRecommendedUser((id) => id + 1);
             history.push('/search');
           }}
           pageTitleText={userInfo.username}
@@ -99,7 +110,7 @@ const SearchDetail = () => {
                 <Card
                   key={idx}
                   onClick={() => {
-                    setRefreshInfo((id) => id + 1);
+                    refreshSearchUserInfo((id) => id + 1);
                     history.push(
                       `/search/${userInfo.monsterCode}/${habit.habitId}`,
                     );
