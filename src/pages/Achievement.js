@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { Gnb } from '../components/gnb';
 import { Statistics, GlobalStatistics } from '../components/achievment';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const Achievement = () => {
   return (
@@ -21,15 +22,21 @@ const Achievement = () => {
             </NavButton>
           </NavButtonItem>
         </NavButtonWrap>
-        <Switch>
-          <Route exact path="/achievement/statistics" component={Statistics} />
-          <Route
-            exact
-            path="/achievement/global"
-            component={GlobalStatistics}
-          />
-          <Redirect from="*" to="/achievement/statistics" />
-        </Switch>
+        <PageContentWrap>
+          <Switch>
+            <Route
+              exact
+              path="/achievement/statistics"
+              component={Statistics}
+            />
+            <Route
+              exact
+              path="/achievement/global"
+              component={GlobalStatistics}
+            />
+            <Redirect from="*" to="/achievement/statistics" />
+          </Switch>
+        </PageContentWrap>
       </AcheiveContainer>
       <Gnb />
     </>
@@ -43,8 +50,14 @@ const AcheiveContainer = styled.div`
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 80px);
-  flex: 1 1 0;
   position: relative;
+`;
+
+const PageContentWrap = styled.div`
+  height: calc(100% - 64px);
+  padding-bottom: 64px;
+  overflow-y: auto;
+  ${disappearScrollbar()};
 `;
 
 const NavButtonWrap = styled.ul`
@@ -56,6 +69,7 @@ const NavButtonWrap = styled.ul`
 `;
 
 const NavButtonItem = styled.li`
+  color: var(--color-primary-deemed);
   display: flex;
   justify-content: center;
   list-style: none;

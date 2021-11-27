@@ -1,5 +1,11 @@
 import React from 'react';
-import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Redirect,
+  NavLink,
+  useLocation,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Gnb } from '../components/gnb';
@@ -8,9 +14,12 @@ import { MonsterCollection } from '../components/achievment';
 import { disappearScrollbar } from '../styles/Mixin';
 
 const MyPage = () => {
+  const location = useLocation();
+
+  console.log('location', location);
   return (
     <>
-      <AcheiveContainer>
+      <MypageContainer>
         <NavButtonWrap>
           <NavButtonItem>
             <NavButton to="/mypage/information" activeClassName="active">
@@ -23,16 +32,22 @@ const MyPage = () => {
             </NavButton>
           </NavButtonItem>
         </NavButtonWrap>
-        <Switch>
-          <Route exact path="/mypage/information" component={UserInformation} />
-          <Route
-            exact
-            path="/mypage/collection"
-            component={MonsterCollection}
-          />
-          <Redirect from="*" to="/mypage/information" />
-        </Switch>
-      </AcheiveContainer>
+        <PageContentWrap>
+          <Switch>
+            <Route
+              exact
+              path="/mypage/information"
+              component={UserInformation}
+            />
+            <Route
+              exact
+              path="/mypage/collection"
+              component={MonsterCollection}
+            />
+            <Redirect from="*" to="/mypage/information" />
+          </Switch>
+        </PageContentWrap>
+      </MypageContainer>
       <Gnb />
     </>
   );
@@ -40,13 +55,17 @@ const MyPage = () => {
 
 export default MyPage;
 
-const AcheiveContainer = styled.div`
+const MypageContainer = styled.div`
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 80px);
+`;
+
+const PageContentWrap = styled.div`
+  height: calc(100% - 64px);
   padding-bottom: 64px;
-  overflow-y: scroll;
+  overflow-y: auto;
   ${disappearScrollbar()};
 `;
 
@@ -56,7 +75,7 @@ const NavButtonWrap = styled.ul`
   display: flex;
   list-style: none;
   margin: 0;
-  padding-top: 48px;
+  padding-top: 24px;
 `;
 
 const NavButtonItem = styled.li`
@@ -68,7 +87,7 @@ const NavButtonItem = styled.li`
   height: 40px;
   font-size: var(--font-m);
   position: relative;
-  padding-top: 6px;
+  padding-top: 4px;
 `;
 
 const NavButton = styled(NavLink)`
@@ -79,7 +98,7 @@ const NavButton = styled(NavLink)`
   color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
   font-size: var(--font-m);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semi-regular);
   outline: 0;
   line-height: 19px;
   text-decoration: none;
