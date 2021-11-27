@@ -122,9 +122,10 @@ const TodayHabit = ({ id, parent }) => {
           setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
-            setTimeout(() => {
+
+            if (data.statusCode === OK) {
               setMonster(data.monster);
-            }, 500);
+            }
           } catch (error) {
             console.error(error);
           }
