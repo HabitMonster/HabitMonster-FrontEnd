@@ -17,9 +17,10 @@ const Main = () => {
   const history = useHistory();
   const monster = useRecoilValue(monsterState);
   const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
-  const [changeModalOpen, setChangeModalOpen] = useRecoilState(
-    monsterChangeTogglerState,
-  );
+  // const [changeModalOpen, setChangeModalOpen] = useRecoilState(
+  //   monsterChangeTogglerState,
+  // );
+  const changeModalOpen = useRecoilValue(monsterChangeTogglerState);
 
   useEffect(() => {
     if (changeModalOpen) {
@@ -42,6 +43,7 @@ const Main = () => {
           blurmode={true}
         >
           <LevelUp
+            monsterId={monster.monsterId}
             onClickSelect={() => {
               history.push('/select', {
                 levelOneId: monster.levelOneId,
@@ -50,7 +52,6 @@ const Main = () => {
             }}
             onClickStay={() => {
               setIsMonsterModalOpen(false);
-              setChangeModalOpen(false);
             }}
           />
         </Modal>

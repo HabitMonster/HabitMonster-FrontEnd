@@ -56,28 +56,46 @@ const TodayHabit = ({ id, parent }) => {
 
       if (current - previous >= 10) {
         setShrink(true);
-        current.removeEventListener('touchstart', initializeParentScrollTop);
-        current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
       }
-    }, 100);
+    }, 50);
+
+    const calculateScrollShirnk = miniThrottle(() => {
+      if (parentElement.scrollTop >= 10) {
+        setShrink(true);
+        parentElement.removeEventListener('scroll', calculateScrollShirnk);
+      }
+    }, 150);
 
     if (isMobile) {
-      current.addEventListener('touchstart', initializeParentScrollTop);
-      current.addEventListener('touchmove', getDifferenceOfScrollTop);
+      parentElement.addEventListener('touchstart', initializeParentScrollTop);
+      parentElement.addEventListener('touchmove', getDifferenceOfScrollTop);
       return;
     }
 
-    parent.current.addEventListener('scroll', (e) => {
-      console.log(parent.current.scrollTop);
-      console.log(e);
-    });
+    parentElement.addEventListener('scroll', calculateScrollShirnk);
 
     return () => {
       if (isMobile) {
-        current.removeEventListener('touchstart', initializeParentScrollTop);
-        current.removeEventListener('touchmove', getDifferenceOfScrollTop);
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
         return;
       }
+
+      parentElement.removeEventListener('scroll', calculateScrollShirnk);
     };
   }, [setShrink, shrink, parent]);
 

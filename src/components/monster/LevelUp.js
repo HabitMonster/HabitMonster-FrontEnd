@@ -1,50 +1,124 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
+import background from '../../assets/images/background';
 
-import { Congrats } from '../../assets/images/main';
+import { MonsterThumbnail } from '../common';
 
-const LevelUp = ({ onClickSelect, onClickStay }) => {
+const monsterConfiguration = {
+  5: {
+    width: '182px',
+    height: '259px',
+    bottom: '-5px',
+  },
+  10: {
+    width: '169px',
+    height: '251px',
+    bottom: '0px',
+  },
+  15: {
+    width: '202px',
+    height: '246px',
+    bottom: '0px',
+  },
+  20: {
+    width: '252px',
+    height: '199px',
+    bottom: '12px',
+  },
+  25: {
+    width: '307px',
+    height: '178px',
+    bottom: '0px',
+  },
+  30: {
+    width: '210px',
+    height: '249px',
+    bottom: '10px',
+  },
+};
+
+const LevelUp = ({ monsterId, onClickSelect, onClickStay }) => {
   return (
     <Container>
-      <CongratsImg src={Congrats} alt="" />
-      <TextBox>
-        <p>축하합니다!</p>
-        <span> 최고 레벨에 도달했어요.</span>
-      </TextBox>
-      <BtnWrap>
-        <button onClick={onClickSelect}>다음 몬스터 고르기</button>
-        <button onClick={onClickStay}>유지하기</button>
-      </BtnWrap>
+      <Top id={monsterId}>
+        <MonsterThumbnail
+          id={monsterId}
+          width={monsterConfiguration[monsterId].width}
+          height={monsterConfiguration[monsterId].height}
+        />
+      </Top>
+      <Bottom>
+        <TextBox>
+          <p>축하합니다!</p>
+          <span> 최고 레벨에 도달했어요.</span>
+        </TextBox>
+        <BtnWrap>
+          <button onClick={onClickSelect}>다음 몬스터 고르기</button>
+          <button onClick={onClickStay}>유지하기</button>
+        </BtnWrap>
+      </Bottom>
     </Container>
   );
 };
-
-export default LevelUp;
+LevelUp.propTypes = {
+  onClickSelect: PropTypes.func.isRequired,
+  onClickStay: PropTypes.func.isRequired,
+  monsterId: PropTypes.number.isRequired,
+};
 
 const Container = styled.div`
   width: 100%;
-  max-width: 414px;
+
+  // INMOBILE START
+  max-width: 360px;
+  max-width: ${isMobile ? '414px' : '360px'};
   height: 100%;
+  // INMOBILE END
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin: 0 auto;
+  position: relative;
+  background: rgba(0, 0, 0, 0.8);
 `;
 
-const CongratsImg = styled.img`
-  width: 168px;
-  height: 168px;
-`;
+const Top = styled.div`
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(${({ id }) => background[id]}) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
+  & > svg {
+    position: absolute;
+    left: 50%;
+    bottom: ${({ id }) => monsterConfiguration[id].bottom};
+    transform: translateX(-50%);
+  }
+`;
+const Bottom = styled.div`
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  bottom: 0px;
+`;
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 23px 0;
+
   & p {
     color: var(--color-primary);
     font-size: var(--font-xl);
@@ -52,8 +126,9 @@ const TextBox = styled.div`
     font-weight: var(--weight-bold);
     margin-bottom: 7px;
   }
+
   & span {
-    color: var(--color-primary);
+    color: #e8e8e8;
     font-size: var(--font-xs);
     font-weight: var(--weight-semi-regular);
     line-height: 17px;
@@ -65,6 +140,7 @@ const BtnWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   & button {
     cursor: pointer;
     width: 253px;
@@ -75,12 +151,10 @@ const BtnWrap = styled.div`
     margin: 4px;
     background-color: var(--bg-active);
   }
+
   & :nth-child(2) {
     background-color: transparent;
+    color: #e8e8e8;
   }
 `;
-
-LevelUp.propTypes = {
-  onClickSelect: PropTypes.func.isRequired,
-  onClickStay: PropTypes.func.isRequired,
-};
+export default LevelUp;
