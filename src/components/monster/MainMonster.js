@@ -54,10 +54,8 @@ const MainMonster = () => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-      <ThumbnailWrapper heightShrinked={heightShrinked}>
-        <div className="inner">
-          <MonsterThumbnail id={monster.monsterId} />
-        </div>
+      <ThumbnailWrapper id={monster.monsterId} heightShrinked={heightShrinked}>
+        <MonsterThumbnail id={monster.monsterId} />
       </ThumbnailWrapper>
       <ExpContainer>
         <ExpText>
@@ -126,16 +124,22 @@ const Title = styled.p`
     font-weight: var(--weight-bold);
   }
 `;
+//몬스터 단계가 4, 5단계일 때
+//패딩값을 줄이면 됨.
+// 몬스터 아이디 9 svg 교체
+// 몬스터 아이디 25 width 152 height 152
 
 const ThumbnailWrapper = styled.div`
-  width: 152px;
-  height: 152px;
-  padding: 29px;
+  width: ${({ id }) => (id === 25 ? 'auto' : '152px')};
+  height: ${({ id }) => (id === 25 ? 'auto' : '152px')};
+  padding: ${({ id }) => (id % 5 !== 1 && id % 5 !== 2 ? '0px' : '29px')};
   margin: 0 auto;
   margin-top: ${({ heightShrinked }) => (heightShrinked ? '-24px' : '24px')};
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  position: relative;
+  top: 14px;
   transition: all 250ms ease-in-out 50ms;
 `;
 
