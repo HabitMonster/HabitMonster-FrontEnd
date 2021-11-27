@@ -59,7 +59,14 @@ const TodayHabit = ({ id, parent }) => {
         current.removeEventListener('touchstart', initializeParentScrollTop);
         current.removeEventListener('touchmove', getDifferenceOfScrollTop);
       }
-    }, 100);
+    }, 50);
+
+    const calculateScrollShirnk = miniThrottle(() => {
+      if (parentElement.scrollTop >= 10) {
+        setShrink(true);
+        parentElement.removeEventListener('scroll', calculateScrollShirnk);
+      }
+    }, 150);
 
     if (isMobile) {
       current.addEventListener('touchstart', initializeParentScrollTop);
@@ -67,10 +74,7 @@ const TodayHabit = ({ id, parent }) => {
       return;
     }
 
-    parent.current.addEventListener('scroll', (e) => {
-      console.log(parent.current.scrollTop);
-      console.log(e);
-    });
+    parentElement.addEventListener('scroll', calculateScrollShirnk);
 
     return () => {
       if (isMobile) {
@@ -78,6 +82,8 @@ const TodayHabit = ({ id, parent }) => {
         current.removeEventListener('touchmove', getDifferenceOfScrollTop);
         return;
       }
+
+      parentElement.removeEventListener('scroll', calculateScrollShirnk);
     };
   }, [setShrink, shrink, parent]);
 
