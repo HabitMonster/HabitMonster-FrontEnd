@@ -251,7 +251,11 @@ const UserInformation = () => {
         </Modal>
       )}
       {activeToast && (
-        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
+        <Toast
+          webViewWrapper={webViewWrapper}
+          activeToast={activeToast}
+          text="클립보드에 복사되었습니다!"
+        />
       )}
     </section>
   );
