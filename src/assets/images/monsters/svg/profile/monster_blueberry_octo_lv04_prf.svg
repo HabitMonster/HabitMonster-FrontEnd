@@ -10,34 +10,34 @@
   xml:space="preserve"
 >
   <style type="text/css">
-    .st0-blueberry-octo-level-four {
+    .st0-blueberry-octo-level-four-profile {
       fill: url(#SVGID_1_blueberry-octo-profile-level-four);
     }
-    .st1-blueberry-octo-level-four {
+    .st1-blueberry-octo-level-four-profile {
       opacity: 0.2;
     }
-    .st2-blueberry-octo-level-four {
+    .st2-blueberry-octo-level-four-profile {
       fill: #00ace7;
     }
-    .st3-blueberry-octo-level-four {
+    .st3-blueberry-octo-level-four-profile {
       fill: url(#SVGID_00000118359887341069059460000005850580012415393205_blueberry-octo-profile-level-four);
     }
-    .st4-blueberry-octo-level-four {
+    .st4-blueberry-octo-level-four-profile {
       fill: url(#SVGID_00000134950547533600233100000017525069569242817434_blueberry-octo-profile-level-four);
     }
-    .st5-blueberry-octo-level-four {
+    .st5-blueberry-octo-level-four-profile {
       fill: #ffffff;
     }
-    .st6-blueberry-octo-level-four {
+    .st6-blueberry-octo-level-four-profile {
       fill: #070707;
     }
-    .st7-blueberry-octo-level-four {
+    .st7-blueberry-octo-level-four-profile {
       fill: #130093;
     }
-    .st8-blueberry-octo-level-four {
+    .st8-blueberry-octo-level-four-profile {
       fill: #1600cb;
     }
-    .st9-blueberry-octo-level-four {
+    .st9-blueberry-octo-level-four-profile {
       fill: #100449;
     }
   </style>
@@ -54,7 +54,7 @@
     <stop offset="0.81" style="stop-color: #2501fd" />
   </linearGradient>
   <path
-    class="st0-blueberry-octo-level-four"
+    class="st0-blueberry-octo-level-four-profile"
     d="M862,451.3c28.9-19,50.3-47.4,60.6-80.3c5.7-18.5,4.8-27.3,5.9-60.2c1.5-41.4,7-82.6,16.6-122.9
 	c-11.6,4.5-23.7,7.5-36,9c-47.9,5.7-71-15.8-115.1-19c-10.8-0.8-49.1-3.1-86.7,18.3C660,223,630.1,278,630.7,326.6v0.2
 	c-14.7-5.7-29.6-10.6-44.8-14.8c-5.3-1.5-8.4-7-6.9-12.3c0.4-1.3,1-2.6,1.9-3.7c11.9-14.7,20.9-31.6,26.6-49.7
@@ -65,7 +65,7 @@
 	C89.1,456.6,94.8,481.2,83,500c-0.2,0.3-0.4,0.7-0.7,1C19.8,594.9-8.9,713.2,13.2,838.5c30,169.9,194.4,335.9,364.1,367.3
 	c292,53.9,546.5-168.8,546.5-450.9c0.1-88.2-25.3-174.6-73.1-248.6C838.8,487.9,843.8,463.5,862,451.3z"
   />
-  <g class="st1-blueberry-octo-level-four">
+  <g class="st1-blueberry-octo-level-four-profile">
     <path
       d="M508.6,251.1c-2.6,11.4-5.5,24,0.3,34.1c5.2,9.1,16.1,13.2,26.4,15.2c14.5,2.8,29.5,2.7,44-0.3c0.4-1.5,1-2.8,2-4
 		c11.9-14.7,21-31.6,26.6-49.7c0,0,6.3-13.4,6.7-44.2c0.4-38.8-47.1-120-136-202.4C516.6,76.8,527.6,167.2,508.6,251.1z"
@@ -83,7 +83,7 @@
     />
   </g>
   <path
-    class="st2-blueberry-octo-level-four"
+    class="st2-blueberry-octo-level-four-profile"
     d="M94,474.1c1.4-1.9,2.8-3.8,4.2-5.7l2.2-2.9l0.5-0.7l0.4-0.5l-0.7,0.9c0.4-0.5,0.8-1,1.2-1.5
 	c3.4-4.4,6.9-8.7,10.5-12.9c8.3-9.7,17.1-19.1,26.3-28c5.2-5,10.4-9.8,15.9-14.5c2.9-2.5,5.8-4.9,8.7-7.4c1.5-1.2,3-2.4,4.5-3.6
 	l2.3-1.8l1.1-0.8c0.6-0.5-0.7,0.5-0.6,0.5l0.7-0.5c25.4-19.5,53.1-35.8,82.4-48.7c1.6-0.7,3.2-1.3,4.8-2l-1.8,0.8
@@ -92,14 +92,14 @@
 	c1.1,4,5.2,6.3,9.2,5.2C91.4,477,93,475.8,94,474.1L94,474.1z"
   />
   <path
-    class="st2-blueberry-octo-level-four"
+    class="st2-blueberry-octo-level-four-profile"
     d="M352.5,308.6c14.7-4.1,29.5-7.5,44.5-10c4.9-0.8,9.8-1.6,14.8-2.2l-2,0.3c29.7-4,59.7-4.9,89.6-2.6
 	c8.2,0.6,16.3,1.5,24.5,2.6l-2-0.3c15,2,30,4.9,44.7,8.5c3.7,0.9,7.3,1.8,10.9,2.8c3.8,1,8.3-1.3,9.2-5.2c1-4-1.3-8.1-5.2-9.2
 	c-13.2-3.6-26.6-6.6-40.1-8.9c-16.7-2.9-33.5-4.8-50.4-5.8c-17.7-1-35.4-0.9-53,0.3c-16,1.1-31.9,3-47.6,5.8
 	c-12.7,2.3-25.3,5.1-37.8,8.4l-4.1,1.1c-3.8,1.1-6.5,5.4-5.2,9.2C344.4,307.3,348.5,309.6,352.5,308.6L352.5,308.6z"
   />
   <path
-    class="st2-blueberry-octo-level-four"
+    class="st2-blueberry-octo-level-four-profile"
     d="M628.5,331.9c7.6,0.3,15.1,1,22.6,2l-2-0.3c16.3,2.2,32.4,6,48,11.3c5.3,1.8,10.6,3.8,15.7,6l-1.8-0.8
 	c13.4,5.7,26.4,12.5,38.6,20.5c3.3,2.2,6.5,4.4,9.7,6.7c1.6,1.2,3.2,2.4,4.8,3.5c1.1,0.8-1.2-0.9-0.1-0.1l1.1,0.8l2.3,1.8
 	c5.6,4.5,11,9.3,16.2,14.3c4.8,4.7,9.5,9.5,13.9,14.6c2.1,2.4,4.2,4.9,6.2,7.4c1,1.2,1.9,2.4,2.9,3.6c0.1,0.1,0.2,0.3,0.3,0.4
@@ -109,7 +109,7 @@
 	c-14.3-3.3-28.9-5.3-43.6-6.2c-1.1-0.1-2.2-0.1-3.3-0.1c-4.1,0-7.5,3.4-7.5,7.5C621.1,328.5,624.4,331.8,628.5,331.9L628.5,331.9z"
   />
   <radialGradient
-    id="SVGID_00000105416481590400045070000002920506780211539842_"
+    id="SVGID_00000105416481590400045070000002920506780211539842_octo-level-four-profile"
     cx="252.0205"
     cy="805.739"
     r="107.4735"
@@ -121,13 +121,13 @@
   </radialGradient>
   <path
     style="
-      fill: url(#SVGID_00000105416481590400045070000002920506780211539842_);
+      fill: url(#SVGID_00000105416481590400045070000002920506780211539842_octo-level-four-profile);
     "
     d="M226.7,838.7
 	c-49.5,11.6-86.4,62.4-82.4,113.1s48.3,95,99,99.1c65.3,5.4,126.5-60.9,115.5-125.5s-91-107-150.5-79.5"
   />
   <radialGradient
-    id="SVGID_00000110430000600642566820000018274715332438755514_"
+    id="SVGID_00000110430000600642566820000018274715332438755514_octo-level-four-profile"
     cx="682.04"
     cy="805.7341"
     r="99.9147"
@@ -139,52 +139,72 @@
   </radialGradient>
   <path
     style="
-      fill: url(#SVGID_00000110430000600642566820000018274715332438755514_);
+      fill: url(#SVGID_00000110430000600642566820000018274715332438755514_octo-level-four-profile);
     "
     d="M658.5,846.1c-46,10.8-80.3,58-76.6,105.1
 	s44.9,88.3,92,92.2c60.7,5,117.6-56.6,107.4-116.7s-84.6-99.5-139.9-73.9"
   />
-  <circle class="st5-blueberry-octo-level-four" cx="295" cy="796.9" r="72" />
-  <circle class="st5-blueberry-octo-level-four" cx="628" cy="796.9" r="72" />
-  <circle class="st6-blueberry-octo-level-four" cx="640" cy="814.9" r="47" />
-  <circle class="st6-blueberry-octo-level-four" cx="308" cy="810.9" r="47" />
+  <circle
+    class="st5-blueberry-octo-level-four-profile"
+    cx="295"
+    cy="796.9"
+    r="72"
+  />
+  <circle
+    class="st5-blueberry-octo-level-four-profile"
+    cx="628"
+    cy="796.9"
+    r="72"
+  />
+  <circle
+    class="st6-blueberry-octo-level-four-profile"
+    cx="640"
+    cy="814.9"
+    r="47"
+  />
+  <circle
+    class="st6-blueberry-octo-level-four-profile"
+    cx="308"
+    cy="810.9"
+    r="47"
+  />
   <path
-    class="st7-blueberry-octo-level-four"
+    class="st7-blueberry-octo-level-four-profile"
     d="M187.8,645.1c-28.9,18-32.6,22.6-33.4,28.3c-1,6.7,1.9,15.3,8.7,18.5c1.6,0.8,8.1,5.3,21.6-2.7l45.4-26.7
 	c5.2-3.1,10.5-6.2,14.2-10.7c1.1-1.4,5.9-8.8,2.5-15.4c-4-7.7-16.3-8.9-18-9.1C221,626.5,214.2,628.7,187.8,645.1z"
   />
   <path
-    class="st8-blueberry-octo-level-four"
+    class="st8-blueberry-octo-level-four-profile"
     d="M185,641.4c-26.5,16.4-29.8,20.7-30.5,25.9c-0.9,6.2,1.7,14,7.9,16.9c1.5,0.7,7.4,4.8,19.8-2.5l41.6-24.4
 	c4.8-2.8,9.6-5.7,13-9.8c1-1.3,5.3-8.1,2.2-14.1c-3.6-7-14.9-8.2-16.4-8.3C215.3,624.4,209.1,626.4,185,641.4z"
   />
   <path
-    class="st7-blueberry-octo-level-four"
+    class="st7-blueberry-octo-level-four-profile"
     d="M725.4,645.1c28.9,18,32.6,22.6,33.4,28.3c1,6.7-1.9,15.3-8.7,18.5c-1.6,0.8-8.1,5.3-21.6-2.7l-45.4-26.7
 	c-5.2-3.1-10.5-6.2-14.2-10.7c-1.1-1.4-5.8-8.8-2.4-15.4c4-7.7,16.3-8.9,18-9.1C692.3,626.5,699,628.7,725.4,645.1z"
   />
   <path
-    class="st8-blueberry-octo-level-four"
+    class="st8-blueberry-octo-level-four-profile"
     d="M728.3,641.4c26.5,16.4,29.8,20.7,30.5,25.9c0.9,6.2-1.7,14-7.9,16.9c-1.5,0.7-7.4,4.8-19.8-2.5l-41.5-24.4
 	c-4.8-2.8-9.6-5.7-13-9.8c-1-1.3-5.3-8.1-2.2-14.1c3.6-7,14.9-8.2,16.4-8.3C698,624.4,704.1,626.4,728.3,641.4z"
   />
   <path
-    class="st5-blueberry-octo-level-four"
+    class="st5-blueberry-octo-level-four-profile"
     d="M513.8,1023.8c-7.1-5-9.6-12.8-14.3-28.3c-3.1-10.1-3.1-13.3-1.3-15.8c2.2-3.1,6.3-4.3,10.1-4.6
 	c10.7-0.7,24.7,6.6,28.8,19.7c4.3,13.8-2.7,30.9-12,32.8C520.7,1028.6,516.7,1025.8,513.8,1023.8z"
   />
   <path
-    class="st5-blueberry-octo-level-four"
+    class="st5-blueberry-octo-level-four-profile"
     d="M438.6,1023.8c7.1-5,9.6-12.8,14.3-28.3c3.1-10.1,3.1-13.3,1.3-15.8c-2.2-3.1-6.3-4.3-10.1-4.6
 	c-10.7-0.7-24.7,6.6-28.8,19.7c-4.3,13.8,2.7,30.9,12,32.8C431.7,1028.6,435.8,1025.8,438.6,1023.8z"
   />
   <path
-    class="st9-blueberry-octo-level-four"
+    class="st9-blueberry-octo-level-four-profile"
     d="M466,844.9c-67.9,0-123,55.1-123,123s55.1,123,123,123s123-55.1,123-123l0,0C589,899.9,533.9,844.9,466,844.9z
 	 M466,1029.4c-34,0-61.5-27.5-61.5-61.5s27.5-61.5,61.5-61.5s61.5,27.5,61.5,61.5l0,0C527.5,1001.8,500,1029.4,466,1029.4z"
   />
   <path
-    class="st7-blueberry-octo-level-four"
+    class="st7-blueberry-octo-level-four-profile"
     d="M479,844.9c-65.7,0-119,53.3-119,119s53.3,119,119,119s119-53.3,119-119l0,0C598,898.1,544.7,844.9,479,844.9z
 	 M479,1023.4c-32.9,0-59.5-26.6-59.5-59.5s26.6-59.5,59.5-59.5s59.5,26.6,59.5,59.5l0,0C538.5,996.7,511.9,1023.4,479,1023.4z"
   />
