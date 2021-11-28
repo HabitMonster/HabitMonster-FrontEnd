@@ -53,8 +53,6 @@ const Layout = styled.div`
   width: 100%;
   max-width: 414px;
   min-width: 280px;
-  /* height: 100%; */
-  /* max-height: 100vh; */
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
@@ -82,7 +80,6 @@ const ClayPhone = styled.div`
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
   @media screen and (min-width: 1120px) {
     right: 10%;

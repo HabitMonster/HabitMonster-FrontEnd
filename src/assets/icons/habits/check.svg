@@ -1,5 +1,17 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="current" xmlns="http://www.w3.org/2000/svg">
-<g opacity="0.5">
-<path d="M3 7.56452L6.43549 11L13 4" stroke="current" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
+<svg
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="current"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g opacity="0.5">
+    <path
+      d="M3 7.56452L6.43549 11L13 4"
+      stroke="current"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
 </svg>

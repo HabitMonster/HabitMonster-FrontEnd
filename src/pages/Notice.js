@@ -22,11 +22,10 @@ const Notice = () => {
     try {
       const { data } = await myPageApis.loadNoticeData();
       if (data.statusCode === 200) {
-        console.log('noticeResponses.data', data, data.notices);
         setNoticeList(data.notices);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -67,7 +66,6 @@ const Container = styled.div`
   max-width: 414px;
   width: 100%;
   height: 100%;
-  /* position: relative; */
   background: var(--bg-wrapper);
   margin: 0 auto;
   position: absolute;

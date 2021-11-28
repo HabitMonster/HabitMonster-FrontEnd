@@ -22,7 +22,7 @@ export const searchUserInfoState = selectorFamily({
         const { data } = await userApis.getUserInfo(monsterCode);
         return data;
       } catch (error) {
-        console.log(error.response);
+        console.error(error.response);
         return;
       }
     },

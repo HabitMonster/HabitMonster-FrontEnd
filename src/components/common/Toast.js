@@ -2,17 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
 
-const Toast = ({ text, activeToast }) => {
+import Portal from './Portal';
+
+const Toast = ({ text, activeToast, webViewWrapper }) => {
   return (
-    <ToastBar className="ToastMessage" active={activeToast}>
-      {text}
-    </ToastBar>
+    <>
+      {activeToast && (
+        <Portal className="toast-portal" parent={webViewWrapper.current}>
+          <ToastBar className="toast-content" active={activeToast}>
+            {text}
+          </ToastBar>
+        </Portal>
+      )}
+    </>
   );
 };
 
 Toast.propTypes = {
   activeToast: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
+  webViewWrapper: PropTypes.object,
 };
 
 const toastFadeIn = keyframes`
@@ -53,7 +62,7 @@ const ToastBar = styled.div`
   margin-right: auto;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 2;
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   box-sizing: border-box;
   -webkit-animation: ${(props) =>

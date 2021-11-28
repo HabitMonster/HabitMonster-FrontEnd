@@ -5,7 +5,6 @@ import '../assets/fonts/font.css';
 const GlobalStyle = createGlobalStyle`
   ${reset};
   :root {
-    /* Color */
     --color-white: #ffffff;
     --color-primary: #f8f8f8;
     --color-primary-deemed: rgba(248, 248, 248, 0.5);
@@ -25,9 +24,9 @@ const GlobalStyle = createGlobalStyle`
     --color-detail: #f7f5ff;
     --color-statistics: #492cf1;
     --color-onboard: #7d3bff;
-    /* Font name */
+    
     --font-name-apple: 'Apple SD Gothic Neo';
-    /* Font size */
+    
     --font-maximum: 48px;
     --font-xxxxl: 44px;
     --font-xxxl: 28px;
@@ -38,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
     --font-s: 15px;
     --font-xs: 14px;
     --font-xxs: 12px;
-    /* Font weight */
+    
     --weight-heavy-bold: 900;
     --weight-extra-bold: 800;
     --weight-bold: 700;
@@ -47,16 +46,16 @@ const GlobalStyle = createGlobalStyle`
     --weight-semi-regular: 400;
     --weight-light: 300;
     --weight-extraLight: 200;
-    /* Size */
+    
     --border-radius-semi: 4px;
     --border-radius-small: 6px;
     --border-radius-monsterItem: 2px;
     --border-radius-progress: 10px;
     --border-radius-checkBtn: 20px;
     --border-radius-mideum: 12px;
-    /* Animation Duration */
+    
     --animation-duration: 200ms;
-    /* Background Color */
+    
     --bg-wrapper: #070707;
     --bg-wrapper-gradient: linear-gradient(0deg, #070707, #070707);
     --bg-primary: #1e2025;
@@ -88,7 +87,6 @@ const GlobalStyle = createGlobalStyle`
       height: calc(var(--vh, 1vh) * 100);
       height: -webkit-fill-available;
       overflow: hidden;
-      ${'' /* touch-action: none; */}
     }
 
     body {

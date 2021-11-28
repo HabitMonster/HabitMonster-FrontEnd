@@ -14,7 +14,6 @@ import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../../constants/statusMessage';
 function searchReducer(state, action) {
   switch (action.type) {
     case 'idle': {
-      // Hoisted!
       return searchInitialState;
     }
     case 'started': {

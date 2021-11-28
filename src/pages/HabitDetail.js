@@ -9,6 +9,8 @@ import {
   BackButtonHeader,
   Modal,
 } from '../components/common';
+import { BottomDialog } from '../components/dialog';
+
 import monsters from '../assets/images/monsters/svg';
 
 import {
@@ -18,10 +20,11 @@ import {
   myHabitCountState,
 } from '../recoil/states/habit';
 import { userLevelOneMonsterSelector } from '../recoil/states/monster';
+
 import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
+
 import { Trash } from '../assets/icons/common';
-import { BottomDialog } from '../components/dialog';
 import { habitApis } from '../api';
 import { OK } from '../constants/statusCode';
 import { disappearScrollbar } from '../styles/Mixin';

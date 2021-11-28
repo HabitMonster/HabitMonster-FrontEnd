@@ -195,7 +195,7 @@ const Wrapper = styled.div`
 
 const Inner = styled.div`
   padding: 0 24px;
-  padding-bottom: 100px; // BottomFixedButton(80px) + 20px
+  padding-bottom: 100px;
 `;
 
 const MenuBar = styled.div`

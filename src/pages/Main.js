@@ -65,8 +65,6 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  // esacpe for issue.
-  /* height: calc(100% - 80px); */
   height: 100%;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;

@@ -108,8 +108,6 @@ export const refresher = selector({
   get: ({ get }) => {
     return {
       habitResponse: get(defaultHabitResponseSelector),
-      // habits: get(defaultHabitsSelector),
-      // habitIdList: get(defaultHabitIdListSelector),
     };
   },
 });
@@ -141,42 +139,3 @@ export const presetListSelector = selectorFamily({
     }
   },
 });
-
-// export const defaultHabitsState = atom({
-//   key: 'asyncDefaultHabitsState',
-//   default: selector({
-//     key: 'habitsList',
-//     get: ({ get }) => get(defaultHabitResponseSelector).habits,
-//   }),
-// });
-
-// export const habitIdListState = atom({
-//   key: 'habitId',
-//   default: selector({
-//     key: 'defaultHabitIdSelector',
-//     get: ({ get }) => {
-//       const test = get(defaultHabitsState).map(({ habitId }) => habitId);
-//       return test;
-//     },
-//   }),
-// });
-
-// export const habitsHashSelector = selector({
-//   key: 'defaultHabitsHashSelector',
-//   get: ({ get }) =>
-//     get(defaultHabitsState).reduce((hash, cur) => {
-//       hash[cur.habitId] = cur;
-//       return hash;
-//     }, {}),
-// });
-
-// export const habitStateWithId = atomFamily({
-//   key: 'habitState',
-//   default: selectorFamily({
-//     key: 'habitById',
-//     get:
-//       (habitId) =>
-//       ({ get }) =>
-//         get(habitsHashSelector)[habitId],
-//   }),
-// });

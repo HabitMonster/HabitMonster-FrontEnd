@@ -7,6 +7,7 @@ import { BottomFixedButton, MonsterThumbnail } from '../common';
 import { monsterState } from '../../recoil/states/monster';
 import { defaultAuthSelector } from '../../recoil/states/auth';
 import { appendPostPosition } from '../../utils/appendPostPosition';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const MonsterGuide = () => {
   const history = useHistory();
@@ -67,7 +68,8 @@ const AvatarContainer = styled.div`
   height: 100%;
   padding-top: 80px;
   padding-bottom: 128px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  ${disappearScrollbar()};
 `;
 
 const ThumbnailWrap = styled.div`

@@ -1,5 +1,14 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g opacity="0.9">
-<path d="M12.2249 3V10.0619L7.79027 3H3V17H7.77514V9.93805L12.2097 17H17V3H12.2249Z" fill="white"/>
-</g>
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g opacity="0.9">
+    <path
+      d="M12.2249 3V10.0619L7.79027 3H3V17H7.77514V9.93805L12.2097 17H17V3H12.2249Z"
+      fill="white"
+    />
+  </g>
 </svg>

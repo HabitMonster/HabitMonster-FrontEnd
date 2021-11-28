@@ -1,1 +1,7 @@
-<svg width="11" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1H2L1 2v8l1 1h7l1-1V4M7 1v2l1 1h2M7 1l3 3" stroke="#EAEAEA" stroke-linejoin="round"/></svg>
+<svg width="11" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M7 1H2L1 2v8l1 1h7l1-1V4M7 1v2l1 1h2M7 1l3 3"
+    stroke="#EAEAEA"
+    stroke-linejoin="round"
+  />
+</svg>

@@ -30,7 +30,6 @@ export default function useHabitPresets() {
   const onPresetSaved = async () => {
     try {
       const { data } = await addHabitApis.saveHabitWithPreset(selectedPresetId);
-      console.log(data);
 
       if (
         data.statusCode === OK &&
@@ -38,11 +37,8 @@ export default function useHabitPresets() {
       ) {
         setHabitIdList([data.habit.habitId, ...habitIdList]);
         setHabits([data.habit, ...habits]);
-        console.log('zc');
       }
       setTotalHabitCount(totalHabitCount + 1);
-      // 버그가 일어날 가능성이 있지만..
-      // 동기적으로 리코일 업데이트가 모두 끝난 다음에 히스토리를 보낸다.
       setTimeout(() => {
         history.replace('/');
       }, 0);

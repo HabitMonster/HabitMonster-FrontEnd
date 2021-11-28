@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
-import background from '../../assets/images/background';
 
+import background from '../../assets/images/background';
 import { MonsterThumbnail } from '../common';
 
 const monsterConfiguration = {
@@ -79,6 +78,7 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
 `;
 
 const Top = styled.div`
@@ -100,12 +100,14 @@ const Top = styled.div`
     transform: translateX(-50%);
   }
 `;
+
 const Bottom = styled.div`
   width: 100%;
   height: 50%;
   position: absolute;
   bottom: 0px;
 `;
+
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -136,6 +138,7 @@ const BtnWrap = styled.div`
   align-items: center;
 
   & button {
+    font-size: var(--font-m);
     cursor: pointer;
     width: 253px;
     height: 47px;

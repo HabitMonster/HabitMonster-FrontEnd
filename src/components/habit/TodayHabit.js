@@ -18,7 +18,7 @@ import { miniThrottle, miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
 import CategoryImage from '../../assets/images/habit';
 
-const TodayHabit = ({ id, parent }) => {
+const TodayHabit = ({ id, parent, webViewWrapper }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
@@ -65,14 +65,14 @@ const TodayHabit = ({ id, parent }) => {
           getDifferenceOfScrollTop,
         );
       }
-    }, 50);
+    }, 25);
 
     const calculateScrollShirnk = miniThrottle(() => {
       if (parentElement.scrollTop >= 10) {
         setShrink(true);
         parentElement.removeEventListener('scroll', calculateScrollShirnk);
       }
-    }, 150);
+    }, 25);
 
     if (isMobile) {
       parentElement.addEventListener('touchstart', initializeParentScrollTop);
@@ -170,13 +170,14 @@ const TodayHabit = ({ id, parent }) => {
         >
           {habitDetail.isAccomplished ? '완료' : '완료하기'}
         </CheckBtn>
+        {activeToast && (
+          <Toast
+            webViewWrapper={webViewWrapper}
+            activeToast={activeToast}
+            text="오늘의 습관 하나를 완료했어요!"
+          />
+        )}
       </Card>
-      {activeToast && (
-        <Toast
-          activeToast={activeToast}
-          text="오늘의 습관 하나를 완료했어요!"
-        />
-      )}
     </>
   );
 };
@@ -184,6 +185,7 @@ const TodayHabit = ({ id, parent }) => {
 TodayHabit.propTypes = {
   id: PropTypes.number.isRequired,
   parent: PropTypes.object,
+  webViewWrapper: PropTypes.object,
 };
 
 const Card = styled.div`
@@ -197,9 +199,9 @@ const Card = styled.div`
   cursor: pointer;
   margin-bottom: 16px;
 
-  /* &:last-of-type {
+  &:last-of-type {
     margin-bottom: 89px;
-  } */
+  }
 `;
 
 const DetailContainer = styled.div`
@@ -307,7 +309,5 @@ const CheckBtn = styled.button`
         `
       : 'none'};
 `;
-
-// export default memo(TodayHabit);
 
 export default TodayHabit;

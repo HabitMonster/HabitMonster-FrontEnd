@@ -15,9 +15,6 @@ const FollowPage = () => {
   const [followList, setFollowList] = useState(null);
   const tabType = location?.search?.split('tab=')?.[1];
   const isFollowTab = tabType === 'followers' || tabType === 'following';
-  // const [getFollowList, refetchFollowList] = useRecoilState(
-  //   myFollowListByType(tabType),
-  // );
   const getFollowList = useRecoilValue(myFollowListByType(tabType));
   const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
@@ -29,30 +26,12 @@ const FollowPage = () => {
   }, [history, tabType, isFollowTab]);
 
   useEffect(() => {
-    // recoil에서 가져온 FollowList를 담아준다
-    console.log('getFollowList', getFollowList);
     setFollowList(getFollowList);
 
     return () => {
       setFollowList(null);
     };
   }, [getFollowList]);
-
-  // 탭이동할 때, 리페치하는 방식인데 처음 다른 탭으로 이동할 때 두번 요청하게 되서 일단 주석.
-  // useEffect(() => {
-  //   return () => {
-  //     const { pathname, search } = history.location;
-  //     const changedTabType = search?.split('tab=')?.[1];
-  //     const isFollowTab =
-  //       changedTabType === 'followers' || changedTabType === 'following';
-  //     if (pathname === '/follow' && tabType !== changedTabType && isFollowTab) {
-  //       console.log('tab 변경', tabType, changedTabType);
-  //       // tabType이 바뀌면 리페치해준다!
-  //       refetchFollowList(changedTabType);
-  //       setFollowList(null);
-  //     }
-  //   };
-  // }, [tabType, history, refetchFollowList]);
 
   return (
     <>
