@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -21,8 +22,7 @@ const NaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
       callbackUrl: process.env.REACT_APP_LOGIN_REDIRECT_URI,
-      isPopup: false,
-      // isPopup: isMobile ? true : false,
+      isPopup: isMobile ? true : false,
       loginButton: {
         color: 'green',
         type: 3,
