@@ -100,12 +100,14 @@ const Top = styled.div`
     transform: translateX(-50%);
   }
 `;
+
 const Bottom = styled.div`
   width: 100%;
   height: 50%;
   position: absolute;
   bottom: 0px;
 `;
+
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -136,6 +138,7 @@ const BtnWrap = styled.div`
   align-items: center;
 
   & button {
+    font-size: var(--font-m);
     cursor: pointer;
     width: 253px;
     height: 47px;
