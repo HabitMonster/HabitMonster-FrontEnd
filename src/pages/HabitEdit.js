@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect, useParams } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState } from 'recoil';
@@ -85,14 +86,6 @@ const HabitEdit = () => {
       console.error(error);
     }
   });
-
-  useEffect(() => {
-    window.removeEventListener('resize', setVh);
-
-    return () => {
-      window.addEventListener('resize', setVh);
-    };
-  }, []);
 
   if (!Object.keys(habitDetail).length) {
     return <Redirect to="/" />;
@@ -198,7 +191,8 @@ const Wrapper = styled.div`
   height: 100%;
   font-family: var(--font-name-apple);
   background: var(--bg-wrapper);
-  position: relative;
+  position: ${isMobile ? 'fixed' : 'relative'};
+  ${isMobile && `top: 0; left: 0; right: 0; bottom: 0;`};
   overflow-y: scroll;
   ${disappearScrollbar()};
 `;

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
-import { setVh } from '../components/DeviceDetector';
 
 import {
   habitIdListState,
@@ -83,14 +82,6 @@ const NewHabitForm = () => {
     }
   };
 
-  useEffect(() => {
-    window.removeEventListener('resize', setVh);
-
-    return () => {
-      window.addEventListener('resize', setVh);
-    };
-  }, []);
-
   if (!broughtHabitState) {
     return <Redirect to="/new" />;
   }
@@ -152,7 +143,8 @@ const NewHabitForm = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  position: relative;
+  position: ${isMobile ? 'fixed' : 'relative'};
+  ${isMobile && `top: 0; left: 0; right: 0; bottom: 0;`};
   background: var(--bg-wrapper);
   overflow-y: scroll;
   ${disappearScrollbar()};
