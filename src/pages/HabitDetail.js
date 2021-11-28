@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -24,10 +24,12 @@ import { Trash } from '../assets/icons/common';
 import { BottomDialog } from '../components/dialog';
 import { habitApis } from '../api';
 import { OK } from '../constants/statusCode';
+import { disappearScrollbar } from '../styles/Mixin';
 
 const HabitDetail = () => {
   const { habitId } = useParams();
   const history = useHistory();
+  const webViewWrapper = useRef(null);
 
   const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
@@ -64,8 +66,8 @@ const HabitDetail = () => {
   const MonsterIcon = monsters[levelOneMonsterId];
 
   return (
-    <Container>
-      <BackButtonHeader onButtonClick={() => history.goBack()}>
+    <Container ref={webViewWrapper}>
+      <BackButtonHeader onButtonClick={() => history.push('/')}>
         <MenuBar>
           <span>{habitDetail.title}</span>{' '}
           <Trash
@@ -139,7 +141,11 @@ const HabitDetail = () => {
         }}
       />
       {deleteModalOpen && (
-        <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
+        <Modal
+          webViewWrapper={webViewWrapper}
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+        >
           <BottomDialog
             title="습관을 정말 삭제할까요?"
             description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"
@@ -156,9 +162,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
   color: var(--color-primary);
+  overflow-y: auto;
+  ${disappearScrollbar()};
 
   & .deleteBtn {
     cursor: pointer;
@@ -195,6 +204,7 @@ const Wrapper = styled.div`
 
   & .content {
     font-weight: var(--weight-semi-regular);
+    word-break: break-all;
   }
 `;
 

@@ -81,18 +81,14 @@ const GlobalStyle = createGlobalStyle`
       width: 100vw;
       height: 100vh;
       height: -webkit-fill-available;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     body {
-      
       height: 100vh;
       height: calc(var(--vh, 1vh) * 100);
       height: -webkit-fill-available;
       overflow: hidden;
-      /* overflow-x: hidden; */
-      /* min-height: 100vh; */
-      /* min-height: -webkit-fill-available; */
-      touch-action: none;
+      ${'' /* touch-action: none; */}
     }
 
     body {

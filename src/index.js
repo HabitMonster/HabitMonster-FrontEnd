@@ -21,7 +21,8 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-// if (process.env.NODE_ENV === 'development') {
-//   reportWebVitals(console.log);
-// }
+if (process.env.NODE_ENV === 'development') {
+  reportWebVitals(console.log);
+}
+
 serviceWorkerRegistration.register();

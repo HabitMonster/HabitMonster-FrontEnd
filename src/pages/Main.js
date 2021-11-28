@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import React, { useState, useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -17,9 +17,8 @@ const Main = () => {
   const history = useHistory();
   const monster = useRecoilValue(monsterState);
   const [isMonsterModalOpen, setIsMonsterModalOpen] = useState(false);
-  const [changeModalOpen, setChangeModalOpen] = useRecoilState(
-    monsterChangeTogglerState,
-  );
+  const changeModalOpen = useRecoilValue(monsterChangeTogglerState);
+  const webViewWrapper = useRef(null);
 
   useEffect(() => {
     if (changeModalOpen) {
@@ -30,22 +29,20 @@ const Main = () => {
 
   return (
     <>
-      <Wrapper>
-        <MonsterSection>
-          <MainMonster />
-        </MonsterSection>
-        <HabitSection>
-          <TodayHabitList />
-        </HabitSection>
+      <Wrapper ref={webViewWrapper}>
+        <MainMonster webViewWrapper={webViewWrapper} />
+        <TodayHabitList />
       </Wrapper>
       <Gnb />
       {isMonsterModalOpen && (
         <Modal
+          webViewWrapper={webViewWrapper}
           open={isMonsterModalOpen}
           onClose={() => setIsMonsterModalOpen(false)}
           blurmode={true}
         >
           <LevelUp
+            monsterId={monster.monsterId}
             onClickSelect={() => {
               history.push('/select', {
                 levelOneId: monster.levelOneId,
@@ -54,7 +51,6 @@ const Main = () => {
             }}
             onClickStay={() => {
               setIsMonsterModalOpen(false);
-              setChangeModalOpen(false);
             }}
           />
         </Modal>
@@ -63,26 +59,14 @@ const Main = () => {
   );
 };
 
-const MonsterSection = styled.section`
-  width: 100%;
-  height: fit-content;
-  max-height: 434px;
-  z-index: 2;
-`;
-
-const HabitSection = styled.section`
-  width: 100%;
-  padding-top: 24px;
-  overflow-y: scroll;
-  border-radius: var(--border-radius-semi);
-`;
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  // esacpe for issue.
+  /* height: calc(100% - 80px); */
   height: 100%;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;

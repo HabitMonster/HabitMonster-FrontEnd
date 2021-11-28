@@ -164,6 +164,7 @@ const CalendarMonthPicker = styled.div`
   & div {
     width: 48px;
     height: 48px;
+    cursor: pointer;
   }
 
   & span {

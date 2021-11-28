@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
-import styled, { keyframes, css } from 'styled-components';
 
 import { Toast } from '../common';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
 import { habitStateWithId } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
 import { mainApis, habitApis } from '../../api';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
-import { miniDebounce } from '../../utils/event';
+import { miniThrottle, miniDebounce } from '../../utils/event';
 
 import { OK } from '../../constants/statusCode';
 import CategoryImage from '../../assets/images/habit';
 
-const TodayHabit = ({ id }) => {
+const TodayHabit = ({ id, parent }) => {
   const history = useHistory();
   const setMonster = useSetRecoilState(monsterState);
   const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
@@ -30,6 +32,72 @@ const TodayHabit = ({ id }) => {
     '.',
   );
   const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
+
+  const [shrink, setShrink] = useRecoilState(monsterSectionShirnkToggler);
+  const scroller = useRef(null);
+  const previousParentScrollTop = useRef(null);
+
+  useEffect(() => {
+    const { current } = scroller;
+
+    if (!current || shrink) {
+      return;
+    }
+
+    const parentElement = parent.current;
+
+    const initializeParentScrollTop = () => {
+      previousParentScrollTop.current = parentElement.scrollTop;
+    };
+
+    const getDifferenceOfScrollTop = miniThrottle(() => {
+      const { current: previous } = previousParentScrollTop;
+      const { scrollTop: current } = parentElement;
+
+      if (current - previous >= 10) {
+        setShrink(true);
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
+      }
+    }, 50);
+
+    const calculateScrollShirnk = miniThrottle(() => {
+      if (parentElement.scrollTop >= 10) {
+        setShrink(true);
+        parentElement.removeEventListener('scroll', calculateScrollShirnk);
+      }
+    }, 150);
+
+    if (isMobile) {
+      parentElement.addEventListener('touchstart', initializeParentScrollTop);
+      parentElement.addEventListener('touchmove', getDifferenceOfScrollTop);
+      return;
+    }
+
+    parentElement.addEventListener('scroll', calculateScrollShirnk);
+
+    return () => {
+      if (isMobile) {
+        parentElement.removeEventListener(
+          'touchstart',
+          initializeParentScrollTop,
+        );
+        parentElement.removeEventListener(
+          'touchmove',
+          getDifferenceOfScrollTop,
+        );
+        return;
+      }
+
+      parentElement.removeEventListener('scroll', calculateScrollShirnk);
+    };
+  }, [setShrink, shrink, parent]);
 
   useEffect(() => {
     if (activeToast) {
@@ -54,9 +122,10 @@ const TodayHabit = ({ id }) => {
           setActiveToast(true);
           try {
             const { data } = await mainApis.getMonsterInfo();
-            setTimeout(() => {
+
+            if (data.statusCode === OK) {
               setMonster(data.monster);
-            }, 500);
+            }
           } catch (error) {
             console.error(error);
           }
@@ -73,7 +142,7 @@ const TodayHabit = ({ id }) => {
 
   return (
     <>
-      <Card onClick={onHabitClicked}>
+      <Card onClick={onHabitClicked} ref={scroller}>
         <DetailContainer>
           <div>
             <CategoryIcon category={habitDetail.category} />
@@ -114,18 +183,23 @@ const TodayHabit = ({ id }) => {
 
 TodayHabit.propTypes = {
   id: PropTypes.number.isRequired,
+  parent: PropTypes.object,
 };
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-  margin-bottom: 16px;
   font-family: var(--font-name-apple);
   background-color: var(--bg-primary);
   color: var(--color-primary);
   border-radius: var(--border-radius-semi);
   cursor: pointer;
+  margin-bottom: 16px;
+
+  /* &:last-of-type {
+    margin-bottom: 89px;
+  } */
 `;
 
 const DetailContainer = styled.div`

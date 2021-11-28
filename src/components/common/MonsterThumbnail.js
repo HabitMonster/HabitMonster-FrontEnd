@@ -8,15 +8,13 @@ import MONSTERS from '../../assets/images/monsters/svg';
   @ Wrapper의 padding을 반드시 지정해주셔야합니다!
 */
 
-const MonsterThumbnail = ({ id, width, height }) => {
+const MonsterThumbnail = ({ id, width, height, ...rest }) => {
   const Monster = MONSTERS[id];
 
-  if (!Monster) {
-    return null;
-  }
-
   return (
-    <Monster style={{ width, height, maxWidth: '100%', maxHeight: '100%' }} />
+    <Monster
+      style={{ width, height, maxWidth: '100%', maxHeight: '100%', ...rest }}
+    />
   );
 };
 

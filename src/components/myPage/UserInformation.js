@@ -1,10 +1,6 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import {
-  useRecoilValue,
-  useSetRecoilState,
-  useRecoilRefresher_UNSTABLE,
-} from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { useHistory, Link } from 'react-router-dom';
 
@@ -41,6 +37,7 @@ const UserInformation = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
+  const webViewWrapper = useRef(null);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -50,7 +47,7 @@ const UserInformation = () => {
     setEditModalType('');
   }, []);
 
-  const copyCode = (contents) => {
+  const copyCode = useCallback((contents) => {
     // 흐름 1.
     if (!document.queryCommandSupported('copy')) {
       return alert('복사하기가 지원되지 않는 브라우저입니다.');
@@ -74,10 +71,9 @@ const UserInformation = () => {
     // textarea.setSelectionRange(0, 0);
     // 흐름 5.
     document.body.removeChild(textarea);
-    console.log('복사된거 맞나', contents, textarea.value);
 
     setTimeout(() => setActiveToast(true));
-  };
+  }, []);
 
   const deleteToken = useCallback(() => {
     window.localStorage.removeItem('habitAccessToken');
@@ -118,7 +114,7 @@ const UserInformation = () => {
           title: '몬스터 코드',
           contents: userInfo.monsterCode,
           isCopy: true,
-          handleClipBoard: () => copyCode(userInfo.monsterCode),
+          handleClick: () => copyCode(userInfo.monsterCode),
         },
         {
           title: '현재 버전',
@@ -151,10 +147,8 @@ const UserInformation = () => {
 
   useEffect(() => {
     if (activeToast) {
-      console.log('copy');
       setTimeout(() => {
         setActiveToast(false);
-        console.log('copy2');
       }, 2500);
     }
   }, [activeToast]);
@@ -175,7 +169,7 @@ const UserInformation = () => {
   }, [history, refetchFollowList]);
 
   return (
-    <>
+    <section ref={webViewWrapper}>
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           isProfile={true}
@@ -229,12 +223,17 @@ const UserInformation = () => {
         })}
       </UserInfoList>
       {editModalType && (
-        <Modal open={!!editModalType} onClose={closeModal}>
+        <Modal
+          webViewWrapper={webViewWrapper}
+          open={!!editModalType}
+          onClose={closeModal}
+        >
           <EditBox type={editModalType} closeModal={closeModal} />
         </Modal>
       )}
       {isLogoutModalOpen && (
         <Modal
+          webViewWrapper={webViewWrapper}
           open={isLogoutModalOpen}
           onClose={() => setIsLogoutModalOpen(false)}
           blurmode={true}
@@ -250,6 +249,7 @@ const UserInformation = () => {
       )}
       {deleteAccountModalOpen && (
         <Modal
+          webViewWrapper={webViewWrapper}
           open={deleteAccountModalOpen}
           onClose={() => setdeleteAccountModalOpen(false)}
           blurmode={true}
@@ -267,7 +267,7 @@ const UserInformation = () => {
       {activeToast && (
         <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
-    </>
+    </section>
   );
 };
 
