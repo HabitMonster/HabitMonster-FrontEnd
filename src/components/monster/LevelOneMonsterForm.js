@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -48,14 +49,6 @@ const LevelOneMonsterForm = ({ showGuide }) => {
     }
   };
 
-  useEffect(() => {
-    window.removeEventListener('resize', setVh);
-
-    return () => {
-      window.addEventListener('resize', setVh);
-    };
-  }, []);
-
   return (
     <AvatarContainer>
       <AvatarWrap>
@@ -101,6 +94,8 @@ const AvatarContainer = styled.div`
   font-family: var(--font-name-apple);
   width: 100%;
   height: calc(100% - 64px);
+  position: ${isMobile ? 'fixed' : 'relative'};
+  ${isMobile && `top: 0; left: 0; right: 0; bottom: 0;`};
 `;
 
 const AvatarWrap = styled.div`

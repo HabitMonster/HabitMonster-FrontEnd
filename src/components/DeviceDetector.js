@@ -21,14 +21,14 @@ const DeviceDetector = ({ children }) => {
 
     window.addEventListener('load', setVh);
     window.addEventListener('load', preventShrink);
-    window.addEventListener('resize', setVh);
-    window.addEventListener('touchend', setVh);
+    // window.addEventListener('resize', setVh);
+    // window.addEventListener('touchend', setVh);
 
     return () => {
       window.RemoveEventListener('load', setVh);
       window.removeEventListener('load', preventShrink);
-      window.removeEventListener('resize', setVh);
-      window.removeEventListener('touchend', setVh);
+      // window.removeEventListener('resize', setVh);
+      // window.removeEventListener('touchend', setVh);
     };
   });
   return isMobile || window.matchMedia('max-width: 500px').matches ? (
