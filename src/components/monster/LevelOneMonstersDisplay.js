@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -18,14 +18,17 @@ import { whiteOpacity } from '../../styles/Mixin';
 
 const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
+  const history = useHistory();
+  const excludeMonsterId = location?.state?.levelOneId ?? -1;
   const monsterList = useRecoilValue(babyMonsterState);
-  const enabledMonsterList = monsterList.filter(({ enable }) => enable);
+  const enabledMonsterList = monsterList.filter(
+    ({ enable, monsterId }) => enable && excludeMonsterId !== monsterId,
+  );
   const [selectedAvatar, setSelectedAvatar] = useState(
     () => enabledMonsterList[0],
   );
 
   const setSelectedMonster = useSetRecoilState(selectedMonsterState);
-  const excludeMonsterId = location?.state?.levelOneId ?? -1;
 
   const handleSelectMonster = (monster) => {
     setSelectedAvatar(monster);
@@ -44,12 +47,12 @@ const LevelOneMonstersDisplay = ({ go }) => {
 
   return (
     <AvatarContainer>
+      {Boolean(location.state) && (
+        <BackbuttonWrapper>
+          <BackButtonHeader onButtonClick={() => history.replace('/')} />
+        </BackbuttonWrapper>
+      )}
       <AvatarWrap>
-        {Boolean(location.state) && (
-          <BackbuttonWrapper>
-            <BackButtonHeader onButtonClick={() => {}} />
-          </BackbuttonWrapper>
-        )}
         <TitleWrap selectAgainMode={Boolean(location.state)}>
           <WeightText>반가워요!</WeightText>
           <Title>나만의 몬스터를 골라주세요!</Title>
@@ -65,23 +68,19 @@ const LevelOneMonstersDisplay = ({ go }) => {
           />
         </ThumbnailWrap>
         <SelectList>
-          {monsterList.map((monster) => {
+          {enabledMonsterList.map((monster) => {
             return (
-              excludeMonsterId !== monster.monsterId && (
-                <SelectListItem
-                  key={monster.monsterId}
-                  selected={
-                    selectedAvatar.monsterImage === monster.monsterImage
-                  }
-                  onClick={() => handleSelectMonster(monster)}
-                >
-                  <MonsterThumbnail
-                    id={monster.monsterId}
-                    width="32px"
-                    height="32px"
-                  />
-                </SelectListItem>
-              )
+              <SelectListItem
+                key={monster.monsterId}
+                selected={selectedAvatar.monsterImage === monster.monsterImage}
+                onClick={() => handleSelectMonster(monster)}
+              >
+                <MonsterThumbnail
+                  id={monster.monsterId}
+                  width="32px"
+                  height="32px"
+                />
+              </SelectListItem>
             );
           })}
         </SelectList>

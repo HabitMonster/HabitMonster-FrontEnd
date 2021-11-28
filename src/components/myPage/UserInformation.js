@@ -1,10 +1,9 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-
 import { useHistory, Link } from 'react-router-dom';
 
-import { defaultAuthSelector } from '../../recoil/states/auth';
+import { useRefreshUser } from '../../hooks';
 import {
   userState,
   myFollowListCountSelector,
@@ -31,6 +30,7 @@ const UserInformation = () => {
     myFollowListCountSelector,
   );
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
+  const refresher = useRefreshUser();
 
   const history = useHistory();
   const [editModalType, setEditModalType] = useState('');
@@ -87,7 +87,8 @@ const UserInformation = () => {
   const dispatcher = async (type) => {
     if (type === 'logout') {
       deleteToken();
-      history.push('/login');
+      refresher();
+      history.replace('/login', null);
       return;
     }
 
@@ -95,7 +96,8 @@ const UserInformation = () => {
       const { data } = await myPageApis.deleteUser();
       if (data.responseMessage === USER_DELETED) {
         deleteToken();
-        history.push('/login');
+        refresher();
+        history.replace('/login', null);
       }
     } catch (error) {
       console.error(error);

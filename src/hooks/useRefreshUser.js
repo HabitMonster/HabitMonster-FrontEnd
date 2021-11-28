@@ -9,6 +9,7 @@ import {
   useRecoilCallback,
 } from 'recoil';
 
+import { userState } from '../recoil/states/user';
 import { defaultAuthSelector } from '../recoil/states/auth';
 import {
   defaultHabitResponseSelector,
@@ -22,6 +23,7 @@ import { monsterSectionShirnkToggler } from '../recoil/states/ui';
 export default function useRefresh() {
   const refreshAuth = useRecoilRefresher_UNSTABLE(defaultAuthSelector);
   const resetShrinkSection = useResetRecoilState(monsterSectionShirnkToggler);
+  const resetUserState = useResetRecoilState(userState);
 
   const refresher = useRecoilCallback(
     ({ snapshot, set }) =>
@@ -50,6 +52,8 @@ export default function useRefresh() {
         );
         set(myHabitCountState, newUserTotalHabitCount);
         resetShrinkSection();
+        resetUserState();
+        // 추가로 리셋시켜야 할 것 : 몬스터 정보, 팔로우 리스트 갱신 필요
 
         // 이 로직을 이용한다면, 유저 인포, 몬스터 정보에 관한 모든 것들을 로그인한 시점에서 한꺼번에 가져올 수 있을 것입니다
         // 다시 말해 PrivateRoute의 useEffect 로직을 없앨 수 있습니다.
