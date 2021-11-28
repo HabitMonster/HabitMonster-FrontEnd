@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import backgroundSrcs from '../assets/images/background';
 
+export const setVh = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
 const DeviceDetector = ({ children }) => {
   useEffect(() => {
     const preventShrink = function () {
@@ -12,11 +17,6 @@ const DeviceDetector = ({ children }) => {
         'content',
         viewport.content + ', height=' + window.innerHeight,
       );
-    };
-
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
     window.addEventListener('load', setVh);

@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+
+import { setVh } from '../components/DeviceDetector';
 
 import {
   habitIdListState,
@@ -80,6 +82,14 @@ const NewHabitForm = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    window.removeEventListener('resize', setVh);
+
+    return () => {
+      window.addEventListener('resize', setVh);
+    };
+  }, []);
 
   if (!broughtHabitState) {
     return <Redirect to="/new" />;

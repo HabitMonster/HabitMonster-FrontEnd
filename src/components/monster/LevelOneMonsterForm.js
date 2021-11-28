@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -17,6 +17,8 @@ import { defaultAuthSelector } from '../../recoil/states/auth';
 import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
+
+import { setVh } from '../DeviceDetector';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
@@ -45,6 +47,14 @@ const LevelOneMonsterForm = ({ showGuide }) => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    window.removeEventListener('resize', setVh);
+
+    return () => {
+      window.addEventListener('resize', setVh);
+    };
+  }, []);
 
   return (
     <AvatarContainer>

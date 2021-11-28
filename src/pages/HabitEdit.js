@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect, useParams } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState } from 'recoil';
@@ -27,6 +27,8 @@ import { Trash } from '../assets/icons/common';
 import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
 import { disappearScrollbar } from '../styles/Mixin';
+
+import { setVh } from '../components/DeviceDetector';
 
 const HabitEdit = () => {
   const history = useHistory();
@@ -83,6 +85,14 @@ const HabitEdit = () => {
       console.error(error);
     }
   });
+
+  useEffect(() => {
+    window.removeEventListener('resize', setVh);
+
+    return () => {
+      window.addEventListener('resize', setVh);
+    };
+  }, []);
 
   if (!Object.keys(habitDetail).length) {
     return <Redirect to="/" />;

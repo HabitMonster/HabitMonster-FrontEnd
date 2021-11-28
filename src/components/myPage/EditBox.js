@@ -15,6 +15,8 @@ import {
   MONSTER_NAME_UPDATE_SUCCESS,
 } from '../../constants/statusMessage';
 
+import { setVh } from '../DeviceDetector';
+
 const EditBox = ({ type, closeModal }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
@@ -66,6 +68,14 @@ const EditBox = ({ type, closeModal }) => {
       type === 'userName' ? userInfo.userName : monsterInfo.monsterName,
     );
   }, [type, userInfo.userName, monsterInfo.monsterName]);
+
+  useEffect(() => {
+    window.removeEventListener('resize', setVh);
+
+    return () => {
+      window.addEventListener('resize', setVh);
+    };
+  }, []);
 
   return (
     <Container>
