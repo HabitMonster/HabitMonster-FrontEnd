@@ -87,6 +87,8 @@ const GlobalStyle = createGlobalStyle`
       height: calc(var(--vh, 1vh) * 100);
       height: -webkit-fill-available;
       overflow: hidden;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
     }
 
     body {
