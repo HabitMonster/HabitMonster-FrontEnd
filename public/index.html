@@ -1,48 +1,75 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="id=edge" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="id=edge" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="%REACT_APP_GOOGLE_CLIENT_ID%"
+    />
+    <meta name="apple-mobile-web-app-title" content="[Habit Monster]" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="manifest"
+      crossorigin="use-credentials"
+      href="%PUBLIC_URL%/manifest.json"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="./icon/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="./icon/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="./icon/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./icon/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./icon/android-icon-192x192.png"
+    />
+    <link rel="icon" type="image/png" sizes="192x192" href="/green-192.png" />
 
-  <meta name="description" content="Web site created using create-react-app" />
-  <meta name="google-signin-client_id" content="%REACT_APP_GOOGLE_CLIENT_ID%" />
-  <meta name="apple-mobile-web-app-title" content="[Habit Monster]" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="manifest" crossorigin="use-credentials" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="apple-touch-icon" sizes="72x72" href="./icon/apple-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="./icon/apple-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="./icon/apple-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="./icon/apple-icon-180x180.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon/android-icon-192x192.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/green-192.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="green-192.png" />
 
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="green-192.png" />
+    <link rel="stylesheet" href="index.css" />
+    <base href="./" />
+    <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
+      charset="utf-8"
+    ></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>Habit Monster</title>
+  </head>
 
-  <link rel="stylesheet" href="index.css" />
-  <base href="./" />
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
-    charset="utf-8"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <title>Habit Monster</title>
-</head>
-
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!-- <script>
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-      window.addEventListener('resize', () => {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      });
-    </script> -->
-</body>
-
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>

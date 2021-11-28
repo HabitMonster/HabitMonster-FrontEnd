@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
-import background from '../../assets/images/background';
 
+import background from '../../assets/images/background';
 import { MonsterThumbnail } from '../common';
 
 const monsterConfiguration = {
@@ -79,6 +78,7 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
 `;
 
 const Top = styled.div`

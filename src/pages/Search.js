@@ -8,11 +8,8 @@ import {
 } from '../components/search';
 
 import { disappearScrollbar } from '../styles/Mixin';
-import { useHistory } from 'react-router-dom';
 
 const Search = () => {
-  const history = useHistory();
-  console.log(history);
   return (
     <Wrapper>
       <UserSearchSection />

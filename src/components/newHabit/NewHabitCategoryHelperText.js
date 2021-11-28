@@ -14,8 +14,7 @@ const NewHabitCategoryHelperText = () => {
 };
 
 const Wrapper = styled.div`
-  /* margin-top: 80px; */
-  margin-top: 43px; //현재 640기준아님. 640 + 37 = 677기준.
+  margin-top: 43px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

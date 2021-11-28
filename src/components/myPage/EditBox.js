@@ -15,7 +15,6 @@ import {
   MONSTER_NAME_UPDATE_SUCCESS,
 } from '../../constants/statusMessage';
 
-// 기존에 UserInformation에서 props로 넘겨받는 값 editValue, handleChangeValue를 editBox 내부로 옮겨옴
 const EditBox = ({ type, closeModal }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
@@ -33,7 +32,6 @@ const EditBox = ({ type, closeModal }) => {
         editRequest = myPageApis.editMonsterName;
       }
 
-      // fieldKey: username / monsterName
       const fieldKey = type === 'userName' ? 'username' : 'monsterName';
       const { data } = await editRequest({
         [fieldKey]: editValue,
@@ -45,7 +43,6 @@ const EditBox = ({ type, closeModal }) => {
             ...userInfo,
             userName: data.userInfo.username,
           };
-          // user atom 수정
           setUserInfo(newUserInfo);
         }
 
@@ -54,7 +51,6 @@ const EditBox = ({ type, closeModal }) => {
             ...monsterInfo,
             monsterName: data.monster.monsterName,
           };
-          //몬스터 아톰 수정
           setMonsterInfo(newMonsterInfo);
         }
 

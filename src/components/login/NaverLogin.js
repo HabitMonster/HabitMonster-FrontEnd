@@ -21,7 +21,8 @@ const NaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
       callbackUrl: process.env.REACT_APP_LOGIN_REDIRECT_URI,
-      isPopup: true,
+      isPopup: false,
+      // isPopup: isMobile ? true : false,
       loginButton: {
         color: 'green',
         type: 3,
@@ -65,7 +66,6 @@ const NaverLogin = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(naverRef.current);
     naverRef.current.children[0].click();
   };
 

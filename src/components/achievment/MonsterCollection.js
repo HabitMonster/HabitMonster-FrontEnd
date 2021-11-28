@@ -8,6 +8,7 @@ import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
 import { useHorizontalScroll } from '../../hooks';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
@@ -105,10 +106,7 @@ const ImageScroller = styled.div`
   flex-wrap: nowrap;
   width: auto;
   overflow-x: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${disappearScrollbar()}
 `;
 
 const MonsterImageWrapper = styled.div`
@@ -135,28 +133,5 @@ const MonsterImageWrapper = styled.div`
     color: var(--color-primary);
   }
 `;
-
-// const NoneTextWrapper = styled.section`
-//   width: 100%;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   padding: 0 24px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   & svg {
-//     margin-bottom: 32px;
-//   }
-// `;
-
-// const NoneTextDescription = styled.p`
-//   ${whiteOpacity('0.6')};
-//   font-size: var(--font-xs);
-//   line-height: 21px;
-//   text-align: center;
-// `;
 
 export default MonsterCollection;

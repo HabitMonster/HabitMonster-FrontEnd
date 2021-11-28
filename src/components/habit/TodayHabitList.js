@@ -14,7 +14,14 @@ const TodayHabitList = () => {
   return (
     <HabitContainer ref={parent}>
       {habitIdList.length ? (
-        habitIdList.map((id) => <TodayHabit parent={parent} key={id} id={id} />)
+        habitIdList.map((id) => (
+          <TodayHabit
+            webViewWrapper={HabitContainer}
+            parent={parent}
+            key={id}
+            id={id}
+          />
+        ))
       ) : (
         <NoHabitHelper />
       )}

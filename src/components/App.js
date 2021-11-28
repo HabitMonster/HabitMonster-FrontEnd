@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, Suspense } from 'react';
+import React, { useRef, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Switch, Redirect } from 'react-router-dom';
 

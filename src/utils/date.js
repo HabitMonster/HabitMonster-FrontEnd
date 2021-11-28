@@ -1,8 +1,5 @@
 import { ONE_DAY } from '../constants/times';
 
-export const convertYYYYMMDD = (date) =>
-  date.toISOString().split('T')[0].split('-').join('/');
-
 export const convertYMD = (date) => date.toISOString().split('T')[0];
 
 export const getCurrentKST = () => {
@@ -36,8 +33,6 @@ export const getPreviousMonth = (dateString) => {
   if (arr[1] < 10) {
     arr[1] = `0${arr[1]}`;
   }
-
-  console.log(arr);
 
   return arr.join('-');
 };

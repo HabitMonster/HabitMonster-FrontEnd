@@ -9,7 +9,6 @@ export const REFRESH_TOKEN_MALFORMED = 'refreshToken Malformed';
 export const USER_DELETED = 'User Droped';
 export const INTERNAL_SERVER_ERROR_MESSAGE = 'Internal Server Error';
 
-// About MonsterCode
 export const NOT_FOUND_USER_VIA_MONSTER_CODE = 'Not Found User';
 
 export const USER_NAME_UPDATE_SUCCESS = 'User Name Updated Completed';

@@ -61,7 +61,6 @@ const SearchDetailFollow = () => {
     getUserList();
   }, [getUserList]);
 
-  //@jaekyung Todo. followlist 컴포넌트 만들어서 재활용하게 할 예정임
   return (
     <>
       <FollowContainer>

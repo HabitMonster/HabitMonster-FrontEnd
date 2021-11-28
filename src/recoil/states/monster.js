@@ -21,8 +21,6 @@ export const asyncDefaultMonster = selector({
     }
   },
   set: ({ set }) => {
-    // setter가 호출되면 트리거의 값을 1만큼 증가
-    // => 트리거 값 변경으로 인해 monsterInfo가 갱신됨
     set(monsterRefetchToggler, (v) => v + 1);
   },
 });
@@ -44,11 +42,6 @@ export const monsterChangeTogglerState = atom({
       );
     },
   }),
-});
-
-export const monsterIdSelector = selector({
-  key: 'monsterId',
-  get: ({ get }) => get(monsterState).monsterId,
 });
 
 export const userLevelOneMonsterSelector = selector({
@@ -83,25 +76,7 @@ export const selectedMonsterState = atom({
   default: null,
 });
 
-export const getSelectedMonster = selector({
-  key: 'getSelectedMonster',
-  get: ({ get }) => {
-    const selectedMonster = get(selectedMonsterState);
-
-    return selectedMonster;
-  },
-});
-
 export const monsterNameState = atom({
   key: 'monsterNameState',
   default: '',
-});
-
-export const monsterNameSelector = selector({
-  key: 'monsterNameSelector',
-  get: ({ get }) => {
-    const monsterName = get(monsterNameState);
-
-    return monsterName;
-  },
 });
