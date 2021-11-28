@@ -8,6 +8,8 @@ import { NewHabitPresetItem } from '../components/newHabit';
 import { useHabitPresets } from '../hooks';
 import { PencilIcon } from '../assets/icons/habits';
 
+import { disappearScrollbar } from '../styles/Mixin';
+
 const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();
 
@@ -72,6 +74,8 @@ export const Wrapper = styled.div`
   height: 100%;
   position: relative;
   background: var(--bg-wrapper-gradient);
+  overflow-y: scroll;
+  ${disappearScrollbar()};
 `;
 
 export const Inner = styled.div`
@@ -92,7 +96,7 @@ const Hands = styled.div`
   background: var(--bg-primary);
   border: none;
   border-radius: var(--border-radius-semi);
-  margin-bottom: 80px;
+  margin-bottom: 94px;
   display: flex;
   justify-content: center;
   align-items: center;
