@@ -79,6 +79,7 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
 `;
 
 const Top = styled.div`
