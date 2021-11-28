@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -8,8 +8,16 @@ import {
 } from '../components/search';
 
 import { disappearScrollbar } from '../styles/Mixin';
+import { setVh } from '../components/DeviceDetector';
 
 const Search = () => {
+  useEffect(() => {
+    window.removeEventListener('resize', setVh);
+
+    return () => {
+      window.addEventListener('resize', setVh);
+    };
+  }, []);
   return (
     <Wrapper>
       <UserSearchSection />
