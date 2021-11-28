@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 
   & div {
     width: 40px;
-    height: 100%;
+    height: 40px;
     border-radius: 50%;
     background: var(--bg-primary);
     display: flex;

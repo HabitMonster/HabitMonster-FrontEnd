@@ -11,13 +11,11 @@ import {
   NewHabitCategoryHelperText,
 } from '../components/newHabit';
 import { Gnb } from '../components/gnb';
-import { useFetchCategories } from '../hooks';
 import CATEGORIES from '../assets/images/habit';
 
 const NewHabitCategoryList = () => {
   const history = useHistory();
   const { path } = useRouteMatch();
-  // const categories = useFetchCategories();
   const categories = useRecoilValue(categoryListSelector);
 
   return (

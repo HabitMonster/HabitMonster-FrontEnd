@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const NewHabitCategoryGrid = ({ children }) => {
   return <GridContainer>{children}</GridContainer>;
@@ -17,6 +18,8 @@ const GridContainer = styled.section`
   gap: 12px;
   align-items: center;
   justify-content: center;
+  overflow-y: scroll;
+  ${disappearScrollbar()};
 `;
 
 export default NewHabitCategoryGrid;

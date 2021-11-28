@@ -65,14 +65,14 @@ const TodayHabit = ({ id, parent }) => {
           getDifferenceOfScrollTop,
         );
       }
-    }, 50);
+    }, 25);
 
     const calculateScrollShirnk = miniThrottle(() => {
       if (parentElement.scrollTop >= 10) {
         setShrink(true);
         parentElement.removeEventListener('scroll', calculateScrollShirnk);
       }
-    }, 150);
+    }, 25);
 
     if (isMobile) {
       parentElement.addEventListener('touchstart', initializeParentScrollTop);
@@ -197,9 +197,9 @@ const Card = styled.div`
   cursor: pointer;
   margin-bottom: 16px;
 
-  /* &:last-of-type {
+  &:last-of-type {
     margin-bottom: 89px;
-  } */
+  }
 `;
 
 const DetailContainer = styled.div`
