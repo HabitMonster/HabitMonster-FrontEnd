@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MonsterListItemSkeleton } from '../monster';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const skeletons = [...Array(5).keys()].map((key) => ({
   id: key,
@@ -19,6 +20,7 @@ const RecommendedUserSectionSkeleton = () => {
 
 const Wrapper = styled.ul`
   overflow-y: scroll;
+  ${disappearScrollbar()};
   & > h2 {
     color: white;
     padding: 0 24px;

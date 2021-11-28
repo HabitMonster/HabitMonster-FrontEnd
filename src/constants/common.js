@@ -16,6 +16,6 @@ export const ACHIEVEMENT_NAV_BUTTON_LIST = [
   },
   {
     link: '/achievement/global',
-    title: '사용자 통계',
+    title: '글로벌 통계',
   },
 ];
