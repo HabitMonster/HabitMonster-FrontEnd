@@ -88,7 +88,8 @@ const UserInformation = () => {
     if (type === 'logout') {
       deleteToken();
       refresher();
-      history.replace('/login', null);
+      window.location.href = '/login';
+      // history.replace('/login', null);
       return;
     }
 
@@ -97,7 +98,8 @@ const UserInformation = () => {
       if (data.responseMessage === USER_DELETED) {
         deleteToken();
         refresher();
-        history.replace('/login', null);
+        window.location.href = '/login';
+        // history.replace('/login', null);
       }
     } catch (error) {
       console.error(error);
