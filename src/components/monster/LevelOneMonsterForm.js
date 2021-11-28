@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
-import { BottomFixedButton, MonsterThumbnail } from '../common';
-import { TextInput } from '../common';
+import { BottomFixedButton, MonsterThumbnail, TextInput } from '../common';
 import { monsterApis } from '../../api';
 
 import {

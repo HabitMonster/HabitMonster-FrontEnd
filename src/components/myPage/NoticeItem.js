@@ -10,9 +10,6 @@ const NoticeItem = ({ notice, active, onToggle }) => {
   const { title, createdAt, id } = notice;
   const contentArea = useRef();
 
-  console.log('contentArea', contentArea?.current?.scrollHeight);
-  console.log('contentAreaPadding', contentArea?.current?.style?.padding);
-
   return (
     <NotiListItem active={active}>
       <HeaderWrap>
@@ -42,7 +39,6 @@ const HeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 0 24px; */
   margin: 0 24px;
   height: 75px;
 `;

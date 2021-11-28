@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { disappearScrollbar } from '../../styles/Mixin';
 
+import { disappearScrollbar } from '../../styles/Mixin';
 import { useHorizontalScroll } from '../../hooks';
 
 const CategoryMenu = ({ categorization, classHandler }) => {

@@ -23,7 +23,6 @@ const BottomDialog = ({
           <OneButtonInner>
             <Title type={type}>{title}</Title>
             <BadgeWrap>
-              {/* <img src={`levelList.${level}`} alt={`levelList.${level}`} /> */}
               <LevelIcon />
             </BadgeWrap>
             {description && <Description>{description}</Description>}
@@ -129,7 +128,6 @@ const Description = styled.p`
 const ButtonGrid = styled.div`
   width: 100%;
   display: grid;
-  /* grid-template-columns: repeat(2, 1fr); */
   grid-template-columns: ${({ type }) => (type ? '1fr' : 'repeat(2, 1fr)')};
   column-gap: 12px;
   margin-top: 21px;

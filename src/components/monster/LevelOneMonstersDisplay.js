@@ -35,13 +35,6 @@ const LevelOneMonstersDisplay = ({ go }) => {
   };
 
   useEffect(() => {
-    /*
-      https://github.com/facebookexperimental/Recoil/issues/1076
-      리코일에서의 setState는 리액트에서의 setState와 싱크를 맞출 수 없기 때문에
-      리렌더링이 일어날 때 마다 useEffect으로 싱크를 맞춰줍니다.
-      해당 동기화는 리액트 실험 버전의 훅인 useTransaction()으로 맞출 수 있으나
-      보장을 하지 못하기 때문에 이 방법을 선택합니다.
-    */
     setSelectedMonster(selectedAvatar);
   }, [selectedAvatar, setSelectedMonster]);
 

@@ -1,10 +1,5 @@
-import { atom, selector } from 'recoil';
+import { selector } from 'recoil';
 import { mainApis } from '../../api';
-
-export const authToggler = atom({
-  key: 'authToggler',
-  default: 1,
-});
 
 export const defaultAuthSelector = selector({
   key: 'defaultAuthSelector',

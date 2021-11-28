@@ -310,6 +310,4 @@ const CheckBtn = styled.button`
       : 'none'};
 `;
 
-// export default memo(TodayHabit);
-
 export default TodayHabit;

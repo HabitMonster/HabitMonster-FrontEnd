@@ -33,7 +33,6 @@ const SearchDetailHabit = () => {
   );
   const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
 
-  // 백엔드에서 HabitCategoryId를 내려주면 코드를 삭제할 예정.
   const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
 
   const durationStart = setFormattedDuration(

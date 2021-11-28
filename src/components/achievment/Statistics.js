@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { statisticApi } from '../../api';
@@ -9,7 +10,6 @@ import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
 import { HabitList, CircleProgress } from '.';
 import { defaultAuthSelector } from '../../recoil/states/auth';
-import { useRecoilValue } from 'recoil';
 
 const Statistics = () => {
   const { createdAt } = useRecoilValue(defaultAuthSelector);
@@ -113,7 +113,6 @@ const Statistics = () => {
       <HabitsList>{currentMonth}월의 습관 목록</HabitsList>
       <ListContainer>
         <ButtonWrap>
-          {/* TODO: onClick type 지정필요 */}
           <AchieveNavBtn
             isActive={currentListName === 'total'}
             onClick={() => handleClickChangeTabName('total')}
@@ -151,7 +150,6 @@ const DateWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 20px 0; */
   margin-top: 24px;
   margin-bottom: 32px;
 `;
@@ -215,9 +213,7 @@ const GoalText = styled.span`
   display: inline-block;
 `;
 
-const ListContainer = styled.div`
-  /* height: 100%; */
-`;
+const ListContainer = styled.div``;
 
 const ButtonWrap = styled.div`
   display: flex;

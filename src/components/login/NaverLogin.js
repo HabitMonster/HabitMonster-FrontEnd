@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-// import { isMobile } from 'react-device-detect';
 
 import { useRefreshUser } from '../../hooks';
 
@@ -67,7 +66,6 @@ const NaverLogin = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(naverRef.current);
     naverRef.current.children[0].click();
   };
 
