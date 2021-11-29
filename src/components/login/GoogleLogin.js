@@ -10,6 +10,8 @@ import { OK } from '../../constants/statusCode';
 import { loadGoogleScript } from '../../utils/loadGoogleScript';
 import { loginBtnStyle } from '../../styles/Mixin';
 
+import { setCookie } from '../../utils/cookie';
+
 const GoogleLogin = () => {
   const history = useHistory();
   const googleLoginBtn = useRef(null);
@@ -35,16 +37,8 @@ const GoogleLogin = () => {
                     socialName,
                     googleUser.getAuthResponse().id_token,
                   );
-
-                  window.localStorage.setItem(
-                    'habitAccessToken',
-                    data.accessToken,
-                  );
-                  window.localStorage.setItem(
-                    'habitRefreshToken',
-                    data.refreshToken,
-                  );
-
+                  setCookie('habit-A-Token', data.accessToken);
+                  setCookie('habit-R-Token', data.refreshToken);
                   refresher();
                   if (data.statusCode === OK) {
                     history.replace(data.isFirstLogin ? '/select' : '/');
