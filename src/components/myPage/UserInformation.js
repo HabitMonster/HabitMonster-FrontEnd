@@ -30,7 +30,7 @@ const UserInformation = () => {
     myFollowListCountSelector,
   );
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
-  const refresher = useRefreshUser();
+  // const refresher = useRefreshUser();
 
   const history = useHistory();
   const [editModalType, setEditModalType] = useState('');
@@ -48,21 +48,28 @@ const UserInformation = () => {
   }, []);
 
   const copyCode = useCallback((contents) => {
+    // 흐름 1.
     if (!document.queryCommandSupported('copy')) {
       return alert('복사하기가 지원되지 않는 브라우저입니다.');
     }
-
+    // 흐름 2.
     const textarea = document.createElement('textarea');
     textarea.value = contents;
     textarea.style.top = 0;
     textarea.style.left = 0;
     textarea.style.position = 'fixed';
 
+    // 흐름 3.
     document.body.appendChild(textarea);
+    // focus() -> 사파리 브라우저 서포팅
     textarea.focus();
+    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
     textarea.select();
     textarea.setSelectionRange(0, 99999);
+    // 흐름 4.
     document.execCommand('copy');
+    // textarea.setSelectionRange(0, 0);
+    // 흐름 5.
     document.body.removeChild(textarea);
 
     setTimeout(() => setActiveToast(true));
@@ -73,12 +80,14 @@ const UserInformation = () => {
     window.localStorage.removeItem('habitRefreshToken');
   }, []);
 
+  /*
+    토큰을 삭제하고 로그인으로 보냅니다.
+  */
+
   const dispatcher = async (type) => {
     if (type === 'logout') {
       deleteToken();
-      refresher();
       window.location.href = '/login';
-      // history.replace('/login', null);
       return;
     }
 
@@ -86,9 +95,7 @@ const UserInformation = () => {
       const { data } = await myPageApis.deleteUser();
       if (data.responseMessage === USER_DELETED) {
         deleteToken();
-        refresher();
         window.location.href = '/login';
-        // history.replace('/login', null);
       }
     } catch (error) {
       console.error(error);
@@ -118,6 +125,11 @@ const UserInformation = () => {
           contents: '',
           handleClick: () => history.push('/notice'),
         },
+        // {
+        //   title: '신고하기',
+        //   contents: '',
+        //   handleClick: () => window.open('구글폼주소', '_blank'),
+        // },
         {
           title: '로그아웃',
           contents: '',
@@ -142,7 +154,9 @@ const UserInformation = () => {
   }, [activeToast]);
 
   useEffect(() => {
+    // console.log('mypage CleanUp', history.location.pathname);
     return () => {
+      // 마이페이지에서 벗어날 때 리스트를 초기화한다
       if (
         !(
           history.location.pathname.includes('mypage') ||
@@ -251,11 +265,7 @@ const UserInformation = () => {
         </Modal>
       )}
       {activeToast && (
-        <Toast
-          webViewWrapper={webViewWrapper}
-          activeToast={activeToast}
-          text="클립보드에 복사되었습니다!"
-        />
+        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
     </section>
   );
