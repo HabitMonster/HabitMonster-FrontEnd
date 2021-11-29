@@ -8,12 +8,15 @@ import {
   BottomFixedButton,
   BackButtonHeader,
 } from '../components/common';
+
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import { renderDays } from '../utils/date';
+
 import {
   searchUserHabitSelector,
   refreshSearchUserState,
 } from '../recoil/states/search';
+import { currentUserMonsterCodeSelector } from '../recoil/states/user';
 
 const MOCKUP_CATEGORY_ID = {
   Health: 1,
@@ -28,6 +31,8 @@ const MOCKUP_CATEGORY_ID = {
 const SearchDetailHabit = () => {
   const { monsterCode, habitId } = useParams();
   const history = useHistory();
+
+  const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
@@ -84,7 +89,7 @@ const SearchDetailHabit = () => {
         </Wrapper>
       </Inner>
       <BottomFixedButton
-        condition={null}
+        condition={currentUserMonsterCode !== monsterCode ? null : () => {}}
         text="가져오기"
         onClick={() =>
           history.push({
