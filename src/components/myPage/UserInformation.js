@@ -28,7 +28,6 @@ const UserInformation = () => {
     myFollowListCountSelector,
   );
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
-  // const refresher = useRefreshUser();
 
   const history = useHistory();
   const [editModalType, setEditModalType] = useState('');
@@ -70,7 +69,7 @@ const UserInformation = () => {
     // 흐름 5.
     document.body.removeChild(textarea);
 
-    setTimeout(() => setActiveToast(true));
+    setTimeout(() => setActiveToast(true), 0);
   }, []);
 
   const deleteToken = useCallback(() => {
