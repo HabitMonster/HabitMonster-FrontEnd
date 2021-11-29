@@ -2,8 +2,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory, Link } from 'react-router-dom';
-
-import { useRefreshUser } from '../../hooks';
 import {
   userState,
   myFollowListCountSelector,
@@ -265,7 +263,11 @@ const UserInformation = () => {
         </Modal>
       )}
       {activeToast && (
-        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
+        <Toast
+          webViewWrapper={webViewWrapper}
+          activeToast={activeToast}
+          text="클립보드에 복사되었습니다!"
+        />
       )}
     </section>
   );
