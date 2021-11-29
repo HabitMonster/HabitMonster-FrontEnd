@@ -44,7 +44,9 @@ const FeedbackLink = styled.a`
   border-radius: var(--border-radius-checkBtn);
   text-decoration: none;
   cursor: pointer;
+  z-index: 7;
 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   & div {
     height: 24px;
     display: flex;

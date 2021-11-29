@@ -15,6 +15,8 @@ import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
+import { mainBackground } from '../../assets/images/background';
+
 const MainMonster = ({ webViewWrapper }) => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
@@ -57,7 +59,10 @@ const MainMonster = ({ webViewWrapper }) => {
   }, [monster.monsterLevel, monster.monsterExpPoint]);
 
   return (
-    <MonsterContainer heightShrinked={heightShrinked}>
+    <MonsterContainer
+      level={monster.monsterLevel}
+      heightShrinked={heightShrinked}
+    >
       <MonsterSearchSection />
       <TitleWrapper heightShrinked={heightShrinked}>
         <Title>
@@ -121,10 +126,17 @@ const MonsterContainer = styled.div`
   width: 100%;
   background: #1e135c;
   padding: 0px 24px;
-  transition: all 350ms ease-in;
   position: relative;
   height: fit-content;
   max-height: 434px;
+  background: url(${({ level }) => mainBackground[level]}) center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: ${({ heightShrinked }) =>
+    heightShrinked ? '0 -160px' : ''};
+  transition: all 300ms ease-in-out 50ms;
 `;
 
 const TitleWrapper = styled.div`
@@ -175,16 +187,28 @@ const upAndDown = keyframes`
 `;
 
 const ThumbnailWrapper = styled.div`
-  width: ${({ id }) => (id === 25 ? 'auto' : '152px')};
-  height: ${({ id }) => (id === 25 ? 'auto' : '152px')};
+  width: ${({ id }) => (id === 25 ? 'calc(100% - 24px)' : '152px')};
+  height: ${({ id }) => (id === 25 || id === 30 ? 'auto' : '152px')};
   padding: ${({ id }) => (id % 5 !== 1 && id % 5 !== 2 ? '0px' : '29px')};
   margin: 0 auto;
   margin-top: ${({ heightShrinked }) => (heightShrinked ? '-24px' : '24px')};
+
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: relative;
-  top: 14px;
+
+  left: ${({ id }) =>
+    id === 12 || id === 14
+      ? '-5px'
+      : id === 10 || id === 15 || id === 18 || id === 19 || id === 20
+      ? '5px'
+      : id === 29
+      ? '29px'
+      : '0px'};
+  bottom: ${({ id }) =>
+    id === 25 ? '5px' : id === 30 ? '20px' : id === 18 ? '-10px' : '0px'};
+
   animation: ${({ animation }) => animation && upAndDown} linear 500ms 2
     forwards;
   transition: all 250ms ease-in-out 50ms;
