@@ -19,7 +19,8 @@ import { setFormattedDuration } from '../../utils/setFormatDuration';
 import { miniThrottle, miniDebounce } from '../../utils/event';
 
 import { OK } from '../../constants/statusCode';
-import CategoryImage from '../../assets/images/habit';
+
+import CategoryImage from '../../assets/images/category';
 
 const TodayHabit = ({ id, parent, webViewWrapper }) => {
   const history = useHistory();
@@ -138,7 +139,7 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
               setAnimation((prev) => !prev);
               setTimeout(() => {
                 setAnimation((prev) => !prev);
-              }, 2000);
+              }, 1000);
             }
           } catch (error) {
             console.error(error);
@@ -230,9 +231,9 @@ const DetailContainer = styled.div`
 `;
 
 const CategoryIcon = styled.div`
-  width: 30px;
-  height: 30px;
-  margin-right: 13px;
+  width: 45px;
+  height: 45px;
+  margin-right: 5px;
   background-image: url(${(props) => CategoryImage[props.category].src});
   background-position: center;
   background-repeat: no-repeat;

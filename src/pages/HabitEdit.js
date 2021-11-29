@@ -29,8 +29,6 @@ import { OK } from '../constants/statusCode';
 import { habitApis } from '../api';
 import { disappearScrollbar } from '../styles/Mixin';
 
-import { setVh } from '../components/DeviceDetector';
-
 const HabitEdit = () => {
   const history = useHistory();
   const { habitId } = useParams();

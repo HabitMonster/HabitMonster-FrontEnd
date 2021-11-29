@@ -33,7 +33,7 @@ const MainMonster = ({ webViewWrapper }) => {
     }
 
     setAnimation((prev) => !prev);
-    setTimeout(() => setAnimation((prev) => !prev), 2000);
+    setTimeout(() => setAnimation((prev) => !prev), 1000);
   };
 
   useEffect(() => {
