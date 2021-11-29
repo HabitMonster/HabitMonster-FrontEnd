@@ -11,7 +11,7 @@ import {
   NewHabitCategoryHelperText,
 } from '../components/newHabit';
 import { Gnb } from '../components/gnb';
-// import CATEGORIES from '../assets/images/habit';
+
 import CATEGORIES from '../assets/images/category';
 
 const NewHabitCategoryList = () => {
