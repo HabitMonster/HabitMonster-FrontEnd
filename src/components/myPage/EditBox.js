@@ -22,10 +22,8 @@ const EditBox = ({ type, closeModal }) => {
   const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
   const [editValue, setEditValue] = useState('');
   const isEnabled = useCallback(() => {
-    return type === 'monsterName'
-      ? editValue && validateMonsterName(editValue)
-      : editValue && editValue.length <= 12;
-  }, [editValue, type]);
+    return editValue && validateMonsterName(editValue);
+  }, [editValue]);
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;

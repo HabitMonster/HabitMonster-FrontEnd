@@ -9,6 +9,7 @@ import BottomFixedButton from './BottomFixedButton';
 import MonsterThumbnail from './MonsterThumbnail';
 import MonsterThumbnailProfile from './MonsterThumbnailProfile';
 import Toast from './Toast';
+import ImageSlider from './ImageSlider';
 
 export {
   BackButtonHeader,
@@ -22,4 +23,5 @@ export {
   MonsterThumbnail,
   MonsterThumbnailProfile,
   Toast,
+  ImageSlider,
 };
