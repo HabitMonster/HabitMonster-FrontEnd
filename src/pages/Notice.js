@@ -22,7 +22,13 @@ const Notice = () => {
     try {
       const { data } = await myPageApis.loadNoticeData();
       if (data.statusCode === 200) {
-        setNoticeList(data.notices);
+        const newNotiList = data.notices.sort((a, b) => {
+          if (b.createdAt && a.createdAt) {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          }
+          return b.id - a.id;
+        });
+        setNoticeList(newNotiList);
       }
     } catch (error) {
       console.error(error);
