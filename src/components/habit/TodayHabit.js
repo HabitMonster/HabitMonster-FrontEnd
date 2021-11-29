@@ -305,19 +305,15 @@ const CheckBtn = styled.button`
   width: 264px;
   height: 40px;
   margin: 16px auto 0 auto;
-  background-color: var(--bg-active);
+  background-color: ${({ isDone }) => (isDone ? '#000' : 'var(--bg-active)')};
   font-size: var(--font-xs);
   color: ${({ isDone }) =>
     isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
   border: none;
   border-radius: var(--border-radius-semi);
   cursor: pointer;
-  animation: ${({ active, isDone }) =>
-    isDone
-      ? css`
-          ${finishAnimation} 300ms linear forwards
-        `
-      : active
+  animation: ${({ active }) =>
+    active
       ? css`
           ${updateAnimation} 300ms linear forwards
         `

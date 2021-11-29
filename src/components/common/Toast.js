@@ -30,13 +30,13 @@ const toastFadeIn = keyframes`
     opacity: 0;
   }
   100% {
-    bottom: 81px;
+    bottom: 104px;
     opacity: 1;
     }
 `;
 const toastFadeOut = keyframes`
   0% {
-    bottom: 81px;
+    bottom: 104px;
     opacity: 1;
   }
   100% {
