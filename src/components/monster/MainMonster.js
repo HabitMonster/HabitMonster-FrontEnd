@@ -268,3 +268,8 @@ const Gauge = styled.div`
 `;
 
 export default MainMonster;
+
+const newNotiList = data.notices.sort((a, b) => {
+  if (b.createdAt && a.createdAt) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  }
