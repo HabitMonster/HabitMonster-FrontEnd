@@ -23,6 +23,7 @@ const PrivateRoute = ({ component, ...rest }) => {
           userName: data.userInfo.username,
         });
       } catch (error) {
+        console.error(error);
         throw error;
       }
     };

@@ -10,6 +10,8 @@ import { NaverSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 import { loginBtnStyle } from '../../styles/Mixin';
 
+import { setCookie } from '../../utils/cookie';
+
 const { naver } = window;
 
 const NaverLogin = () => {
@@ -49,8 +51,8 @@ const NaverLogin = () => {
     async function getTokenWithNaver() {
       try {
         const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
-        window.localStorage.setItem('habitAccessToken', data.accessToken);
-        window.localStorage.setItem('habitRefreshToken', data.refreshToken);
+        setCookie('habit-A-Token', data.accessToken);
+        setCookie('habit-R-Token', data.refreshToken);
 
         refresher();
         if (data.statusCode === OK) {
