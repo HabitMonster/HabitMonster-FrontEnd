@@ -63,8 +63,7 @@ const ToastBar = styled.div`
   left: 0;
   right: 0;
   z-index: 2;
-  visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  box-sizing: border-box;
+
   -webkit-animation: ${(props) =>
     props.active
       ? css`
