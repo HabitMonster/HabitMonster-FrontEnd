@@ -5,11 +5,18 @@ import styled from 'styled-components';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { CategoryMenu, UserSection } from '../components/search';
+
 import {
   searchUserInfoState,
   refreshSearchUserState,
   refreshRecommendedUserState,
 } from '../recoil/states/search';
+import {
+  currentUserMonsterCodeSelector,
+  followingListRefetchToggler,
+  followerListRefetchToggler,
+} from '../recoil/states/user';
+
 import { setFormattedDuration } from '../utils/setFormatDuration';
 import CategoryImage from '../assets/images/category';
 import { userApis } from '../api';
@@ -21,8 +28,11 @@ const SearchDetail = () => {
   const history = useHistory();
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
+  const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
   const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
   const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
+  const refreshMyFollwingList = useSetRecoilState(followingListRefetchToggler);
+  const refreshMyFollwerList = useSetRecoilState(followerListRefetchToggler);
 
   const { habits, monster, userInfo } = searchResult;
   const [isFollowed, setIsFollowed] = useState(userInfo.isFollowed);
@@ -66,6 +76,12 @@ const SearchDetail = () => {
     }
   };
 
+  const moveToMyPage = () => {
+    refreshMyFollwingList((id) => id + 1);
+    refreshMyFollwerList((id) => id + 1);
+    history.push('/mypage');
+  };
+
   return (
     <Container>
       <Header>
@@ -85,9 +101,13 @@ const SearchDetail = () => {
           userInfo={userInfo}
           followers={followers}
         />
-        <FollowBtn isFollowed={isFollowed} onClick={handleRelationship}>
-          {isFollowed ? '팔로잉' : '팔로우'}
-        </FollowBtn>
+        {currentUserMonsterCode !== monsterCode ? (
+          <FollowBtn isFollowed={isFollowed} onClick={handleRelationship}>
+            {isFollowed ? '팔로잉' : '팔로우'}
+          </FollowBtn>
+        ) : (
+          <FollowBtn onClick={moveToMyPage}>마이페이지로 이동</FollowBtn>
+        )}
       </UppserSection>
       <CategoryMenu
         categorization={categorization}
@@ -187,6 +207,13 @@ const FollowBtn = styled.button`
   cursor: pointer;
   font-family: var(--font-name-apple);
   font-size: var(--font-s);
+`;
+
+const BlankSpace = styled.div`
+  width: 100%;
+  max-width: 312px;
+  height: 38px;
+  margin: 20px auto;
 `;
 
 const HabitSection = styled.section`
