@@ -16,7 +16,6 @@ const BottomDialog = ({
   level,
 }) => {
   const LevelIcon = LEVELS[level];
-  console.log('type', type);
   switch (type) {
     case 'levelUp':
       return (
@@ -36,7 +35,6 @@ const BottomDialog = ({
         </Wrapper>
       );
     default:
-      console.log(type);
       return (
         <Wrapper height={height}>
           <Title>{title}</Title>
@@ -115,7 +113,8 @@ const BadgeWrap = styled.div`
 
 const Title = styled.h2`
   font-weight: var(--weight-bold);
-  font-size: ${({ type }) => (type ? 'var(--font-xxl)' : 'var(--font-l)')};
+  font-size: ${(type) =>
+    type === 'levelUp' ? 'var(--font-xxl)' : 'var(--font-l)'};
   line-height: 24px;
   color: var(--color-primary);
 `;
