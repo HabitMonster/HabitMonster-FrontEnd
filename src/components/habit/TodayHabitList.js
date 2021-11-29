@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { habitIdListState } from '../../recoil/states/habit';
@@ -7,7 +8,7 @@ import { habitIdListState } from '../../recoil/states/habit';
 import { TodayHabit, NoHabitHelper } from './';
 import { disappearScrollbar } from '../../styles/Mixin';
 
-const TodayHabitList = () => {
+const TodayHabitList = ({ webViewWrapper }) => {
   const habitIdList = useRecoilValue(habitIdListState);
   const parent = useRef(null);
 
@@ -16,7 +17,7 @@ const TodayHabitList = () => {
       {habitIdList.length ? (
         habitIdList.map((id) => (
           <TodayHabit
-            webViewWrapper={HabitContainer}
+            webViewWrapper={webViewWrapper}
             parent={parent}
             key={id}
             id={id}
@@ -27,6 +28,10 @@ const TodayHabitList = () => {
       )}
     </HabitContainer>
   );
+};
+
+TodayHabitList.propTypes = {
+  webViewWrapper: PropTypes.object,
 };
 
 const HabitContainer = styled.div`
