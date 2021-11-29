@@ -90,10 +90,12 @@ const NotiContent = ({ id }) => {
             있는 추가 및 설치 방법을 사용해서 서비스를 사용해주시면 더욱 편하게
             사용하실 수 있습니다.
           </p>
-          <ListNumbering>아이폰 Safari 💡</ListNumbering>
+          <ListNumbering>
+            <b>아이폰 Safari 💡</b>
+          </ListNumbering>
           <ol>
             <ListText>
-              1.Safari에 접속한 후 검색창에 habitmonster.app 입력해주세요.
+              1. Safari에 접속한 후 검색창에 habitmonster.app 입력해주세요.
             </ListText>{' '}
             <ListText>2. 동그라미 표시를 눌러주세요.</ListText>
             <ListText>3. 홈 화면에 추가를 눌러주세요.</ListText>
@@ -105,10 +107,12 @@ const NotiContent = ({ id }) => {
           </ol>
           <ImageSlider imageType="iphoneTutorial" />
           <br />
-          <ListNumbering>안드로이드 Chrome 💡</ListNumbering>
+          <ListNumbering>
+            <b>안드로이드 Chrome 💡</b>
+          </ListNumbering>
           <ol>
             <ListText>
-              1.Chrome에 접속한 후 검색창에 habitmonster.app을 입력해주세요.
+              1. Chrome에 접속한 후 검색창에 habitmonster.app을 입력해주세요.
             </ListText>
             <ListText>2. 동그라미 표시를 눌러주세요.</ListText>
             <ListText>3. 홈 화면에 추가를 눌러주세요.</ListText>
@@ -150,10 +154,10 @@ const NotiBox = styled.div`
   }
 `;
 
-const ListNumbering = styled.h6`
-  font-size: var(--font-xs);
+const ListNumbering = styled.h5`
+  font-size: var(--font-s);
   ${whiteOpacity('0.8')};
-  font-weight: var(--weight-semi-regular);
+  font-weight: var(--weight-bold);
   white-space: pre-wrap;
   margin-bottom: 10px;
 `;
@@ -164,6 +168,7 @@ const ListText = styled.li`
   font-weight: var(--weight-semi-regular);
   white-space: pre-wrap;
   padding-left: 15px;
+  margin-bottom: 5px;
 `;
 
 NotiContent.propTypes = {
