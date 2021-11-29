@@ -6,6 +6,12 @@ import popupBlue from './popupBlue.webp';
 import popupRed from './popupRed.webp';
 import popupYellow from './popupYellow.webp';
 
+import mainLevelOne from './main_1.webp';
+import mainLevelTwo from './main_2.webp';
+import mainLevelThree from './main_3.webp';
+import mainLevelFour from './main_4.webp';
+import mainLevelFive from './main_5.webp';
+
 const background = {
   1: webBackground,
   2: clayPhone,
@@ -17,6 +23,14 @@ const background = {
   20: popupRed,
   25: popupBlue,
   30: popupYellow,
+};
+
+export const mainBackground = {
+  1: mainLevelOne,
+  2: mainLevelTwo,
+  3: mainLevelThree,
+  4: mainLevelFour,
+  5: mainLevelFive,
 };
 
 export default background;

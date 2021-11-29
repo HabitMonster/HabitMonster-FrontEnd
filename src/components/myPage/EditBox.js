@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -21,10 +21,9 @@ const EditBox = ({ type, closeModal }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
   const [editValue, setEditValue] = useState('');
-  const isEnabled =
-    type === 'monsterName'
-      ? editValue && validateMonsterName(editValue)
-      : editValue && editValue.length <= 12;
+  const isEnabled = useCallback(() => {
+    return editValue && validateMonsterName(editValue);
+  }, [editValue]);
 
   const handleClickEdit = async () => {
     if (!isEnabled) return;
@@ -63,6 +62,15 @@ const EditBox = ({ type, closeModal }) => {
     }
   };
 
+  const editValueHandler = useCallback((value) => {
+    // 공백 입력 시, setEditValue 하지 않도록 막기
+    if (/\s/gi.test(value)) {
+      return;
+    }
+
+    setEditValue(value);
+  }, []);
+
   useEffect(() => {
     setEditValue(
       type === 'userName' ? userInfo.userName : monsterInfo.monsterName,
@@ -96,7 +104,7 @@ const EditBox = ({ type, closeModal }) => {
         <TextInput
           text={editValue || ''}
           placeholder={editValue}
-          onTextChanged={setEditValue}
+          onTextChanged={editValueHandler}
           maxLength={12}
           idleHelperText="한글, 영문, 숫자 공백없이 최대 12자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"
@@ -105,7 +113,7 @@ const EditBox = ({ type, closeModal }) => {
       </PositionWrap>
       <BottomFixedButton
         text="변경하기"
-        condition={() => isEnabled}
+        condition={isEnabled}
         onClick={handleClickEdit}
       />
     </Container>
@@ -139,9 +147,6 @@ const EditTitle = styled.p`
 
 EditBox.propTypes = {
   type: PropTypes.string.isRequired,
-  editValue: PropTypes.string.isRequired,
-  handleChangeValue: PropTypes.func.isRequired,
-  pageTitleText: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 

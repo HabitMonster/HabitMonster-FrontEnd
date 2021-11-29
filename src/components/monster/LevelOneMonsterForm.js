@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -18,8 +18,6 @@ import { defaultAuthSelector } from '../../recoil/states/auth';
 import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
-
-import { setVh } from '../DeviceDetector';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
@@ -49,6 +47,15 @@ const LevelOneMonsterForm = ({ showGuide }) => {
     }
   };
 
+  const editMonsterNameHandler = useCallback((value) => {
+    // 공백 입력 시, setEditValue 하지 않도록 막기
+    if (/\s/gi.test(value)) {
+      return;
+    }
+
+    setMonsterName(value);
+  }, []);
+
   return (
     <AvatarContainer>
       <AvatarWrap>
@@ -65,7 +72,7 @@ const LevelOneMonsterForm = ({ showGuide }) => {
         <TextInput
           text={monsterName}
           placeholder="이름을 입력해 주세요"
-          onTextChanged={setMonsterName}
+          onTextChanged={editMonsterNameHandler}
           maxLength={12}
           idleHelperText="한글, 영문, 숫자 공백없이 최대 12자 입력 가능해요"
           errorMessage="최대 글자 수를 초과했어요"

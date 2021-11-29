@@ -30,13 +30,13 @@ const toastFadeIn = keyframes`
     opacity: 0;
   }
   100% {
-    bottom: 81px;
+    bottom: 104px;
     opacity: 1;
     }
 `;
 const toastFadeOut = keyframes`
   0% {
-    bottom: 81px;
+    bottom: 104px;
     opacity: 1;
   }
   100% {
@@ -63,8 +63,7 @@ const ToastBar = styled.div`
   left: 0;
   right: 0;
   z-index: 2;
-  visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  box-sizing: border-box;
+
   -webkit-animation: ${(props) =>
     props.active
       ? css`

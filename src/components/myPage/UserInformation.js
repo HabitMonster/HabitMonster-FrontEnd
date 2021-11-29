@@ -2,8 +2,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory, Link } from 'react-router-dom';
-
-import { useRefreshUser } from '../../hooks';
 import {
   userState,
   myFollowListCountSelector,
@@ -21,6 +19,7 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
+import { deleteCookie } from '../../utils/cookie';
 
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
@@ -30,7 +29,6 @@ const UserInformation = () => {
     myFollowListCountSelector,
   );
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
-  const refresher = useRefreshUser();
 
   const history = useHistory();
   const [editModalType, setEditModalType] = useState('');
@@ -65,20 +63,18 @@ const UserInformation = () => {
     document.execCommand('copy');
     document.body.removeChild(textarea);
 
-    setTimeout(() => setActiveToast(true));
+    setTimeout(() => setActiveToast(true), 0);
   }, []);
 
   const deleteToken = useCallback(() => {
-    window.localStorage.removeItem('habitAccessToken');
-    window.localStorage.removeItem('habitRefreshToken');
+    deleteCookie('habit-A-Token');
+    deleteCookie('habit-R-Token');
   }, []);
 
   const dispatcher = async (type) => {
     if (type === 'logout') {
       deleteToken();
-      refresher();
       window.location.href = '/login';
-      // history.replace('/login', null);
       return;
     }
 
@@ -86,9 +82,7 @@ const UserInformation = () => {
       const { data } = await myPageApis.deleteUser();
       if (data.responseMessage === USER_DELETED) {
         deleteToken();
-        refresher();
         window.location.href = '/login';
-        // history.replace('/login', null);
       }
     } catch (error) {
       console.error(error);

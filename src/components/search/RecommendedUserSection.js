@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { recommendedUserSelector } from '../../recoil/states/search';
 
 import { MonsterListItem } from '../monster';
+import { disappearScrollbar } from '../../styles/Mixin';
 
 const RecommendedUserSection = () => {
   const recommendedUserList = useRecoilValue(recommendedUserSelector);
@@ -33,6 +34,7 @@ const RecommendedUserSection = () => {
 
 const Wrapper = styled.ul`
   overflow-y: scroll;
+  ${disappearScrollbar()};
   & > h2 {
     color: white;
     padding: 0 24px;

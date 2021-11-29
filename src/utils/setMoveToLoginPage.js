@@ -1,5 +1,10 @@
+import { deleteCookie, getCookie } from './cookie';
+
 export const setMoveToLoginPage = () => {
-  window.localStorage.removeItem('habitAccessToken');
-  window.localStorage.removeItem('habitRefreshToken');
+  if (getCookie('G_AUTHUSER_H')) {
+    deleteCookie('G_AUTHUSER_H');
+  }
+  deleteCookie('habit-A-Token');
+  deleteCookie('habit-R-Token');
   window.location.href = '/login';
 };

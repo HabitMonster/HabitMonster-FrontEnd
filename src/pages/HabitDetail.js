@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import {
@@ -19,13 +19,16 @@ import {
   defaultHabitsState,
   myHabitCountState,
 } from '../recoil/states/habit';
-import { userLevelOneMonsterSelector } from '../recoil/states/monster';
+import {
+  userLevelOneMonsterSelector,
+  monsterState,
+} from '../recoil/states/monster';
 
 import { renderDays } from '../utils/date';
 import { setFormattedDuration } from '../utils/setFormatDuration';
 
 import { Trash } from '../assets/icons/common';
-import { habitApis } from '../api';
+import { habitApis, mainApis } from '../api';
 import { OK } from '../constants/statusCode';
 import { disappearScrollbar } from '../styles/Mixin';
 
@@ -41,6 +44,7 @@ const HabitDetail = () => {
   const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
+  const setMonsterState = useSetRecoilState(monsterState);
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -56,6 +60,16 @@ const HabitDetail = () => {
       const { data } = await habitApis.deleteHabit(id);
       if (data.statusCode === OK) {
         history.replace('/');
+        const newMonsterState = async () => {
+          try {
+            const { data } = await mainApis.getMonsterInfo();
+            setMonsterState(data.monster);
+          } catch (error) {
+            console.error(error);
+            throw error;
+          }
+        };
+        newMonsterState();
         setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
         setTotalHabitCount(totalHabitCount - 1);

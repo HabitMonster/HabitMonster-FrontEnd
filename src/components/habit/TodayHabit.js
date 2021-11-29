@@ -6,7 +6,10 @@ import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 
 import { Toast } from '../common';
-import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
+import {
+  monsterSectionShirnkToggler,
+  monsterAnimationTogglerState,
+} from '../../recoil/states/ui';
 
 import { habitStateWithId } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
@@ -16,7 +19,8 @@ import { setFormattedDuration } from '../../utils/setFormatDuration';
 import { miniThrottle, miniDebounce } from '../../utils/event';
 
 import { OK } from '../../constants/statusCode';
-import CategoryImage from '../../assets/images/habit';
+
+import CategoryImage from '../../assets/images/category';
 
 const TodayHabit = ({ id, parent, webViewWrapper }) => {
   const history = useHistory();
@@ -25,6 +29,9 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
 
   const [active, setActive] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
+  const [animation, setAnimation] = useRecoilState(
+    monsterAnimationTogglerState,
+  );
 
   const durationStart = setFormattedDuration(
     habitDetail.durationStart,
@@ -107,7 +114,7 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
     }
   }, [activeToast]);
 
-  const clickHandler = miniDebounce(async () => {
+  const handleCompleteButtonClick = miniDebounce(async () => {
     setActive((prev) => !prev);
 
     try {
@@ -125,6 +132,14 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
 
             if (data.statusCode === OK) {
               setMonster(data.monster);
+
+              if (animation) {
+                return;
+              }
+              setAnimation((prev) => !prev);
+              setTimeout(() => {
+                setAnimation((prev) => !prev);
+              }, 1000);
             }
           } catch (error) {
             console.error(error);
@@ -134,7 +149,7 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
     } catch (error) {
       console.error(error);
     }
-  }, 100);
+  }, 0);
 
   const onHabitClicked = () => {
     history.push(`/habit/${id}`);
@@ -165,7 +180,7 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
           disabled={habitDetail.isAccomplished}
           onClick={(e) => {
             e.stopPropagation();
-            clickHandler();
+            handleCompleteButtonClick();
           }}
         >
           {habitDetail.isAccomplished ? '완료' : '완료하기'}
@@ -216,9 +231,9 @@ const DetailContainer = styled.div`
 `;
 
 const CategoryIcon = styled.div`
-  width: 30px;
-  height: 30px;
-  margin-right: 13px;
+  width: 45px;
+  height: 45px;
+  margin-right: 5px;
   background-image: url(${(props) => CategoryImage[props.category].src});
   background-position: center;
   background-repeat: no-repeat;
@@ -291,19 +306,15 @@ const CheckBtn = styled.button`
   width: 264px;
   height: 40px;
   margin: 16px auto 0 auto;
-  background-color: var(--bg-active);
+  background-color: ${({ isDone }) => (isDone ? '#000' : 'var(--bg-active)')};
   font-size: var(--font-xs);
   color: ${({ isDone }) =>
     isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
   border: none;
   border-radius: var(--border-radius-semi);
   cursor: pointer;
-  animation: ${({ active, isDone }) =>
-    isDone
-      ? css`
-          ${finishAnimation} 300ms linear forwards
-        `
-      : active
+  animation: ${({ active }) =>
+    active
       ? css`
           ${updateAnimation} 300ms linear forwards
         `

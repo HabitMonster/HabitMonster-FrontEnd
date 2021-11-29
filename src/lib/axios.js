@@ -15,6 +15,7 @@ import {
   REFRESH_TOKEN_SIGNATURE_EXCEPTION,
   REFRESH_TOKEN_MALFORMED,
 } from '../constants/statusMessage';
+import { getCookie, setCookie } from '../utils/cookie';
 import { setMoveToLoginPage } from '../utils/setMoveToLoginPage';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -24,8 +25,7 @@ const setToken = (config) => {
   config.headers['Content-Type'] = 'application/json; charset=utf-8';
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
-  config.headers['A-AUTH-TOKEN'] =
-    window.localStorage.getItem('habitAccessToken');
+  config.headers['A-AUTH-TOKEN'] = getCookie('habit-A-Token');
   config.headers.withCredentials = true;
   return config;
 };
@@ -39,9 +39,21 @@ instance.interceptors.response.use(
 
   async (error) => {
     const { data: responseData, config: originalRequest } = error.response;
+
+    if (
+      responseData.responseMessage === null &&
+      responseData.statusCode === null
+    ) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error(error);
+      }
+      setMoveToLoginPage();
+      return Promise.reject(error);
+    }
+
     if (responseData.status === INTERNAL_SERVER_ERROR) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(responseData);
+        console.error(error);
       }
       setMoveToLoginPage();
       return Promise.reject(error);
@@ -50,7 +62,7 @@ instance.interceptors.response.use(
     if (responseData.statusCode === UNAUTHORIZED) {
       if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
         if (process.env.NODE_ENV === 'development') {
-          console.log(responseData);
+          console.error(error);
         }
         setMoveToLoginPage();
         return Promise.reject(error);
@@ -58,7 +70,7 @@ instance.interceptors.response.use(
 
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
         if (process.env.NODE_ENV === 'development') {
-          console.log(responseData);
+          console.error(error);
         }
         setMoveToLoginPage();
         return Promise.reject(error);
@@ -70,34 +82,31 @@ instance.interceptors.response.use(
       responseData.responseMessage === ACCESS_TOKEN_EXPIRED
     ) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(responseData);
+        console.error(responseData);
       }
 
       try {
         const { data } = await axios({
           method: 'GET',
-          url: `${process.env.REACT_APP_BASE_URL}user/loginCheck`,
+          url: `${process.env.REACT_APP_BASE_URL}/user/loginCheck`,
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'R-AUTH-TOKEN': `${window.localStorage.getItem(
-              'habitRefreshToken',
-            )}`,
+            'R-AUTH-TOKEN': getCookie('habit-R-Token'),
           },
         });
 
         if (data.statusCode === OK) {
-          window.localStorage.setItem('habitAccessToken', data.accessToken);
+          setCookie('habit-A-Token', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
           return axios(originalRequest);
         }
       } catch (error) {
-        console.error(error);
         if (
           error?.response?.data?.statusCode === BAD_REQUEST &&
           error?.response?.data?.responseMessage === REFRESH_TOKEN_EXPIRED
         ) {
           if (process.env.NODE_ENV === 'development') {
-            console.log(error.response);
+            console.error(error);
           }
           setMoveToLoginPage();
           return Promise.reject(error);
@@ -114,14 +123,14 @@ instance.interceptors.response.use(
             error?.response?.data?.responseMessage === REFRESH_TOKEN_MALFORMED
           ) {
             if (process.env.NODE_ENV === 'development') {
-              console.log(error);
+              console.error(error);
             }
             setMoveToLoginPage();
             return Promise.reject(error);
           }
         }
         if (process.env.NODE_ENV === 'development') {
-          console.log(error.response.data);
+          console.error(error);
           setMoveToLoginPage();
         }
         return Promise.reject(error);
@@ -130,14 +139,14 @@ instance.interceptors.response.use(
 
     if (error.response.data.statusCode === NOT_FOUND) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(error.response.data);
+        console.error(error);
       }
       return Promise.reject(error);
     }
 
     if (error.response.data.statusCode === INTERNAL_SERVER_ERROR) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(error.response.data);
+        console.error(error);
       }
       setMoveToLoginPage();
       return Promise.reject(error);

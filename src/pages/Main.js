@@ -29,9 +29,9 @@ const Main = () => {
 
   return (
     <>
-      <Wrapper ref={webViewWrapper}>
+      <Wrapper className="test" ref={webViewWrapper}>
         <MainMonster webViewWrapper={webViewWrapper} />
-        <TodayHabitList />
+        <TodayHabitList webViewWrapper={webViewWrapper} />
       </Wrapper>
       <Gnb />
       {isMonsterModalOpen && (

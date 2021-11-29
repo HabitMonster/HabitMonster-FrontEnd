@@ -113,7 +113,8 @@ const BadgeWrap = styled.div`
 
 const Title = styled.h2`
   font-weight: var(--weight-bold);
-  font-size: ${(type) => (type ? 'var(--font-xxl)' : 'var(--font-l)')};
+  font-size: ${(type) =>
+    type === 'levelUp' ? 'var(--font-xxl)' : 'var(--font-l)'};
   line-height: 24px;
   color: var(--color-primary);
 `;

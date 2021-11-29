@@ -36,7 +36,7 @@ function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
       </CircleProgressWrap>
       <DetailContainer>
         <DetailValue>
-          {value * 100}
+          {Math.round(value * 100)}
           <DetailPer>%</DetailPer>
         </DetailValue>
       </DetailContainer>
