@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSetRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { MonsterThumbnailWrapper } from '../monster';
 
+import { refreshSearchUserState } from '../../recoil/states/search';
+
 const UserSection = ({ monster, habits, userInfo, followers }) => {
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+
   return (
     <Section>
       <MonsterThumbnailWrapper
@@ -23,6 +28,9 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
             pathname: `/follow/${userInfo.monsterCode}`,
             search: `?tab=followers`,
           }}
+          onClick={() => {
+            refreshSearchUserInfo((id) => id + 1);
+          }}
         >
           <p>{followers}</p>
           <p className="box-title">팔로워</p>
@@ -33,6 +41,9 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
           to={{
             pathname: `/follow/${userInfo.monsterCode}`,
             search: `?tab=following`,
+          }}
+          onClick={() => {
+            refreshSearchUserInfo((id) => id + 1);
           }}
         >
           <p>{userInfo.followingsCount}</p>

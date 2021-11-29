@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+
+import { refreshSearchUserState } from '../recoil/states/search';
 
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
@@ -19,8 +22,10 @@ const SearchDetailFollow = () => {
   const userMonsterCode = location.pathname.split('/')[2];
   const isCorrectTabType = tabType === 'followers' || tabType === 'following';
   const isActiveTab = (type) => tabType === type;
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
 
   const onClickgoBack = () => {
+    refreshSearchUserInfo((id) => id + 1);
     if (history.length <= 2) {
       history.replace(`/`);
       return;
