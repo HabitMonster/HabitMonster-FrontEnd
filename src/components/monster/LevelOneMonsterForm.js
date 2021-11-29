@@ -19,8 +19,6 @@ import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
 
-import { setVh } from '../DeviceDetector';
-
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
   const { isFirstLogin } = useRecoilValue(defaultAuthSelector);

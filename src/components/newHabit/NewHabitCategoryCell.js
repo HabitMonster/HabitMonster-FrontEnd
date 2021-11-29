@@ -15,7 +15,7 @@ const NewHabitCategoryCell = ({ src, name, onClick, skeleton }) => {
       ) : (
         <>
           <img
-            style={{ width: '30px', height: '30px' }}
+            style={{ width: '45px', height: '45px' }}
             src={src}
             alt={`category: ${name}`}
           />
