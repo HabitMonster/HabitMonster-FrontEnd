@@ -19,7 +19,6 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
-import { deleteCookie } from '../../utils/cookie';
 
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
@@ -67,8 +66,8 @@ const UserInformation = () => {
   }, []);
 
   const deleteToken = useCallback(() => {
-    deleteCookie('habit-A-Token');
-    deleteCookie('habit-R-Token');
+    window.localStorage.removeItem('habit-A-Token');
+    window.localStorage.removeItem('habit-R-Token');
   }, []);
 
   const dispatcher = async (type) => {

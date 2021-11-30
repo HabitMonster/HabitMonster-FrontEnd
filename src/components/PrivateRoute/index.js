@@ -15,6 +15,9 @@ const PrivateRoute = ({ component, ...rest }) => {
 
   useEffect(() => {
     const saveUserInfoState = async () => {
+      if (!isLogin) {
+        return;
+      }
       try {
         const { data } = await mainApis.getUserInfo();
         setUserInfoState({
@@ -28,7 +31,7 @@ const PrivateRoute = ({ component, ...rest }) => {
       }
     };
     saveUserInfoState();
-  }, [setUserInfoState]);
+  }, [setUserInfoState, isLogin]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
