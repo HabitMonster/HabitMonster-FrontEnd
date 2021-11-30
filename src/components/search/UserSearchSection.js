@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { BackButtonHeader, NonePlaceHolder } from '../common';
@@ -53,6 +53,9 @@ const UserSearchSection = () => {
   const [state, dispatch] = useReducer(searchReducer, searchInitialState);
   const { path } = useRouteMatch();
   const history = useHistory();
+  const location = useLocation();
+
+  const prevStack = location.state?.prev;
 
   useEffect(() => {
     const queryUser = async () => {
@@ -99,11 +102,12 @@ const UserSearchSection = () => {
   }, [debouncedMonsterCode]);
 
   const { status, searchResult, failMessage } = state;
-
   return (
     <>
       <Header>
-        <BackButtonHeader onButtonClick={() => history.replace('/')}>
+        <BackButtonHeader
+          onButtonClick={() => history.replace(prevStack.pop())}
+        >
           <InputSection>
             <SearchInput
               type="text"

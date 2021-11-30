@@ -13,12 +13,11 @@ import MyPage from '../pages/MyPage';
 import HabitDetail from '../pages/HabitDetail';
 import HabitEdit from '../pages/HabitEdit';
 import Notice from '../pages/Notice';
-import Follow from '../pages/Follow';
 import Select from '../pages/Select';
 import Search from '../pages/Search';
 import SearchDetail from '../pages/SearchDetail';
 import SearchDetailHabit from '../pages/SearchDetailHabit';
-import SearchDetailFollow from '../pages/SearchDetailFollow';
+import Follow from '../pages/Follow';
 
 function App() {
   const r = useRef(1);
@@ -72,11 +71,10 @@ function App() {
             component={<HabitEdit />}
           />
           <PrivateRoute path="/notice" component={<Notice />} />
-          <PrivateRoute exact path="/follow" component={<Follow />} />
           <PrivateRoute
             exact
             path="/follow/:monsterCode"
-            component={<SearchDetailFollow />}
+            component={<Follow />}
           />
           <Redirect from="*" to="/" />
         </Switch>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
@@ -39,8 +39,6 @@ const NewHabitForm = () => {
   const [habits, setHabits] = useRecoilState(defaultHabitsState);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habitCount, setHabitCount] = useRecoilState(myHabitCountState);
-
-  const formReference = useRef(null);
 
   const condition =
     title &&
@@ -87,7 +85,7 @@ const NewHabitForm = () => {
   }
 
   return (
-    <Wrapper className="newHabitWrapper" ref={formReference}>
+    <Wrapper className="newHabitWrapper">
       <Header>
         <BackButtonHeader
           onButtonClick={() => history.goBack()}
@@ -115,7 +113,6 @@ const NewHabitForm = () => {
             isEditMode={false}
             duration={duration}
             onDurationChecked={setDuration}
-            parent={formReference}
           />
         </MarginInterval>
         <MarginInterval mb="24">

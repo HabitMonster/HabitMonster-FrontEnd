@@ -11,6 +11,7 @@ import { ReactComponent as CopyIcon } from './copy.svg';
 import { ReactComponent as Pencil } from './pencil.svg';
 import { ReactComponent as SearchIcon } from './search.svg';
 import { ReactComponent as LoadingSpinner } from './loadingSpinner.svg';
+import { ReactComponent as FeedbackIcon } from './feedback.svg';
 
 export {
   Back,
@@ -26,4 +27,5 @@ export {
   Pencil,
   SearchIcon,
   LoadingSpinner,
+  FeedbackIcon,
 };

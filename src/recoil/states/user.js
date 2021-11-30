@@ -29,7 +29,7 @@ export const myFollowerListState = atom({
       get(followerListRefetchToggler);
       try {
         const { data } = await myPageApis.getFollowerList();
-        return data?.followers ?? [];
+        return data?.followers;
       } catch (error) {
         console.error('myFollowerList error', error);
       }
@@ -45,7 +45,7 @@ export const myFollowingListState = atom({
       get(followingListRefetchToggler);
       try {
         const { data } = await myPageApis.getFollowingList();
-        return data?.followings ?? [];
+        return data?.followings;
       } catch (error) {
         console.error('myFollowing error', error);
         return [];
@@ -58,8 +58,8 @@ export const myFollowListCountSelector = selector({
   key: 'myFollowListCountSelector',
   get: ({ get }) => {
     return {
-      followerListCount: get(myFollowerListState)?.length ?? 0,
-      followingListCount: get(myFollowingListState)?.length ?? 0,
+      followerListCount: get(myFollowerListState).length,
+      followingListCount: get(myFollowingListState).length,
     };
   },
 });
