@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSetRecoilState } from 'recoil';
-import { Link } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { MonsterThumbnailWrapper } from '../monster';
 
 import { refreshSearchUserState } from '../../recoil/states/search';
+import { currentUserMonsterCodeSelector } from '../../recoil/states/user';
 
 const UserSection = ({ monster, habits, userInfo, followers }) => {
   const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const myMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
+  const location = useLocation();
 
   return (
     <Section>
@@ -27,6 +30,11 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
           to={{
             pathname: `/follow/${userInfo.monsterCode}`,
             search: `?tab=followers`,
+            state: {
+              isMe: myMonsterCode === userInfo.monsterCode,
+              isFromMyPage: false,
+              prev: [...location.state?.prev, location.pathname],
+            },
           }}
           onClick={() => {
             refreshSearchUserInfo((id) => id + 1);
@@ -41,6 +49,11 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
           to={{
             pathname: `/follow/${userInfo.monsterCode}`,
             search: `?tab=following`,
+            state: {
+              isMe: myMonsterCode === userInfo.monsterCode,
+              isFromMyPage: false,
+              prev: [...location.state?.prev, location.pathname],
+            },
           }}
           onClick={() => {
             refreshSearchUserInfo((id) => id + 1);

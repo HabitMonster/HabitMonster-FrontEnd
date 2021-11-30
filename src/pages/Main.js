@@ -6,7 +6,6 @@ import { Gnb } from '../components/gnb';
 import { TodayHabitList } from '../components/habit';
 
 const Main = () => {
-  console.log(process.env.REACT_APP_BASE_URL);
   return (
     <>
       <Wrapper className="test">

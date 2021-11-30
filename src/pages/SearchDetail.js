@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { BackButtonHeader, NonePlaceHolder } from '../components/common';
 import { CategoryMenu, UserSection } from '../components/search';
+import { HabitCardItem, HabitCard } from '../components/habit';
 
 import {
   searchUserInfoState,
@@ -20,11 +21,11 @@ import {
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
 import { disappearScrollbar } from '../styles/Mixin';
-import { HabitCardItem, HabitCard } from '../components/habit';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
   const history = useHistory();
+  const location = useLocation();
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
@@ -88,7 +89,14 @@ const SearchDetail = () => {
           onButtonClick={() => {
             refreshSearchUserInfo((id) => id + 1);
             refreshRecommendedUser((id) => id + 1);
-            history.push('/search');
+
+            const copyStack = location.state?.prev.slice();
+            const path = copyStack.pop();
+            history.replace(path, {
+              prev: copyStack,
+              isMe: userInfo.monsterCode === currentUserMonsterCode,
+              isFromMyPage: false,
+            });
           }}
           pageTitleText={userInfo.username}
         />
@@ -192,13 +200,6 @@ const FollowBtn = styled.button`
   cursor: pointer;
   font-family: var(--font-name-apple);
   font-size: var(--font-s);
-`;
-
-const BlankSpace = styled.div`
-  width: 100%;
-  max-width: 312px;
-  height: 38px;
-  margin: 20px auto;
 `;
 
 const HabitSection = styled.section`
