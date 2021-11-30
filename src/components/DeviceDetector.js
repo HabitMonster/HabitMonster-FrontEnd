@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { globalWebViewWrapperState } from '../recoil/states/ui';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -10,6 +12,8 @@ export const setVh = () => {
 };
 
 const DeviceDetector = ({ children }) => {
+  const setGlobalWebViewWrapper = useSetRecoilState(globalWebViewWrapperState);
+  const webViewWrapper = useRef(null);
   useEffect(() => {
     const preventShrink = function () {
       var viewport = document.querySelector('meta[name=viewport]');
@@ -26,13 +30,20 @@ const DeviceDetector = ({ children }) => {
       window.RemoveEventListener('load', setVh);
       window.removeEventListener('load', preventShrink);
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setGlobalWebViewWrapper(webViewWrapper);
+    }
+  }, [setGlobalWebViewWrapper]);
+
   return isMobile ? (
     <Layout>{children}</Layout>
   ) : (
     <WebBackgroundWrapper>
       <ClayPhone>
-        <WebViewLayout>{children}</WebViewLayout>
+        <WebViewLayout ref={webViewWrapper}>{children}</WebViewLayout>
       </ClayPhone>
     </WebBackgroundWrapper>
   );

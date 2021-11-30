@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { globalWebViewWrapperState } from '../../recoil/states/ui';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -6,9 +8,10 @@ import 'wicg-inert';
 
 import Portal from './Portal';
 
-const Modal = ({ open, onClose, children, blurmode, webViewWrapper }) => {
+const Modal = ({ open, onClose, children, blurmode }) => {
   const [active, setActive] = useState(false);
   const backdropReference = useRef(null);
+  const webViewWrapper = useRecoilValue(globalWebViewWrapperState);
 
   useEffect(() => {
     const { current } = backdropReference;
@@ -41,7 +44,7 @@ const Modal = ({ open, onClose, children, blurmode, webViewWrapper }) => {
   return (
     <>
       {(open || active) && (
-        <Portal className="modal-portal" parent={webViewWrapper.current}>
+        <Portal className="modal-portal" parent={webViewWrapper?.current}>
           <Backdrop
             ref={backdropReference}
             className={active && open && 'active'}
@@ -63,7 +66,6 @@ Modal.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.elementType])
     .isRequired,
   blurmode: PropTypes.bool,
-  webViewWrapper: PropTypes.object,
 };
 
 Modal.defaultProps = {

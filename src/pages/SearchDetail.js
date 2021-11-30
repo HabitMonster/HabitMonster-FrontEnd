@@ -17,11 +17,10 @@ import {
   followerListRefetchToggler,
 } from '../recoil/states/user';
 
-import { setFormattedDuration } from '../utils/setFormatDuration';
-import CategoryImage from '../assets/images/category';
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
 import { disappearScrollbar } from '../styles/Mixin';
+import { HabitCardItem, HabitCard } from '../components/habit';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
@@ -59,7 +58,7 @@ const SearchDetail = () => {
     });
 
     setFilteredHabits(filteredHabits);
-  }, [categorization]);
+  }, [categorization, habits]);
 
   const handleRelationship = async () => {
     try {
@@ -94,7 +93,7 @@ const SearchDetail = () => {
           pageTitleText={userInfo.username}
         />
       </Header>
-      <UppserSection>
+      <UpperSection>
         <UserSection
           monster={monster}
           habits={habits}
@@ -108,7 +107,7 @@ const SearchDetail = () => {
         ) : (
           <FollowBtn onClick={moveToMyPage}>마이페이지로 이동</FollowBtn>
         )}
-      </UppserSection>
+      </UpperSection>
       <CategoryMenu
         categorization={categorization}
         classHandler={toggleClass}
@@ -116,10 +115,10 @@ const SearchDetail = () => {
       <HabitSection>
         <HabitList>
           {filteredHabits.length ? (
-            filteredHabits.map((habit, idx) => {
+            filteredHabits.map((habit) => {
               return (
-                <Card
-                  key={idx}
+                <HabitCard
+                  key={habit.habitId}
                   onClick={() => {
                     refreshSearchUserInfo((id) => id + 1);
                     history.push(
@@ -127,29 +126,15 @@ const SearchDetail = () => {
                     );
                   }}
                 >
-                  <DetailContainer>
-                    <div>
-                      <CategoryIcon category={habit.category} />
-                      <Info>
-                        <div>
-                          <HabitTitle>{habit.title}</HabitTitle>
-                          <Count>
-                            <b>{habit.achievePercentage}%</b>
-                          </Count>
-                        </div>
-                        <Period>
-                          {setFormattedDuration(
-                            habit.durationStart,
-                            'YMD',
-                            '.',
-                          )}{' '}
-                          ~{' '}
-                          {setFormattedDuration(habit.durationEnd, 'YMD', '.')}
-                        </Period>
-                      </Info>
-                    </div>
-                  </DetailContainer>
-                </Card>
+                  <HabitCardItem
+                    monsterCode={userInfo.monsterCode}
+                    category={habit.category}
+                    title={habit.title}
+                    durationStart={habit.durationStart}
+                    durationEnd={habit.durationEnd}
+                    achievePercentage={habit.achievePercentage}
+                  />
+                </HabitCard>
               );
             })
           ) : (
@@ -183,7 +168,7 @@ const Header = styled.section`
   background: #1e135c;
 `;
 
-const UppserSection = styled.section`
+const UpperSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -222,85 +207,12 @@ const HabitSection = styled.section`
   position: relative;
   border-radius: var(--border-radius-semi);
   overflow-y: scroll;
-
   ${disappearScrollbar()};
 `;
 
 const HabitList = styled.div`
   width: 100%;
   padding: 24px;
-  padding-bottom: 108px;
-`;
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  margin-bottom: 16px;
-  color: var(--color-primary);
-  background-color: var(--bg-primary);
-  border-radius: var(--border-radius-semi);
-  font-family: var(--font-name-apple);
-  cursor: pointer;
-`;
-
-const DetailContainer = styled.div`
-  display: flex;
-  width: 100%;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-`;
-
-const CategoryIcon = styled.div`
-  width: 45px;
-  height: 45px;
-  margin-right: 5px;
-  background-image: url(${(props) => CategoryImage[props.category].src});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 43px);
-
-  & div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-`;
-
-const HabitTitle = styled.span`
-  font-size: var(--font-m);
-  font-weight: var(--weight-bold);
-  line-height: 19.2px;
-`;
-
-const Period = styled.p`
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-regular);
-  opacity: 0.6;
-`;
-
-const Count = styled.span`
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xs);
-  font-weight: var(--weight-regular);
-  line-height: 16.8px;
-  color: var(--color-primary-deemed);
-
-  & b {
-    font-weight: var(--weight-semi-bold);
-    color: var(--color-primary);
-  }
 `;
 
 export default SearchDetail;

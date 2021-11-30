@@ -1,10 +1,4 @@
-import {
-  atom,
-  selector,
-  atomFamily,
-  selectorFamily,
-  DefaultValue,
-} from 'recoil';
+import { atom, selector, atomFamily, selectorFamily } from 'recoil';
 
 import { defaultAuthSelector } from './auth';
 
@@ -42,11 +36,6 @@ export const defaultHabitResponseSelector = selector({
     } catch (error) {
       console.error(error);
       return defaultValue;
-    }
-  },
-  set: ({ set }, value) => {
-    if (value instanceof DefaultValue) {
-      set(asyncHabitTogglerState, (v) => v + 1);
     }
   },
 });
@@ -91,6 +80,18 @@ export const habitStateWithId = atomFamily({
         );
       },
   }),
+});
+
+export const habitProcessCountSelector = selectorFamily({
+  key: 'habitProcessCountSelector',
+  get:
+    (habitId) =>
+    ({ get }) => {
+      return {
+        current: get(habitStateWithId(habitId))?.current,
+        count: get(habitStateWithId(habitId))?.count,
+      };
+    },
 });
 
 export const defaultMyHabitCountSelector = selector({
