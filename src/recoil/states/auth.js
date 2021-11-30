@@ -1,6 +1,5 @@
 import { selector } from 'recoil';
 import { mainApis } from '../../api';
-import { getCookie } from '../../utils/cookie';
 
 export const defaultAuthSelector = selector({
   key: 'defaultAuthSelector',
@@ -11,9 +10,9 @@ export const defaultAuthSelector = selector({
       createdAt: '',
     };
 
-    const accessToken = getCookie('habit-A-Token');
+    const accessToken = window.localStorage.getItem('habit-A-Token');
 
-    if (!accessToken || accessToken === '0') {
+    if (!accessToken) {
       return loginStatus;
     }
 
