@@ -82,58 +82,16 @@ export const habitStateWithId = atomFamily({
   }),
 });
 
-export const habitTitleSelector = selectorFamily({
-  key: 'habitTitleSelector',
-  get:
-    (habitId) =>
-    ({ get }) =>
-      get(habitStateWithId(habitId))?.title,
-});
-
-export const habitCategorySelector = selectorFamily({
-  key: 'habitCategorySelector',
-  get:
-    (habitId) =>
-    ({ get }) =>
-      get(habitStateWithId(habitId))?.category,
-});
-
-//실험
-
-export const habitDurationSelector = selectorFamily({
-  key: 'habitDurationStartSelector',
+export const habitProcessCountSelector = selectorFamily({
+  key: 'habitProcessCountSelector',
   get:
     (habitId) =>
     ({ get }) => {
       return {
-        start: get(habitStateWithId(habitId))?.durationStart,
-        end: get(habitStateWithId(habitId))?.durationEnd,
+        current: get(habitStateWithId(habitId))?.current,
+        count: get(habitStateWithId(habitId))?.count,
       };
     },
-});
-
-export const habitCurrentAccomplishCountSelector = selectorFamily({
-  key: 'habitCurrentAccomplishCountSelector',
-  get:
-    (habitId) =>
-    ({ get }) =>
-      get(habitStateWithId(habitId))?.current,
-});
-
-export const habitTotalAccomplishSelector = selectorFamily({
-  key: 'habitTotalAccomplishSelector',
-  get:
-    (habitId) =>
-    ({ get }) =>
-      get(habitStateWithId(habitId))?.count,
-});
-
-export const habitAccomplishCheckSelector = selectorFamily({
-  key: 'habitAccomplishCheckSelector',
-  get:
-    (habitId) =>
-    ({ get }) =>
-      get(habitStateWithId(habitId))?.isAccomplished,
 });
 
 export const defaultMyHabitCountSelector = selector({

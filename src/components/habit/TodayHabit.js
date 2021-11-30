@@ -7,6 +7,7 @@ import {
   habitTitleSelector,
   habitCategorySelector,
   habitDurationSelector,
+  habitStateWithId,
 } from '../../recoil/states/habit';
 
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
@@ -16,13 +17,11 @@ import { HabitCardItem, HabitCard, TodayHabitCheckoutButton } from '.';
 import { miniThrottle } from '../../utils/event';
 
 const TodayHabit = ({ id, parent }) => {
-  const title = useRecoilValue(habitTitleSelector(id));
-  const category = useRecoilValue(habitCategorySelector(id));
-  const { start, end } = useRecoilValue(habitDurationSelector(id));
   const [shrink, setShrink] = useRecoilState(monsterSectionShirnkToggler);
+  const { title, category, durationStart, durationEnd, isAccomplished } =
+    useRecoilValue(habitStateWithId(id));
 
   const history = useHistory();
-
   const scroller = useRef(null);
   const previousParentScrollTop = useRef(null);
 
@@ -94,10 +93,10 @@ const TodayHabit = ({ id, parent }) => {
         habitId={id}
         category={category}
         title={title}
-        durationStart={start}
-        durationEnd={end}
+        durationStart={durationStart}
+        durationEnd={durationEnd}
       />
-      <TodayHabitCheckoutButton id={id} />
+      <TodayHabitCheckoutButton id={id} isAccomplished={isAccomplished} />
     </HabitCard>
   );
 };

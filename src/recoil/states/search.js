@@ -28,23 +28,6 @@ export const searchUserInfoState = selectorFamily({
     },
 });
 
-export const searchUserHabitsCategoryIdState = atom({
-  key: 'searchUserHabitsCategoryIdState',
-  default: 'all',
-});
-
-export const searchUserHabitsSelector = selectorFamily({
-  key: 'searchUserHabitsSelector',
-  get:
-    (id = 'all') =>
-    ({ get }) => {
-      const habits = get(searchUserInfoState).habits;
-      return id === 'all'
-        ? habits
-        : habits.filter((habit) => habit.categoryId === id);
-    },
-});
-
 export const searchUserHabitSelector = selectorFamily({
   key: 'searchUserInfoSelector',
   get:

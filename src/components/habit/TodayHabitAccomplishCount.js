@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import {
-  habitCurrentAccomplishCountSelector,
-  habitTotalAccomplishSelector,
-} from '../../recoil/states/habit';
+import { habitProcessCountSelector } from '../../recoil/states/habit';
 
 const TodayHabitAccomplishCount = ({ id }) => {
-  const current = useRecoilValue(habitCurrentAccomplishCountSelector(id));
-  const count = useRecoilValue(habitTotalAccomplishSelector(id));
+  const { current, count } = useRecoilValue(habitProcessCountSelector(id));
 
   return (
     <>

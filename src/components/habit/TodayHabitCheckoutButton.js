@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import {
-  habitStateWithId,
-  habitAccomplishCheckSelector,
-} from '../../recoil/states/habit';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { habitStateWithId } from '../../recoil/states/habit';
 
 import { monsterAnimationTogglerState } from '../../recoil/states/ui';
 import { monsterState } from '../../recoil/states/monster';
@@ -17,8 +14,7 @@ import { habitApis, mainApis } from '../../api';
 import { miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
 
-const TodayHabitCheckoutButton = ({ id }) => {
-  const isAccomplished = useRecoilValue(habitAccomplishCheckSelector(id));
+const TodayHabitCheckoutButton = ({ id, isAccomplished }) => {
   const [active, setActive] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
   const [animation, setAnimation] = useRecoilState(
@@ -97,6 +93,7 @@ const TodayHabitCheckoutButton = ({ id }) => {
 
 TodayHabitCheckoutButton.propTypes = {
   id: PropTypes.number.isRequired,
+  isAccomplished: PropTypes.bool.isRequired,
 };
 
 const updateAnimation = keyframes`
@@ -130,7 +127,7 @@ const CheckoutButton = styled.button`
       ? css`
           ${updateAnimation} 300ms linear forwards
         `
-      : 'none'};
+      : ''};
 `;
 
 export default TodayHabitCheckoutButton;
