@@ -9,8 +9,6 @@ import { KakaoSymbol } from '../../assets/icons/loginSymbol';
 import { OK } from '../../constants/statusCode';
 import { loginBtnStyle } from '../../styles/Mixin';
 
-import { setCookie } from '../../utils/cookie';
-
 const KakaoLogin = () => {
   const history = useHistory();
   const socialName = 'kakao';
@@ -26,8 +24,8 @@ const KakaoLogin = () => {
     async function getTokenWithKakao() {
       try {
         const { data } = await auth.getSocialLogin(socialName, kakaoAuthCode);
-        setCookie('habit-A-Token', data.accessToken);
-        setCookie('habit-R-Token', data.refreshToken);
+        window.localStorage.setItem('habit-A-Token', data.accessToken);
+        window.localStorage.setItem('habit-R-Token', data.refreshToken);
 
         refresher();
         if (data.statusCode === OK) {

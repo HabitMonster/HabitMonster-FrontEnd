@@ -15,7 +15,6 @@ import {
   REFRESH_TOKEN_SIGNATURE_EXCEPTION,
   REFRESH_TOKEN_MALFORMED,
 } from '../constants/statusMessage';
-import { getCookie, setCookie } from '../utils/cookie';
 import { setMoveToLoginPage } from '../utils/setMoveToLoginPage';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -25,7 +24,7 @@ const setToken = (config) => {
   config.headers['Content-Type'] = 'application/json; charset=utf-8';
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
-  config.headers['A-AUTH-TOKEN'] = getCookie('habit-A-Token');
+  config.headers['A-AUTH-TOKEN'] = window.localStorage.getItem('habit-A-Token');
   config.headers.withCredentials = true;
   return config;
 };
@@ -45,7 +44,8 @@ instance.interceptors.response.use(
       responseData.statusCode === null
     ) {
       if (process.env.NODE_ENV === 'development') {
-        console.error(error);
+        window.alert('null');
+        console.error(error.response);
       }
       setMoveToLoginPage();
       return Promise.reject(error);
@@ -91,12 +91,12 @@ instance.interceptors.response.use(
           url: `${process.env.REACT_APP_BASE_URL}/user/loginCheck`,
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'R-AUTH-TOKEN': getCookie('habit-R-Token'),
+            'R-AUTH-TOKEN': window.localStorage.getItem('habit-R-Token'),
           },
         });
 
         if (data.statusCode === OK) {
-          setCookie('habit-A-Token', data.accessToken);
+          window.localStorage.setItem('habit-A-Token', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
           return axios(originalRequest);
         }
