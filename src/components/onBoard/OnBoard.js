@@ -100,6 +100,10 @@ const OnBoardContainer = styled.div`
       background: var(--color-onboard);
     }
   }
+  & .swiper-button-next,
+  & .swiper-button-prev {
+    display: none;
+  }
 `;
 
 const TitleContainer = styled.div`

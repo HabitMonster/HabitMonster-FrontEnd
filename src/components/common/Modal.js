@@ -44,7 +44,7 @@ const Modal = ({ open, onClose, children, blurmode }) => {
   return (
     <>
       {(open || active) && (
-        <Portal className="modal-portal" parent={webViewWrapper.current}>
+        <Portal className="modal-portal" parent={webViewWrapper?.current}>
           <Backdrop
             ref={backdropReference}
             className={active && open && 'active'}

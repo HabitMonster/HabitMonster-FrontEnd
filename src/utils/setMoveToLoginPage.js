@@ -1,5 +1,5 @@
 export const setMoveToLoginPage = () => {
-  window.localStorage.removeItem('habitAccessToken');
-  window.localStorage.removeItem('habitRefreshToken');
+  window.localStorage.removeItem('habit-A-Token');
+  window.localStorage.removeItem('habit-R-Token');
   window.location.href = '/login';
 };

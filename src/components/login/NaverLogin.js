@@ -44,8 +44,8 @@ const NaverLogin = () => {
       async function getTokenWithNaver() {
         try {
           const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
-          window.localStorage.setItem('habitAccessToken', data.accessToken);
-          window.localStorage.setItem('habitRefreshToken', data.refreshToken);
+          window.localStorage.setItem('habit-A-Token', data.accessToken);
+          window.localStorage.setItem('habit-R-Token', data.refreshToken);
 
           refresher();
           if (data.statusCode === OK) {

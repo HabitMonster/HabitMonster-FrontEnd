@@ -35,16 +35,14 @@ const GoogleLogin = () => {
                     socialName,
                     googleUser.getAuthResponse().id_token,
                   );
-
                   window.localStorage.setItem(
-                    'habitAccessToken',
+                    'habit-A-Token',
                     data.accessToken,
                   );
                   window.localStorage.setItem(
-                    'habitRefreshToken',
+                    'habit-R-Token',
                     data.refreshToken,
                   );
-
                   refresher();
                   if (data.statusCode === OK) {
                     history.replace(data.isFirstLogin ? '/select' : '/');

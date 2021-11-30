@@ -10,7 +10,7 @@ const Toast = ({ text, activeToast }) => {
   return (
     <>
       {activeToast && (
-        <Portal className="toast-portal" parent={webViewWrapper.current}>
+        <Portal className="toast-portal" parent={webViewWrapper?.current}>
           <ToastBar className="toast-content" active={activeToast}>
             {text}
           </ToastBar>

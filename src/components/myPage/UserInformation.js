@@ -44,41 +44,30 @@ const UserInformation = () => {
   }, []);
 
   const copyCode = useCallback((contents) => {
-    // 흐름 1.
     if (!document.queryCommandSupported('copy')) {
       return alert('복사하기가 지원되지 않는 브라우저입니다.');
     }
-    // 흐름 2.
+
     const textarea = document.createElement('textarea');
     textarea.value = contents;
     textarea.style.top = 0;
     textarea.style.left = 0;
     textarea.style.position = 'fixed';
 
-    // 흐름 3.
     document.body.appendChild(textarea);
-    // focus() -> 사파리 브라우저 서포팅
     textarea.focus();
-    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
     textarea.select();
     textarea.setSelectionRange(0, 99999);
-    // 흐름 4.
     document.execCommand('copy');
-    // textarea.setSelectionRange(0, 0);
-    // 흐름 5.
     document.body.removeChild(textarea);
 
     setTimeout(() => setActiveToast(true), 0);
   }, []);
 
   const deleteToken = useCallback(() => {
-    window.localStorage.removeItem('habitAccessToken');
-    window.localStorage.removeItem('habitRefreshToken');
+    window.localStorage.removeItem('habit-A-Token');
+    window.localStorage.removeItem('habit-R-Token');
   }, []);
-
-  /*
-    토큰을 삭제하고 로그인으로 보냅니다.
-  */
 
   const dispatcher = async (type) => {
     if (type === 'logout') {
@@ -121,11 +110,6 @@ const UserInformation = () => {
           contents: '',
           handleClick: () => history.push('/notice'),
         },
-        // {
-        //   title: '신고하기',
-        //   contents: '',
-        //   handleClick: () => window.open('구글폼주소', '_blank'),
-        // },
         {
           title: '로그아웃',
           contents: '',
@@ -150,9 +134,7 @@ const UserInformation = () => {
   }, [activeToast]);
 
   useEffect(() => {
-    // console.log('mypage CleanUp', history.location.pathname);
     return () => {
-      // 마이페이지에서 벗어날 때 리스트를 초기화한다
       if (
         !(
           history.location.pathname.includes('mypage') ||

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -122,4 +122,4 @@ const AccomplishSection = styled.div`
   }
 `;
 
-export default HabitCardItem;
+export default memo(HabitCardItem);

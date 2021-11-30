@@ -10,7 +10,7 @@ export const defaultAuthSelector = selector({
       createdAt: '',
     };
 
-    const accessToken = window.localStorage.getItem('habitAccessToken');
+    const accessToken = window.localStorage.getItem('habit-A-Token');
 
     if (!accessToken) {
       return loginStatus;
