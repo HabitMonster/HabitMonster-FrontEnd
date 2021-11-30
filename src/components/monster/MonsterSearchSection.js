@@ -22,7 +22,9 @@ const MonsterSearchSection = () => {
       </FeedbackLink>
       <SearchIcon
         style={{ cursor: 'pointer' }}
-        onClick={() => history.push('/search')}
+        onClick={() =>
+          history.push('/search', { prev: [history.location.pathname] })
+        }
       />
     </Header>
   );

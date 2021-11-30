@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -26,6 +26,8 @@ const Follow = () => {
   const isActiveTab = (type) => tabType === type;
 
   const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const isMe = location.state?.isMe;
+  const isFromMyPage = location.state?.isFromMyPage;
 
   const getUserList = useCallback(async () => {
     if (!isFollowTab) {
@@ -44,29 +46,32 @@ const Follow = () => {
     if (data.statusCode === OK) {
       const followList =
         tabType === 'followers' ? data.followers : data.followings;
-
-      setFollowList(followList ?? []);
+      setFollowList(followList);
     }
   }, [tabType, isFollowTab, userMonsterCode]);
-
-  useEffect(() => {
-    if (!isFollowTab) {
-      history.replace('/follow?tab=followers', null);
-    }
-  }, [history, tabType, isFollowTab]);
 
   useEffect(() => {
     getUserList();
   }, [getUserList]);
 
+  useEffect(() => {
+    if (!isFollowTab) {
+      history.replace(`/follow/${userMonsterCode}?tab=followers`, null);
+    }
+  }, [history, tabType, isFollowTab, userMonsterCode]);
+
   const onClickgoBack = () => {
     refreshSearchUserInfo((id) => id + 1);
 
-    if (history.length <= 2) {
-      history.replace(`/`);
-    }
-    history.goBack();
+    const copyStack = location.state?.prev?.slice();
+    const path = copyStack.pop();
+    history.replace(path, { prev: copyStack });
   };
+
+  if (isMe === undefined && isFromMyPage === undefined) {
+    history.replace('/');
+    return;
+  }
 
   return (
     <>
@@ -79,6 +84,11 @@ const Follow = () => {
               to={{
                 pathname: `/follow/${userMonsterCode}`,
                 search: `?tab=followers`,
+                state: {
+                  isMe,
+                  isFromMyPage,
+                  prev: [...location.state?.prev],
+                },
               }}
               activeClassName="active"
             >
@@ -91,6 +101,11 @@ const Follow = () => {
               to={{
                 pathname: `/follow/${userMonsterCode}`,
                 search: `?tab=following`,
+                state: {
+                  isMe,
+                  isFromMyPage,
+                  prev: [...location.state?.prev],
+                },
               }}
               activeClassName="active"
             >
