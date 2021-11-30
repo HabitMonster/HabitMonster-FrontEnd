@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import {
-  habitTitleSelector,
-  habitCategorySelector,
-  habitDurationSelector,
-  habitStateWithId,
-} from '../../recoil/states/habit';
+import { habitStateWithId } from '../../recoil/states/habit';
 
 import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
