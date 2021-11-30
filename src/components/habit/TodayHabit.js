@@ -1,46 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { useHistory } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-import { Toast } from '../common';
+import { isMobile } from 'react-device-detect';
+import { useHistory } from 'react-router';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import {
-  monsterSectionShirnkToggler,
-  monsterAnimationTogglerState,
-} from '../../recoil/states/ui';
+  habitTitleSelector,
+  habitCategorySelector,
+  habitDurationSelector,
+} from '../../recoil/states/habit';
 
-import { habitStateWithId } from '../../recoil/states/habit';
-import { monsterState } from '../../recoil/states/monster';
+import { monsterSectionShirnkToggler } from '../../recoil/states/ui';
 
-import { mainApis, habitApis } from '../../api';
-import { setFormattedDuration } from '../../utils/setFormatDuration';
-import { miniThrottle, miniDebounce } from '../../utils/event';
+import { HabitCardItem, HabitCard, TodayHabitCheckoutButton } from '.';
 
-import { OK } from '../../constants/statusCode';
+import { miniThrottle } from '../../utils/event';
 
-import CategoryImage from '../../assets/images/category';
-
-const TodayHabit = ({ id, parent, webViewWrapper }) => {
-  const history = useHistory();
-  const setMonster = useSetRecoilState(monsterState);
-  const [habitDetail, setHabitDetail] = useRecoilState(habitStateWithId(id));
-
-  const [active, setActive] = useState(false);
-  const [activeToast, setActiveToast] = useState(false);
-  const [animation, setAnimation] = useRecoilState(
-    monsterAnimationTogglerState,
-  );
-
-  const durationStart = setFormattedDuration(
-    habitDetail.durationStart,
-    'MD',
-    '.',
-  );
-  const durationEnd = setFormattedDuration(habitDetail.durationEnd, 'MD', '.');
-
+const TodayHabit = ({ id, parent }) => {
+  const title = useRecoilValue(habitTitleSelector(id));
+  const category = useRecoilValue(habitCategorySelector(id));
+  const { start, end } = useRecoilValue(habitDurationSelector(id));
   const [shrink, setShrink] = useRecoilState(monsterSectionShirnkToggler);
+
+  const history = useHistory();
+
   const scroller = useRef(null);
   const previousParentScrollTop = useRef(null);
 
@@ -106,219 +88,23 @@ const TodayHabit = ({ id, parent, webViewWrapper }) => {
     };
   }, [setShrink, shrink, parent]);
 
-  useEffect(() => {
-    if (activeToast) {
-      setTimeout(() => {
-        setActiveToast(false);
-      }, 2500);
-    }
-  }, [activeToast]);
-
-  const handleCompleteButtonClick = miniDebounce(async () => {
-    setActive((prev) => !prev);
-
-    try {
-      setTimeout(() => {
-        setActive((prev) => !prev);
-      }, 150);
-      const { data } = await habitApis.checkHabit(id);
-      if (data.statusCode === OK) {
-        setHabitDetail(data.habit);
-
-        if (data.habit.isAccomplished) {
-          setActiveToast(true);
-          try {
-            const { data } = await mainApis.getMonsterInfo();
-
-            if (data.statusCode === OK) {
-              setMonster(data.monster);
-
-              if (animation) {
-                return;
-              }
-              setAnimation((prev) => !prev);
-              setTimeout(() => {
-                setAnimation((prev) => !prev);
-              }, 1000);
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, 0);
-
-  const onHabitClicked = () => {
-    history.push(`/habit/${id}`);
-  };
-
   return (
-    <>
-      <Card onClick={onHabitClicked} ref={scroller}>
-        <DetailContainer>
-          <div>
-            <CategoryIcon category={habitDetail.category} />
-            <Info>
-              <div>
-                <HabitTitle>{habitDetail.title}</HabitTitle>
-                <Count>
-                  <b>{habitDetail.current}</b>/{habitDetail.count}
-                </Count>
-              </div>
-              <Period>
-                {durationStart}~{durationEnd}
-              </Period>
-            </Info>
-          </div>
-        </DetailContainer>
-        <CheckBtn
-          active={active}
-          isDone={habitDetail.isAccomplished}
-          disabled={habitDetail.isAccomplished}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCompleteButtonClick();
-          }}
-        >
-          {habitDetail.isAccomplished ? '완료' : '완료하기'}
-        </CheckBtn>
-        {activeToast && (
-          <Toast
-            webViewWrapper={webViewWrapper}
-            activeToast={activeToast}
-            text="오늘의 습관 하나를 완료했어요!"
-          />
-        )}
-      </Card>
-    </>
+    <HabitCard ref={scroller} onClick={() => history.push(`/habit/${id}`)}>
+      <HabitCardItem
+        habitId={id}
+        category={category}
+        title={title}
+        durationStart={start}
+        durationEnd={end}
+      />
+      <TodayHabitCheckoutButton id={id} />
+    </HabitCard>
   );
 };
 
 TodayHabit.propTypes = {
   id: PropTypes.number.isRequired,
   parent: PropTypes.object,
-  webViewWrapper: PropTypes.object,
 };
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  font-family: var(--font-name-apple);
-  background-color: var(--bg-primary);
-  color: var(--color-primary);
-  border-radius: var(--border-radius-semi);
-  cursor: pointer;
-  margin-bottom: 16px;
-
-  &:last-of-type {
-    margin-bottom: 89px;
-  }
-`;
-
-const DetailContainer = styled.div`
-  display: flex;
-  width: 100%;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-`;
-
-const CategoryIcon = styled.div`
-  width: 45px;
-  height: 45px;
-  margin-right: 5px;
-  background-image: url(${(props) => CategoryImage[props.category].src});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
-
-const Info = styled.div`
-  width: calc(100% - 43px);
-  display: flex;
-  flex-direction: column;
-
-  & div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-`;
-
-const HabitTitle = styled.span`
-  font-size: var(--font-m);
-  line-height: 19.2px;
-  font-weight: var(--weight-bold);
-`;
-
-const Period = styled.p`
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-regular);
-  opacity: 0.6;
-`;
-
-const Count = styled.span`
-  line-height: 16.8px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xs);
-  font-weight: var(--weight-regular);
-  color: var(--color-primary-deemed);
-
-  & b {
-    font-weight: var(--weight-semi-bold);
-    color: var(--color-primary);
-  }
-`;
-
-const updateAnimation = keyframes`
-  0% {
-    background: #3B0A9D;
-  }
-  50% {
-    background: #2D1C50;
-  }
-  100% {
-    background: #3B0A9D;
-  }
-`;
-
-const finishAnimation = keyframes`
-  0% {
-    background: #3B0A9D;
-  }
-  100% {
-    background: #000;
-  }
-`;
-
-const CheckBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 264px;
-  height: 40px;
-  margin: 16px auto 0 auto;
-  background-color: ${({ isDone }) => (isDone ? '#000' : 'var(--bg-active)')};
-  font-size: var(--font-xs);
-  color: ${({ isDone }) =>
-    isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
-  border: none;
-  border-radius: var(--border-radius-semi);
-  cursor: pointer;
-  animation: ${({ active }) =>
-    active
-      ? css`
-          ${updateAnimation} 300ms linear forwards
-        `
-      : 'none'};
-`;
 
 export default TodayHabit;

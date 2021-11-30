@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory, Link } from 'react-router-dom';
@@ -34,7 +34,6 @@ const UserInformation = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
-  const webViewWrapper = useRef(null);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -166,7 +165,7 @@ const UserInformation = () => {
   }, [history, refetchFollowList]);
 
   return (
-    <section ref={webViewWrapper}>
+    <section>
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           isProfile={true}
@@ -220,17 +219,12 @@ const UserInformation = () => {
         })}
       </UserInfoList>
       {editModalType && (
-        <Modal
-          webViewWrapper={webViewWrapper}
-          open={!!editModalType}
-          onClose={closeModal}
-        >
+        <Modal open={!!editModalType} onClose={closeModal}>
           <EditBox type={editModalType} closeModal={closeModal} />
         </Modal>
       )}
       {isLogoutModalOpen && (
         <Modal
-          webViewWrapper={webViewWrapper}
           open={isLogoutModalOpen}
           onClose={() => setIsLogoutModalOpen(false)}
           blurmode={true}
@@ -246,7 +240,6 @@ const UserInformation = () => {
       )}
       {deleteAccountModalOpen && (
         <Modal
-          webViewWrapper={webViewWrapper}
           open={deleteAccountModalOpen}
           onClose={() => setdeleteAccountModalOpen(false)}
           blurmode={true}
@@ -262,11 +255,7 @@ const UserInformation = () => {
         </Modal>
       )}
       {activeToast && (
-        <Toast
-          webViewWrapper={webViewWrapper}
-          activeToast={activeToast}
-          text="클립보드에 복사되었습니다!"
-        />
+        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
     </section>
   );

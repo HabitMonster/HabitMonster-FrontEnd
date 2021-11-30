@@ -1,10 +1,12 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { globalWebViewWrapperState } from '../../recoil/states/ui';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
-
 import Portal from './Portal';
 
-const Toast = ({ text, activeToast, webViewWrapper }) => {
+const Toast = ({ text, activeToast }) => {
+  const webViewWrapper = useRecoilValue(globalWebViewWrapperState);
   return (
     <>
       {activeToast && (

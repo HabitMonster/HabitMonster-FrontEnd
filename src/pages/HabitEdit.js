@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import { useLocation, useHistory, Redirect, useParams } from 'react-router-dom';
@@ -47,8 +47,6 @@ const HabitEdit = () => {
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
 
-  const webViewWrapper = useRef(null);
-
   const deleteHabit = async (id) => {
     try {
       const { data } = await habitApis.deleteHabit(id);
@@ -90,7 +88,7 @@ const HabitEdit = () => {
   }
 
   return (
-    <Wrapper ref={webViewWrapper}>
+    <Wrapper>
       <BackButtonHeader
         onButtonClick={() => {
           setBackModalOpen(true);
@@ -151,11 +149,7 @@ const HabitEdit = () => {
         onClick={handleEditButtonClick}
       />
       {backModalOpen && (
-        <Modal
-          webViewWrapper={webViewWrapper}
-          open={backModalOpen}
-          onClose={() => setBackModalOpen(false)}
-        >
+        <Modal open={backModalOpen} onClose={() => setBackModalOpen(false)}>
           <BottomDialog
             title="작성 중인 화면에서 나갈까요?"
             description="현재 작성한 내용은 저장되지 않아요. 저희가 더 노력해서 저장하기 만들어볼게요!"
@@ -166,11 +160,7 @@ const HabitEdit = () => {
         </Modal>
       )}
       {deleteModalOpen && (
-        <Modal
-          webViewWrapper={webViewWrapper}
-          open={deleteModalOpen}
-          onClose={() => setDeleteModalOpen(false)}
-        >
+        <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
           <BottomDialog
             title="습관을 정말 삭제할까요?"
             description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"

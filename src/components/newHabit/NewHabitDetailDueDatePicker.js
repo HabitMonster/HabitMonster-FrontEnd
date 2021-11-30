@@ -17,7 +17,6 @@ const NewHabitDetailDueDatePicker = ({
   duration,
   onDurationChecked,
   isEditMode,
-  parent,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPresetId, setSelectedPresetId] = useState(null);
@@ -49,7 +48,6 @@ const NewHabitDetailDueDatePicker = ({
         <Modal
           open={modalOpen}
           onClose={isEditMode ? null : () => setModalOpen(false)}
-          webViewWrapper={parent}
         >
           <NewHabitCalendar onClick={handleCalendarBottomButtonsClick} />
         </Modal>
