@@ -13,7 +13,7 @@ import { defaultAuthSelector } from '../recoil/states/auth';
 import {
   defaultHabitResponseSelector,
   habitIdListState,
-  defaultHabitsState,
+  habitListState,
   myHabitCountState,
 } from '../recoil/states/habit';
 
@@ -43,7 +43,7 @@ export default function useRefresh() {
         // 아톰 업데이트는 전혀 되지 않습니다.
         // 따라서 스냅샷으로 가져온 값을 통해 바로 아톰 자체를 업데이트 시켜줍니다.
 
-        set(defaultHabitsState, newUserHabits);
+        set(habitListState, newUserHabits);
         set(
           habitIdListState,
           newUserHabits.map(({ habitId }) => habitId),

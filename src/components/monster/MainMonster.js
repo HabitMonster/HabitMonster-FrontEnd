@@ -4,12 +4,12 @@ import styled, { keyframes } from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import {
-  monsterChangeTogglerState,
+  monsterChangeToggler,
   monsterState,
 } from '../../recoil/states/monster';
 import {
   monsterSectionShirnkToggler,
-  monsterAnimationTogglerState,
+  monsterAnimationToggler,
 } from '../../recoil/states/ui';
 
 import { MonsterThumbnail, Modal } from '../common';
@@ -28,13 +28,11 @@ const MainMonster = () => {
   const [levelUpMessage, setLevelUpMessage] = useState('');
 
   const [maxLevelModalOpen, setMaxLevelModalOpen] = useState(false);
-  const isMaxLevel = useRecoilValue(monsterChangeTogglerState);
+  const isMaxLevel = useRecoilValue(monsterChangeToggler);
 
   const previousLevel = useRef(monster.monsterLevel);
   const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
-  const [animation, setAnimation] = useRecoilState(
-    monsterAnimationTogglerState,
-  );
+  const [animation, setAnimation] = useRecoilState(monsterAnimationToggler);
 
   const history = useHistory();
 

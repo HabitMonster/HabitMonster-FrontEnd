@@ -9,8 +9,8 @@ import { HabitCardItem, HabitCard } from '../components/habit';
 
 import {
   searchUserInfoState,
-  refreshSearchUserState,
-  refreshRecommendedUserState,
+  searchUserReFetchToggler,
+  recommendedUserListRefetchToggler,
 } from '../recoil/states/search';
 import {
   currentUserMonsterCodeSelector,
@@ -29,8 +29,10 @@ const SearchDetail = () => {
 
   const searchResult = useRecoilValue(searchUserInfoState(monsterCode));
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
-  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
-  const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
+  const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
+  const refreshRecommendedUser = useSetRecoilState(
+    recommendedUserListRefetchToggler,
+  );
   const refreshMyFollwingList = useSetRecoilState(followingListRefetchToggler);
   const refreshMyFollwerList = useSetRecoilState(followerListRefetchToggler);
 

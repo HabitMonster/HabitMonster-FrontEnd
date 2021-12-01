@@ -8,8 +8,6 @@ import { Gnb } from '../components/gnb';
 import { NavButtonHeader } from '../components/common';
 
 import { disappearScrollbar } from '../styles/Mixin';
-// import { UserInformation } from '../components/myPage';
-// import { MonsterCollection } from '../components/achievment';
 
 const UserInformation = lazy(() =>
   import('../components/myPage/UserInformation'),

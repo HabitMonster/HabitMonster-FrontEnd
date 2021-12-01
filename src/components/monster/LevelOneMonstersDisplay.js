@@ -5,8 +5,8 @@ import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-  babyMonsterState,
-  selectedMonsterState,
+  babyMonsterListState,
+  selectedLevelOneMonsterState,
 } from '../../recoil/states/monster';
 
 import {
@@ -20,7 +20,7 @@ const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
   const history = useHistory();
   const excludeMonsterId = location?.state?.levelOneId ?? -1;
-  const monsterList = useRecoilValue(babyMonsterState);
+  const monsterList = useRecoilValue(babyMonsterListState);
   const enabledMonsterList = monsterList.filter(
     ({ enable, monsterId }) => enable && excludeMonsterId !== monsterId,
   );
@@ -28,7 +28,7 @@ const LevelOneMonstersDisplay = ({ go }) => {
     () => enabledMonsterList[0],
   );
 
-  const setSelectedMonster = useSetRecoilState(selectedMonsterState);
+  const setSelectedMonster = useSetRecoilState(selectedLevelOneMonsterState);
 
   const handleSelectMonster = (monster) => {
     setSelectedAvatar(monster);

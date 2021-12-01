@@ -5,7 +5,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { habitStateWithId } from '../../recoil/states/habit';
 
-import { monsterAnimationTogglerState } from '../../recoil/states/ui';
+import { monsterAnimationToggler } from '../../recoil/states/ui';
 import { monsterState } from '../../recoil/states/monster';
 
 import { Toast } from '../common';
@@ -17,9 +17,7 @@ import { OK } from '../../constants/statusCode';
 const TodayHabitCheckoutButton = ({ id, isAccomplished }) => {
   const [active, setActive] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
-  const [animation, setAnimation] = useRecoilState(
-    monsterAnimationTogglerState,
-  );
+  const [animation, setAnimation] = useRecoilState(monsterAnimationToggler);
   const setHabitDetail = useSetRecoilState(habitStateWithId(id));
   const setMonster = useSetRecoilState(monsterState);
 

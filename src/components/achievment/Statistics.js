@@ -54,6 +54,7 @@ const Statistics = () => {
   const getStatistic = useCallback(async () => {
     try {
       const statisticResponse = await statisticApi.getStatistics(currentDate);
+
       if (statisticResponse.status === 200) {
         const { totalCount, succeededCount, failedCount, habitList } =
           statisticResponse.data;
@@ -69,7 +70,7 @@ const Statistics = () => {
     }
   }, [currentDate]);
 
-  const currentList = getCurrentList(statisticData?.habitList ?? []);
+  const currentList = getCurrentList(statisticData.habitList);
   const circleValue =
     statisticData?.totalCount > 0
       ? statisticData?.succeededCount / statisticData?.totalCount
