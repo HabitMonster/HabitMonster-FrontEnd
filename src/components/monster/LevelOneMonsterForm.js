@@ -12,12 +12,13 @@ import {
   selectedMonsterState,
   monsterState,
 } from '../../recoil/states/monster';
-
 import { defaultAuthSelector } from '../../recoil/states/auth';
 
 import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
+
+import { setFontStyles } from '../../styles';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
@@ -116,10 +117,12 @@ const TitleWrap = styled.div`
 `;
 
 const Title = styled.h2`
-  color: var(--color-white);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+  })}
 `;
 
 const ThumbnailWrap = styled.div`

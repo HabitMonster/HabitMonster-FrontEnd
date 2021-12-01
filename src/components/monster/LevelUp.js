@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import background from '../../assets/images/background';
 import { MonsterThumbnail } from '../common';
 
+import { setFontStyles } from '../../styles';
+
 const monsterConfiguration = {
   5: {
     width: '182px',
@@ -116,18 +118,22 @@ const TextBox = styled.div`
   margin: 23px 0;
 
   & p {
-    color: var(--color-primary);
-    font-size: var(--font-xl);
-    line-height: 24px;
-    font-weight: var(--weight-bold);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'xl',
+      fontWeight: 'bold',
+      lineHeight: '24px',
+    })}
     margin-bottom: 7px;
   }
 
   & span {
-    color: #e8e8e8;
-    font-size: var(--font-xs);
-    font-weight: var(--weight-semi-regular);
-    line-height: 17px;
+    ${setFontStyles({
+      color: 'deemed2',
+      fontSize: 'xs',
+      fontWeight: 'semi-regular',
+      lineHeight: '17px',
+    })}
   }
 `;
 
@@ -138,11 +144,13 @@ const BtnWrap = styled.div`
   align-items: center;
 
   & button {
-    font-size: var(--font-m);
+    ${setFontStyles({
+      color: 'white',
+      fontSize: 'm',
+    })}
     cursor: pointer;
     width: 253px;
     height: 47px;
-    color: var(--color-white);
     border-radius: var(--border-radius-semi);
     border: none;
     margin: 4px;
@@ -151,7 +159,7 @@ const BtnWrap = styled.div`
 
   & :nth-child(2) {
     background-color: transparent;
-    color: #e8e8e8;
+    ${setFontStyles({ color: 'deemed2' })}
   }
 `;
 export default LevelUp;

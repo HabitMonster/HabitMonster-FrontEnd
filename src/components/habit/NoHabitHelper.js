@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { whiteOpacity } from '../../styles';
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const NoHabitHelper = () => {
   return (
@@ -25,13 +25,21 @@ const Wrapper = styled.div`
 
 const HelperText = styled.div`
   width: 100%;
-  font-size: var(--font-xs);
-  line-height: 21px;
+  ${setFontStyles({
+    fontSize: 'xs',
+    lineHeight: '21px',
+  })}
   ${whiteOpacity('0.6')};
   text-align: center;
 `;
 
 const AddButton = styled(Link)`
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xs',
+    fontWeight: 'regular',
+    lineHeight: '17px',
+  })}
   width: 100%;
   height: 40px;
   margin-top: 16px;
@@ -40,10 +48,6 @@ const AddButton = styled(Link)`
   align-items: center;
   text-decoration: none;
   background: var(--bg-active);
-  color: var(--color-primary);
-  font-size: var(--font-xs);
-  line-height: 17px;
-  font-weight: var(--weight-regular);
   border-radius: 4px;
 
   &:active,

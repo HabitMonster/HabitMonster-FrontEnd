@@ -16,11 +16,12 @@ import { MonsterThumbnail, Modal } from '../common';
 import { MonsterSearchSection, LevelUp } from '.';
 import { BottomDialog } from '../dialog';
 
-import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
 import { mainBackground } from '../../assets/images/background';
+
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
@@ -185,13 +186,14 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xxl);
-  line-height: 32px;
-  color: var(--color-primary);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxl',
+    lineHeight: '32px',
+  })}
 
   & span {
-    font-weight: var(--weight-bold);
+    ${setFontStyles({ fontWeight: 'bold' })}
   }
 `;
 
@@ -262,23 +264,27 @@ const ExpText = styled.div`
 
 const MonsterLevel = styled.span`
   margin-bottom: 6px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xs);
-  font-weight: var(--weight-semi-bold);
-  line-height: 17px;
+  ${setFontStyles({
+    fontSize: 'xs',
+    fontWeight: 'semi-bold',
+    lineHeight: '17px',
+  })}
   ${whiteOpacity('0.8')};
 `;
 
 const Exp = styled.p`
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xxxxl);
-  font-weight: var(--weight-regular);
-  color: var(--color-primary);
-  line-height: 53px;
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxxxl',
+    fontWeight: 'regular',
+    lineHeight: '53px',
+  })}
 
   & span {
-    font-size: var(--font-xs);
-    line-height: 17px;
+    ${setFontStyles({
+      fontSize: 'xs',
+      lineHeight: '17px',
+    })}
     margin-left: 4px;
     opacity: 0.8;
   }
