@@ -9,3 +9,8 @@ export const monsterAnimationTogglerState = atom({
   key: 'monsterSectionShrinkToggler',
   default: false,
 });
+
+export const globalWebViewWrapperState = atom({
+  key: 'globalWebViewWrapperState',
+  default: null,
+});

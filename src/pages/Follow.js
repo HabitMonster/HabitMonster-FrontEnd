@@ -1,47 +1,95 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { myFollowListByType } from '../recoil/states/user';
+import { refreshSearchUserState } from '../recoil/states/search';
 
 import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
 import { Gnb } from '../components/gnb';
 
-const FollowPage = () => {
+import { userApis } from '../api';
+import { OK } from '../constants/statusCode';
+
+import { disappearScrollbar } from '../styles/Mixin';
+
+const Follow = () => {
   const history = useHistory();
   const location = useLocation();
   const [followList, setFollowList] = useState(null);
+
+  const userMonsterCode = location.pathname.split('/')[2];
+
   const tabType = location?.search?.split('tab=')?.[1];
   const isFollowTab = tabType === 'followers' || tabType === 'following';
-  const getFollowList = useRecoilValue(myFollowListByType(tabType));
-  const goToMyPage = () => history.push('mypage/information');
   const isActiveTab = (type) => tabType === type;
+
+  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const isMe = location.state?.isMe;
+  const isFromMyPage = location.state?.isFromMyPage;
+
+  const getUserList = useCallback(async () => {
+    if (!isFollowTab) {
+      return;
+    }
+
+    await setFollowList(null);
+
+    let getUserResponse =
+      tabType === 'followers'
+        ? userApis.getUserFollowers(userMonsterCode)
+        : userApis.getUserFollowings(userMonsterCode);
+
+    const { data } = await getUserResponse;
+
+    if (data.statusCode === OK) {
+      const followList =
+        tabType === 'followers' ? data.followers : data.followings;
+      setFollowList(followList);
+    }
+  }, [tabType, isFollowTab, userMonsterCode]);
+
+  useEffect(() => {
+    getUserList();
+  }, [getUserList]);
 
   useEffect(() => {
     if (!isFollowTab) {
-      history.replace('/follow?tab=followers', null);
+      history.replace(`/follow/${userMonsterCode}?tab=followers`, null);
     }
-  }, [history, tabType, isFollowTab]);
+  }, [history, tabType, isFollowTab, userMonsterCode]);
 
-  useEffect(() => {
-    setFollowList(getFollowList);
+  const onClickgoBack = () => {
+    refreshSearchUserInfo((id) => id + 1);
 
-    return () => {
-      setFollowList(null);
-    };
-  }, [getFollowList]);
+    const copyStack = location.state?.prev?.slice();
+    const path = copyStack.pop();
+    history.replace(path, { prev: copyStack });
+  };
+
+  if (isMe === undefined && isFromMyPage === undefined) {
+    history.replace('/');
+    return;
+  }
 
   return (
     <>
       <FollowContainer>
-        <BackButtonHeader onButtonClick={goToMyPage} marginBottom="0" />
+        <BackButtonHeader onButtonClick={onClickgoBack} />
         <NavButtonWrap>
           <NavButtonItem>
             <NavButton
               isActive={() => isActiveTab('followers')}
-              to="/follow?tab=followers"
+              to={{
+                pathname: `/follow/${userMonsterCode}`,
+                search: `?tab=followers`,
+                state: {
+                  isMe,
+                  isFromMyPage,
+                  prev: [...location.state?.prev],
+                },
+              }}
               activeClassName="active"
             >
               팔로워
@@ -50,7 +98,15 @@ const FollowPage = () => {
           <NavButtonItem>
             <NavButton
               isActive={() => isActiveTab('following')}
-              to="/follow?tab=following"
+              to={{
+                pathname: `/follow/${userMonsterCode}`,
+                search: `?tab=following`,
+                state: {
+                  isMe,
+                  isFromMyPage,
+                  prev: [...location.state?.prev],
+                },
+              }}
               activeClassName="active"
             >
               팔로잉
@@ -89,8 +145,6 @@ const FollowPage = () => {
     </>
   );
 };
-
-export default FollowPage;
 
 const FollowContainer = styled.div`
   background-color: var(--bg-wrapper);
@@ -138,10 +192,11 @@ const NavButton = styled(NavLink)`
   }
 `;
 
-const FollowListWrap = styled.div`
+const FollowListWrap = styled.ul`
   height: calc(100% - 120px);
   padding-top: 16px;
   overflow-y: auto;
+  ${disappearScrollbar()};
 `;
 
 const FollowList = styled.ul`
@@ -163,3 +218,5 @@ const EmptyPlace = styled.div`
     font-weight: var(--weight-semi-regular);
   }
 `;
+
+export default Follow;

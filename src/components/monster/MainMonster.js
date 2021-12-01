@@ -1,31 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import styled, { keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
-import { monsterState } from '../../recoil/states/monster';
+import { useHistory } from 'react-router-dom';
+
+import {
+  monsterChangeTogglerState,
+  monsterState,
+} from '../../recoil/states/monster';
 import {
   monsterSectionShirnkToggler,
   monsterAnimationTogglerState,
 } from '../../recoil/states/ui';
 
 import { MonsterThumbnail, Modal } from '../common';
-import { MonsterSearchSection } from '.';
+import { MonsterSearchSection, LevelUp } from '.';
 import { BottomDialog } from '../dialog';
+
 import { whiteOpacity } from '../../styles';
 import { appendPostPosition } from '../../utils/appendPostPosition';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
 import { mainBackground } from '../../assets/images/background';
 
-const MainMonster = ({ webViewWrapper }) => {
+const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
   const [modalOpen, setModalOpen] = useState(false);
   const [levelUpMessage, setLevelUpMessage] = useState('');
+
+  const [maxLevelModalOpen, setMaxLevelModalOpen] = useState(false);
+  const isMaxLevel = useRecoilValue(monsterChangeTogglerState);
+
   const previousLevel = useRef(monster.monsterLevel);
   const heightShrinked = useRecoilValue(monsterSectionShirnkToggler);
   const [animation, setAnimation] = useRecoilState(
     monsterAnimationTogglerState,
   );
+
+  const history = useHistory();
 
   const handleMonsterClick = () => {
     if (animation) {
@@ -58,6 +69,12 @@ const MainMonster = ({ webViewWrapper }) => {
     previousLevel.current = monster.monsterLevel;
   }, [monster.monsterLevel, monster.monsterExpPoint]);
 
+  useEffect(() => {
+    if (isMaxLevel) {
+      setMaxLevelModalOpen(isMaxLevel);
+    }
+  }, [isMaxLevel, monster.monsterExpPoint, monster.monsterLevel]);
+
   return (
     <MonsterContainer
       level={monster.monsterLevel}
@@ -75,7 +92,6 @@ const MainMonster = ({ webViewWrapper }) => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-
       <ThumbnailWrapper
         onClick={handleMonsterClick}
         animation={animation}
@@ -99,7 +115,6 @@ const MainMonster = ({ webViewWrapper }) => {
       {modalOpen && (
         <Modal
           open={modalOpen}
-          webViewWrapper={webViewWrapper}
           onClose={() => setModalOpen(false)}
           blurmode={true}
         >
@@ -114,12 +129,28 @@ const MainMonster = ({ webViewWrapper }) => {
           />
         </Modal>
       )}
+      {maxLevelModalOpen && (
+        <Modal
+          open={maxLevelModalOpen}
+          onClose={() => setMaxLevelModalOpen(false)}
+          blurmode={true}
+        >
+          <LevelUp
+            monsterId={monster.monsterId}
+            onClickSelect={() => {
+              history.push('/select', {
+                levelOneId: monster.levelOneId,
+                monsterLevel: monster.monsterLevel,
+              });
+            }}
+            onClickStay={() => {
+              setMaxLevelModalOpen(false);
+            }}
+          />
+        </Modal>
+      )}
     </MonsterContainer>
   );
-};
-
-MainMonster.propTypes = {
-  webViewWrapper: PropTypes.object,
 };
 
 const MonsterContainer = styled.div`

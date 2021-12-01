@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -35,7 +35,6 @@ import { disappearScrollbar } from '../styles/Mixin';
 const HabitDetail = () => {
   const { habitId } = useParams();
   const history = useHistory();
-  const webViewWrapper = useRef(null);
 
   const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
   const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
@@ -83,7 +82,7 @@ const HabitDetail = () => {
   const MonsterIcon = monsters[levelOneMonsterId];
 
   return (
-    <Container ref={webViewWrapper}>
+    <Container>
       <BackButtonHeader onButtonClick={() => history.push('/')}>
         <MenuBar>
           <span>{habitDetail.title}</span>{' '}
@@ -158,11 +157,7 @@ const HabitDetail = () => {
         }}
       />
       {deleteModalOpen && (
-        <Modal
-          webViewWrapper={webViewWrapper}
-          open={deleteModalOpen}
-          onClose={() => setDeleteModalOpen(false)}
-        >
+        <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
           <BottomDialog
             title="습관을 정말 삭제할까요?"
             description="한 번 삭제 후에는 복구되지 않아요! 모든건 삼세번인데, 한 번 다시 생각해보는게 어떨까요!"

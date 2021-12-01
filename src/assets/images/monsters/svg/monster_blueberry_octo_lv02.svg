@@ -1,15 +1,29 @@
 <svg
-  id="blueberry-octo-level-two"
-  data-name="blueberry-octo-level-two"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
+  id="blueberry-octo-level-two"
+  data-name="blueberry-octo-level-two"
   viewBox="0 0 848.72 826.04"
 >
   <defs>
+    <radialGradient
+      id="blueberry-octo-level-five-gradient-752"
+      cx="279.41"
+      cy="498.9"
+      r="57.69"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0" stop-color="#d20c2b" />
+      <stop offset="1" stop-color="#d20c2b" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient
+      xlink:href="#blueberry-octo-level-five-gradient-752"
+      id="blueberry-octo-level-five-gradient-752-2"
+      cx="692.43"
+      cy="498.9"
+      r="57.69"
+    />
     <style>
-      .cls-1-blueberry-octo-level-two {
-        fill: #00d389;
-      }
       .cls-2-blueberry-octo-level-two {
         fill: #1600cb;
       }
@@ -22,97 +36,74 @@
       .cls-5-blueberry-octo-level-two {
         fill: #070707;
       }
-      .cls-6-blueberry-octo-level-two {
-        fill: url(#blueberry-octo-level-five-gradient-752);
-      }
-      .cls-7-blueberry-octo-level-two {
-        fill: url(#blueberry-octo-level-five-gradient-752-2);
-      }
     </style>
-    <radialGradient
-      id="blueberry-octo-level-five-gradient-752"
-      cx="279.41"
-      cy="498.9"
-      r="57.69"
-      gradientUnits="userSpaceOnUse"
-    >
-      <stop offset="0" stop-color="#d20c2b" />
-      <stop offset="1" stop-color="#d20c2b" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient
-      id="blueberry-octo-level-five-gradient-752-2"
-      cx="692.43"
-      cy="498.9"
-      r="57.69"
-      xlink:href="#blueberry-octo-level-five-gradient-752"
-    />
   </defs>
   <path
-    class="cls-1-blueberry-octo-level-two"
-    d="M259.76,72.08c-52.86-33.35-83.14-52.45-124-57.35C79.13,8,30.26,31.78,0,51.78L77.21,158.62C107,199.84,137.7,242,179.94,270.28c72.2,48.4,174.39,46.85,245.08-3.72-26.85-71.26-65.55-115.07-89.74-138.23C309,103.13,284.52,87.7,259.76,72.08Z"
+    fill="#00d389"
+    d="M259.76 72.08c-52.86-33.35-83.14-52.45-124-57.35C79.13 8 30.26 31.78 0 51.78l77.21 106.84C107 199.84 137.7 242 179.94 270.28c72.2 48.4 174.39 46.85 245.08-3.72-26.85-71.26-65.55-115.07-89.74-138.23-26.28-25.2-50.76-40.63-75.52-56.25Z"
   />
   <circle
-    class="cls-2-blueberry-octo-level-two"
     cx="343.35"
     cy="99.71"
     r="78.79"
+    class="cls-2-blueberry-octo-level-two"
   />
   <circle
-    class="cls-2-blueberry-octo-level-two"
     cx="473.62"
     cy="78.79"
     r="78.79"
+    class="cls-2-blueberry-octo-level-two"
   />
   <circle
-    class="cls-2-blueberry-octo-level-two"
     cx="612.62"
     cy="99.71"
     r="78.79"
+    class="cls-2-blueberry-octo-level-two"
   />
   <circle
-    class="cls-3-blueberry-octo-level-two"
     cx="492.35"
     cy="469.66"
     r="356.38"
+    class="cls-3-blueberry-octo-level-two"
   />
   <circle
-    class="cls-4-blueberry-octo-level-two"
     cx="375.94"
     cy="408.57"
     r="20.98"
+    class="cls-4-blueberry-octo-level-two"
   />
   <path
+    d="M468.38 429.94c-35.18 8.26-61.49 44.42-58.65 80.45s34.39 67.57 70.41 70.54c46.47 3.83 90-43.32 82.18-89.29s-64.71-76.15-107-56.56"
     class="cls-2-blueberry-octo-level-two"
-    d="M468.38,429.94c-35.18,8.26-61.49,44.42-58.65,80.45s34.39,67.57,70.41,70.54c46.47,3.83,90-43.32,82.18-89.29s-64.71-76.15-107-56.56"
   />
   <circle
-    class="cls-5-blueberry-octo-level-two"
     cx="374.44"
     cy="416.66"
     r="10.6"
+    class="cls-5-blueberry-octo-level-two"
   />
   <circle
-    class="cls-4-blueberry-octo-level-two"
     cx="599.22"
     cy="408.57"
     r="20.98"
+    class="cls-4-blueberry-octo-level-two"
   />
   <circle
-    class="cls-5-blueberry-octo-level-two"
     cx="597.72"
     cy="416.66"
     r="10.6"
+    class="cls-5-blueberry-octo-level-two"
   />
   <path
+    d="M477.69 468.24c-17 4-29.67 21.43-28.29 38.82s16.59 32.6 34 34c22.42 1.85 43.41-20.9 39.65-43.08s-31.22-36.74-51.64-27.29"
     class="cls-3-blueberry-octo-level-two"
-    d="M477.69,468.24c-17,4-29.67,21.43-28.29,38.82s16.59,32.6,34,34c22.42,1.85,43.41-20.9,39.65-43.08s-31.22-36.74-51.64-27.29"
   />
   <path
-    class="cls-6-blueberry-octo-level-two"
-    d="M265.83,442.21c-26.55,6.23-46.4,33.51-44.25,60.7s25.94,51,53.12,53.22c35.07,2.89,67.89-32.68,62-67.37S287.89,431.31,256,446.08"
+    fill="url(#blueberry-octo-level-five-gradient-752)"
+    d="M265.83 442.21c-26.55 6.23-46.4 33.51-44.25 60.7s25.94 51 53.12 53.22c35.07 2.89 67.89-32.68 62-67.37s-48.81-57.45-80.7-42.68"
   />
   <path
-    class="cls-7-blueberry-octo-level-two"
-    d="M678.85,442.21c-26.55,6.23-46.4,33.51-44.25,60.7s25.94,51,53.12,53.22c35.07,2.89,67.89-32.68,62-67.37S700.91,431.31,669,446.08"
+    fill="url(#blueberry-octo-level-five-gradient-752-2)"
+    d="M678.85 442.21c-26.55 6.23-46.4 33.51-44.25 60.7s25.94 51 53.12 53.22c35.07 2.89 67.89-32.68 62-67.37s-48.81-57.45-80.72-42.68"
   />
 </svg>

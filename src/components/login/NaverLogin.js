@@ -18,51 +18,50 @@ const NaverLogin = () => {
   const socialName = 'naver';
   const refresher = useRefreshUser();
 
-  const initializeNaverLogin = () => {
-    const naverLogin = new naver.LoginWithNaverId({
-      clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
-      callbackUrl: process.env.REACT_APP_LOGIN_REDIRECT_URI,
-      isPopup: isMobile ? true : false,
-      loginButton: {
-        color: 'green',
-        type: 3,
-        height: 55,
-      },
-    });
-
-    naverLogin.init();
-    naverLogin.logout();
-  };
-
   useEffect(() => {
+    const initializeNaverLogin = () => {
+      const naverLogin = new naver.LoginWithNaverId({
+        clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
+        callbackUrl: process.env.REACT_APP_LOGIN_REDIRECT_URI,
+        isPopup: isMobile ? true : false,
+        loginButton: {
+          color: 'green',
+          type: 3,
+          height: 55,
+        },
+      });
+
+      naverLogin.init();
+      naverLogin.logout();
+    };
+    const getNaverAuthCode = () => {
+      if (!window.location.hash) {
+        return;
+      }
+
+      const naverAuthCode = window.location.hash.split('=')[1].split('&')[0];
+
+      async function getTokenWithNaver() {
+        try {
+          const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
+          window.localStorage.setItem('habit-A-Token', data.accessToken);
+          window.localStorage.setItem('habit-R-Token', data.refreshToken);
+
+          refresher();
+          if (data.statusCode === OK) {
+            history.replace(data.isFirstLogin ? '/select' : '/');
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      getTokenWithNaver();
+    };
+
     initializeNaverLogin();
     getNaverAuthCode();
-  }, []);
-
-  const getNaverAuthCode = () => {
-    if (!window.location.hash) {
-      return;
-    }
-
-    const naverAuthCode = window.location.hash.split('=')[1].split('&')[0];
-
-    async function getTokenWithNaver() {
-      try {
-        const { data } = await auth.getSocialLogin(socialName, naverAuthCode);
-        window.localStorage.setItem('habit-A-Token', data.accessToken);
-        window.localStorage.setItem('habit-R-Token', data.refreshToken);
-
-        refresher();
-        if (data.statusCode === OK) {
-          history.replace(data.isFirstLogin ? '/select' : '/');
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    getTokenWithNaver();
-  };
+  }, [history, refresher]);
 
   const handleClick = (e) => {
     e.preventDefault();

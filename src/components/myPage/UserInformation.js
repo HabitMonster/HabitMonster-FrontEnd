@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory, Link } from 'react-router-dom';
@@ -34,7 +34,6 @@ const UserInformation = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [deleteAccountModalOpen, setdeleteAccountModalOpen] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
-  const webViewWrapper = useRef(null);
 
   const openModal = useCallback((type) => {
     setEditModalType(type);
@@ -89,42 +88,40 @@ const UserInformation = () => {
     }
   };
 
-  const userInfoList = Object.keys(userInfo).length
-    ? [
-        {
-          title: '몬스터 이름',
-          contents: monsterInfo.monsterName,
-          handleClick: () => openModal('monsterName'),
-        },
-        {
-          title: '몬스터 코드',
-          contents: userInfo.monsterCode,
-          isCopy: true,
-          handleClick: () => copyCode(userInfo.monsterCode),
-        },
-        {
-          title: '현재 버전',
-          contents: 'V_1.0.0',
-        },
-        {
-          title: '공지사항',
-          contents: '',
-          handleClick: () => history.push('/notice'),
-        },
-        {
-          title: '로그아웃',
-          contents: '',
-          handleClick: () => setIsLogoutModalOpen(true),
-          isLogout: true,
-        },
-        {
-          title: '탈퇴하기',
-          contents: '',
-          handleClick: () => setdeleteAccountModalOpen(true),
-          isDeleteAccount: true,
-        },
-      ]
-    : [];
+  const userInfoList = [
+    {
+      title: '몬스터 이름',
+      contents: monsterInfo.monsterName,
+      handleClick: () => openModal('monsterName'),
+    },
+    {
+      title: '몬스터 코드',
+      contents: userInfo.monsterCode,
+      isCopy: true,
+      handleClick: () => copyCode(userInfo.monsterCode),
+    },
+    {
+      title: '현재 버전',
+      contents: 'V_1.0.0',
+    },
+    {
+      title: '공지사항',
+      contents: '',
+      handleClick: () => history.push('/notice'),
+    },
+    {
+      title: '로그아웃',
+      contents: '',
+      handleClick: () => setIsLogoutModalOpen(true),
+      isLogout: true,
+    },
+    {
+      title: '탈퇴하기',
+      contents: '',
+      handleClick: () => setdeleteAccountModalOpen(true),
+      isDeleteAccount: true,
+    },
+  ];
 
   useEffect(() => {
     if (activeToast) {
@@ -134,6 +131,8 @@ const UserInformation = () => {
     }
   }, [activeToast]);
 
+  // 마이페이지 밖에서 계속 최신화를 시킬 필요가 있을지?
+  // 마이페이지에 들어올 때만 최신화시키면 되지 않을지?
   useEffect(() => {
     return () => {
       if (
@@ -148,7 +147,7 @@ const UserInformation = () => {
   }, [history, refetchFollowList]);
 
   return (
-    <section ref={webViewWrapper}>
+    <>
       <UserInfoWrap>
         <MonsterThumbnailWrapper
           isProfile={true}
@@ -163,15 +162,26 @@ const UserInformation = () => {
           </EditNicknameBtn>
         </div>
         <Summary>
-          <li>
+          <li
+            onClick={() =>
+              history.replace(`/search/${userInfo.monsterCode}`, {
+                prev: [history.location.pathname],
+              })
+            }
+          >
             <BoldText>{myHabitCount ?? 0}</BoldText>
             <span>총 습관</span>
           </li>
           <li>
             <FollowLink
               to={{
-                pathname: '/follow',
+                pathname: `/follow/${userInfo.monsterCode}`,
                 search: '?tab=followers',
+                state: {
+                  isMe: true,
+                  isFromMyPage: true,
+                  prev: [history.location.pathname],
+                },
               }}
             >
               <BoldText>{followerListCount ?? 0}</BoldText>
@@ -181,8 +191,13 @@ const UserInformation = () => {
           <li>
             <FollowLink
               to={{
-                pathname: '/follow',
+                pathname: `/follow/${userInfo.monsterCode}`,
                 search: '?tab=following',
+                state: {
+                  isMe: true,
+                  isFromMyPage: true,
+                  prev: [history.location.pathname],
+                },
               }}
             >
               <BoldText>{followingListCount ?? 0}</BoldText>
@@ -202,17 +217,12 @@ const UserInformation = () => {
         })}
       </UserInfoList>
       {editModalType && (
-        <Modal
-          webViewWrapper={webViewWrapper}
-          open={!!editModalType}
-          onClose={closeModal}
-        >
+        <Modal open={!!editModalType} onClose={closeModal}>
           <EditBox type={editModalType} closeModal={closeModal} />
         </Modal>
       )}
       {isLogoutModalOpen && (
         <Modal
-          webViewWrapper={webViewWrapper}
           open={isLogoutModalOpen}
           onClose={() => setIsLogoutModalOpen(false)}
           blurmode={true}
@@ -228,7 +238,6 @@ const UserInformation = () => {
       )}
       {deleteAccountModalOpen && (
         <Modal
-          webViewWrapper={webViewWrapper}
           open={deleteAccountModalOpen}
           onClose={() => setdeleteAccountModalOpen(false)}
           blurmode={true}
@@ -244,13 +253,9 @@ const UserInformation = () => {
         </Modal>
       )}
       {activeToast && (
-        <Toast
-          webViewWrapper={webViewWrapper}
-          activeToast={activeToast}
-          text="클립보드에 복사되었습니다!"
-        />
+        <Toast activeToast={activeToast} text="클립보드에 복사되었습니다!" />
       )}
-    </section>
+    </>
   );
 };
 
@@ -312,6 +317,7 @@ const Summary = styled.ul`
     align-items: center;
     position: relative;
     flex: 1 1 0;
+    cursor: pointer;
     & span {
       font-size: var(--font-xxs);
       font-weight: var(--weight-semi-regular);

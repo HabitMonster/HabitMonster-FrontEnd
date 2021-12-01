@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import { SearchIcon } from '../../assets/icons/common';
-import { FeedbackIcon } from '../../assets/icons/forTest';
+import { SearchIcon, FeedbackIcon } from '../../assets/icons/common';
 import { whiteOpacity } from '../../styles/Mixin';
 
 const MonsterSearchSection = () => {
@@ -23,7 +22,9 @@ const MonsterSearchSection = () => {
       </FeedbackLink>
       <SearchIcon
         style={{ cursor: 'pointer' }}
-        onClick={() => history.push('/search')}
+        onClick={() =>
+          history.push('/search', { prev: [history.location.pathname] })
+        }
       />
     </Header>
   );

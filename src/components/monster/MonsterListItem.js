@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -31,6 +31,7 @@ const MonsterListItem = ({
   path,
 }) => {
   const history = useHistory();
+  const location = useLocation();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
   const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
   const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
@@ -56,7 +57,12 @@ const MonsterListItem = ({
     <MonsterListItemWrap
       onClick={() => {
         refreshRecommendedUser((id) => id + 1);
-        history.push(path);
+        history.push(path, {
+          prev: [
+            ...location.state.prev,
+            `${location.pathname}${location.search}`,
+          ],
+        });
       }}
     >
       <ProfileWrap>
