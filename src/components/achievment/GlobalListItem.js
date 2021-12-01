@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { setFontStyles } from '../../styles/Mixin';
+
 const GlobalListItem = ({ data }) => {
   const { content, value } = data;
 
@@ -38,10 +40,12 @@ const ContentsWrap = styled.div`
   & p {
     display: flex;
     justify-content: flex-start;
-    color: rgba(248, 248, 248, 0.6);
-    font-size: var(--font-xs);
-    font-weight: var(--weight-bold);
-    line-height: 17px;
+    ${setFontStyles({
+      color: 'primary-deemed',
+      fontSize: 'xs',
+      fontWeight: 'bold',
+      lineHeight: '17px',
+    })}
     margin-bottom: 8px;
   }
 `;
@@ -49,8 +53,10 @@ const ContentsWrap = styled.div`
 const ValueText = styled.h6`
   display: flex;
   justify-content: flex-start;
-  color: var(--color-primary);
-  font-size: 22px;
-  font-weight: var(--weight-semi-bold);
-  line-height: 26px;
+  ${setFontStyles({
+    color: 'primary',
+    customFontSize: '22px',
+    fontWeight: 'semi-bold',
+    lineHeight: '26px',
+  })}
 `;

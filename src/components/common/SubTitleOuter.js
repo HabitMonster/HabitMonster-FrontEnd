@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { setFontStyles } from '../../styles/Mixin';
+
 const SubTitleOuter = ({ subTitle, children }) => {
   return (
     <section>
@@ -17,10 +19,12 @@ SubTitleOuter.propTypes = {
 };
 
 const SubTitle = styled.p`
-  font-weight: var(--weight-semi-bold);
-  color: var(--bg-selected-light);
-  font-size: var(--font-xs);
-  line-height: 17px;
+  ${setFontStyles({
+    customColor: 'var(--bg-selected-light)',
+    fontSize: 'xs',
+    fontWeight: 'semi-bold',
+    lineHeight: '17px',
+  })}
   margin-bottom: 6px;
 `;
 

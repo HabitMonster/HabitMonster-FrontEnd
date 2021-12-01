@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import { SearchIcon, FeedbackIcon } from '../../assets/icons/common';
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const MonsterSearchSection = () => {
   const history = useHistory();
@@ -59,9 +59,11 @@ const FeedbackLink = styled.a`
     text-decoration: none;
   }
   & span {
-    font-size: var(--font-xs);
-    font-weight: var(--weight-bold);
-    line-height: 17px;
+    ${setFontStyles({
+      fontSize: 'xs',
+      fontWeight: 'bold',
+      lineHeight: '17px',
+    })}
     ${whiteOpacity('0.8')};
   }
 `;

@@ -14,7 +14,7 @@ import {
   MonsterThumbnail,
   BackButtonHeader,
 } from '../common';
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
@@ -109,23 +109,29 @@ const TitleWrap = styled.div`
 `;
 
 const Title = styled.h2`
-  color: var(--color-white);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+  })}
 `;
 
 const WeightText = styled.span`
-  color: var(--color-white);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-regular);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+    fontWeight: 'regular',
+    lineHeight: '32px',
+  })}
 `;
 
 const Description = styled.p`
   ${whiteOpacity('0.7')};
-  font-size: 13px;
-  font-weight: var(--weight-regular);
+  ${setFontStyles({
+    customFontSize: '13px',
+    fontWeight: 'regular',
+  })}
   margin-top: 12px;
 `;
 

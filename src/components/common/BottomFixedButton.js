@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles } from '../../styles/Mixin';
 
 const BottomFixedButton = ({ onClick, text, condition = () => false }) => {
   return (
@@ -39,10 +39,12 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 
-  font-weight: var(--weight-bold);
-  font-size: var(--font-l);
-  line-height: 22px;
-  color: var(--color-primary);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'l',
+    fontWeight: 'bold',
+    lineHeight: '22px',
+  })}
   transition: all 150ms ease-out;
   cursor: pointer;
 

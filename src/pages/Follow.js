@@ -12,7 +12,7 @@ import { Gnb } from '../components/gnb';
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
 
-import { disappearScrollbar } from '../styles/Mixin';
+import { disappearScrollbar, setFontStyles } from '../styles/Mixin';
 
 const Follow = () => {
   const history = useHistory();
@@ -173,14 +173,15 @@ const NavButtonItem = styled.li`
 
 const NavButton = styled(NavLink)`
   background-color: transparent;
-  border: 0;
   border: 1px solid transparent;
   color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
-  font-size: var(--font-xs);
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    fontSize: 'xs',
+    fontWeight: 'bold',
+    lineHeight: '19px',
+  })}
   outline: 0;
-  line-height: 19px;
   text-decoration: none;
   &:hover {
     color: var(--color-primary);
@@ -211,11 +212,14 @@ const EmptyPlace = styled.div`
   justify-content: center;
   align-items: center;
   & p {
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'xs',
+      fontWeight: 'semi-regular',
+      lineHeight: '21px',
+    })}
+    outline: 0;
     opacity: 0.6;
-    font-size: var(--font-xs);
-    line-height: 21px;
-    font-weight: var(--weight-semi-regular);
   }
 `;
 

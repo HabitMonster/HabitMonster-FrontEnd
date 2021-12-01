@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { onboard01 } from '../../assets/images/onboard';
+
+import { setFontStyles } from '../../styles';
 
 const LoginTitle = () => {
   return (
@@ -23,16 +26,17 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.p`
-  color: var(--color-white);
-  font-size: var(--font-maximum);
-  font-weight: var(--weight-extra-bold);
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'maximum',
+    fontWeight: 'extra-bold',
+  })}
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  font-family: var(--font-name-apple);
 `;
 
 const Image = styled.div`
@@ -50,10 +54,12 @@ const Image = styled.div`
 const SubTitle = styled.p`
   width: 213px;
   height: 17px;
-  font-weight: var(--weight-semi-regular);
-  font-size: var(--font-xs);
-  line-height: 16.8px;
-  color: var(--color-white);
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xs',
+    fontWeight: 'semi-regular',
+    lineHeight: '16.8px',
+  })}
   margin: 0 auto;
   margin-bottom: 75px;
   opacity: 0.7;

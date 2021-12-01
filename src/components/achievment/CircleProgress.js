@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { setFontStyles } from '../../styles/Mixin';
+
 function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
   const circleX = useMemo(() => width / 2, [width]);
   const circleY = useMemo(() => height / 2, [height]);
@@ -79,17 +81,21 @@ const DetailContainer = styled.div`
 `;
 
 const DetailValue = styled.p`
-  color: var(--color-primary);
-  font-size: var(--font-xxxxl);
-  line-height: 52px;
-  font-weight: var(--weight-regular);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxxxl',
+    fontWeight: 'regular',
+    lineHeight: '52px',
+  })}
 `;
 
 const DetailPer = styled.span`
-  font-weight: var(--weight-regular);
-  font-size: var(--font-xs);
-  color: rgba(248, 248, 248, 0.6);
-  line-height: 16px;
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xs',
+    fontWeight: 'regular',
+    lineHeight: '16px',
+  })}
   margin-bottom: 5px;
   padding-left: 1px;
 `;

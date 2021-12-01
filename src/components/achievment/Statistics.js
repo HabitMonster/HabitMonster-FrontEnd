@@ -2,14 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { statisticApi } from '../../api';
+import { defaultAuthSelector } from '../../recoil/states/auth';
 
+import { statisticApi } from '../../api';
 import { formatMonth, addMonths, subMonths } from '../../utils/date';
+
+import { HabitList, CircleProgress } from '.';
 
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
-import { HabitList, CircleProgress } from '.';
-import { defaultAuthSelector } from '../../recoil/states/auth';
+import { setFontStyles } from '../../styles/Mixin';
 
 const Statistics = () => {
   const { createdAt } = useRecoilValue(defaultAuthSelector);
@@ -158,7 +160,7 @@ const DateWrap = styled.div`
 const DateButton = styled.button`
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   background-color: transparent;
-  color: #999999;
+  color: var(--color-deemed);
   border: 0;
   cursor: pointer;
   outline: 0;
@@ -166,9 +168,11 @@ const DateButton = styled.button`
 `;
 
 const DateText = styled.p`
-  color: var(--color-primary);
-  font-size: var(--font-l);
-  font-weight: var(--font-weight-medium);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'l',
+    fontWeight: 'medium',
+  })}
   margin: 0 15px;
 `;
 
@@ -184,7 +188,7 @@ const GoalWrap = styled.div`
 `;
 
 const GoalBox = styled.div`
-  color: white;
+  color: var(--color-white);
   margin-left: 35px;
   flex: 1;
   & > div:first-child {
@@ -198,8 +202,10 @@ const GoalCount = styled.div`
   span {
     &:last-child {
       text-align: right;
-      font-size: var(--font-xxl);
-      color: var(--color-primary);
+      ${setFontStyles({
+        color: 'primary',
+        fontSize: 'xxl',
+      })}
     }
   }
   &:first-child {
@@ -208,8 +214,10 @@ const GoalCount = styled.div`
 `;
 
 const GoalText = styled.span`
-  color: rgba(248, 248, 248, 0.6);
-  font-size: var(--font-xxs);
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xxs',
+  })}
   width: 50%;
   display: inline-block;
 `;
@@ -224,10 +232,12 @@ const ButtonWrap = styled.div`
 `;
 
 const HabitsList = styled.p`
-  font-size: var(--font-l);
-  font-weight: var(--weight-regular);
-  line-height: 22px;
-  color: var(--color-primary);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'l',
+    fontWeight: 'regular',
+    lineHeight: '22px',
+  })}
   margin: 0 24px;
 `;
 
@@ -238,18 +248,22 @@ const AchieveNavBtn = styled.button`
   border-radius: 15px;
   background-color: ${(props) =>
     !props.isActive ? 'transparent' : 'var(--bg-selected)'};
-  color: ${(props) =>
-    !props.isActive ? 'var(--color-primary)' : 'var(--color-primary)'};
-  font-size: var(--font-xs);
-  line-height: 16px;
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xs',
+    lineHeight: '16px',
+  })}
   cursor: pointer;
   margin: 10px 0;
   padding: 0 8px;
+
   span {
-    color: ${(props) =>
-      !props.isActive ? 'var(—color-statistics)' : 'var(—color-white)'};
-    font-size: 15px;
-    font-weight: var(—weight-bold);
+    ${({ isActive }) =>
+      setFontStyles({
+        color: !isActive ? 'statistics' : 'white',
+        fontSize: 's',
+        fontWeight: 'bold',
+      })}
   }
   & + button {
     margin-left: 6px;

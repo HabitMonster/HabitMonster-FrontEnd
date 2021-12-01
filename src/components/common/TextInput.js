@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { whiteOpacity } from '../../styles';
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const TextInput = ({
   text,
@@ -78,23 +78,27 @@ TextInput.defaultProps = {
 };
 
 const IdleHelperText = styled.span`
-  font-size: var(--font-xxs);
-  line-height: 14px;
-  color: rgba(248, 248, 248, 0.5);
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
 `;
 
 const Input = styled.input`
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 's',
+    lineHeight: '18px',
+  })}
+  background: inherit;
+  border: none;
   width: 100%;
   height: 32px;
-  background: inherit;
-  font-size: var(--font-s);
-  line-height: 18px;
   display: flex;
   align-items: center;
   padding: 4px;
   padding-bottom: 0px;
-  color: var(--color-primary);
-  border: none;
   margin-bottom: 4px;
 
   transition: all 150ms ease-out;
@@ -128,20 +132,26 @@ const HelperSection = styled.div`
 `;
 
 const ErrorHelperMessage = styled.span`
-  color: #ef2f68;
-  font-size: var(--font-xxs);
-  line-height: 14px;
+  ${setFontStyles({
+    color: 'danger',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
 `;
 
 const LengthHelperMessage = styled.span`
   ${whiteOpacity('0.6')};
-  font-size: var(--font-xxs);
-  line-height: 14px;
+  ${setFontStyles({
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
 `;
 
 const CurrentLength = styled.b`
-  color: ${({ isValidated }) =>
-    !isValidated ? 'var(--color-danger)' : 'inherit'};
+  ${({ isValidated }) =>
+    setFontStyles({
+      customColor: !isValidated ? 'var(--color-danger)' : 'inherit',
+    })}
 `;
 
 export default TextInput;
