@@ -3,37 +3,29 @@ import { mainApis, monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
 
-export const monsterRefetchToggler = atom({
-  key: 'monsterRefetchToggler',
-  default: 0,
-});
-
-export const asyncDefaultMonster = selector({
-  key: 'asyncDefaultMonster',
-  get: async ({ get }) => {
-    get(monsterRefetchToggler);
-
+export const defaultMonsterSelector = selector({
+  key: 'defaultMonsterSelector',
+  get: async () => {
     try {
       const { data } = await mainApis.getMonsterInfo();
-      return data.monster;
+      if (data.statusCode === OK) {
+        return data.monster;
+      }
     } catch (error) {
       return error.response;
     }
   },
-  set: ({ set }) => {
-    set(monsterRefetchToggler, (v) => v + 1);
-  },
 });
 
 export const monsterState = atom({
-  key: 'monster',
-  default: asyncDefaultMonster,
+  key: 'monsterState',
+  default: defaultMonsterSelector,
 });
 
-export const monsterChangeTogglerState = atom({
-  key: 'persistMonsterState',
+export const monsterChangeToggler = atom({
+  key: 'monsterChangeToggler',
   default: selector({
-    key: 'defaultMonsterMaxLevelCheckSelector',
+    key: 'monsterChangeTogglerSelector',
     get: ({ get }) => {
       const monster = get(monsterState);
       return (
@@ -44,19 +36,18 @@ export const monsterChangeTogglerState = atom({
   }),
 });
 
-export const userLevelOneMonsterSelector = selector({
-  key: 'userLevelOneMonster',
-  get: ({ get }) => {
-    return get(monsterState).levelOneId;
-  },
+export const userLevelOneMonsterIdSelector = selector({
+  key: 'userLevelOneMonsterIdSelector',
+  get: ({ get }) => get(monsterState).levelOneId,
 });
 
-const initiateMonsterSelector = selector({
-  key: 'initiateMonster',
+const defaultLevelOneMonsterListSelector = selector({
+  key: 'defaultLevelOneMonsterListSelector',
   get: async () => {
     try {
-      const { data, status } = await monsterApis.loadStartMonster();
-      if (status === OK) {
+      const { data } = await monsterApis.loadStartMonster();
+
+      if (data.statusCode === OK) {
         return data.monsters;
       }
     } catch (error) {
@@ -66,17 +57,12 @@ const initiateMonsterSelector = selector({
   },
 });
 
-export const babyMonsterState = atom({
-  key: 'babyMonsterState',
-  default: initiateMonsterSelector,
+export const babyMonsterListState = atom({
+  key: 'babyMonsterListState',
+  default: defaultLevelOneMonsterListSelector,
 });
 
-export const selectedMonsterState = atom({
-  key: 'selectedMonsterState',
+export const selectedLevelOneMonsterState = atom({
+  key: 'selectedLevelOneMonsterState',
   default: null,
-});
-
-export const monsterNameState = atom({
-  key: 'monsterNameState',
-  default: '',
 });

@@ -9,8 +9,8 @@ import {
   myFollowListByType,
 } from '../../recoil/states/user';
 import {
-  refreshRecommendedUserState,
-  refreshSearchUserState,
+  recommendedUserListRefetchToggler,
+  searchUserReFetchToggler,
 } from '../../recoil/states/search';
 
 import { MonsterThumbnailWrapper } from './';
@@ -35,8 +35,10 @@ const MonsterListItem = ({
   const history = useHistory();
   const location = useLocation();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
-  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
-  const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
+  const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
+  const refreshRecommendedUser = useSetRecoilState(
+    recommendedUserListRefetchToggler,
+  );
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
   const [_isFollowed, setIsFollowed] = useState(isFollowed);
 

@@ -6,11 +6,11 @@ import styled from 'styled-components';
 
 import { MonsterThumbnailWrapper } from '../monster';
 
-import { refreshSearchUserState } from '../../recoil/states/search';
+import { searchUserReFetchToggler } from '../../recoil/states/search';
 import { currentUserMonsterCodeSelector } from '../../recoil/states/user';
 
 const UserSection = ({ monster, habits, userInfo, followers }) => {
-  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
   const myMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
   const location = useLocation();
 
