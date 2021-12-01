@@ -2,36 +2,27 @@
   version="1.1"
   id="lemon-mouse-level-one-profile"
   xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
-  x="0px"
-  y="0px"
+  x="0"
+  y="0"
   viewBox="0 0 669 669"
   style="enable-background: new 0 0 669 669"
   xml:space="preserve"
 >
-  <style type="text/css">
-    .cls-1-lemon-mouse-level-one-profile {
-      fill: #ff1c00;
-    }
-    .cls-2-lemon-mouse-level-one-profile {
-      fill: #ff4300;
-    }
+  <style>
     .cls-3-lemon-mouse-level-one-profile {
       fill: #ff1900;
     }
     .cls-4-lemon-mouse-level-one-profile {
-      fill: #ffffff;
+      fill: #fff;
     }
   </style>
   <path
-    class="cls-1-lemon-mouse-level-one-profile"
-    d="M315.1,50.8c184.7,0,334.5,149.8,334.5,334.5c0,31.6-4.4,63-13.2,93.4c21.5-45,32.7-94.3,32.6-144.2
-	C669,149.8,519.2,0,334.5,0C182.2,0,53.6,101.8,13.2,241.1C67.1,128.6,182,50.8,315.1,50.8z"
+    d="M315.1 50.8c184.7 0 334.5 149.8 334.5 334.5 0 31.6-4.4 63-13.2 93.4 21.5-45 32.7-94.3 32.6-144.2C669 149.8 519.2 0 334.5 0 182.2 0 53.6 101.8 13.2 241.1 67.1 128.6 182 50.8 315.1 50.8z"
+    style="fill: #ff1c00"
   />
   <path
-    class="cls-2-lemon-mouse-level-one-profile"
-    d="M334.5,669c133.1,0,248-77.7,301.9-190.2c8.8-30.4,13.2-61.8,13.2-93.4c0-184.7-149.8-334.5-334.5-334.5
-	c-133.1,0-248,77.7-301.9,190.3C4.4,271.5,0,302.9,0,334.5C0,519.2,149.8,669,334.5,669z"
+    d="M334.5 669c133.1 0 248-77.7 301.9-190.2 8.8-30.4 13.2-61.8 13.2-93.4 0-184.7-149.8-334.5-334.5-334.5-133.1 0-248 77.7-301.9 190.3C4.4 271.5 0 302.9 0 334.5 0 519.2 149.8 669 334.5 669z"
+    style="fill: #ff4300"
   />
   <circle
     class="cls-3-lemon-mouse-level-one-profile"
@@ -39,13 +30,12 @@
     cy="483.5"
     r="52.1"
   />
-  <ellipse
-    transform="matrix(0.1602 -0.9871 0.9871 0.1602 14.4575 836.8527)"
+  <circle
+    transform="rotate(-80.781 499.038 409.922)"
     class="cls-3-lemon-mouse-level-one-profile"
     cx="499"
     cy="409.9"
-    rx="52.1"
-    ry="52.1"
+    r="52.1"
   />
   <circle
     class="cls-4-lemon-mouse-level-one-profile"
