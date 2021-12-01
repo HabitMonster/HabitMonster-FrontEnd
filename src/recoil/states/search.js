@@ -2,13 +2,8 @@ import { atom, selector, selectorFamily } from 'recoil';
 import { userApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-export const refreshSearchUserState = atom({
-  key: 'refreshSearchUserState',
-  default: 0,
-});
-
-export const refreshRecommendedUserState = atom({
-  key: 'refreshRecommendedUserState',
+export const searchUserReFetchToggler = atom({
+  key: 'searchUserReFetchToggler',
   default: 0,
 });
 
@@ -18,9 +13,12 @@ export const searchUserInfoState = selectorFamily({
     (monsterCode) =>
     async ({ get }) => {
       try {
-        get(refreshSearchUserState);
+        get(searchUserReFetchToggler);
         const { data } = await userApis.getUserInfo(monsterCode);
-        return data;
+
+        if (data.statusCode === OK) {
+          return data;
+        }
       } catch (error) {
         console.error(error.response);
         return;
@@ -41,10 +39,15 @@ export const searchUserHabitSelector = selectorFamily({
     },
 });
 
+export const recommendedUserListRefetchToggler = atom({
+  key: 'recommendedUserListRefetchToggler',
+  default: 0,
+});
+
 export const recommendedUserSelector = selector({
   key: 'recommendedUserSelector',
   get: async ({ get }) => {
-    get(refreshRecommendedUserState);
+    get(recommendedUserListRefetchToggler);
     try {
       const { data } = await userApis.getRecommendedUsers();
 

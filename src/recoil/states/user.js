@@ -1,14 +1,20 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { myPageApis } from '../../api';
+import { OK } from '../../constants/statusCode';
 
 export const userState = atom({
-  key: 'user',
+  key: 'userState',
   default: {},
 });
 
+export const currentUserConnectionDayState = atom({
+  key: 'currentUserConnectionDayState',
+  default: new Date().getDay(),
+});
+
 export const currentUserMonsterCodeSelector = selector({
-  key: 'currentUserMonsterCode',
-  get: ({ get }) => get(userState)?.monsterCode,
+  key: 'currentUserMonsterCodeSelector',
+  get: ({ get }) => get(userState).monsterCode,
 });
 
 export const followerListRefetchToggler = atom({
@@ -21,45 +27,39 @@ export const followingListRefetchToggler = atom({
   default: 0,
 });
 
-export const myFollowerListState = atom({
-  key: 'myFollowerListState',
-  default: selector({
-    key: 'myFollowerListSelector',
-    get: async ({ get }) => {
-      get(followerListRefetchToggler);
-      try {
-        const { data } = await myPageApis.getFollowerList();
+export const currentUserFollowerListSelector = selector({
+  key: 'currentUserFollowerListSelector',
+  get: async ({ get }) => {
+    get(followerListRefetchToggler);
+    try {
+      const { data } = await myPageApis.getFollowerList();
+      if (data.statusCode === OK) {
         return data?.followers;
-      } catch (error) {
-        console.error('myFollowerList error', error);
       }
-    },
-  }),
+    } catch (error) {
+      console.error('myFollowerList error', error);
+    }
+  },
 });
-
-export const myFollowingListState = atom({
-  key: 'myFollowingListState',
-  default: selector({
-    key: 'myFollowingListSelector',
-    get: async ({ get }) => {
-      get(followingListRefetchToggler);
-      try {
-        const { data } = await myPageApis.getFollowingList();
-        return data?.followings;
-      } catch (error) {
-        console.error('myFollowing error', error);
-        return [];
-      }
-    },
-  }),
+export const currentUserFollowingListSelector = selector({
+  key: 'currentUserFollowingListSelector',
+  get: async ({ get }) => {
+    get(followingListRefetchToggler);
+    try {
+      const { data } = await myPageApis.getFollowingList();
+      return data?.followings;
+    } catch (error) {
+      console.error('myFollowing error', error);
+    }
+  },
 });
 
 export const myFollowListCountSelector = selector({
   key: 'myFollowListCountSelector',
   get: ({ get }) => {
     return {
-      followerListCount: get(myFollowerListState).length,
-      followingListCount: get(myFollowingListState).length,
+      followerListCount: get(currentUserFollowerListSelector).length,
+      followingListCount: get(currentUserFollowingListSelector).length,
     };
   },
 });
@@ -73,11 +73,11 @@ export const myFollowListByType = selectorFamily({
       get(followingListRefetchToggler);
       switch (type) {
         case 'followers':
-          return get(myFollowerListState);
+          return get(currentUserFollowerListSelector);
         case 'following':
-          return get(myFollowingListState);
+          return get(currentUserFollowingListSelector);
         default:
-          return [];
+          throw new Error(`셀렉터 타입이 올바르지 않음. ${type}`);
       }
     },
   set:

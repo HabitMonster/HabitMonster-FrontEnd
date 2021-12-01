@@ -14,7 +14,7 @@ import { renderDays } from '../utils/date';
 
 import {
   searchUserHabitSelector,
-  refreshSearchUserState,
+  searchUserReFetchToggler,
 } from '../recoil/states/search';
 import { currentUserMonsterCodeSelector } from '../recoil/states/user';
 
@@ -36,7 +36,7 @@ const SearchDetailHabit = () => {
   const habitDetail = useRecoilValue(
     searchUserHabitSelector({ habitId, monsterCode }),
   );
-  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
 
   const categoryId = MOCKUP_CATEGORY_ID[habitDetail.category];
 

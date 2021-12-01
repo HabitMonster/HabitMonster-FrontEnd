@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { refreshSearchUserState } from '../recoil/states/search';
+import { searchUserReFetchToggler } from '../recoil/states/search';
 
 import { MonsterListItem } from '../components/monster';
 import { BackButtonHeader } from '../components/common';
@@ -25,7 +25,7 @@ const Follow = () => {
   const isFollowTab = tabType === 'followers' || tabType === 'following';
   const isActiveTab = (type) => tabType === type;
 
-  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
+  const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
   const isMe = location.state?.isMe;
   const isFromMyPage = location.state?.isFromMyPage;
 

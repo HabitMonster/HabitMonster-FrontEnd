@@ -5,7 +5,7 @@ export const monsterSectionShirnkToggler = atom({
   default: false,
 });
 
-export const monsterAnimationTogglerState = atom({
+export const monsterAnimationToggler = atom({
   key: 'monsterSectionShrinkToggler',
   default: false,
 });

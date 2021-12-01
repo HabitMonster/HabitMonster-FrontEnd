@@ -6,7 +6,7 @@ import { useRecoilCallback, useRecoilState } from 'recoil';
 import {
   habitStateWithId,
   habitIdListState,
-  defaultHabitsState,
+  habitListState,
   myHabitCountState,
 } from '../recoil/states/habit';
 
@@ -43,7 +43,7 @@ const HabitEdit = () => {
   const [frequency, setFrequency] = useState(habitDetail.habitDetail.count);
 
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
-  const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
+  const [habitList, setHabitList] = useRecoilState(habitListState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
 
@@ -52,7 +52,7 @@ const HabitEdit = () => {
       const { data } = await habitApis.deleteHabit(id);
       if (data.statusCode === OK) {
         history.replace('/');
-        setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
+        setHabitList(habitList.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
         setTotalHabitCount(totalHabitCount - 1);
       }

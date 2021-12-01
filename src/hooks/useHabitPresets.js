@@ -3,9 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   habitIdListState,
-  defaultHabitsState,
+  habitListState,
   myHabitCountState,
-  presetListSelector,
+  presetListById,
 } from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
@@ -14,11 +14,11 @@ import { OK } from '../constants/statusCode';
 export default function useHabitPresets() {
   const [selectedPresetId, setSelectedPresetId] = useState(false);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
-  const [habits, setHabits] = useRecoilState(defaultHabitsState);
+  const [habits, setHabits] = useRecoilState(habitListState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
   const { categoryId } = useParams();
-  const presets = useRecoilValue(presetListSelector(categoryId));
+  const presets = useRecoilValue(presetListById(categoryId));
   const history = useHistory();
 
   const onPresetChosen = useCallback((presetId) => {
