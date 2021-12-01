@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Loading from './Loading';
+
 import { Gnb } from '../components/gnb';
 import { NavButtonHeader } from '../components/common';
-import { UserInformation } from '../components/myPage';
-import { MonsterCollection } from '../components/achievment';
+
 import { disappearScrollbar } from '../styles/Mixin';
+// import { UserInformation } from '../components/myPage';
+// import { MonsterCollection } from '../components/achievment';
+
+const UserInformation = lazy(() =>
+  import('../components/myPage/UserInformation'),
+);
+const MonsterCollection = lazy(() =>
+  import('../components/achievment/MonsterCollection'),
+);
 
 const MyPage = () => {
   const location = useLocation();
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <MypageContainer>
         <NavButtonHeader type="myPage" />
         <PageContentWrap
@@ -34,7 +44,7 @@ const MyPage = () => {
         </PageContentWrap>
       </MypageContainer>
       <Gnb />
-    </>
+    </Suspense>
   );
 };
 

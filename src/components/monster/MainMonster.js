@@ -92,7 +92,6 @@ const MainMonster = () => {
         </Title>
         <Title>얼마나 실천을 했을까요?</Title>
       </TitleWrapper>
-
       <ThumbnailWrapper
         onClick={handleMonsterClick}
         animation={animation}
