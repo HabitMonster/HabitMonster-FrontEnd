@@ -3,11 +3,12 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { habitIdListState } from '../../recoil/states/habit';
-
 import { NoHabitHelper, TodayHabit } from './';
 import { disappearScrollbar } from '../../styles/Mixin';
+import { useRefreshHabits } from '../../hooks';
 
 const TodayHabitList = () => {
+  useRefreshHabits();
   const habitIdList = useRecoilValue(habitIdListState);
   const parent = useRef(null);
 

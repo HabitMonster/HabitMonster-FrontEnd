@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { whiteOpacity } from '../../styles/Mixin';
 
 import { None } from '../../assets/images/placeholder';
+
+import { whiteOpacity, setFontStyles } from '../../styles/Mixin';
 
 const NonePlaceHolder = ({ children }) => {
   return (
@@ -39,8 +40,10 @@ const NoneTextWrapper = styled.section`
 
 const NoneTextDescription = styled.p`
   ${whiteOpacity('0.6')};
-  font-size: var(--font-xs);
-  line-height: 21px;
+  ${setFontStyles({
+    fontSize: 'xs',
+    lineHeight: '21px',
+  })}
   text-align: center;
 `;
 

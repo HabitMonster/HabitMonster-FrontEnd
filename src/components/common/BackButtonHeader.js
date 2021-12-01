@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { Back } from '../../assets/icons/common';
 import noop from '../../utils/noop';
+import { Back } from '../../assets/icons/common';
+import { setFontStyles } from '../../styles/Mixin';
 
 const BackButtonHeader = ({
   onButtonClick,
@@ -56,10 +57,12 @@ const Wrapper = styled.div`
 `;
 
 const PageTitle = styled.h1`
-  font-weight: var(--weight-regular);
-  font-size: var(--font-l);
-  line-height: 21.6px;
-  color: var(--color-primary);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'l',
+    fontWeight: 'regular',
+    lineHeight: '21.6px',
+  })}
 `;
 
 export default BackButtonHeader;

@@ -7,6 +7,8 @@ import { TodayHabitAccomplishCount } from '.';
 import CategoryImage from '../../assets/images/category';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 
+import { setFontStyles } from '../../styles';
+
 const HabitCardItem = ({
   habitId,
   monsterCode,
@@ -94,31 +96,38 @@ const InformationSection = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: var(--font-m);
-  line-height: 19.2px;
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    fontSize: 'm',
+    fontWeight: 'bold',
+    lineHeight: '19.2px',
+  })}
   margin-bottom: 8px;
 `;
 
 const Duration = styled.p`
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-regular);
+  ${setFontStyles({
+    fontSize: 'xxs',
+    fontWeight: 'regular',
+  })}
   opacity: 0.6;
 `;
 
 const AccomplishSection = styled.div`
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xs);
-  font-weight: var(--weight-regular);
-  line-height: 16.8px;
-  color: var(--color-primary-deemed);
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xs',
+    fontWeight: 'regular',
+    lineHeight: '16.8px',
+  })}
   display: flex;
   position: relative;
   top: 1px;
 
   & b {
-    font-weight: var(--weight-semi-bold);
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'xs',
+    })}
   }
 `;
 

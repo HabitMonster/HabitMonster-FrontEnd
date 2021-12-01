@@ -8,6 +8,8 @@ import Navigation from 'swiper/components/navigation';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
+import { setFontStyles } from '../../styles/Mixin';
+
 import {
   IPHONE_TUTORIAL_LIST,
   ANDROID_TUTORIAL_LIST,
@@ -59,9 +61,11 @@ const SliderWrap = styled.div`
   }
 
   .swiper-slide {
-    text-align: center;
-    font-size: 14px;
     background: transparent;
+    text-align: center;
+    ${setFontStyles({
+      fontSize: 'xs',
+    })}
 
     /* Center slide text vertically */
     display: flex;

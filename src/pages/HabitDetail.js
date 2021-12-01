@@ -16,11 +16,11 @@ import monsters from '../assets/images/monsters/svg';
 import {
   habitIdListState,
   habitStateWithId,
-  defaultHabitsState,
+  habitListState,
   myHabitCountState,
 } from '../recoil/states/habit';
 import {
-  userLevelOneMonsterSelector,
+  userLevelOneMonsterIdSelector,
   monsterState,
 } from '../recoil/states/monster';
 
@@ -37,10 +37,10 @@ const HabitDetail = () => {
   const history = useHistory();
 
   const habitDetail = useRecoilValue(habitStateWithId(Number(habitId)));
-  const levelOneMonsterId = useRecoilValue(userLevelOneMonsterSelector);
+  const levelOneMonsterId = useRecoilValue(userLevelOneMonsterIdSelector);
 
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
-  const [habitsState, setHabitsState] = useRecoilState(defaultHabitsState);
+  const [habitList, setHabitList] = useRecoilState(habitListState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
   const setMonsterState = useSetRecoilState(monsterState);
@@ -69,7 +69,7 @@ const HabitDetail = () => {
           }
         };
         newMonsterState();
-        setHabitsState(habitsState.filter(({ habitId }) => habitId !== id));
+        setHabitList(habitList.filter(({ habitId }) => habitId !== id));
         setHabitIdList(habitIdList.filter((habitId) => habitId !== id));
         setTotalHabitCount(totalHabitCount - 1);
       }

@@ -17,6 +17,8 @@ import {
 
 import { setVh } from '../DeviceDetector';
 
+import { setFontStyles } from '../../styles';
+
 const EditBox = ({ type, closeModal }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [monsterInfo, setMonsterInfo] = useRecoilState(monsterState);
@@ -138,10 +140,12 @@ const PositionWrap = styled.div`
 `;
 
 const EditTitle = styled.p`
-  color: var(--color-primary);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxl',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+  })}
   margin-bottom: 32px;
 `;
 

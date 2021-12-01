@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { MonsterThumbnail, MonsterThumbnailProfile } from '../common';
 
+import { setFontStyles } from '../../styles';
+
 const MonsterThumbnailWrapper = ({
   isProfile,
   monsterId,
@@ -84,10 +86,12 @@ const ThumbnailWrapper = styled.div`
 const LevelBadge = styled.span`
   background-color: #02db26;
   border-radius: 4px;
-  color: var(--color-white);
-  line-height: 14px;
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxs',
+    fontWeight: 'bold',
+    lineHeight: '14px',
+  })}
   padding: 2px 4px;
   position: absolute;
   bottom: -5px;

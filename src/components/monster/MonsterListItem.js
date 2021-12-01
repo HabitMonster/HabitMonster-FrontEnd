@@ -9,14 +9,16 @@ import {
   myFollowListByType,
 } from '../../recoil/states/user';
 import {
-  refreshRecommendedUserState,
-  refreshSearchUserState,
+  recommendedUserListRefetchToggler,
+  searchUserReFetchToggler,
 } from '../../recoil/states/search';
 
 import { MonsterThumbnailWrapper } from './';
 
 import { userApis } from '../../api';
 import { OK } from '../../constants/statusCode';
+
+import { setFontStyles } from '../../styles';
 
 const MonsterListItem = ({
   monsterId,
@@ -33,8 +35,10 @@ const MonsterListItem = ({
   const history = useHistory();
   const location = useLocation();
   const currentUserMonsterCode = useRecoilValue(currentUserMonsterCodeSelector);
-  const refreshSearchUserInfo = useSetRecoilState(refreshSearchUserState);
-  const refreshRecommendedUser = useSetRecoilState(refreshRecommendedUserState);
+  const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
+  const refreshRecommendedUser = useSetRecoilState(
+    recommendedUserListRefetchToggler,
+  );
   const refetchFollowList = useSetRecoilState(myFollowListByType(''));
   const [_isFollowed, setIsFollowed] = useState(isFollowed);
 
@@ -120,16 +124,20 @@ const TextWrap = styled.div`
   margin-left: 12px;
 
   & p {
-    color: var(--color-primary-deemed);
-    font-size: var(--font-xxs);
-    font-weight: var(--weight-semi-regular);
-    line-height: 14px;
+    ${setFontStyles({
+      color: 'primary-deemed',
+      fontSize: 'xxs',
+      fontWeight: 'semi-regular',
+      lineHeight: '14px',
+    })}
     margin: 3px 0px;
 
     &:nth-child(1) {
-      color: var(--color-primary);
-      font-size: var(--font-xs);
-      font-weight: var(--weight-bold);
+      ${setFontStyles({
+        color: 'primary',
+        fontSize: 'xs',
+        fontWeight: 'bold',
+      })}
     }
   }
 `;
@@ -140,9 +148,11 @@ const FollowBtn = styled.button`
   border: 0;
   border-radius: var(--border-radius-semi);
   cursor: pointer;
-  color: var(--color-primary);
-  font-size: var(--font-xxs);
-  line-height: 14px;
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
   padding: 4px 12px;
   outline: 0;
   text-align: center;

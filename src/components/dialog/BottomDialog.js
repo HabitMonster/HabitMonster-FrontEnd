@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles } from '../../styles';
 import LEVELS from '../../assets/images/level';
 
 const BottomDialog = ({
@@ -112,17 +112,21 @@ const BadgeWrap = styled.div`
 `;
 
 const Title = styled.h2`
-  font-weight: var(--weight-bold);
-  font-size: ${(type) =>
-    type === 'levelUp' ? 'var(--font-xxl)' : 'var(--font-l)'};
-  line-height: 24px;
-  color: var(--color-primary);
+  ${({ type }) =>
+    setFontStyles({
+      color: 'primary',
+      fontSize: type === 'levelUp' ? 'xxl' : 'l',
+      fontWeight: 'bold',
+      lineHeight: '24px',
+    })}
 `;
 
 const Description = styled.p`
   ${whiteOpacity('0.8')};
-  font-size: var(--font-xs);
-  line-height: 20px;
+  ${setFontStyles({
+    fontSize: 'xs',
+    lineHeight: '20px',
+  })}
   margin: 21px 0px;
 `;
 
@@ -135,6 +139,16 @@ const ButtonGrid = styled.div`
 `;
 
 const Button = styled.button`
+  ${({ active }) =>
+    setFontStyles({
+      customColor: active ? 'var(--color-white)' : 'rgba(255, 255, 255, 0.8)',
+      fontSize: 's',
+      fontWeight: 'bold',
+      lineHeight: '18px',
+    })}
+  border: none;
+  border-radius: var(--border-radius-semi);
+  cursor: pointer;
   width: 100%;
   height: 48px;
   background: ${({ active }) =>
@@ -142,14 +156,6 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-s);
-  font-weight: var(--weight-bold);
-  line-height: 18px;
-  color: ${({ active }) =>
-    active ? 'var(--color-white)' : 'rgba(255, 255, 255, 0.8)'};
-  border: none;
-  border-radius: var(--border-radius-semi);
-  cursor: pointer;
 `;
 
 export default BottomDialog;

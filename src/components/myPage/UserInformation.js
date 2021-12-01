@@ -2,12 +2,12 @@ import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory, Link } from 'react-router-dom';
+
 import {
   userState,
   myFollowListCountSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
-
 import { myHabitCountState } from '../../recoil/states/habit';
 import { monsterState } from '../../recoil/states/monster';
 
@@ -19,6 +19,8 @@ import { MonsterThumbnailWrapper } from '../../components/monster';
 import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
+
+import { setFontStyles } from '../../styles/Mixin';
 
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
@@ -292,15 +294,19 @@ const UserInfoWrap = styled.div`
 `;
 
 const BoldText = styled.p`
-  font-size: var(--font-m);
-  font-weight: var(--weight-bold);
-  line-height: 19px;
+  ${setFontStyles({
+    fontSize: 'm',
+    fontWeight: 'bold',
+    lineHeight: '19px',
+  })}
 `;
 
 const FollowLink = styled(Link)`
-  color: var(--color-primary);
-  font-size: var(--font-xxs);
-  font-weight: var(--weight-semi-regular);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxs',
+    fontWeight: 'semi-regular',
+  })}
   text-decoration: none;
   text-align: center;
 `;
@@ -319,9 +325,11 @@ const Summary = styled.ul`
     flex: 1 1 0;
     cursor: pointer;
     & span {
-      font-size: var(--font-xxs);
-      font-weight: var(--weight-semi-regular);
-      line-height: 15px;
+      ${setFontStyles({
+        fontSize: 'xxs',
+        fontWeight: 'semi-regular',
+        lineHeight: '15px',
+      })}
     }
     &::after {
       background-color: var(--color-title);
@@ -334,7 +342,7 @@ const Summary = styled.ul`
       right: 0;
       transform: translateY(-50%);
     }
-    &::last-child {
+    &:last-child {
       &::after {
         width: 0;
       }

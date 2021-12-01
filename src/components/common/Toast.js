@@ -1,9 +1,13 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { globalWebViewWrapperState } from '../../recoil/states/ui';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
+
+import { globalWebViewWrapperState } from '../../recoil/states/ui';
+
 import Portal from './Portal';
+
+import { setFontStyles } from '../../styles';
 
 const Toast = ({ text, activeToast }) => {
   const webViewWrapper = useRecoilValue(globalWebViewWrapperState);
@@ -54,10 +58,11 @@ const ToastBar = styled.div`
   position: absolute;
   width: 100%;
   max-width: 235px;
-  font-family: var(--font-name-apple);
-  font-size: var(--font-xs);
+  ${setFontStyles({
+    customColor: 'var(--bg-active)',
+    fontSize: 'xs',
+  })}
   border-radius: var(--border-radius-semi);
-  color: var(--bg-active);
   background-color: var(--bg-toast);
   padding: 12px 20px;
   margin-left: auto;
@@ -66,18 +71,11 @@ const ToastBar = styled.div`
   right: 0;
   z-index: 2;
 
-  -webkit-animation: ${(props) =>
-    props.active
-      ? css`
-          ${toastFadeIn} 0.5s, ${toastFadeOut} 0.5s 1.5s
-        `
-      : ''};
-  animation: ${(props) =>
-    props.active
-      ? css`
-          ${toastFadeIn} 0.5s, ${toastFadeOut} 0.5s 1.5s
-        `
-      : ''};
+  animation: ${({ active }) =>
+    active &&
+    css`
+      ${toastFadeIn} 0.5s, ${toastFadeOut} 0.5s 1.5s
+    `};
   animation-fill-mode: forwards;
 `;
 

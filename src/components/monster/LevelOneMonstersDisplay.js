@@ -5,8 +5,8 @@ import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-  babyMonsterState,
-  selectedMonsterState,
+  babyMonsterListState,
+  selectedLevelOneMonsterState,
 } from '../../recoil/states/monster';
 
 import {
@@ -14,13 +14,13 @@ import {
   MonsterThumbnail,
   BackButtonHeader,
 } from '../common';
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
   const history = useHistory();
   const excludeMonsterId = location?.state?.levelOneId ?? -1;
-  const monsterList = useRecoilValue(babyMonsterState);
+  const monsterList = useRecoilValue(babyMonsterListState);
   const enabledMonsterList = monsterList.filter(
     ({ enable, monsterId }) => enable && excludeMonsterId !== monsterId,
   );
@@ -28,7 +28,7 @@ const LevelOneMonstersDisplay = ({ go }) => {
     () => enabledMonsterList[0],
   );
 
-  const setSelectedMonster = useSetRecoilState(selectedMonsterState);
+  const setSelectedMonster = useSetRecoilState(selectedLevelOneMonsterState);
 
   const handleSelectMonster = (monster) => {
     setSelectedAvatar(monster);
@@ -109,23 +109,29 @@ const TitleWrap = styled.div`
 `;
 
 const Title = styled.h2`
-  color: var(--color-white);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+  })}
 `;
 
 const WeightText = styled.span`
-  color: var(--color-white);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-regular);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+    fontWeight: 'regular',
+    lineHeight: '32px',
+  })}
 `;
 
 const Description = styled.p`
   ${whiteOpacity('0.7')};
-  font-size: 13px;
-  font-weight: var(--weight-regular);
+  ${setFontStyles({
+    customFontSize: '13px',
+    fontWeight: 'regular',
+  })}
   margin-top: 12px;
 `;
 

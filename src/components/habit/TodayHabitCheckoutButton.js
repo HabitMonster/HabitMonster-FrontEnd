@@ -5,7 +5,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { habitStateWithId } from '../../recoil/states/habit';
 
-import { monsterAnimationTogglerState } from '../../recoil/states/ui';
+import { monsterAnimationToggler } from '../../recoil/states/ui';
 import { monsterState } from '../../recoil/states/monster';
 
 import { Toast } from '../common';
@@ -13,13 +13,12 @@ import { Toast } from '../common';
 import { habitApis, mainApis } from '../../api';
 import { miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
+import { setFontStyles } from '../../styles/Mixin';
 
 const TodayHabitCheckoutButton = ({ id, isAccomplished }) => {
   const [active, setActive] = useState(false);
   const [activeToast, setActiveToast] = useState(false);
-  const [animation, setAnimation] = useRecoilState(
-    monsterAnimationTogglerState,
-  );
+  const [animation, setAnimation] = useRecoilState(monsterAnimationToggler);
   const setHabitDetail = useSetRecoilState(habitStateWithId(id));
   const setMonster = useSetRecoilState(monsterState);
 
@@ -116,18 +115,20 @@ const CheckoutButton = styled.button`
   height: 40px;
   margin: 16px auto 0 auto;
   background-color: ${({ isDone }) => (isDone ? '#000' : 'var(--bg-active)')};
-  font-size: var(--font-xs);
-  color: ${({ isDone }) =>
-    isDone ? 'var(--color-primary-deemed)' : 'var(--color-primary)'};
+  ${({ isDone }) =>
+    setFontStyles({
+      color: isDone ? 'primary-deemed' : 'primary',
+      fontSize: 'xs',
+      fontWeight: 'regular',
+      lineHeight: '17px',
+    })}
   border: none;
   border-radius: var(--border-radius-semi);
   cursor: pointer;
   animation: ${({ active }) =>
-    active
-      ? css`
-          ${updateAnimation} 300ms linear forwards
-        `
-      : ''};
+    active &&
+    css`
+      ${updateAnimation} 300ms linear forwards
+    `};
 `;
-
 export default TodayHabitCheckoutButton;

@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 
 import {
   habitIdListState,
-  defaultHabitsState,
+  habitListState,
   myHabitCountState,
 } from '../recoil/states/habit';
 
@@ -36,7 +36,7 @@ const NewHabitForm = () => {
 
   const [practiceDays, setPracticeDays] = useState('');
   const [frequency, setFrequency] = useState(0);
-  const [habits, setHabits] = useRecoilState(defaultHabitsState);
+  const [habitList, setHabitList] = useRecoilState(habitListState);
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habitCount, setHabitCount] = useRecoilState(myHabitCountState);
 
@@ -71,7 +71,7 @@ const NewHabitForm = () => {
         data.habit.practiceDays.includes(String(currentDay))
       ) {
         setHabitIdList([data.habit.habitId, ...habitIdList]);
-        setHabits([data.habit, ...habits]);
+        setHabitList([data.habit, ...habitList]);
       }
       setHabitCount(habitCount + 1);
       history.replace('/');

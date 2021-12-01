@@ -9,6 +9,8 @@ import {
   ACHIEVEMENT_NAV_BUTTON_LIST,
 } from '../../constants/common';
 
+import { setFontStyles } from '../../styles/Mixin';
+
 const NavButtonHeader = ({ type }) => {
   const [navButtonList, setNavButtonList] = useState([]);
 
@@ -58,26 +60,30 @@ const NavButtonWrap = styled.ul`
 `;
 
 const NavButtonItem = styled.li`
-  color: var(--color-primary-deemed);
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'm',
+  })}
   display: flex;
   justify-content: center;
   list-style: none;
   width: 50%;
   height: 40px;
-  font-size: var(--font-m);
   position: relative;
   padding-top: 4px;
 `;
 
 const NavButton = styled(NavLink)`
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'm',
+    fontWeight: 'semi-regular',
+    lineHeight: '19px',
+  })}
   background-color: transparent;
   border: 1px solid transparent;
-  color: rgba(248, 248, 248, 0.6);
   cursor: pointer;
-  font-size: var(--font-m);
-  font-weight: var(--weight-semi-regular);
   outline: 0;
-  line-height: 19px;
   text-decoration: none;
 
   &:hover {

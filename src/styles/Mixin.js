@@ -24,3 +24,26 @@ export const disappearScrollbar = () => css`
     display: none;
   }
 `;
+
+export const setFontStyles = ({
+  color,
+  customColor,
+  fontSize,
+  customFontSize,
+  fontWeight,
+  lineHeight,
+}) => css`
+  ${color && { color: `var(--color-${color})` }}
+  ${customColor && { color: customColor }}
+  ${fontSize && { fontSize: `var(--font-${fontSize})` }}
+  ${customFontSize && { fontSize: customFontSize }}
+  ${fontWeight && { fontWeight: `var(--weight-${fontWeight})` }}
+  ${lineHeight && { lineHeight }}
+`;
+
+// export const setFlexStyles = ({ display, alignItems, justifyContent }) => css`
+//   ${display && {display}}
+//   ${alignItems && { alignItems }}
+//   ${justifyContent && { justifyContent}}
+
+// `;

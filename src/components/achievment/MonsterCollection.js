@@ -8,7 +8,7 @@ import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
 import { useHorizontalScroll } from '../../hooks';
-import { disappearScrollbar } from '../../styles/Mixin';
+import { disappearScrollbar, setFontStyles } from '../../styles/Mixin';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
@@ -81,10 +81,12 @@ const EachCollectionWrapper = styled.div`
   margin-top: 32px;
 
   & p {
-    color: var(--color-primary);
-    font-size: var(--font-m);
-    line-height: 20px;
-    font-weight: var(--weight-regular);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'm',
+      fontWeight: 'regular',
+      lineHeight: '20px',
+    })}
     margin-bottom: 6px;
   }
 `;
@@ -96,9 +98,11 @@ const MonsterInformationWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   ${whiteOpacity('0.6')}
-  font-size: var(--font-xs);
-  line-height: 20px;
-  font-weight: var(--weight-semi-bold);
+  ${setFontStyles({
+    fontSize: 'xs',
+    fontWeight: 'semi-bold',
+    lineHeight: '20px',
+  })}
 `;
 
 const ImageScroller = styled.div`
@@ -128,9 +132,11 @@ const MonsterImageWrapper = styled.div`
   }
 
   & span {
-    font-size: var(--font-xs);
-    line-height: 20px;
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'xs',
+      lineHeight: '20px',
+    })}
   }
 `;
 

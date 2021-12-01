@@ -1,4 +1,15 @@
 import GlobalStyle from './GlobalStyle';
-import { whiteOpacity } from './Mixin';
+import {
+  whiteOpacity,
+  disappearScrollbar,
+  loginBtnStyle,
+  setFontStyles,
+} from './Mixin';
 
-export { GlobalStyle, whiteOpacity };
+export {
+  GlobalStyle,
+  whiteOpacity,
+  disappearScrollbar,
+  loginBtnStyle,
+  setFontStyles,
+};

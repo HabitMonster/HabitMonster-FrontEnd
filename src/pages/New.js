@@ -4,10 +4,6 @@ import { Switch, useRouteMatch, Route } from 'react-router-dom';
 import NewHabitCategorySkeleton from '../components/newHabit/NewHabitCategorySkeleton';
 import NewHabitPresetListSkeleton from '../components/newHabit/NewHabitPresetListSkeleton';
 
-// import NewHabitCategoryList from './NewHabitCategoryList';
-// import NewHabitPresetList from './NewHabitPresetList';
-// import NewHabitForm from './NewHabitForm';
-
 const NewHabitCategoryList = lazy(() => import('./NewHabitCategoryList'));
 const NewHabitPresetList = lazy(() => import('./NewHabitPresetList'));
 const NewHabitForm = lazy(() => import('./NewHabitForm'));

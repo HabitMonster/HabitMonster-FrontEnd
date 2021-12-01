@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { setFontStyles } from '../../styles/Mixin';
+
 const HabitItems = ({ habit }) => {
   const goalTitle = habit.success ? '완료' : '미완료';
 
@@ -49,24 +51,30 @@ const CardHeader = styled.div`
 `;
 
 const GoalTitle = styled.p`
-  color: ${(props) => (props.success ? '#8E72CA' : '#EF2F68')};
+  ${({ success }) =>
+    setFontStyles({
+      customColor: success ? '#8E72CA' : '#EF2F68',
+      fontSize: 'xs',
+    })}
   margin-bottom: 10px;
-  font-size: 14px;
 `;
 const TitleWrap = styled.div`
-  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
-  font-size: 24px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+  })}
 `;
 
 const Percent = styled.p`
-  font-size: var(--font-m);
-  font-weight: var(--weight-bold);
-  color: ${(props) =>
-    props.success ? 'var(--color-primary)' : 'var(--color-danger)'};
+  ${({ success }) =>
+    setFontStyles({
+      color: success ? 'primary' : 'danger',
+      fontSize: 'm',
+      fontWeight: 'bold',
+    })}
 `;
 
 const ProgressBar = styled.div`
@@ -97,10 +105,11 @@ const TextWrap = styled.div`
 `;
 
 const Period = styled.p`
-  color: var(--color-primary);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
   margin-bottom: 7px;
-  font-family: var(—font-name-apple);
-  font-size: var(--font-xxs);
   opacity: 0.6;
-  line-height: 14px;
 `;

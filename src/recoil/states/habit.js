@@ -1,17 +1,10 @@
 import { atom, selector, atomFamily, selectorFamily } from 'recoil';
-
 import { defaultAuthSelector } from './auth';
-
 import { mainApis, addHabitApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-export const asyncHabitTogglerState = atom({
-  key: 'asyncHabitTogglerState',
-  default: 0,
-});
-
 export const defaultHabitResponseSelector = selector({
-  key: 'asyncDefaultHabitsSelector',
+  key: 'defaultHabitResponseSelector',
   get: async ({ get }) => {
     const { isLogin } = get(defaultAuthSelector);
 
@@ -43,7 +36,6 @@ export const defaultHabitResponseSelector = selector({
 export const defaultHabitsSelector = selector({
   key: 'defaultHabitsSelector',
   get: ({ get }) => {
-    get(defaultAuthSelector);
     const { habits } = get(defaultHabitResponseSelector);
     return habits;
   },
@@ -52,38 +44,35 @@ export const defaultHabitsSelector = selector({
 export const defaultHabitIdListSelector = selector({
   key: 'defaultHabitIdListSelector',
   get: ({ get }) => {
-    get(defaultAuthSelector);
     const { habits } = get(defaultHabitResponseSelector);
     return habits.map(({ habitId }) => habitId);
   },
 });
 
-export const defaultHabitsState = atom({
-  key: 'defaultHabitsState',
+export const habitListState = atom({
+  key: 'habitListState',
   default: defaultHabitsSelector,
 });
 
 export const habitIdListState = atom({
-  key: 'habitId',
+  key: 'habitIdListState',
   default: defaultHabitIdListSelector,
 });
 
 export const habitStateWithId = atomFamily({
-  key: 'habitState',
+  key: 'habitStateWithId',
   default: selectorFamily({
     key: 'habitById',
     get:
       (habitId) =>
       ({ get }) => {
-        return get(defaultHabitsState).find(
-          ({ habitId: id }) => id === habitId,
-        );
+        return get(habitListState).find(({ habitId: id }) => id === habitId);
       },
   }),
 });
 
-export const habitProcessCountSelector = selectorFamily({
-  key: 'habitProcessCountSelector',
+export const habitProcessCountById = selectorFamily({
+  key: 'habitProcessCountById',
   get:
     (habitId) =>
     ({ get }) => {
@@ -104,17 +93,8 @@ export const myHabitCountState = atom({
   default: defaultMyHabitCountSelector,
 });
 
-export const refresher = selector({
-  key: 'refresher',
-  get: ({ get }) => {
-    return {
-      habitResponse: get(defaultHabitResponseSelector),
-    };
-  },
-});
-
 export const categoryListSelector = selector({
-  key: 'categoryList',
+  key: 'categoryListSelector',
   get: async () => {
     try {
       const { data } = await addHabitApis.getCategoryList();
@@ -127,8 +107,8 @@ export const categoryListSelector = selector({
   },
 });
 
-export const presetListSelector = selectorFamily({
-  key: 'presetListByCategoryId',
+export const presetListById = selectorFamily({
+  key: 'presetListById',
   get: (categoryId) => async () => {
     try {
       const { data } = await addHabitApis.getHabitPreset(categoryId);

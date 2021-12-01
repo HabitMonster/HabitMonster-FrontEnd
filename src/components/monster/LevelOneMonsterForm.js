@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -9,21 +9,23 @@ import { BottomFixedButton, MonsterThumbnail, TextInput } from '../common';
 import { monsterApis } from '../../api';
 
 import {
-  selectedMonsterState,
+  selectedLevelOneMonsterState,
   monsterState,
 } from '../../recoil/states/monster';
-
 import { defaultAuthSelector } from '../../recoil/states/auth';
 
 import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
 
+import { setFontStyles } from '../../styles';
+
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
   const { isFirstLogin } = useRecoilValue(defaultAuthSelector);
-  const [selectedMonster, setSelectedMonster] =
-    useRecoilState(selectedMonsterState);
+  const [selectedMonster, setSelectedMonster] = useRecoilState(
+    selectedLevelOneMonsterState,
+  );
 
   const setMonster = useSetRecoilState(monsterState);
   const [monsterName, setMonsterName] = useState('');
@@ -47,14 +49,14 @@ const LevelOneMonsterForm = ({ showGuide }) => {
     }
   };
 
-  const editMonsterNameHandler = useCallback((value) => {
-    // 공백 입력 시, setEditValue 하지 않도록 막기
+  // 공백 입력 시, setEditValue 하지 않도록 막기
+  const editMonsterNameHandler = (value) => {
     if (/\s/gi.test(value)) {
       return;
     }
 
     setMonsterName(value);
-  }, []);
+  };
 
   return (
     <AvatarContainer>
@@ -116,10 +118,12 @@ const TitleWrap = styled.div`
 `;
 
 const Title = styled.h2`
-  color: var(--color-white);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-bold);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xxl',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+  })}
 `;
 
 const ThumbnailWrap = styled.div`
