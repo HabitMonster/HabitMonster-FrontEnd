@@ -4,6 +4,7 @@ import {
   disappearScrollbar,
   loginBtnStyle,
   setFontStyles,
+  setFlexStyles,
 } from './Mixin';
 
 export {
@@ -12,4 +13,5 @@ export {
   disappearScrollbar,
   loginBtnStyle,
   setFontStyles,
+  setFlexStyles,
 };

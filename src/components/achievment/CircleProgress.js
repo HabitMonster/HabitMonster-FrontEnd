@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
   const circleX = useMemo(() => width / 2, [width]);
@@ -73,10 +73,13 @@ const DetailContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
+
   z-index: 1;
 `;
 

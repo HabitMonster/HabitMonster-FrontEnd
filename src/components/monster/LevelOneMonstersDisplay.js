@@ -14,7 +14,7 @@ import {
   MonsterThumbnail,
   BackButtonHeader,
 } from '../common';
-import { whiteOpacity, setFontStyles } from '../../styles';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const LevelOneMonstersDisplay = ({ go }) => {
   const location = useLocation();
@@ -136,26 +136,33 @@ const Description = styled.p`
 `;
 
 const ThumbnailWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   margin: 30px auto;
   width: 200px;
   height: 200px;
 `;
 
 const SelectList = styled.ul`
-  display: flex;
-  justify-content: space-around;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-around',
+  })}
   width: 100%;
 `;
 
 const SelectListItem = styled.li`
   width: 52px;
   height: 52px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   border: 1px solid
     ${(props) => (props.selected ? 'var(--color-white)' : 'transparent')};
   border-radius: var(--border-radius-small);

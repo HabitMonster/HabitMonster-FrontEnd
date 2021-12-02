@@ -7,7 +7,7 @@ import { globalWebViewWrapperState } from '../../recoil/states/ui';
 
 import Portal from './Portal';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const Toast = ({ text, activeToast }) => {
   const webViewWrapper = useRecoilValue(globalWebViewWrapperState);
@@ -52,9 +52,12 @@ const toastFadeOut = keyframes`
 `;
 
 const ToastBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   position: absolute;
   width: 100%;
   max-width: 235px;

@@ -9,7 +9,7 @@ import {
   ACHIEVEMENT_NAV_BUTTON_LIST,
 } from '../../constants/common';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 const NavButtonHeader = ({ type }) => {
   const [navButtonList, setNavButtonList] = useState([]);
@@ -64,8 +64,10 @@ const NavButtonItem = styled.li`
     color: 'primary-deemed',
     fontSize: 'm',
   })}
-  display: flex;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'center',
+  })}
   list-style: none;
   width: 50%;
   height: 40px;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { MonsterThumbnail, MonsterThumbnailProfile } from '../common';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const MonsterThumbnailWrapper = ({
   isProfile,
@@ -78,9 +78,11 @@ const ThumbnailWrapper = styled.div`
   position: relative;
   width: ${({ size }) => getThumbnailSize(size).width};
   height: ${({ size }) => getThumbnailSize(size).height};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
 `;
 
 const LevelBadge = styled.span`

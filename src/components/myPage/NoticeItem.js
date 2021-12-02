@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import NotiContent from './NotiContent';
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 import { ToggleUp, ToggleDown } from '../../assets/icons/common';
 
 const NoticeItem = ({ notice, active, onToggle }) => {
@@ -36,30 +36,39 @@ const NotiListItem = styled.li`
 `;
 
 const HeaderWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
+
   margin: 0 24px;
   height: 75px;
 `;
 
 const NotiTitleWrap = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
 `;
 
 const NotiTitle = styled.p`
-  font-size: var(--font-m);
-  line-height: 19px;
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    fontSize: 'm',
+    fontWeight: 'bold',
+    lineHeight: '19px',
+  })}
   ${whiteOpacity('0.8')};
   margin-bottom: 7px;
 `;
 
 const NotiDate = styled.p`
-  font-size: 13px;
-  font-weight: var(--weight-semi-regular);
-  line-height: 16px;
+  ${setFontStyles({
+    customFontSize: '13px',
+    fontWeight: 'semi-regular',
+    lineHeight: '16px',
+  })}
   ${whiteOpacity('0.6')};
 `;
 

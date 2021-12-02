@@ -5,7 +5,7 @@ import { Wrapper, Inner, HelperText } from '../../pages/NewHabitPresetList';
 import { BackButtonHeader, BottomFixedButton } from '../common';
 
 import { LoadingSpinner } from '../../assets/icons/common';
-
+import { setFlexStyles } from '../../styles';
 const skeletons = [...Array(2).keys()].map((key) => ({
   id: key,
 }));
@@ -30,9 +30,12 @@ const NewHabitPresetListSkeleton = () => {
 const SkeletonPresetItem = styled.div`
   width: 100%;
   height: 109px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   background: var(--bg-primary);
   cursor: pointer;
   margin-bottom: 12px;

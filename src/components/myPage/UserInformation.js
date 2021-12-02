@@ -20,7 +20,7 @@ import { myPageApis } from '../../api';
 import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
@@ -280,15 +280,19 @@ const EditNicknameBtn = styled.button`
 
 const UserInfoWrap = styled.div`
   color: var(--color-primary);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   margin-top: 12px;
   & div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
     margin-top: 12px;
   }
 `;
@@ -314,13 +318,18 @@ const FollowLink = styled(Link)`
 const Summary = styled.ul`
   height: 34px;
   width: 100%;
-  display: flex;
-  justify-content: space-around;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-around',
+  })}
   margin: 24px 0;
   & li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+    })}
+
     position: relative;
     flex: 1 1 0;
     cursor: pointer;

@@ -13,7 +13,7 @@ import { Toast } from '../common';
 import { habitApis, mainApis } from '../../api';
 import { miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 const TodayHabitCheckoutButton = ({ id, isAccomplished }) => {
   const [active, setActive] = useState(false);
@@ -108,9 +108,12 @@ const updateAnimation = keyframes`
 `;
 
 const CheckoutButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   width: 264px;
   height: 40px;
   margin: 16px auto 0 auto;

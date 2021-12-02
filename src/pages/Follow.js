@@ -12,7 +12,11 @@ import { Gnb } from '../components/gnb';
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
 
-import { disappearScrollbar, setFontStyles } from '../styles/Mixin';
+import {
+  disappearScrollbar,
+  setFontStyles,
+  setFlexStyles,
+} from '../styles/Mixin';
 
 const Follow = () => {
   const history = useHistory();
@@ -162,8 +166,10 @@ const NavButtonWrap = styled.ul`
 `;
 
 const NavButtonItem = styled.li`
-  display: flex;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'center',
+  })}
   list-style: none;
   width: 50%;
   height: 40px;
@@ -208,9 +214,12 @@ const FollowList = styled.ul`
 
 const EmptyPlace = styled.div`
   height: calc(100% - 120px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   & p {
     ${setFontStyles({
       color: 'primary',

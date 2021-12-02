@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { whiteOpacity, setFontStyles } from '../../styles';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 import LEVELS from '../../assets/images/level';
 
 const BottomDialog = ({
@@ -106,9 +106,11 @@ const BadgeWrap = styled.div`
   background: linear-gradient(180deg, #02db26 0%, #19892c 100%);
   border-radius: 99em;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
 `;
 
 const Title = styled.h2`
@@ -153,9 +155,11 @@ const Button = styled.button`
   height: 48px;
   background: ${({ active }) =>
     active ? 'var(--bg-active)' : 'var(--bg-nope)'};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
 `;
 
 export default BottomDialog;

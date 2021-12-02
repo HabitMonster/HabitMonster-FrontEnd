@@ -41,9 +41,14 @@ export const setFontStyles = ({
   ${lineHeight && { lineHeight }}
 `;
 
-// export const setFlexStyles = ({ display, alignItems, justifyContent }) => css`
-//   ${display && {display}}
-//   ${alignItems && { alignItems }}
-//   ${justifyContent && { justifyContent}}
-
-// `;
+export const setFlexStyles = ({
+  display,
+  alignItems,
+  justifyContent,
+  flexDirection,
+}) => css`
+  ${display && { display }}
+  ${alignItems && { alignItems }}
+  ${justifyContent && { justifyContent }}
+  ${flexDirection && { flexDirection }}
+`;

@@ -8,7 +8,7 @@ import Navigation from 'swiper/components/navigation';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 import {
   IPHONE_TUTORIAL_LIST,
@@ -68,9 +68,11 @@ const SliderWrap = styled.div`
     })}
 
     /* Center slide text vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
     margin: 0 auto;
 
     img {

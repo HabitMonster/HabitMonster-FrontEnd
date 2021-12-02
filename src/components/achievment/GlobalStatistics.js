@@ -5,7 +5,7 @@ import { statisticApi } from '../../api';
 
 import { GlobalListItem } from './';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 const GlobalStatistics = () => {
   const [statisticList, setStatisticList] = useState([]);
@@ -57,9 +57,13 @@ const GlobalStatisticList = styled.ul`
 
 const EmptyPlace = styled.div`
   height: calc(100% - 120px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   & p {
     ${setFontStyles({
       color: 'primary',

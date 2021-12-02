@@ -10,7 +10,7 @@ import {
 
 import OnBoard from '../components/onBoard/OnBoard';
 
-import { setFontStyles } from '../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../styles/Mixin';
 
 const Login = () => {
   if (!window.localStorage.getItem('isOnboarding')) {
@@ -28,9 +28,12 @@ const Login = () => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  })}
+
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);

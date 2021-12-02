@@ -18,7 +18,7 @@ import { MonsterThumbnailWrapper } from './';
 import { userApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const MonsterListItem = ({
   monsterId,
@@ -106,17 +106,21 @@ MonsterListItem.propTypes = {
 
 export const MonsterListItemWrap = styled.li`
   height: 80px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   padding: 0 24px;
   cursor: pointer;
 `;
 
 const ProfileWrap = styled.div`
   color: var(--color-primary);
-  display: flex;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+  })}
 `;
 
 const TextWrap = styled.div`

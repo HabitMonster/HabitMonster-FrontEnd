@@ -11,6 +11,7 @@ import getDateList, {
 
 import { LeftIcon, RightIcon } from '../../assets/icons/common';
 import { WEEK, ONE_WEEK } from '../../constants/date';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const NewHabitCalendar = ({ onClick }) => {
   const today = getCurrentKST();
@@ -153,9 +154,12 @@ const CalenderWrapper = styled.div`
 `;
 
 const CalendarMonthPicker = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
+
   color: #4e4e4e;
   margin-bottom: 17px;
   height: 48px;
@@ -168,18 +172,22 @@ const CalendarMonthPicker = styled.div`
   }
 
   & span {
-    font-weight: var(--weight-semi-regular);
-    font-size: var(--font-l);
-    line-height: 22px;
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'l',
+      fontWeight: 'semi-regular',
+      lineHeight: '22px',
+    })}
   }
 `;
 
 const CalendarRow = styled.div`
   width: 100%;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-around',
+  })}
   margin-bottom: 6px;
 
   &.week {
@@ -192,21 +200,28 @@ const CalendarRow = styled.div`
 `;
 
 const Days = styled.div`
-  font-size: var(--font-xxs);
-  line-height: 14px;
-  color: #b3b3b3;
+  ${setFontStyles({
+    customColor: '#b3b3b3',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
 `;
 
 const Calendarcell = styled.div`
   width: 100%;
   height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--font-m);
-  line-height: 19px;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'm',
+    fontWeight: 'semi-bold',
+    lineHeight: '19px',
+  })}
   text-align: center;
-  color: var(--color-primary);
   background: ${({ isStartDate, isEndDate, isInRange }) =>
     !isInRange && isStartDate
       ? 'none'
@@ -218,8 +233,6 @@ const Calendarcell = styled.div`
       ? 'var(--bg-selected)'
       : 'none'};
 
-  font-weight: var(--weight-semi-bold);
-
   opacity: ${({ dimmed, disabled }) => (disabled ? '0.5' : dimmed ? '0.5' : 1)};
   cursor: pointer;
 
@@ -228,9 +241,11 @@ const Calendarcell = styled.div`
   & div {
     width: 36px;
     height: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
     border-radius: ${({ isTarget }) => (isTarget ? '50%' : '0px')};
     background: ${({ isTarget }) => (isTarget ? 'var(--bg-active)' : 'none')};
     transition: all var(--animation-duration) ease-in;
@@ -243,9 +258,11 @@ const HelperText = styled.span`
   margin: 24px 0px;
   padding: 0 16px;
   text-align: left;
-  font-size: var(--font-s);
-  color: ${({ isError }) =>
-    isError ? 'var(--color-danger)' : 'rgba(248, 248, 248, 0.8)'};
+  ${({ isError }) =>
+    setFontStyles({
+      customColor: isError ? 'var(--color-danger)' : 'rgba(248, 248, 248, 0.8)',
+      fontSize: 's',
+    })}
 `;
 
 const SaveButtons = styled.div`
@@ -259,14 +276,18 @@ const SaveButtons = styled.div`
   & button {
     width: 50%;
     height: 100%;
-    display: flex;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
     background: inherit;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--font-m);
-    font-weight: var(--weight-bold);
-    line-height: 22px;
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'm',
+      fontWeight: 'bold',
+      lineHeight: '22px',
+    })}
     cursor: pointer;
     border: none;
 
@@ -275,7 +296,7 @@ const SaveButtons = styled.div`
     }
 
     &:disabled {
-      color: var(--color-primary-deemed);
+      ${setFontStyles({ color: 'primary-deemed' })}
     }
   }
 `;

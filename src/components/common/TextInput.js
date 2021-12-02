@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { whiteOpacity, setFontStyles } from '../../styles';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const TextInput = ({
   text,
@@ -95,8 +95,10 @@ const Input = styled.input`
   border: none;
   width: 100%;
   height: 32px;
-  display: flex;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+  })}
   padding: 4px;
   padding-bottom: 0px;
   margin-bottom: 4px;

@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { keyframes } from 'styled-components';
+
 import background from '../assets/images/background';
 import { MonsterThumbnail } from '../components/common';
+import { setFlexStyles } from '../styles';
 
 const Loading = () => {
   return (
@@ -23,10 +25,12 @@ const Loading = () => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   background: red;
   width: 100%;
   height: 100%;
@@ -41,8 +45,11 @@ const Wrapper = styled.div`
   & > section {
     padding: 0 24px;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
+
+    ${setFlexStyles({
+      display: 'flex',
+      justifyContent: 'space-around',
+    })}
   }
 `;
 
@@ -59,9 +66,12 @@ const MonsterBox = styled.div`
   width: 56px;
   height: 56px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   animation: ${bounce} 500ms ease-in;
   animation-direction: alternate;
   animation-iteration-count: infinite;
