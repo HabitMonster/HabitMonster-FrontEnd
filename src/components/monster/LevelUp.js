@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import background from '../../assets/images/background';
+
 import { MonsterThumbnail } from '../common';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const monsterConfiguration = {
   5: {
@@ -63,6 +64,7 @@ const LevelUp = ({ monsterId, onClickSelect, onClickStay }) => {
     </Container>
   );
 };
+
 LevelUp.propTypes = {
   onClickSelect: PropTypes.func.isRequired,
   onClickStay: PropTypes.func.isRequired,
@@ -72,10 +74,12 @@ LevelUp.propTypes = {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   text-align: center;
   margin: 0 auto;
   position: relative;
@@ -111,10 +115,12 @@ const Bottom = styled.div`
 `;
 
 const TextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   margin: 23px 0;
 
   & p {
@@ -138,10 +144,12 @@ const TextBox = styled.div`
 `;
 
 const BtnWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
 
   & button {
     ${setFontStyles({
@@ -162,4 +170,5 @@ const BtnWrap = styled.div`
     ${setFontStyles({ color: 'deemed2' })}
   }
 `;
+
 export default LevelUp;

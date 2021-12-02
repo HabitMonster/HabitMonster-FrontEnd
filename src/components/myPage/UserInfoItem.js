@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { whiteOpacity } from '../../styles';
 import { EditIcon, CopyIcon } from '../../assets/icons/common';
+
+import { whiteOpacity, setFlexStyles, setFontStyles } from '../../styles';
 
 const UserInfoItem = ({ userInfoItem }) => {
   const { title, contents, handleClick, isLogout, isDeleteAccount, isCopy } =
@@ -30,15 +31,19 @@ const UserInfoItem = ({ userInfoItem }) => {
   );
 };
 
-export default UserInfoItem;
+UserInfoItem.propTypes = {
+  userInfoItem: PropTypes.object.isRequired,
+};
 
 const InfoListItem = styled.li`
   color: var(--color-primary);
   cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   height: 64px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 24px;
   border-bottom: 0.5px solid rgba(248, 248, 248, 0.1);
 
@@ -49,15 +54,19 @@ const InfoListItem = styled.li`
 `;
 
 const DefaultTitle = styled.p`
-  font-size: var(--font-s);
-  line-height: 18px;
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    fontSize: 's',
+    fontWeight: 'bold',
+    lineHeight: '18px',
+  })}
   ${whiteOpacity('0.8')};
 `;
 
 const PrivateTextWrap = styled.div`
-  display: flex;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+  })}
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -74,13 +83,13 @@ const CopyWrap = styled.div`
 `;
 
 const PrivateText = styled.p`
-  font-size: var(--font-xs);
-  line-height: 16px;
-  font-weight: var(--weight-regular);
+  ${setFontStyles({
+    fontSize: 'xs',
+    fontWeight: 'regular',
+    lineHeight: '16px',
+  })}
   ${whiteOpacity('0.8')};
   height: 17px;
 `;
 
-UserInfoItem.propTypes = {
-  userInfoItem: PropTypes.object.isRequired,
-};
+export default UserInfoItem;

@@ -1,5 +1,7 @@
+import { removeCookie } from './cookie';
+
 export const setMoveToLoginPage = () => {
-  window.localStorage.removeItem('habit-A-Token');
-  window.localStorage.removeItem('habit-R-Token');
+  removeCookie('habit-A-Token');
+  removeCookie('habit-R-Token');
   window.location.href = '/login';
 };

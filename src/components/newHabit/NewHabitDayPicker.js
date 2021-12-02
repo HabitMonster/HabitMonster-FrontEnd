@@ -2,9 +2,13 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { SubTitleOuter } from '../common';
-import { WEEK } from '../../constants/date';
 import { CheckIcon } from '../../assets/icons/habits';
+
+import { SubTitleOuter } from '../common';
+
+import { WEEK } from '../../constants/date';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 import { toggleDay } from '../../utils/date';
 
@@ -68,41 +72,53 @@ NewHabitDayPicker.propTypes = {
 
 const HelperText = styled.span`
   display: block;
-  color: var(--color-primary-deemed);
-  font-size: var(--font-xxs);
-  line-height: 14px;
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
   margin-bottom: 6px;
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   width: 100%;
 `;
 
 const PresetList = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-between',
+  })}
   width: 100%;
   margin-bottom: 12px;
 `;
 
 const ChoiceAllSection = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-end',
+  })}
 
   & span {
     display: block;
     margin-left: 4px;
     margin-bottom: 18px;
-    color: ${({ allSelected }) =>
-      allSelected ? 'var(--bg-selected-light)' : 'rgba(248, 248, 248, 0.5)'};
-    font-weight: var(--weight-regular);
-    font-size: var(--font-xs);
-    line-height: 17px;
+    ${({ allSelected }) =>
+      setFontStyles({
+        customColor: allSelected
+          ? 'var(--bg-selected-light)'
+          : 'rgba(248, 248, 248, 0.5)',
+        fontSize: 'xs',
+        fontWeight: 'regular',
+        lineHeight: '17px',
+      })}
     cursor: pointer;
     transition: all 150ms ease-out;
   }
@@ -115,14 +131,18 @@ const Item = styled.div`
   border: ${({ selected }) =>
     selected ? 'none' : '1px solid var(--color-title)'};
   background: ${({ selected }) => (selected ? 'var(--bg-selected)' : 'none')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--font-xs);
-  line-height: 17px;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   margin-right: 5px;
-  color: ${({ selected }) =>
-    selected ? 'var(--color-primary)' : 'rgba(248, 248, 248, 0.5)'};
+  ${({ selected }) =>
+    setFontStyles({
+      color: selected ? 'primary' : 'primary-deemed',
+      fontSize: 'xs',
+      lineHeight: '17px',
+    })}
   cursor: pointer;
 
   transition: all 150ms ease-out;

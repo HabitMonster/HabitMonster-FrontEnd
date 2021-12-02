@@ -1,7 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import {
+  searchUserHabitSelector,
+  searchUserReFetchToggler,
+} from '../recoil/states/search';
+import { currentUserMonsterCodeSelector } from '../recoil/states/user';
 
 import {
   SubTitleOuter,
@@ -9,14 +14,10 @@ import {
   BackButtonHeader,
 } from '../components/common';
 
-import { setFormattedDuration } from '../utils/setFormatDuration';
-import { renderDays } from '../utils/date';
+import { setFontStyles, setFlexStyles } from '../styles';
 
-import {
-  searchUserHabitSelector,
-  searchUserReFetchToggler,
-} from '../recoil/states/search';
-import { currentUserMonsterCodeSelector } from '../recoil/states/user';
+import { renderDays } from '../utils/date';
+import { setFormattedDuration } from '../utils/setFormatDuration';
 
 const MOCKUP_CATEGORY_ID = {
   Health: 1,
@@ -83,7 +84,7 @@ const SearchDetailHabit = () => {
           </SubTitleOuter>
         </Wrapper>
         <Wrapper>
-          <SubTitleOuter subTitle="빈도" clasName="subTitle">
+          <SubTitleOuter subTitle="하루에 몇 번 할까요?" clasName="subTitle">
             <p className="content">하루에 {habitDetail.count}번</p>
           </SubTitleOuter>
         </Wrapper>
@@ -105,8 +106,10 @@ const SearchDetailHabit = () => {
   );
 };
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
   width: 100%;
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
@@ -122,8 +125,10 @@ const Inner = styled.div`
 `;
 
 const MenuBar = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-between',
+  })}
   width: 100%;
   height: 44px;
   margin-bottom: 60px;
@@ -133,10 +138,12 @@ const Wrapper = styled.div`
   margin-bottom: 22px;
 
   & .subTitle {
-    font-weight: var(--weight-semi-bold);
-    font-size: var(--font-xs);
-    line-height: 16.8px;
-    color: var(--bg-selected-light);
+    ${setFontStyles({
+      customColor: 'var(--bg-selected-light)',
+      fontSize: 'xs',
+      fontWeight: 'semi-bold',
+      lineHeight: '16.8px',
+    })}
     margin-bottom: 6px;
   }
 

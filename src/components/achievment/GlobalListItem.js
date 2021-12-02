@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const GlobalListItem = ({ data }) => {
   const { content, value } = data;
@@ -16,8 +16,6 @@ const GlobalListItem = ({ data }) => {
     </GlobalListItemWrap>
   );
 };
-
-export default GlobalListItem;
 
 GlobalListItem.propTypes = {
   data: PropTypes.object,
@@ -38,8 +36,10 @@ const GlobalListItemWrap = styled.li`
 const ContentsWrap = styled.div`
   padding: 0 20px;
   & p {
-    display: flex;
-    justify-content: flex-start;
+    ${setFlexStyles({
+      display: 'flex',
+      justifyContent: 'flex-start',
+    })}
     ${setFontStyles({
       color: 'primary-deemed',
       fontSize: 'xs',
@@ -51,8 +51,10 @@ const ContentsWrap = styled.div`
 `;
 
 const ValueText = styled.h6`
-  display: flex;
-  justify-content: flex-start;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-start',
+  })}
   ${setFontStyles({
     color: 'primary',
     customFontSize: '22px',
@@ -60,3 +62,5 @@ const ValueText = styled.h6`
     lineHeight: '26px',
   })}
 `;
+
+export default GlobalListItem;

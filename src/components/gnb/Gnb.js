@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {
   HomeIcon,
@@ -8,6 +8,8 @@ import {
   AddIcon,
   UserIcon,
 } from '../../assets/icons/gnb';
+
+import { setFlexStyles } from '../../styles';
 
 const Gnb = () => {
   return (
@@ -54,10 +56,13 @@ const TabBar = styled.nav`
 const Navigation = styled.ul`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  })}
 `;
 
 const NavigationItem = styled.li`
@@ -68,10 +73,12 @@ const NavigationItem = styled.li`
 
   & a {
     text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    })}
 
     &.active path,
     &.active rect,

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import SwiperCore from 'swiper/core';
 import Navigation from 'swiper/components/navigation';
 
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 import {
   IPHONE_TUTORIAL_LIST,
@@ -68,9 +69,11 @@ const SliderWrap = styled.div`
     })}
 
     /* Center slide text vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
     margin: 0 auto;
 
     img {

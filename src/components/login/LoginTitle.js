@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { onboard01 } from '../../assets/images/onboard';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const LoginTitle = () => {
   return (
@@ -34,9 +34,11 @@ const Title = styled.p`
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'column',
+  })}
 `;
 
 const Image = styled.div`

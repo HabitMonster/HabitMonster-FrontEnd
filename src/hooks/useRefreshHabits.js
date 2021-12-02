@@ -4,12 +4,12 @@ import {
   useRecoilState,
   useRecoilRefresher_UNSTABLE,
 } from 'recoil';
-import { currentUserConnectionDayState } from '../recoil/states/user';
 import {
   habitIdListState,
   habitListState,
   defaultHabitResponseSelector,
 } from '../recoil/states/habit';
+import { currentUserConnectionDayState } from '../recoil/states/user';
 
 export default function useRefreshHabits() {
   const [previousConnectionDay, setPreviousConnectionDay] = useRecoilState(

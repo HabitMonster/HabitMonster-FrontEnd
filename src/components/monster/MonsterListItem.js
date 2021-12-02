@@ -1,34 +1,30 @@
 import React, { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import {
-  currentUserMonsterCodeSelector,
-  myFollowListByType,
-} from '../../recoil/states/user';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   recommendedUserListRefetchToggler,
   searchUserReFetchToggler,
 } from '../../recoil/states/search';
+import {
+  currentUserMonsterCodeSelector,
+  myFollowListByType,
+} from '../../recoil/states/user';
+
+import { userApis } from '../../api';
 
 import { MonsterThumbnailWrapper } from './';
 
-import { userApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const MonsterListItem = ({
   monsterId,
   monsterCode,
-  monsterLevel,
-  width,
-  height,
   nickName,
   isFollowed,
-  thumbnailSize,
   recommendationTitle,
   path,
 }) => {
@@ -89,34 +85,31 @@ const MonsterListItem = ({
 };
 
 MonsterListItem.propTypes = {
-  recommendationTitle: PropTypes.string,
-  monsterName: PropTypes.string,
   monsterId: PropTypes.number,
   monsterCode: PropTypes.string,
-  isFollowed: PropTypes.bool,
-  path: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  thumbnailSize: PropTypes.string,
-  monsterLevel: PropTypes.number,
   nickName: PropTypes.string,
-  user: PropTypes.object,
-  handleRelationship: PropTypes.func,
+  isFollowed: PropTypes.bool,
+  recommendationTitle: PropTypes.string,
+  path: PropTypes.string,
 };
 
 export const MonsterListItemWrap = styled.li`
   height: 80px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   padding: 0 24px;
   cursor: pointer;
 `;
 
 const ProfileWrap = styled.div`
   color: var(--color-primary);
-  display: flex;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+  })}
 `;
 
 const TextWrap = styled.div`

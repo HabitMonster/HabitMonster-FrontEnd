@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-
-import {
-  SubTitleOuter,
-  BottomFixedButton,
-  BackButtonHeader,
-  Modal,
-} from '../components/common';
-import { BottomDialog } from '../components/dialog';
-
-import monsters from '../assets/images/monsters/svg';
-
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import {
   habitIdListState,
   habitStateWithId,
@@ -24,13 +13,25 @@ import {
   monsterState,
 } from '../recoil/states/monster';
 
-import { renderDays } from '../utils/date';
-import { setFormattedDuration } from '../utils/setFormatDuration';
+import { habitApis, mainApis } from '../api';
 
 import { Trash } from '../assets/icons/common';
-import { habitApis, mainApis } from '../api';
+import monsters from '../assets/images/monsters/svg';
+
+import {
+  SubTitleOuter,
+  BottomFixedButton,
+  BackButtonHeader,
+  Modal,
+} from '../components/common';
+import { BottomDialog } from '../components/dialog';
+
 import { OK } from '../constants/statusCode';
-import { disappearScrollbar } from '../styles/Mixin';
+
+import { disappearScrollbar, setFlexStyles, setFontStyles } from '../styles';
+
+import { renderDays } from '../utils/date';
+import { setFormattedDuration } from '../utils/setFormatDuration';
 
 const HabitDetail = () => {
   const { habitId } = useParams();
@@ -139,7 +140,7 @@ const HabitDetail = () => {
           </SubTitleOuter>
         </Wrapper>
         <Wrapper>
-          <SubTitleOuter subTitle="빈도" clasName="subTitle">
+          <SubTitleOuter subTitle="하루에 몇 번 할까요?" clasName="subTitle">
             <p className="content">하루에 {habitDetail.count}번</p>
           </SubTitleOuter>
         </Wrapper>
@@ -170,9 +171,12 @@ const HabitDetail = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
@@ -192,25 +196,31 @@ const Inner = styled.div`
 
 const MenuBar = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
 
   & > span {
-    font-weight: var(--weight-regular);
-    font-size: var(--font-l);
-    line-height: 21.6px;
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'l',
+      fontWeight: 'regular',
+      lineHeight: '21.6px',
+    })}
   }
 `;
 const Wrapper = styled.div`
   margin-bottom: 22px;
 
   & .subTitle {
-    font-weight: var(--weight-semi-bold);
-    font-size: var(--font-xs);
-    line-height: 16.8px;
-    color: var(--bg-selected-light);
+    ${setFontStyles({
+      customColor: 'var(--bg-selected-light)',
+      fontSize: 'xs',
+      fontWeight: 'semi-bold',
+      lineHeight: '16.8px',
+    })}
     margin-bottom: 6px;
   }
 
@@ -256,21 +266,25 @@ const ProgressBar = styled.div`
   }
 
   & > .text {
+    ${setFontStyles({
+      color: 'primary-deemed',
+      fontSize: 'xs',
+      lineHeight: '17px',
+    })}
     position: absolute;
     bottom: -10px;
     left: 50%;
 
     transform: translateX(-50%);
-    font-size: var(--font-xs);
-    line-height: 17px;
-    color: var(--color-primary-deemed);
     text-align: center;
 
     & > p:first-child {
-      font-size: 36px;
-      line-height: 43.2px;
-      font-weight: var(--weight-bold);
-      color: var(--color-white);
+      ${setFontStyles({
+        color: 'white',
+        customFontSize: '36px',
+        fontWeight: 'bold',
+        lineHeight: '43.2px',
+      })}
     }
 
     & > p:last-child {

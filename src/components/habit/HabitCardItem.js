@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import CategoryImage from '../../assets/images/category';
 
 import { TodayHabitAccomplishCount } from '.';
 
-import CategoryImage from '../../assets/images/category';
-import { setFormattedDuration } from '../../utils/setFormatDuration';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
-import { setFontStyles } from '../../styles';
+import { setFormattedDuration } from '../../utils/setFormatDuration';
 
 const HabitCardItem = ({
   habitId,
@@ -85,12 +86,17 @@ const CategoryIcon = styled.div`
 const InformationSection = styled.div`
   width: calc(100% - 43px);
   flex: 1;
-  display: flex;
-  justify-content: space-between;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-between',
+  })}
 
   & > div:first-child {
-    display: flex;
-    flex-direction: column;
+    ${setFlexStyles({
+      display: 'flex',
+      flexDirection: 'column',
+    })}
+
     flex: 1;
   }
 `;

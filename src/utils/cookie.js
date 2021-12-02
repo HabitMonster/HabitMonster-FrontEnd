@@ -1,31 +1,17 @@
-import {
-  DAY_MILLISECS,
-  HOUR_MILLISECS,
-  MIN_MILLISECS,
-  SECS_MILLISECS,
-} from '../constants/times';
+import Cookies from 'universal-cookie/es6';
+
+const cookies = new Cookies();
+
+export const setCookie = (name, value) => {
+  return cookies.set(name, value, {
+    path: '/',
+  });
+};
 
 export const getCookie = (name) => {
-  const value = '; ' + document.cookie;
-  const parts = value.split('; ' + name + '=');
-
-  if (parts.length === 2) {
-    return parts.pop().split(';').shift();
-  } else if (parts === '; ') {
-    return undefined;
-  }
-  return parts.pop().split('=')[1];
+  return cookies.get(name);
 };
 
-export const setCookie = (name, value, exp = 5) => {
-  const date = new Date();
-  date.setTime(
-    date.getTime() +
-      exp * DAY_MILLISECS * HOUR_MILLISECS * MIN_MILLISECS * SECS_MILLISECS,
-  );
-  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
-};
-
-export const deleteCookie = (name) => {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+export const removeCookie = (name) => {
+  return cookies.remove(name);
 };

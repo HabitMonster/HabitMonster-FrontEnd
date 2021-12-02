@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { disappearScrollbar } from '../../styles/Mixin';
 import { useHorizontalScroll } from '../../hooks';
+
+import { disappearScrollbar } from '../../styles';
 
 const CategoryMenu = ({ categorization, classHandler }) => {
   const wheelScrollRef = useHorizontalScroll();
@@ -37,8 +38,6 @@ const CategoryMenu = ({ categorization, classHandler }) => {
     </CategorySection>
   );
 };
-
-export default CategoryMenu;
 
 CategoryMenu.propTypes = {
   categorization: PropTypes.object.isRequired,
@@ -80,3 +79,5 @@ const Menu = styled.div`
     color: var(--color-white);
   }
 `;
+
+export default CategoryMenu;

@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
-function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
+function CircleProgress({ width, height, strokeWidth = 10, value }) {
   const circleX = useMemo(() => width / 2, [width]);
   const circleY = useMemo(() => height / 2, [height]);
   const circleRadius = useMemo(
@@ -46,7 +46,13 @@ function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
   );
 }
 
-export default CircleProgress;
+CircleProgress.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  strokeWidth: PropTypes.number,
+  title: PropTypes.string,
+  value: PropTypes.number.isRequired,
+};
 
 const CircleProgressContainer = styled.div`
   width: 100%;
@@ -73,10 +79,13 @@ const DetailContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
+
   z-index: 1;
 `;
 
@@ -100,10 +109,4 @@ const DetailPer = styled.span`
   padding-left: 1px;
 `;
 
-CircleProgress.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  strokeWidth: PropTypes.number,
-  title: PropTypes.string,
-  value: PropTypes.number.isRequired,
-};
+export default CircleProgress;

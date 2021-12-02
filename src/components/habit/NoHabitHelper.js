@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { whiteOpacity, setFontStyles } from '../../styles';
+import styled from 'styled-components';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const NoHabitHelper = () => {
   return (
@@ -43,9 +44,12 @@ const AddButton = styled(Link)`
   width: 100%;
   height: 40px;
   margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   text-decoration: none;
   background: var(--bg-active);
   border-radius: 4px;

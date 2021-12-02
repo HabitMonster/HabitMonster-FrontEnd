@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import NotiContent from './NotiContent';
-import { whiteOpacity } from '../../styles/Mixin';
 import { ToggleUp, ToggleDown } from '../../assets/icons/common';
+
+import { NotiContent } from '.';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const NoticeItem = ({ notice, active, onToggle }) => {
   const { title, createdAt, id } = notice;
@@ -28,7 +30,11 @@ const NoticeItem = ({ notice, active, onToggle }) => {
   );
 };
 
-export default NoticeItem;
+NoticeItem.propTypes = {
+  notice: PropTypes.object.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired,
+};
 
 const NotiListItem = styled.li`
   cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
@@ -36,30 +42,39 @@ const NotiListItem = styled.li`
 `;
 
 const HeaderWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
+
   margin: 0 24px;
   height: 75px;
 `;
 
 const NotiTitleWrap = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
 `;
 
 const NotiTitle = styled.p`
-  font-size: var(--font-m);
-  line-height: 19px;
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    fontSize: 'm',
+    fontWeight: 'bold',
+    lineHeight: '19px',
+  })}
   ${whiteOpacity('0.8')};
   margin-bottom: 7px;
 `;
 
 const NotiDate = styled.p`
-  font-size: 13px;
-  font-weight: var(--weight-semi-regular);
-  line-height: 16px;
+  ${setFontStyles({
+    customFontSize: '13px',
+    fontWeight: 'semi-regular',
+    lineHeight: '16px',
+  })}
   ${whiteOpacity('0.6')};
 `;
 
@@ -79,8 +94,4 @@ const ContentsWrap = styled.div`
   transition: all 0.35s;
 `;
 
-NoticeItem.propTypes = {
-  notice: PropTypes.object.isRequired,
-  onToggle: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired,
-};
+export default NoticeItem;

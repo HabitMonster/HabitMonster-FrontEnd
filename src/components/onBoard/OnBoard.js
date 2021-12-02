@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper';
 
@@ -13,7 +14,10 @@ import {
   onboard03,
   onboard04,
 } from '../../assets/images/onboard';
+
 import { BottomFixedButton } from '../common';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 SwiperCore.use([Pagination]);
 
@@ -81,9 +85,11 @@ const OnBoard = () => {
 };
 
 const OnBoardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  })}
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
@@ -107,9 +113,12 @@ const OnBoardContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'column',
+  })}
+
   font-family: var(--font-name-apple);
 `;
 
@@ -121,28 +130,36 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  color: var(--color-white);
-  font-size: var(--font-maximum);
-  font-weight: var(--weight-extra-bold);
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'maximum',
+    fontWeight: 'extra-bold',
+  })}
 `;
 
 const SubTitleBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  })}
   height: 86px;
   margin: 0 auto;
 `;
 
 const SubTitle = styled.p`
-  display: flex;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'center',
+  })}
   height: 17px;
-  font-weight: var(--weight-semi-regular);
-  font-size: var(--font-xs);
-  line-height: 16.8px;
-  color: var(--color-white);
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 'xs',
+    fontWeight: 'semi-regular',
+    lineHeight: '16.8px',
+  })}
   margin: 0 auto;
   opacity: 0.7;
 `;

@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-
-import { BottomFixedButton, MonsterThumbnail, TextInput } from '../common';
-import { monsterApis } from '../../api';
-
 import {
   selectedLevelOneMonsterState,
   monsterState,
 } from '../../recoil/states/monster';
 import { defaultAuthSelector } from '../../recoil/states/auth';
 
+import { monsterApis } from '../../api';
+
+import { BottomFixedButton, MonsterThumbnail, TextInput } from '../common';
+
 import { OK } from '../../constants/statusCode';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
-
-import { setFontStyles } from '../../styles';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
@@ -127,9 +128,12 @@ const Title = styled.h2`
 `;
 
 const ThumbnailWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   margin: 0 auto;
   width: 200px;
   height: 200px;

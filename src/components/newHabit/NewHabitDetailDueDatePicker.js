@@ -2,10 +2,14 @@ import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Modal, SubTitleOuter } from '../common';
 import { CalenderIcon } from '../../assets/icons/habits';
 
+import { Modal, SubTitleOuter } from '../common';
+
 import { NewHabitCalendar } from '.';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
 import {
   convertYMD,
   getCurrentKST,
@@ -122,9 +126,11 @@ NewHabitDetailDueDatePicker.propTypes = {
 
 const HelperText = styled.span`
   display: block;
-  color: var(--color-primary-deemed);
-  font-size: var(--font-xxs);
-  line-height: 14px;
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
   margin-bottom: 6px;
 `;
 
@@ -132,9 +138,11 @@ const ModalToggler = styled.div`
   width: 100%;
   height: 40px;
   background: var(--bg-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   padding: 4px 8px;
   margin-bottom: 12px;
   border-radius: var(--border-radius-semi);
@@ -143,17 +151,21 @@ const ModalToggler = styled.div`
   & span {
     height: 20px;
     margin-left: 8px;
-    color: var(--color-primary-deemed);
-    font-size: var(--font-s);
-    line-height: 18px;
+    ${setFontStyles({
+      color: 'primary-deemed',
+      fontSize: 's',
+      lineHeight: '18px',
+    })}
     cursor: pointer;
   }
 `;
 
 const DueDatePresetWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   width: 100%;
   height: 32px;
   margin-bottom: 42px;
@@ -163,19 +175,24 @@ const DueDatePreset = styled.div`
   width: ${({ long }) => (long ? '78px' : '64px')};
   padding: 7.5px;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   border: 1px solid
     ${({ isSelected }) => (isSelected ? 'none' : 'var(--color-title)')};
   border-radius: 30px;
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected)' : 'inherit'};
-  color: ${({ isSelected }) =>
-    isSelected ? 'var(--color-primary)' : 'var(--color-primary-deemed)'};
-  font-weight: var(--weight-regular);
-  font-size: var(--font-xs);
-  line-height: 17px;
+  ${({ isSelected }) =>
+    setFontStyles({
+      color: isSelected ? 'primary' : 'primary-deemed',
+      fontSize: 'xs',
+      fontWeight: 'regular',
+      lineHeight: '17px',
+    })}
   cursor: pointer;
   margin-right: ${({ mr }) => (mr ? mr : '0px')};
 

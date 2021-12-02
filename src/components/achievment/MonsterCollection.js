@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { NonePlaceHolder, MonsterThumbnail } from '../common';
-import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
+
+import { QuestionIcon } from '../../assets/icons/achievement';
+
+import { NonePlaceHolder, MonsterThumbnail } from '../common';
+
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
-import { QuestionIcon } from '../../assets/icons/achievement';
+
 import { useHorizontalScroll } from '../../hooks';
-import { disappearScrollbar, setFontStyles } from '../../styles/Mixin';
+
+import {
+  whiteOpacity,
+  disappearScrollbar,
+  setFontStyles,
+  setFlexStyles,
+} from '../../styles';
 
 const MonsterCollection = () => {
   const [collectionList, setCollectionList] = useState([]);
@@ -94,9 +103,11 @@ const EachCollectionWrapper = styled.div`
 const MonsterInformationWrapper = styled.div`
   padding-right: 24px;
   margin-bottom: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   ${whiteOpacity('0.6')}
   ${setFontStyles({
     fontSize: 'xs',
@@ -120,10 +131,12 @@ const MonsterImageWrapper = styled.div`
   margin-right: 10px;
   padding-top: 14px;
   padding-bottom: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   background: var(--bg-primary);
   border-radius: var(--border-radius-semi);
 

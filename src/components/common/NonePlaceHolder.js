@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { None } from '../../assets/images/placeholder';
 
-import { whiteOpacity, setFontStyles } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const NonePlaceHolder = ({ children }) => {
   return (
@@ -29,9 +29,11 @@ const NoneTextWrapper = styled.section`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  })}
 
   & svg {
     margin-bottom: 32px;

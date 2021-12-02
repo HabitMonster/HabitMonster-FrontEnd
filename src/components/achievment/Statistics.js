@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import { defaultAuthSelector } from '../../recoil/states/auth';
 
 import { statisticApi } from '../../api';
-import { formatMonth, addMonths, subMonths } from '../../utils/date';
-
-import { HabitList, CircleProgress } from '.';
 
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { HabitList, CircleProgress } from '.';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
+import { formatMonth, addMonths, subMonths } from '../../utils/date';
 
 const Statistics = () => {
   const { createdAt } = useRecoilValue(defaultAuthSelector);
@@ -150,9 +150,11 @@ const DetailWrap = styled.div`
 
 const DateWrap = styled.div`
   color: var(--color-grey01);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   margin-top: 24px;
   margin-bottom: 32px;
 `;
@@ -183,8 +185,10 @@ const CircleWrap = styled.div`
 
 const GoalWrap = styled.div`
   color: white;
-  display: flex;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+  })}
 `;
 
 const GoalBox = styled.div`
@@ -225,8 +229,10 @@ const GoalText = styled.span`
 const ListContainer = styled.div``;
 
 const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: flex-start;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-start',
+  })}
   padding: 0 16px;
   margin: 16px 0px;
 `;

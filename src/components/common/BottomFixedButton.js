@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { whiteOpacity, setFontStyles } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const BottomFixedButton = ({ onClick, text, condition = () => false }) => {
   return (
@@ -33,11 +33,12 @@ const Button = styled.button`
   background: var(--bg-active);
   z-index: 3;
   border: none;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  })}
 
   ${setFontStyles({
     color: 'primary',

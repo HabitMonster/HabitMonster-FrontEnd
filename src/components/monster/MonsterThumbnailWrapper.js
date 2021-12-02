@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { MonsterThumbnail, MonsterThumbnailProfile } from '../common';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const MonsterThumbnailWrapper = ({
   isProfile,
@@ -31,7 +31,14 @@ const MonsterThumbnailWrapper = ({
   );
 };
 
-export default MonsterThumbnailWrapper;
+MonsterThumbnailWrapper.propTypes = {
+  isProfile: PropTypes.bool,
+  monsterId: PropTypes.number.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  thumbnailSize: PropTypes.string,
+  monsterLevel: PropTypes.number,
+};
 
 const getThumbnailSize = (size) => {
   switch (size) {
@@ -61,15 +68,6 @@ const getThumbnailSize = (size) => {
   }
 };
 
-MonsterThumbnailWrapper.propTypes = {
-  isProfile: PropTypes.bool,
-  monsterId: PropTypes.number.isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  thumbnailSize: PropTypes.string,
-  monsterLevel: PropTypes.number,
-};
-
 const ThumbnailWrapper = styled.div`
   background-color: ${({ size }) => getThumbnailSize(size).backgroundColor};
   border: ${({ size }) => getThumbnailSize(size).border};
@@ -78,9 +76,11 @@ const ThumbnailWrapper = styled.div`
   position: relative;
   width: ${({ size }) => getThumbnailSize(size).width};
   height: ${({ size }) => getThumbnailSize(size).height};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
 `;
 
 const LevelBadge = styled.span`
@@ -99,3 +99,5 @@ const LevelBadge = styled.span`
   transform: translateX(-50%);
   z-index: 1;
 `;
+
+export default MonsterThumbnailWrapper;

@@ -1,13 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
 import styled from 'styled-components';
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
+import { defaultAuthSelector } from '../../recoil/states/auth';
+import { monsterState } from '../../recoil/states/monster';
 
 import { BottomFixedButton, MonsterThumbnail } from '../common';
-import { monsterState } from '../../recoil/states/monster';
-import { defaultAuthSelector } from '../../recoil/states/auth';
+
+import { disappearScrollbar, setFlexStyles, setFontStyles } from '../../styles';
+
 import { appendPostPosition } from '../../utils/appendPostPosition';
-import { disappearScrollbar } from '../../styles/Mixin';
 
 const MonsterGuide = () => {
   const history = useHistory();
@@ -59,8 +61,6 @@ const MonsterGuide = () => {
   );
 };
 
-export default MonsterGuide;
-
 const AvatarContainer = styled.div`
   font-family: var(--font-name-apple);
   background-color: var(--bg-wrapper);
@@ -75,9 +75,11 @@ const AvatarContainer = styled.div`
 const ThumbnailWrap = styled.div`
   width: 284px;
   height: 284px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   margin: 8px auto;
 `;
 
@@ -93,15 +95,19 @@ const TextBox = styled.div`
 const TitleWrap = styled.div`
   color: var(--color-white);
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-items: flex-start;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+  })}
 `;
 
 const HeadText = styled.p`
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-regular);
-  line-height: 32px;
+  ${setFontStyles({
+    fontSize: 'xxl',
+    fontWeight: 'regular',
+    lineHeight: '32px',
+  })}
   margin-left: 24px;
 
   & > span {
@@ -116,21 +122,28 @@ const HeadText = styled.p`
 `;
 
 const SmallText = styled.p`
-  font-size: var(--font-s);
-  color: var(--color-primary);
-  font-weight: var(--weight-semi-regular);
-  line-height: 32px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 's',
+    fontWeight: 'semi-regular',
+    lineHeight: '32px',
+  })}
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  })}
   text-align: center;
   vertical-align: bottom;
-  display: flex;
 `;
 
 const BigText = styled.p`
-  font-weight: var(--weight-semi-bold);
-  font-size: var(--font-xl);
-  line-height: 32px;
+  ${setFontStyles({
+    fontSize: 'xl',
+    fontWeight: 'semi-bold',
+    lineHeight: '32px',
+  })}
   margin: 0 auto;
 `;
+
+export default MonsterGuide;

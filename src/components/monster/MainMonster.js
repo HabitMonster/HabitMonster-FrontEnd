@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import styled, { keyframes } from 'styled-components';
 import { useHistory } from 'react-router-dom';
-
+import styled, { keyframes } from 'styled-components';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import {
   monsterChangeToggler,
   monsterState,
@@ -12,16 +11,17 @@ import {
   monsterAnimationToggler,
 } from '../../recoil/states/ui';
 
-import { MonsterThumbnail, Modal } from '../common';
-import { MonsterSearchSection, LevelUp } from '.';
-import { BottomDialog } from '../dialog';
-
-import { appendPostPosition } from '../../utils/appendPostPosition';
-import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
-
 import { mainBackground } from '../../assets/images/background';
 
-import { whiteOpacity, setFontStyles } from '../../styles';
+import { MonsterThumbnail, Modal } from '../common';
+import { BottomDialog } from '../dialog';
+import { MonsterSearchSection, LevelUp } from '.';
+
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
+
+import { appendPostPosition } from '../../utils/appendPostPosition';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);
@@ -223,10 +223,11 @@ const ThumbnailWrapper = styled.div`
   padding: ${({ id }) => (id % 5 !== 1 && id % 5 !== 2 ? '0px' : '29px')};
   margin: 0 auto;
   margin-top: ${({ heightShrinked }) => (heightShrinked ? '-24px' : '24px')};
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  })}
   position: relative;
 
   left: ${({ id }) =>
@@ -246,17 +247,21 @@ const ThumbnailWrapper = styled.div`
 `;
 
 const ExpContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
   padding-bottom: 10px;
   position: relative;
   top: -14px;
 `;
 
 const ExpText = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  })}
   margin-bottom: 6px;
 `;
 

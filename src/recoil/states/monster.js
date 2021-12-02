@@ -1,7 +1,9 @@
 import { atom, selector } from 'recoil';
+
 import { mainApis, monsterApis } from '../../api';
-import { OK } from '../../constants/statusCode';
+
 import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
+import { OK } from '../../constants/statusCode';
 
 export const defaultMonsterSelector = selector({
   key: 'defaultMonsterSelector',

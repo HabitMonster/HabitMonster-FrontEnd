@@ -1,6 +1,6 @@
-import LoginTitle from './LoginTitle';
-import KakaoLogin from './KakaoLogin';
 import GoogleLogin from './GoogleLogin';
+import KakaoLogin from './KakaoLogin';
+import LoginTitle from './LoginTitle';
 import NaverLogin from './NaverLogin';
 
-export { LoginTitle, KakaoLogin, GoogleLogin, NaverLogin };
+export { GoogleLogin, KakaoLogin, LoginTitle, NaverLogin };

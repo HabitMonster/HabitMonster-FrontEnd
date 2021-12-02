@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { whiteOpacity } from '../../styles/Mixin';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const NewHabitCategoryHelperText = () => {
   return (
@@ -15,27 +16,34 @@ const NewHabitCategoryHelperText = () => {
 
 const Wrapper = styled.div`
   margin-top: 43px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+  })}
+
   margin-bottom: 32px;
 
   & h2 {
-    font-weight: var(--weight-regular);
-    font-size: var(--font-xl);
-    line-height: 32px;
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'xl',
+      fontWeight: 'regular',
+      lineHeight: '32px',
+    })}
     margin-bottom: 10px;
 
     & b {
-      font-weight: var(--weight-bold);
+      ${setFontStyles({ fontWeight: 'bold' })}
     }
   }
 
   & p {
     ${whiteOpacity('0.8')};
-    font-size: var(--font-xs);
-    line-height: 17px;
+    ${setFontStyles({
+      fontSize: 'xs',
+      lineHeight: '17px',
+    })}
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 `;

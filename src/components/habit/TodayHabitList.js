@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import { habitIdListState } from '../../recoil/states/habit';
+
 import { NoHabitHelper, TodayHabit } from './';
-import { disappearScrollbar } from '../../styles/Mixin';
+
 import { useRefreshHabits } from '../../hooks';
+
+import { disappearScrollbar, setFlexStyles } from '../../styles';
 
 const TodayHabitList = () => {
   useRefreshHabits();
@@ -24,9 +26,12 @@ const TodayHabitList = () => {
 };
 
 export const HabitContainer = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+  })}
+
   height: 100%;
   padding: 0 24px;
   margin-top: 24px;

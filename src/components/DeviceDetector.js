@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { globalWebViewWrapperState } from '../recoil/states/ui';
-import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
+import { useSetRecoilState } from 'recoil';
+import { globalWebViewWrapperState } from '../recoil/states/ui';
+
 import backgroundSrcs from '../assets/images/background';
 
 export const setVh = () => {
@@ -48,6 +49,7 @@ const DeviceDetector = ({ children }) => {
     </WebBackgroundWrapper>
   );
 };
+
 DeviceDetector.propTypes = {
   children: PropTypes.element.isRequired,
 };

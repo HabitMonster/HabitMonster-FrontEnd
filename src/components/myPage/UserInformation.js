@@ -1,26 +1,30 @@
 import React, { useCallback, useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useHistory, Link } from 'react-router-dom';
 
+import { myHabitCountState } from '../../recoil/states/habit';
+import { monsterState } from '../../recoil/states/monster';
 import {
   userState,
   myFollowListCountSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
-import { myHabitCountState } from '../../recoil/states/habit';
-import { monsterState } from '../../recoil/states/monster';
-
-import { BottomDialog } from '../dialog';
-import { Modal, Toast } from '../../components/common';
-import { EditBox, UserInfoItem } from '../../components/myPage';
-import { MonsterThumbnailWrapper } from '../../components/monster';
 
 import { myPageApis } from '../../api';
-import { USER_DELETED } from '../../constants/statusMessage';
+
 import { Pencil } from '../../assets/icons/common';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { Modal, Toast } from '../common';
+import { BottomDialog } from '../dialog';
+import { MonsterThumbnailWrapper } from '../monster';
+import { EditBox, UserInfoItem } from '../myPage';
+
+import { USER_DELETED } from '../../constants/statusMessage';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
+import { removeCookie } from '../../utils/cookie';
 
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
@@ -67,8 +71,8 @@ const UserInformation = () => {
   }, []);
 
   const deleteToken = useCallback(() => {
-    window.localStorage.removeItem('habit-A-Token');
-    window.localStorage.removeItem('habit-R-Token');
+    removeCookie('accessTokenTest');
+    removeCookie('refreshTokenTest');
   }, []);
 
   const dispatcher = async (type) => {
@@ -133,8 +137,6 @@ const UserInformation = () => {
     }
   }, [activeToast]);
 
-  // 마이페이지 밖에서 계속 최신화를 시킬 필요가 있을지?
-  // 마이페이지에 들어올 때만 최신화시키면 되지 않을지?
   useEffect(() => {
     return () => {
       if (
@@ -261,8 +263,6 @@ const UserInformation = () => {
   );
 };
 
-export default UserInformation;
-
 const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
@@ -280,15 +280,19 @@ const EditNicknameBtn = styled.button`
 
 const UserInfoWrap = styled.div`
   color: var(--color-primary);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   margin-top: 12px;
   & div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
     margin-top: 12px;
   }
 `;
@@ -314,13 +318,18 @@ const FollowLink = styled(Link)`
 const Summary = styled.ul`
   height: 34px;
   width: 100%;
-  display: flex;
-  justify-content: space-around;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-around',
+  })}
   margin: 24px 0;
   & li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+    })}
+
     position: relative;
     flex: 1 1 0;
     cursor: pointer;
@@ -349,3 +358,5 @@ const Summary = styled.ul`
     }
   }
 `;
+
+export default UserInformation;

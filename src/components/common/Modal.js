@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { globalWebViewWrapperState } from '../../recoil/states/ui';
-import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import 'wicg-inert';
+import { useRecoilValue } from 'recoil';
+import { globalWebViewWrapperState } from '../../recoil/states/ui';
 
-import Portal from './Portal';
+import { Portal } from './';
 
 const Modal = ({ open, onClose, children, blurmode }) => {
   const [active, setActive] = useState(false);

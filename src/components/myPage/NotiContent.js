@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { whiteOpacity } from '../../styles/Mixin';
 import { ImageSlider } from '../../components/common';
+
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const NotiContent = ({ id }) => {
   switch (id) {
@@ -139,7 +140,9 @@ const NotiContent = ({ id }) => {
   }
 };
 
-export default NotiContent;
+NotiContent.propTypes = {
+  id: PropTypes.number.isRequired,
+};
 
 const NotiBox = styled.div`
   color: var(--color-primary);
@@ -147,31 +150,35 @@ const NotiBox = styled.div`
   padding: 18px;
 
   & p {
-    font-size: var(--font-xs);
+    ${setFontStyles({
+      fontSize: 'xs',
+      fontWeight: 'semi-regular',
+    })}
     ${whiteOpacity('0.8')};
-    font-weight: var(--weight-semi-regular);
     white-space: pre-wrap;
     margin-bottom: 10px;
   }
 `;
 
 const ListNumbering = styled.h5`
-  font-size: var(--font-s);
+  ${setFontStyles({
+    fontSize: 's',
+    fontWeight: 'bold',
+  })}
   ${whiteOpacity('0.8')};
-  font-weight: var(--weight-bold);
   white-space: pre-wrap;
   margin-bottom: 10px;
 `;
 
 const ListText = styled.li`
-  font-size: var(--font-xs);
+  ${setFontStyles({
+    fontSize: 'xs',
+    fontWeight: 'semi-regular',
+  })}
   ${whiteOpacity('0.8')};
-  font-weight: var(--weight-semi-regular);
   white-space: pre-wrap;
   padding-left: 15px;
   margin-bottom: 5px;
 `;
 
-NotiContent.propTypes = {
-  id: PropTypes.number.isRequired,
-};
+export default NotiContent;

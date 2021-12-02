@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { SubTitleOuter } from '../common';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const NewHabitFrequencySection = ({ frequency, onChange }) => {
   const increment = () =>
@@ -17,8 +20,9 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
         ? 9
         : Number(e.target.value),
     );
+
   return (
-    <SubTitleOuter subTitle="빈도">
+    <SubTitleOuter subTitle="하루에 몇 번 할까요?">
       <HelperText>숫자 영역을 클릭하여 직접 입력할 수 있어요</HelperText>
       <Wrapper>
         <div onClick={decrement}>
@@ -52,9 +56,12 @@ const Wrapper = styled.div`
     height: 40px;
     border-radius: 50%;
     background: var(--bg-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
+
     color: var(--color-primary);
     cursor: pointer;
     position: relative;
@@ -80,9 +87,11 @@ const Wrapper = styled.div`
 `;
 const HelperText = styled.span`
   display: block;
-  color: var(--color-primary-deemed);
-  font-size: var(--font-xxs);
-  line-height: 14px;
+  ${setFontStyles({
+    color: 'primary-deemed',
+    fontSize: 'xxs',
+    lineHeight: '14px',
+  })}
   margin-bottom: 6px;
 `;
 const NumberInput = styled.input`
@@ -94,10 +103,12 @@ const NumberInput = styled.input`
   background: var(--bg-primary);
   border-radius: var(--border-radius-semi);
   border: none;
-  color: var(--color-primary);
-  font-size: var(--font-s);
-  line-height: 18px;
-  font-weight: var(--weight-bold);
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 's',
+    fontWeight: 'bold',
+    lineHeight: '18px',
+  })}
   margin: 0 11px;
 
   &::-webkit-outer-spin-button,

@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
-
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { habitStateWithId } from '../../recoil/states/habit';
-
-import { monsterAnimationToggler } from '../../recoil/states/ui';
 import { monsterState } from '../../recoil/states/monster';
+import { monsterAnimationToggler } from '../../recoil/states/ui';
+
+import { habitApis, mainApis } from '../../api';
 
 import { Toast } from '../common';
 
-import { habitApis, mainApis } from '../../api';
-import { miniDebounce } from '../../utils/event';
 import { OK } from '../../constants/statusCode';
-import { setFontStyles } from '../../styles/Mixin';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
+import { miniDebounce } from '../../utils/event';
 
 const TodayHabitCheckoutButton = ({ id, isAccomplished }) => {
   const [active, setActive] = useState(false);
@@ -108,9 +109,12 @@ const updateAnimation = keyframes`
 `;
 
 const CheckoutButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   width: 264px;
   height: 40px;
   margin: 16px auto 0 auto;

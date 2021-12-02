@@ -1,9 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { SearchIcon, FeedbackIcon } from '../../assets/icons/common';
-import { whiteOpacity, setFontStyles } from '../../styles';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const MonsterSearchSection = () => {
   const history = useHistory();
@@ -33,9 +34,11 @@ const MonsterSearchSection = () => {
 const Header = styled.header`
   height: 32px;
   margin-top: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
 `;
 
 const FeedbackLink = styled.a`
@@ -50,9 +53,12 @@ const FeedbackLink = styled.a`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   & div {
     height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${setFlexStyles({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    })}
+
     position: relative;
   }
   & a {
