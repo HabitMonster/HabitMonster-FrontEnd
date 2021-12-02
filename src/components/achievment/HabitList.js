@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { HabitItems } from './index';
+import { HabitItems } from './';
+
 import { setFlexStyles } from '../../styles';
 
 const HabitList = ({ habitList }) => {

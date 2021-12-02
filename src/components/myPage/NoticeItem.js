@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import NotiContent from './NotiContent';
-import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 import { ToggleUp, ToggleDown } from '../../assets/icons/common';
+
+import { NotiContent } from '.';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const NoticeItem = ({ notice, active, onToggle }) => {
   const { title, createdAt, id } = notice;
@@ -28,7 +30,11 @@ const NoticeItem = ({ notice, active, onToggle }) => {
   );
 };
 
-export default NoticeItem;
+NoticeItem.propTypes = {
+  notice: PropTypes.object.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired,
+};
 
 const NotiListItem = styled.li`
   cursor: ${({ isCursor }) => (isCursor ? 'pointer' : 'default')};
@@ -88,8 +94,4 @@ const ContentsWrap = styled.div`
   transition: all 0.35s;
 `;
 
-NoticeItem.propTypes = {
-  notice: PropTypes.object.isRequired,
-  onToggle: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired,
-};
+export default NoticeItem;

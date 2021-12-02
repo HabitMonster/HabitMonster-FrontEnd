@@ -1,16 +1,15 @@
-import webBackground from './web2.webp';
-import cloudBackground from './web3.webp';
 import clayPhone from './clay.webp';
 import loading from './loading.webp';
-import popupBlue from './popupBlue.webp';
-import popupRed from './popupRed.webp';
-import popupYellow from './popupYellow.webp';
-
 import mainLevelOne from './main_1.webp';
 import mainLevelTwo from './main_2.webp';
 import mainLevelThree from './main_3.webp';
 import mainLevelFour from './main_4.webp';
 import mainLevelFive from './main_5.webp';
+import popupBlue from './popupBlue.webp';
+import popupRed from './popupRed.webp';
+import popupYellow from './popupYellow.webp';
+import webBackground from './web2.webp';
+import cloudBackground from './web3.webp';
 
 const background = {
   1: webBackground,

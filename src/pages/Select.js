@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+
 import {
   LevelOneMonstersDisplay,
   LevelOneMonsterForm,
 } from '../components/monster';
-import FirstLoginUserGuide from '../components/onBoard/FirstLoginUserGuide';
+import { FirstLoginUserGuide } from '../components/onBoard';
 
 const Select = () => {
   const [step, setStep] = useState(1);

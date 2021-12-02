@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
+
 import { miniDebounce } from '../utils/event';
 
 export default function useDebounceInput(initialState, wait) {

@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { whiteOpacity, setFlexStyles, setFontStyles } from '../../styles';
 import { EditIcon, CopyIcon } from '../../assets/icons/common';
+
+import { whiteOpacity, setFlexStyles, setFontStyles } from '../../styles';
 
 const UserInfoItem = ({ userInfoItem }) => {
   const { title, contents, handleClick, isLogout, isDeleteAccount, isCopy } =
@@ -30,7 +31,9 @@ const UserInfoItem = ({ userInfoItem }) => {
   );
 };
 
-export default UserInfoItem;
+UserInfoItem.propTypes = {
+  userInfoItem: PropTypes.object.isRequired,
+};
 
 const InfoListItem = styled.li`
   color: var(--color-primary);
@@ -89,6 +92,4 @@ const PrivateText = styled.p`
   height: 17px;
 `;
 
-UserInfoItem.propTypes = {
-  userInfoItem: PropTypes.object.isRequired,
-};
+export default UserInfoItem;

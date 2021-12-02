@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import CategoryImage from '../../assets/images/category';
 
 import { TodayHabitAccomplishCount } from '.';
 
-import CategoryImage from '../../assets/images/category';
-import { setFormattedDuration } from '../../utils/setFormatDuration';
-
 import { setFontStyles, setFlexStyles } from '../../styles';
+
+import { setFormattedDuration } from '../../utils/setFormatDuration';
 
 const HabitCardItem = ({
   habitId,

@@ -1,15 +1,17 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { useRouteMatch } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { recommendedUserSelector } from '../../recoil/states/search';
 
 import { MonsterListItem } from '../monster';
-import { disappearScrollbar } from '../../styles/Mixin';
+
+import { disappearScrollbar } from '../../styles';
 
 const RecommendedUserSection = () => {
   const recommendedUserList = useRecoilValue(recommendedUserSelector);
   const { path } = useRouteMatch();
+
   return (
     <Wrapper>
       <h2>추천유저</h2>

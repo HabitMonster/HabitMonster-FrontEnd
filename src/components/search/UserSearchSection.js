@@ -2,14 +2,17 @@ import React, { useEffect, useReducer } from 'react';
 import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { BackButtonHeader, NonePlaceHolder } from '../common';
+import { userApis } from '../../api';
+
 import { LoadingSpinner } from '../../assets/icons/common';
+
+import { BackButtonHeader, NonePlaceHolder } from '../common';
 import { MonsterListItem } from '../monster';
 
-import { userApis } from '../../api';
-import { useDebounceInput } from '../../hooks';
 import { BAD_REQUEST } from '../../constants/statusCode';
 import { NOT_FOUND_USER_VIA_MONSTER_CODE } from '../../constants/statusMessage';
+
+import { useDebounceInput } from '../../hooks';
 
 function searchReducer(state, action) {
   switch (action.type) {
@@ -102,6 +105,7 @@ const UserSearchSection = () => {
   }, [debouncedMonsterCode]);
 
   const { status, searchResult, failMessage } = state;
+
   return (
     <>
       <Header>

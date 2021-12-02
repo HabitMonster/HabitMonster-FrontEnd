@@ -1,14 +1,18 @@
 import React, { useEffect, useRef } from 'react';
-import { isMobile } from 'react-device-detect';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
+
+import { auth } from '../../api';
+
+import { NaverSymbol } from '../../assets/icons/loginSymbol';
+
+import { OK } from '../../constants/statusCode';
 
 import { useRefreshUser } from '../../hooks';
 
-import { auth } from '../../api';
-import { NaverSymbol } from '../../assets/icons/loginSymbol';
-import { OK } from '../../constants/statusCode';
-import { loginBtnStyle } from '../../styles/Mixin';
+import { loginBtnStyle } from '../../styles';
+
 import { setCookie } from '../../utils/cookie';
 
 const { naver } = window;

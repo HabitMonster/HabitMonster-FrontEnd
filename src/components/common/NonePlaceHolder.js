@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { None } from '../../assets/images/placeholder';
 
-import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const NonePlaceHolder = ({ children }) => {
   return (

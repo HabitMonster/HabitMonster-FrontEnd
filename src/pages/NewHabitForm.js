@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import styled from 'styled-components';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { useRecoilState } from 'recoil';
-
 import {
   habitIdListState,
   habitListState,
   myHabitCountState,
 } from '../recoil/states/habit';
 
+import { addHabitApis } from '../api';
+
+import { BackButtonHeader, BottomFixedButton } from '../components/common';
 import {
   NewHabitDetailTitle,
   NewHabitDetailDescription,
@@ -17,11 +19,10 @@ import {
   NewHabitDayPicker,
   NewHabitFrequencySection,
 } from '../components/newHabit';
-import { BackButtonHeader, BottomFixedButton } from '../components/common';
 
 import { OK } from '../constants/statusCode';
-import { addHabitApis } from '../api';
-import { disappearScrollbar } from '../styles/Mixin';
+
+import { disappearScrollbar } from '../styles';
 
 const NewHabitForm = () => {
   const history = useHistory();

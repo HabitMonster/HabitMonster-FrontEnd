@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 import { renderDays } from '../../utils/date';
@@ -13,7 +14,6 @@ const NewHabitPresetItem = ({
   title,
   onClick,
   isSelected,
-  skeleton,
 }) => {
   return (
     <Wrapper isSelected={isSelected} onClick={onClick}>
@@ -42,7 +42,6 @@ NewHabitPresetItem.propTypes = {
   days: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  skeleton: PropTypes.bool,
 };
 
 const Wrapper = styled.div`

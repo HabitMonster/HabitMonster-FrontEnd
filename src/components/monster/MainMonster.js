@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import styled, { keyframes } from 'styled-components';
 import { useHistory } from 'react-router-dom';
-
+import styled, { keyframes } from 'styled-components';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import {
   monsterChangeToggler,
   monsterState,
@@ -12,16 +11,17 @@ import {
   monsterAnimationToggler,
 } from '../../recoil/states/ui';
 
-import { MonsterThumbnail, Modal } from '../common';
-import { MonsterSearchSection, LevelUp } from '.';
-import { BottomDialog } from '../dialog';
-
-import { appendPostPosition } from '../../utils/appendPostPosition';
-import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
-
 import { mainBackground } from '../../assets/images/background';
 
+import { MonsterThumbnail, Modal } from '../common';
+import { BottomDialog } from '../dialog';
+import { MonsterSearchSection, LevelUp } from '.';
+
+import { MAX_LEVEL, MAX_EXP } from '../../constants/monster';
+
 import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
+
+import { appendPostPosition } from '../../utils/appendPostPosition';
 
 const MainMonster = () => {
   const monster = useRecoilValue(monsterState);

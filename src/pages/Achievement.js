@@ -2,10 +2,11 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Gnb } from '../components/gnb';
-import { NavButtonHeader } from '../components/common';
 import { Statistics, GlobalStatistics } from '../components/achievment';
-import { disappearScrollbar } from '../styles/Mixin';
+import { NavButtonHeader } from '../components/common';
+import { Gnb } from '../components/gnb';
+
+import { disappearScrollbar } from '../styles';
 
 const Achievement = () => {
   return (
@@ -33,8 +34,6 @@ const Achievement = () => {
   );
 };
 
-export default Achievement;
-
 const AcheiveContainer = styled.div`
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
@@ -49,3 +48,5 @@ const PageContentWrap = styled.div`
   overflow-y: auto;
   ${disappearScrollbar()};
 `;
+
+export default Achievement;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import styled from 'styled-components';
 import { useLocation, useHistory, Redirect, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { useRecoilCallback, useRecoilState } from 'recoil';
 import {
   habitStateWithId,
@@ -10,6 +10,16 @@ import {
   myHabitCountState,
 } from '../recoil/states/habit';
 
+import { habitApis } from '../api';
+
+import { Trash } from '../assets/icons/common';
+
+import {
+  BackButtonHeader,
+  BottomFixedButton,
+  Modal,
+} from '../components/common';
+import { BottomDialog } from '../components/dialog';
 import {
   NewHabitDetailTitle,
   NewHabitDetailDescription,
@@ -17,21 +27,10 @@ import {
   NewHabitDayPicker,
   NewHabitFrequencySection,
 } from '../components/newHabit';
-import {
-  BackButtonHeader,
-  BottomFixedButton,
-  Modal,
-} from '../components/common';
-import { BottomDialog } from '../components/dialog';
-import { Trash } from '../assets/icons/common';
 
 import { OK } from '../constants/statusCode';
-import { habitApis } from '../api';
-import {
-  disappearScrollbar,
-  setFlexStyles,
-  setFontStyles,
-} from '../styles/Mixin';
+
+import { disappearScrollbar, setFlexStyles, setFontStyles } from '../styles';
 
 const HabitEdit = () => {
   const history = useHistory();

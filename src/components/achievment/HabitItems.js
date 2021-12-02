@@ -35,8 +35,6 @@ HabitItems.propTypes = {
   habit: PropTypes.object.isRequired,
 };
 
-export default HabitItems;
-
 const CardWrap = styled.div`
   width: 100%;
   height: 128px;
@@ -117,3 +115,5 @@ const Period = styled.p`
   margin-bottom: 7px;
   opacity: 0.6;
 `;
+
+export default HabitItems;

@@ -1,5 +1,7 @@
 import { atom, selector, selectorFamily } from 'recoil';
+
 import { userApis } from '../../api';
+
 import { OK } from '../../constants/statusCode';
 
 export const searchUserReFetchToggler = atom({

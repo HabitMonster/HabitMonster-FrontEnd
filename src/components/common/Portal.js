@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from 'react';
-import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import { createPortal } from 'react-dom';
 
 const Portal = ({ children, parent, className }) => {

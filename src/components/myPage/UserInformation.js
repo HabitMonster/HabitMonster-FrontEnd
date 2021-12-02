@@ -1,26 +1,29 @@
 import React, { useCallback, useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useHistory, Link } from 'react-router-dom';
 
+import { myHabitCountState } from '../../recoil/states/habit';
+import { monsterState } from '../../recoil/states/monster';
 import {
   userState,
   myFollowListCountSelector,
   myFollowListByType,
 } from '../../recoil/states/user';
-import { myHabitCountState } from '../../recoil/states/habit';
-import { monsterState } from '../../recoil/states/monster';
-
-import { BottomDialog } from '../dialog';
-import { Modal, Toast } from '../../components/common';
-import { EditBox, UserInfoItem } from '../../components/myPage';
-import { MonsterThumbnailWrapper } from '../../components/monster';
 
 import { myPageApis } from '../../api';
-import { USER_DELETED } from '../../constants/statusMessage';
+
 import { Pencil } from '../../assets/icons/common';
 
-import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
+import { Modal, Toast } from '../common';
+import { BottomDialog } from '../dialog';
+import { MonsterThumbnailWrapper } from '../monster';
+import { EditBox, UserInfoItem } from '../myPage';
+
+import { USER_DELETED } from '../../constants/statusMessage';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
 import { removeCookie } from '../../utils/cookie';
 
 const UserInformation = () => {
@@ -134,8 +137,6 @@ const UserInformation = () => {
     }
   }, [activeToast]);
 
-  // 마이페이지 밖에서 계속 최신화를 시킬 필요가 있을지?
-  // 마이페이지에 들어올 때만 최신화시키면 되지 않을지?
   useEffect(() => {
     return () => {
       if (
@@ -262,8 +263,6 @@ const UserInformation = () => {
   );
 };
 
-export default UserInformation;
-
 const UserInfoList = styled.ul`
   color: var(--color-primary);
   margin: 0;
@@ -359,3 +358,5 @@ const Summary = styled.ul`
     }
   }
 `;
+
+export default UserInformation;

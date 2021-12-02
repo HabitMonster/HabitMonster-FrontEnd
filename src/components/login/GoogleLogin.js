@@ -2,13 +2,17 @@ import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { auth } from '../../api';
+
+import { GoogleSymbol } from '../../assets/icons/loginSymbol';
+
+import { OK } from '../../constants/statusCode';
+
 import { useRefreshUser } from '../../hooks/';
 
-import { auth } from '../../api';
-import { GoogleSymbol } from '../../assets/icons/loginSymbol';
-import { OK } from '../../constants/statusCode';
+import { loginBtnStyle } from '../../styles';
+
 import { loadGoogleScript } from '../../utils/loadGoogleScript';
-import { loginBtnStyle } from '../../styles/Mixin';
 import { setCookie } from '../../utils/cookie';
 
 const GoogleLogin = () => {

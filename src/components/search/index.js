@@ -1,13 +1,13 @@
 import CategoryMenu from './CategoryMenu';
-import UserSection from './UserSection';
-import UserSearchSection from './UserSearchSection';
 import RecommendedUserSection from './RecommendedUserSection';
 import RecommendedUserSectionSkeleton from './RecommendedUserSectionSkeleton';
+import UserSearchSection from './UserSearchSection';
+import UserSection from './UserSection';
 
 export {
   CategoryMenu,
-  UserSection,
-  UserSearchSection,
   RecommendedUserSection,
   RecommendedUserSectionSkeleton,
+  UserSearchSection,
+  UserSection,
 };

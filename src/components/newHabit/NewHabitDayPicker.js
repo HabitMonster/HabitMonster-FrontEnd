@@ -2,12 +2,15 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { SubTitleOuter } from '../common';
-import { WEEK } from '../../constants/date';
 import { CheckIcon } from '../../assets/icons/habits';
 
-import { toggleDay } from '../../utils/date';
+import { SubTitleOuter } from '../common';
+
+import { WEEK } from '../../constants/date';
+
 import { setFontStyles, setFlexStyles } from '../../styles';
+
+import { toggleDay } from '../../utils/date';
 
 const NewHabitDayPicker = ({ days, onDayPicked, isEditMode }) => {
   const handleDayClick = (id) => {

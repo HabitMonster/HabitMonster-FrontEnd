@@ -10,7 +10,7 @@ const useClientRect = () => {
   return [rect, ref];
 };
 
-export const useHorizontalScroll = () => {
+export default function useHorizontalScroll() {
   const [Rect, elementRef] = useClientRect();
 
   useEffect(() => {
@@ -46,4 +46,4 @@ export const useHorizontalScroll = () => {
   }, [Rect]);
 
   return elementRef;
-};
+}

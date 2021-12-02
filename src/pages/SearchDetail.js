@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-
-import { BackButtonHeader, NonePlaceHolder } from '../components/common';
-import { CategoryMenu, UserSection } from '../components/search';
-import { HabitCardItem, HabitCard } from '../components/habit';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   searchUserInfoState,
   searchUserReFetchToggler,
@@ -19,12 +14,14 @@ import {
 } from '../recoil/states/user';
 
 import { userApis } from '../api';
+
+import { BackButtonHeader, NonePlaceHolder } from '../components/common';
+import { HabitCardItem, HabitCard } from '../components/habit';
+import { CategoryMenu, UserSection } from '../components/search';
+
 import { OK } from '../constants/statusCode';
-import {
-  disappearScrollbar,
-  setFontStyles,
-  setFlexStyles,
-} from '../styles/Mixin';
+
+import { disappearScrollbar, setFontStyles, setFlexStyles } from '../styles';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();

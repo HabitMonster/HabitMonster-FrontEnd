@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import background from '../../assets/images/background';
+
 import { MonsterThumbnail } from '../common';
 
 import { setFontStyles, setFlexStyles } from '../../styles';
@@ -63,6 +64,7 @@ const LevelUp = ({ monsterId, onClickSelect, onClickStay }) => {
     </Container>
   );
 };
+
 LevelUp.propTypes = {
   onClickSelect: PropTypes.func.isRequired,
   onClickStay: PropTypes.func.isRequired,
@@ -168,4 +170,5 @@ const BtnWrap = styled.div`
     ${setFontStyles({ color: 'deemed2' })}
   }
 `;
+
 export default LevelUp;

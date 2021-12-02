@@ -15,6 +15,7 @@ import {
   REFRESH_TOKEN_SIGNATURE_EXCEPTION,
   REFRESH_TOKEN_MALFORMED,
 } from '../constants/statusMessage';
+
 import { getCookie, setCookie } from '../utils/cookie';
 import { setMoveToLoginPage } from '../utils/setMoveToLoginPage';
 
@@ -45,7 +46,6 @@ instance.interceptors.response.use(
       responseData.statusCode === null
     ) {
       if (process.env.NODE_ENV === 'development') {
-        window.alert('null');
         console.error(error.response);
       }
       setMoveToLoginPage();
@@ -63,7 +63,6 @@ instance.interceptors.response.use(
     if (responseData.statusCode === UNAUTHORIZED) {
       if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
         if (process.env.NODE_ENV === 'development') {
-          alert('ACCESS_TOKEN_SIGNATURE_EXCEPTION');
           console.error(error);
         }
         setMoveToLoginPage();
@@ -72,7 +71,6 @@ instance.interceptors.response.use(
 
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
         if (process.env.NODE_ENV === 'development') {
-          alert('ACCESS_TOKEN_MALFORMED');
           console.error(error);
         }
         setMoveToLoginPage();
@@ -85,7 +83,6 @@ instance.interceptors.response.use(
       responseData.responseMessage === ACCESS_TOKEN_EXPIRED
     ) {
       if (process.env.NODE_ENV === 'development') {
-        alert('ACCESS_TOKEN_EXPIRED');
         console.error(responseData);
       }
 
@@ -102,7 +99,6 @@ instance.interceptors.response.use(
         if (data.statusCode === OK) {
           setCookie('habit-A-Token', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
-          alert('RESEND ORIGINAL REQUEST');
           return axios(originalRequest);
         }
       } catch (error) {
@@ -111,7 +107,6 @@ instance.interceptors.response.use(
           error?.response?.data?.responseMessage === REFRESH_TOKEN_EXPIRED
         ) {
           if (process.env.NODE_ENV === 'development') {
-            alert('REFRESH_TOKEN_EXPIRED');
             console.error(error);
           }
           setMoveToLoginPage();
@@ -129,7 +124,6 @@ instance.interceptors.response.use(
             error?.response?.data?.responseMessage === REFRESH_TOKEN_MALFORMED
           ) {
             if (process.env.NODE_ENV === 'development') {
-              alert('REFRESH_TOKEN_MALFORMED');
               console.error(error);
             }
             setMoveToLoginPage();

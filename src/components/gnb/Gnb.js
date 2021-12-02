@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {
   HomeIcon,
@@ -8,6 +8,7 @@ import {
   AddIcon,
   UserIcon,
 } from '../../assets/icons/gnb';
+
 import { setFlexStyles } from '../../styles';
 
 const Gnb = () => {
