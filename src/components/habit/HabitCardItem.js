@@ -7,7 +7,7 @@ import { TodayHabitAccomplishCount } from '.';
 import CategoryImage from '../../assets/images/category';
 import { setFormattedDuration } from '../../utils/setFormatDuration';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const HabitCardItem = ({
   habitId,
@@ -85,12 +85,17 @@ const CategoryIcon = styled.div`
 const InformationSection = styled.div`
   width: calc(100% - 43px);
   flex: 1;
-  display: flex;
-  justify-content: space-between;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-between',
+  })}
 
   & > div:first-child {
-    display: flex;
-    flex-direction: column;
+    ${setFlexStyles({
+      display: 'flex',
+      flexDirection: 'column',
+    })}
+
     flex: 1;
   }
 `;

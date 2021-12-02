@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import noop from '../../utils/noop';
 import { Back } from '../../assets/icons/common';
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 const BackButtonHeader = ({
   onButtonClick,
@@ -47,8 +47,11 @@ const Wrapper = styled.div`
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : '12px'};
   height: 44px;
-  display: flex;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+  })}
+
   padding: 0 16px;
 
   & svg {

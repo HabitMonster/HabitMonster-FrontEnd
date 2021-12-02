@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { setFontStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const HabitItems = ({ habit }) => {
   const goalTitle = habit.success ? '완료' : '미완료';
@@ -59,9 +59,11 @@ const GoalTitle = styled.p`
   margin-bottom: 10px;
 `;
 const TitleWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   ${setFontStyles({
     color: 'white',
     fontSize: 'xxl',
@@ -92,9 +94,11 @@ const ProgressBarGauge = styled.div`
 `;
 
 const TextWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
   margin-top: 10px;
 
   p {

@@ -20,7 +20,11 @@ import {
 
 import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
-import { disappearScrollbar } from '../styles/Mixin';
+import {
+  disappearScrollbar,
+  setFontStyles,
+  setFlexStyles,
+} from '../styles/Mixin';
 
 const SearchDetail = () => {
   const { monsterCode } = useParams();
@@ -159,10 +163,13 @@ const SearchDetail = () => {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+  })}
+
   width: 100%;
   background: linear-gradient(0deg, var(--bg-wrapper), var(--bg-wrapper));
   position: relative;
@@ -171,37 +178,45 @@ const Container = styled.div`
 `;
 
 const Header = styled.section`
-  display: flex;
-  justify-content: flex-start;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'flex-start',
+  })}
   width: 100%;
   height: 68px;
   background: #1e135c;
 `;
 
 const UpperSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  ${setFlexStyles({
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+  })}
   width: 100%;
   background: #1e135c;
 `;
 
 const FollowBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   width: 100%;
   max-width: 312px;
   height: 38px;
   margin: 20px auto;
-  color: var(--color-white);
   background-color: ${({ isFollowed }) =>
     isFollowed ? '#181819' : 'var(--bg-active)'};
   border: none;
   border-radius: var(--border-radius-semi);
   cursor: pointer;
   font-family: var(--font-name-apple);
-  font-size: var(--font-s);
+  ${setFontStyles({
+    color: 'white',
+    fontSize: 's',
+  })}
 `;
 
 const HabitSection = styled.section`

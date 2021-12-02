@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 import { renderDays } from '../../utils/date';
 
@@ -61,18 +61,22 @@ const Wrapper = styled.div`
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & p {
-    color: var(--color-primary);
-    font-weight: var(--weight-bold);
-    font-size: var(--font-l);
-    line-height: 22px;
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'l',
+      fontWeight: 'bold',
+      lineHeight: '22px',
+    })}
     margin-bottom: 4px;
   }
 
   & span {
+    ${setFontStyles({
+      color: 'primary-deemed',
+      fontSize: 'xs',
+      lineHeight: '17px',
+    })}
     display: block;
-    color: var(--color-primary-deemed);
-    font-size: var(--font-xs);
-    line-height: 17px;
     margin-bottom: 12px;
   }
 `;
@@ -80,9 +84,12 @@ const Wrapper = styled.div`
 const Chip = styled.div`
   padding: 4px 8px;
   margin-right: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   background: ${({ isSelected }) =>
     isSelected ? 'var(--bg-selected-light)' : '#313339'};
   border-radius: var(--border-radius-semi);
@@ -91,8 +98,10 @@ const Chip = styled.div`
 
   & div {
     ${whiteOpacity('0.8')};
-    font-size: var(--font-xxs);
-    line-height: 14px;
+    ${setFontStyles({
+      fontSize: 'xxs',
+      lineHeight: '14px',
+    })}
   }
 `;
 

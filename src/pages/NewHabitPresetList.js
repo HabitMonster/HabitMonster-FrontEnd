@@ -8,7 +8,11 @@ import { NewHabitPresetItem } from '../components/newHabit';
 import { useHabitPresets } from '../hooks';
 import { PencilIcon } from '../assets/icons/habits';
 
-import { disappearScrollbar } from '../styles/Mixin';
+import {
+  disappearScrollbar,
+  setFlexStyles,
+  setFontStyles,
+} from '../styles/Mixin';
 
 const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();
@@ -84,10 +88,12 @@ export const Inner = styled.div`
 `;
 
 export const HelperText = styled.h2`
-  color: var(--color-primary);
-  font-size: var(--font-xxl);
-  font-weight: var(--weight-semi-regular);
-  line-height: 32px;
+  ${setFontStyles({
+    color: 'primary',
+    fontSize: 'xxl',
+    fontWeight: 'semi-regular',
+    lineHeight: '32px',
+  })}
   margin-bottom: 20px;
 `;
 
@@ -97,19 +103,23 @@ const Hands = styled.div`
   border: none;
   border-radius: var(--border-radius-semi);
   margin-bottom: 94px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
   cursor: pointer;
   transition: all var(--animation-duration) cubic-bezier(0.42, 0, 0.58, 1);
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
   & span {
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'l',
+      fontWeight: 'regular',
+      lineHeight: '22px',
+    })}
     padding: 14px 0px;
-    color: var(--color-primary);
-    font-weight: var(--weight-regular);
-    font-size: var(--font-l);
-    line-height: 22px;
     position: relative;
 
     & svg {

@@ -30,7 +30,11 @@ import { setFormattedDuration } from '../utils/setFormatDuration';
 import { Trash } from '../assets/icons/common';
 import { habitApis, mainApis } from '../api';
 import { OK } from '../constants/statusCode';
-import { disappearScrollbar } from '../styles/Mixin';
+import {
+  disappearScrollbar,
+  setFlexStyles,
+  setFontStyles,
+} from '../styles/Mixin';
 
 const HabitDetail = () => {
   const { habitId } = useParams();
@@ -171,8 +175,10 @@ const HabitDetail = () => {
   );
 };
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${setFlexStyles({
+    display: 'flex',
+    flexDirection: 'column',
+  })}
   width: 100%;
   height: 100%;
   background-color: var(--bg-wrapper);
@@ -192,25 +198,31 @@ const Inner = styled.div`
 
 const MenuBar = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  })}
 
   & > span {
-    font-weight: var(--weight-regular);
-    font-size: var(--font-l);
-    line-height: 21.6px;
-    color: var(--color-primary);
+    ${setFontStyles({
+      color: 'primary',
+      fontSize: 'l',
+      fontWeight: 'regular',
+      lineHeight: '21.6px',
+    })}
   }
 `;
 const Wrapper = styled.div`
   margin-bottom: 22px;
 
   & .subTitle {
-    font-weight: var(--weight-semi-bold);
-    font-size: var(--font-xs);
-    line-height: 16.8px;
-    color: var(--bg-selected-light);
+    ${setFontStyles({
+      customColor: 'var(--bg-selected-light)',
+      fontSize: 'xs',
+      fontWeight: 'semi-bold',
+      lineHeight: '16.8px',
+    })}
     margin-bottom: 6px;
   }
 
@@ -256,21 +268,25 @@ const ProgressBar = styled.div`
   }
 
   & > .text {
+    ${setFontStyles({
+      color: 'primary-deemed',
+      fontSize: 'xs',
+      lineHeight: '17px',
+    })}
     position: absolute;
     bottom: -10px;
     left: 50%;
 
     transform: translateX(-50%);
-    font-size: var(--font-xs);
-    line-height: 17px;
-    color: var(--color-primary-deemed);
     text-align: center;
 
     & > p:first-child {
-      font-size: 36px;
-      line-height: 43.2px;
-      font-weight: var(--weight-bold);
-      color: var(--color-white);
+      ${setFontStyles({
+        color: 'white',
+        customFontSize: '36px',
+        fontWeight: 'bold',
+        lineHeight: '43.2px',
+      })}
     }
 
     & > p:last-child {

@@ -18,7 +18,7 @@ import { OK } from '../../constants/statusCode';
 import noop from '../../utils/noop';
 import { validateMonsterName } from '../../utils/validation';
 
-import { setFontStyles } from '../../styles';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const LevelOneMonsterForm = ({ showGuide }) => {
   const history = useHistory();
@@ -127,9 +127,12 @@ const Title = styled.h2`
 `;
 
 const ThumbnailWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+
   margin: 0 auto;
   width: 200px;
   height: 200px;

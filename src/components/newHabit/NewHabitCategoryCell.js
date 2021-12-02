@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { whiteOpacity } from '../../styles/Mixin';
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 import { LoadingSpinner } from '../../assets/icons/common';
 import noop from '../../utils/noop';
 
@@ -42,10 +42,12 @@ NewHabitCategoryCell.defaultProps = {
 const GategoryWrapper = styled.div`
   width: 100%;
   height: 92px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${setFlexStyles({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  })}
   padding: 19px 28px 14px;
   background: var(--bg-primary);
   border: 1px solid #3c4254;
@@ -56,9 +58,11 @@ const GategoryWrapper = styled.div`
     width: 100%;
     min-width: 54px;
     margin-top: 8px;
-    font-size: var(--font-xs);
-    line-height: 17px;
-    font-weight: var(--weight-semi-bold);
+    ${setFontStyles({
+      fontSize: 'xs',
+      fontWeight: 'semi-bold',
+      lineHeight: '17px',
+    })}
     text-align: center;
     ${whiteOpacity('0.8')};
   }
