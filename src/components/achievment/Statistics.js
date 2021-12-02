@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import { defaultAuthSelector } from '../../recoil/states/auth';
 
 import { statisticApi } from '../../api';
-import { formatMonth, addMonths, subMonths } from '../../utils/date';
-
-import { HabitList, CircleProgress } from '.';
 
 import { AchieveLeft, AchieveRight } from '../../assets/icons/achievement';
 
-import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
+import { HabitList, CircleProgress } from '.';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
+import { formatMonth, addMonths, subMonths } from '../../utils/date';
 
 const Statistics = () => {
   const { createdAt } = useRecoilValue(defaultAuthSelector);

@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from 'swiper';
 
@@ -13,6 +14,7 @@ import {
   onboard03,
   onboard04,
 } from '../../assets/images/onboard';
+
 import { BottomFixedButton } from '../common';
 
 import { setFontStyles, setFlexStyles } from '../../styles';

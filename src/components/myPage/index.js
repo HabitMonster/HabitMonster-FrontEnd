@@ -1,5 +1,7 @@
-import UserInformation from './UserInformation';
 import EditBox from './EditBox';
+import NoticeItem from './NoticeItem';
+import NotiContent from './NotiContent';
 import UserInfoItem from './UserInfoItem';
+import UserInformation from './UserInformation';
 
-export { UserInformation, EditBox, UserInfoItem };
+export { EditBox, NoticeItem, NotiContent, UserInformation, UserInfoItem };

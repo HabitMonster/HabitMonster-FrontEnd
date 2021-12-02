@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
-import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 
 import {
   RecommendedUserSection,
@@ -8,7 +8,7 @@ import {
   UserSearchSection,
 } from '../components/search';
 
-import { disappearScrollbar } from '../styles/Mixin';
+import { disappearScrollbar } from '../styles';
 
 const Search = () => {
   return (

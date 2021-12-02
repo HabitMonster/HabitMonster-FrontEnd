@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import DeviceDetector from './components/DeviceDetector';
 import reportWebVitals from './reportWebVitals';

@@ -1,8 +1,10 @@
 import React, { lazy, Suspense } from 'react';
-import { Switch, useRouteMatch, Route } from 'react-router-dom';
+import { Switch, useRouteMatch, Route, Redirect } from 'react-router-dom';
 
-import NewHabitCategorySkeleton from '../components/newHabit/NewHabitCategorySkeleton';
-import NewHabitPresetListSkeleton from '../components/newHabit/NewHabitPresetListSkeleton';
+import {
+  NewHabitCategorySkeleton,
+  NewHabitPresetListSkeleton,
+} from '../components/newHabit';
 
 const NewHabitCategoryList = lazy(() => import('./NewHabitCategoryList'));
 const NewHabitPresetList = lazy(() => import('./NewHabitPresetList'));
@@ -25,6 +27,7 @@ const New = () => {
       <Route path={`${path}/:categoryId/detail`}>
         <NewHabitForm />
       </Route>
+      <Redirect from="*" to="/new" />
     </Switch>
   );
 };

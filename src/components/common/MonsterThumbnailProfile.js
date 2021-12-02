@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import MONSTERS_PROFILE from '../../assets/images/monsters/svg/profile';
 
 const MonsterThumbnailProfile = ({ id, width, height }) => {

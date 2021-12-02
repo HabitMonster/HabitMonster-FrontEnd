@@ -1,6 +1,13 @@
 import React, { useState, memo } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import { LeftIcon, RightIcon } from '../../assets/icons/common';
+
+import { WEEK, ONE_WEEK } from '../../constants/date';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
 import getDateList, {
   getCurrentKST,
   convertYMD,
@@ -8,10 +15,6 @@ import getDateList, {
   getNextMonth,
   getRangeBetweenTwoDates,
 } from '../../utils/date';
-
-import { LeftIcon, RightIcon } from '../../assets/icons/common';
-import { WEEK, ONE_WEEK } from '../../constants/date';
-import { setFontStyles, setFlexStyles } from '../../styles';
 
 const NewHabitCalendar = ({ onClick }) => {
   const today = getCurrentKST();

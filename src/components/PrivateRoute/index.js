@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-
 import { defaultAuthSelector } from '../../recoil/states/auth';
 import { userState } from '../../recoil/states/user';
+
 import { mainApis } from '../../api';
 
 const PrivateRoute = ({ component, ...rest }) => {

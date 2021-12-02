@@ -1,22 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useSetRecoilState } from 'recoil';
 import { searchUserReFetchToggler } from '../recoil/states/search';
 
-import { MonsterListItem } from '../components/monster';
+import { userApis } from '../api';
+
 import { BackButtonHeader } from '../components/common';
 import { Gnb } from '../components/gnb';
+import { MonsterListItem } from '../components/monster';
 
-import { userApis } from '../api';
 import { OK } from '../constants/statusCode';
 
-import {
-  disappearScrollbar,
-  setFontStyles,
-  setFlexStyles,
-} from '../styles/Mixin';
+import { disappearScrollbar, setFontStyles, setFlexStyles } from '../styles';
 
 const Follow = () => {
   const history = useHistory();

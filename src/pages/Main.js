@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { MainMonster } from '../components/monster';
 import { Gnb } from '../components/gnb';
 import { TodayHabitList } from '../components/habit';
+
 import { setFlexStyles } from '../styles';
 
 const Main = () => {

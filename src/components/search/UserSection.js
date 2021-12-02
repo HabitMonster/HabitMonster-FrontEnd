@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import { MonsterThumbnailWrapper } from '../monster';
-
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { searchUserReFetchToggler } from '../../recoil/states/search';
 import { currentUserMonsterCodeSelector } from '../../recoil/states/user';
+
+import { MonsterThumbnailWrapper } from '../monster';
 
 const UserSection = ({ monster, habits, userInfo, followers }) => {
   const refreshSearchUserInfo = useSetRecoilState(searchUserReFetchToggler);
@@ -67,8 +66,6 @@ const UserSection = ({ monster, habits, userInfo, followers }) => {
   );
 };
 
-export default UserSection;
-
 UserSection.propTypes = {
   monster: PropTypes.object.isRequired,
   habits: PropTypes.array.isRequired,
@@ -105,3 +102,5 @@ const FollowLink = styled(Link)`
   text-decoration: none;
   text-align: center;
 `;
+
+export default UserSection;

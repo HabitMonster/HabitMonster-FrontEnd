@@ -1,8 +1,8 @@
 import GlobalStyle from './GlobalStyle';
 import {
   whiteOpacity,
-  disappearScrollbar,
   loginBtnStyle,
+  disappearScrollbar,
   setFontStyles,
   setFlexStyles,
 } from './Mixin';
@@ -10,8 +10,8 @@ import {
 export {
   GlobalStyle,
   whiteOpacity,
-  disappearScrollbar,
   loginBtnStyle,
+  disappearScrollbar,
   setFontStyles,
   setFlexStyles,
 };

@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { SearchIcon, FeedbackIcon } from '../../assets/icons/common';
+
 import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const MonsterSearchSection = () => {

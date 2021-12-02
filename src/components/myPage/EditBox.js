@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
-import { userState } from '../../recoil/states/user';
+import { useRecoilState } from 'recoil';
 import { monsterState } from '../../recoil/states/monster';
+import { userState } from '../../recoil/states/user';
 
 import { myPageApis } from '../../api';
-import { validateMonsterName } from '../../utils/validation';
+
+import { BackButtonHeader, TextInput, BottomFixedButton } from '../common';
+import { setVh } from '../DeviceDetector';
+
 import { OK } from '../../constants/statusCode';
 import {
   USER_NAME_UPDATE_SUCCESS,
   MONSTER_NAME_UPDATE_SUCCESS,
 } from '../../constants/statusMessage';
 
-import { setVh } from '../DeviceDetector';
-
 import { setFontStyles } from '../../styles';
+
+import { validateMonsterName } from '../../utils/validation';
 
 const EditBox = ({ type, closeModal }) => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
@@ -122,6 +123,11 @@ const EditBox = ({ type, closeModal }) => {
   );
 };
 
+EditBox.propTypes = {
+  type: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
+
 const Container = styled.div`
   max-width: 414px;
   width: 100%;
@@ -148,10 +154,5 @@ const EditTitle = styled.p`
   })}
   margin-bottom: 32px;
 `;
-
-EditBox.propTypes = {
-  type: PropTypes.string.isRequired,
-  closeModal: PropTypes.func.isRequired,
-};
 
 export default EditBox;

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+
 import { SubTitleOuter, TextInput } from '../common';
 
 const NewHabitDetailTitle = ({
