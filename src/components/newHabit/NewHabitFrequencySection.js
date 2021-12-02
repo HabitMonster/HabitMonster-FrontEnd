@@ -22,7 +22,7 @@ const NewHabitFrequencySection = ({ frequency, onChange }) => {
     );
 
   return (
-    <SubTitleOuter subTitle="빈도">
+    <SubTitleOuter subTitle="하루에 몇 번 할까요?">
       <HelperText>숫자 영역을 클릭하여 직접 입력할 수 있어요</HelperText>
       <Wrapper>
         <div onClick={decrement}>

@@ -84,7 +84,7 @@ const SearchDetailHabit = () => {
           </SubTitleOuter>
         </Wrapper>
         <Wrapper>
-          <SubTitleOuter subTitle="빈도" clasName="subTitle">
+          <SubTitleOuter subTitle="하루에 몇 번 할까요?" clasName="subTitle">
             <p className="content">하루에 {habitDetail.count}번</p>
           </SubTitleOuter>
         </Wrapper>
