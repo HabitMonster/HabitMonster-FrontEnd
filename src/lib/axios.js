@@ -15,6 +15,7 @@ import {
   REFRESH_TOKEN_SIGNATURE_EXCEPTION,
   REFRESH_TOKEN_MALFORMED,
 } from '../constants/statusMessage';
+import { getCookie, setCookie } from '../utils/cookie';
 import { setMoveToLoginPage } from '../utils/setMoveToLoginPage';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -24,7 +25,7 @@ const setToken = (config) => {
   config.headers['Content-Type'] = 'application/json; charset=utf-8';
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Credentials'] = true;
-  config.headers['A-AUTH-TOKEN'] = window.localStorage.getItem('habit-A-Token');
+  config.headers['A-AUTH-TOKEN'] = getCookie('habit-A-Token');
   config.headers.withCredentials = true;
   return config;
 };
@@ -62,6 +63,7 @@ instance.interceptors.response.use(
     if (responseData.statusCode === UNAUTHORIZED) {
       if (responseData.responseMessage === ACCESS_TOKEN_SIGNATURE_EXCEPTION) {
         if (process.env.NODE_ENV === 'development') {
+          alert('ACCESS_TOKEN_SIGNATURE_EXCEPTION');
           console.error(error);
         }
         setMoveToLoginPage();
@@ -70,6 +72,7 @@ instance.interceptors.response.use(
 
       if (responseData.responseMessage === ACCESS_TOKEN_MALFORMED) {
         if (process.env.NODE_ENV === 'development') {
+          alert('ACCESS_TOKEN_MALFORMED');
           console.error(error);
         }
         setMoveToLoginPage();
@@ -82,6 +85,7 @@ instance.interceptors.response.use(
       responseData.responseMessage === ACCESS_TOKEN_EXPIRED
     ) {
       if (process.env.NODE_ENV === 'development') {
+        alert('ACCESS_TOKEN_EXPIRED');
         console.error(responseData);
       }
 
@@ -91,13 +95,14 @@ instance.interceptors.response.use(
           url: `${process.env.REACT_APP_BASE_URL}/user/loginCheck`,
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'R-AUTH-TOKEN': window.localStorage.getItem('habit-R-Token'),
+            'R-AUTH-TOKEN': getCookie('habit-R-Token'),
           },
         });
 
         if (data.statusCode === OK) {
-          window.localStorage.setItem('habit-A-Token', data.accessToken);
+          setCookie('habit-A-Token', data.accessToken);
           originalRequest.headers['A-AUTH-TOKEN'] = `${data.accessToken}`;
+          alert('RESEND ORIGINAL REQUEST');
           return axios(originalRequest);
         }
       } catch (error) {
@@ -106,6 +111,7 @@ instance.interceptors.response.use(
           error?.response?.data?.responseMessage === REFRESH_TOKEN_EXPIRED
         ) {
           if (process.env.NODE_ENV === 'development') {
+            alert('REFRESH_TOKEN_EXPIRED');
             console.error(error);
           }
           setMoveToLoginPage();
@@ -123,6 +129,7 @@ instance.interceptors.response.use(
             error?.response?.data?.responseMessage === REFRESH_TOKEN_MALFORMED
           ) {
             if (process.env.NODE_ENV === 'development') {
+              alert('REFRESH_TOKEN_MALFORMED');
               console.error(error);
             }
             setMoveToLoginPage();

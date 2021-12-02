@@ -21,6 +21,7 @@ import { USER_DELETED } from '../../constants/statusMessage';
 import { Pencil } from '../../assets/icons/common';
 
 import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
+import { removeCookie } from '../../utils/cookie';
 
 const UserInformation = () => {
   const userInfo = useRecoilValue(userState);
@@ -67,8 +68,8 @@ const UserInformation = () => {
   }, []);
 
   const deleteToken = useCallback(() => {
-    window.localStorage.removeItem('habit-A-Token');
-    window.localStorage.removeItem('habit-R-Token');
+    removeCookie('accessTokenTest');
+    removeCookie('refreshTokenTest');
   }, []);
 
   const dispatcher = async (type) => {
