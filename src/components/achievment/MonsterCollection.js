@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { NonePlaceHolder, MonsterThumbnail } from '../common';
-import { whiteOpacity } from '../../styles/Mixin';
 import { monsterApis } from '../../api';
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 import { QuestionIcon } from '../../assets/icons/achievement';
 import { useHorizontalScroll } from '../../hooks';
 import {
+  whiteOpacity,
   disappearScrollbar,
   setFontStyles,
   setFlexStyles,
