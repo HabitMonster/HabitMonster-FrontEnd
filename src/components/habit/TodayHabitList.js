@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import { habitIdListState } from '../../recoil/states/habit';
+
 import { NoHabitHelper, TodayHabit } from './';
-import { disappearScrollbar, setFlexStyles } from '../../styles/Mixin';
+
 import { useRefreshHabits } from '../../hooks';
+
+import { disappearScrollbar, setFlexStyles } from '../../styles';
 
 const TodayHabitList = () => {
   useRefreshHabits();

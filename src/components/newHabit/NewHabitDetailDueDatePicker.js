@@ -2,17 +2,20 @@ import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Modal, SubTitleOuter } from '../common';
 import { CalenderIcon } from '../../assets/icons/habits';
 
+import { Modal, SubTitleOuter } from '../common';
+
 import { NewHabitCalendar } from '.';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
+
 import {
   convertYMD,
   getCurrentKST,
   getFutureDate,
   addMonths2,
 } from '../../utils/date';
-import { setFontStyles, setFlexStyles } from '../../styles';
 
 const NewHabitDetailDueDatePicker = ({
   duration,

@@ -1,7 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import {
+  searchUserHabitSelector,
+  searchUserReFetchToggler,
+} from '../recoil/states/search';
+import { currentUserMonsterCodeSelector } from '../recoil/states/user';
 
 import {
   SubTitleOuter,
@@ -9,16 +14,10 @@ import {
   BackButtonHeader,
 } from '../components/common';
 
-import { setFormattedDuration } from '../utils/setFormatDuration';
-import { renderDays } from '../utils/date';
-
-import {
-  searchUserHabitSelector,
-  searchUserReFetchToggler,
-} from '../recoil/states/search';
-import { currentUserMonsterCodeSelector } from '../recoil/states/user';
-
 import { setFontStyles, setFlexStyles } from '../styles';
+
+import { renderDays } from '../utils/date';
+import { setFormattedDuration } from '../utils/setFormatDuration';
 
 const MOCKUP_CATEGORY_ID = {
   Health: 1,
@@ -85,7 +84,7 @@ const SearchDetailHabit = () => {
           </SubTitleOuter>
         </Wrapper>
         <Wrapper>
-          <SubTitleOuter subTitle="빈도" clasName="subTitle">
+          <SubTitleOuter subTitle="하루에 몇 번 할까요?" clasName="subTitle">
             <p className="content">하루에 {habitDetail.count}번</p>
           </SubTitleOuter>
         </Wrapper>

@@ -9,7 +9,7 @@ import {
   ACHIEVEMENT_NAV_BUTTON_LIST,
 } from '../../constants/common';
 
-import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 const NavButtonHeader = ({ type }) => {
   const [navButtonList, setNavButtonList] = useState([]);

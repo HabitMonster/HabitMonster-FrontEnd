@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useLocation, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   babyMonsterListState,
   selectedLevelOneMonsterState,
@@ -14,6 +13,7 @@ import {
   MonsterThumbnail,
   BackButtonHeader,
 } from '../common';
+
 import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
 const LevelOneMonstersDisplay = ({ go }) => {

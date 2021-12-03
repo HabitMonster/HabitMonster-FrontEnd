@@ -1,9 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import background from '../assets/images/background';
+
 import { MonsterThumbnail } from '../components/common';
+
 import { setFlexStyles } from '../styles';
 
 const Loading = () => {

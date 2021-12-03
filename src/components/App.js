@@ -1,12 +1,13 @@
 import React, { lazy, Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import PrivateRoute from '../components/PrivateRoute';
 
 import Loading from '../pages/Loading';
-import PrivateRoute from '../components/PrivateRoute';
 import Login from '../pages/Login';
-import New from '../pages/New';
 import MyPage from '../pages/MyPage';
+import New from '../pages/New';
 
 const ErrorLog = lazy(() => import('./ErrorLog'));
 const Main = lazy(() => import('../pages/Main'));

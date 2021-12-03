@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { myPageApis } from '../api';
-import NoticeItem from '../components/myPage/NoticeItem';
+
 import { BackButtonHeader } from '../components/common';
+import { NoticeItem } from '../components/myPage';
 
 const Notice = () => {
   const history = useHistory();
@@ -66,8 +67,6 @@ const Notice = () => {
   );
 };
 
-export default Notice;
-
 const Container = styled.div`
   max-width: 414px;
   width: 100%;
@@ -90,3 +89,5 @@ const NotiList = styled.ul`
   margin: 0;
   padding: 0;
 `;
+
+export default Notice;

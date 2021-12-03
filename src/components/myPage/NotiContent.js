@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { whiteOpacity, setFontStyles } from '../../styles';
 import { ImageSlider } from '../../components/common';
+
+import { whiteOpacity, setFontStyles } from '../../styles';
 
 const NotiContent = ({ id }) => {
   switch (id) {
@@ -139,7 +140,9 @@ const NotiContent = ({ id }) => {
   }
 };
 
-export default NotiContent;
+NotiContent.propTypes = {
+  id: PropTypes.number.isRequired,
+};
 
 const NotiBox = styled.div`
   color: var(--color-primary);
@@ -177,6 +180,5 @@ const ListText = styled.li`
   padding-left: 15px;
   margin-bottom: 5px;
 `;
-NotiContent.propTypes = {
-  id: PropTypes.number.isRequired,
-};
+
+export default NotiContent;

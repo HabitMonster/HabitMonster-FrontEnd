@@ -1,17 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
 import styled from 'styled-components';
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
+import { defaultAuthSelector } from '../../recoil/states/auth';
+import { monsterState } from '../../recoil/states/monster';
 
 import { BottomFixedButton, MonsterThumbnail } from '../common';
-import { monsterState } from '../../recoil/states/monster';
-import { defaultAuthSelector } from '../../recoil/states/auth';
+
+import { disappearScrollbar, setFlexStyles, setFontStyles } from '../../styles';
+
 import { appendPostPosition } from '../../utils/appendPostPosition';
-import {
-  disappearScrollbar,
-  setFlexStyles,
-  setFontStyles,
-} from '../../styles/Mixin';
 
 const MonsterGuide = () => {
   const history = useHistory();
@@ -62,8 +60,6 @@ const MonsterGuide = () => {
     </AvatarContainer>
   );
 };
-
-export default MonsterGuide;
 
 const AvatarContainer = styled.div`
   font-family: var(--font-name-apple);
@@ -149,3 +145,5 @@ const BigText = styled.p`
   })}
   margin: 0 auto;
 `;
+
+export default MonsterGuide;

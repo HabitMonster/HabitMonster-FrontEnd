@@ -1,10 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import { Back } from '../../assets/icons/common';
+
+import { setFontStyles, setFlexStyles } from '../../styles';
 
 import noop from '../../utils/noop';
-import { Back } from '../../assets/icons/common';
-import { setFontStyles, setFlexStyles } from '../../styles/Mixin';
 
 const BackButtonHeader = ({
   onButtonClick,

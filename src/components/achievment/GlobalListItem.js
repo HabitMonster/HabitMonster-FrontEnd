@@ -17,8 +17,6 @@ const GlobalListItem = ({ data }) => {
   );
 };
 
-export default GlobalListItem;
-
 GlobalListItem.propTypes = {
   data: PropTypes.object,
   content: PropTypes.string,
@@ -64,3 +62,5 @@ const ValueText = styled.h6`
     lineHeight: '26px',
   })}
 `;
+
+export default GlobalListItem;

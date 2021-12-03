@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { setFontStyles, setFlexStyles } from '../../styles';
 
-function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
+function CircleProgress({ width, height, strokeWidth = 10, value }) {
   const circleX = useMemo(() => width / 2, [width]);
   const circleY = useMemo(() => height / 2, [height]);
   const circleRadius = useMemo(
@@ -46,7 +46,13 @@ function CircleProgress({ width, height, strokeWidth = 10, title, value }) {
   );
 }
 
-export default CircleProgress;
+CircleProgress.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  strokeWidth: PropTypes.number,
+  title: PropTypes.string,
+  value: PropTypes.number.isRequired,
+};
 
 const CircleProgressContainer = styled.div`
   width: 100%;
@@ -103,10 +109,4 @@ const DetailPer = styled.span`
   padding-left: 1px;
 `;
 
-CircleProgress.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  strokeWidth: PropTypes.number,
-  title: PropTypes.string,
-  value: PropTypes.number.isRequired,
-};
+export default CircleProgress;

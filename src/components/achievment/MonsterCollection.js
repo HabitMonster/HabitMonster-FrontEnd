@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { monsterState } from '../../recoil/states/monster';
+
+import { monsterApis } from '../../api';
+
+import { QuestionIcon } from '../../assets/icons/achievement';
 
 import { MonsterThumbnail } from '../common';
-import { monsterApis } from '../../api';
-import { monsterState } from '../../recoil/states/monster';
+
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
+
 import { useHorizontalScroll } from '../../hooks';
-import { QuestionIcon } from '../../assets/icons/achievement';
-import {
-  disappearScrollbar,
-  whiteOpacity,
-  setFontStyles,
-} from '../../styles/Mixin';
+
+import { whiteOpacity, disappearScrollbar, setFontStyles } from '../../styles';
 
 const MonsterCollection = () => {
   const levelOneMonster = useRecoilValue(monsterState);

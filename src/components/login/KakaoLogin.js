@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { auth } from '../../api';
+
+import { KakaoSymbol } from '../../assets/icons/loginSymbol';
+
+import { OK } from '../../constants/statusCode';
+
 import { useRefreshUser } from '../../hooks';
 
-import { auth } from '../../api';
-import { KakaoSymbol } from '../../assets/icons/loginSymbol';
-import { OK } from '../../constants/statusCode';
-import { loginBtnStyle } from '../../styles/Mixin';
+import { loginBtnStyle } from '../../styles';
+
+import { setCookie } from '../../utils/cookie';
 
 const KakaoLogin = () => {
   const history = useHistory();
@@ -24,9 +29,8 @@ const KakaoLogin = () => {
     async function getTokenWithKakao() {
       try {
         const { data } = await auth.getSocialLogin(socialName, kakaoAuthCode);
-        window.localStorage.setItem('habit-A-Token', data.accessToken);
-        window.localStorage.setItem('habit-R-Token', data.refreshToken);
-
+        setCookie('habit-A-Token', data.accessToken);
+        setCookie('habit-R-Token', data.refreshToken);
         refresher();
         if (data.statusCode === OK) {
           history.replace(data.isFirstLogin ? '/select' : '/');

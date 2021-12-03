@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-
-import {
-  SubTitleOuter,
-  BottomFixedButton,
-  BackButtonHeader,
-  Modal,
-} from '../components/common';
-import { BottomDialog } from '../components/dialog';
-
-import monsters from '../assets/images/monsters/svg';
-
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import {
   habitIdListState,
   habitStateWithId,
@@ -24,17 +13,25 @@ import {
   monsterState,
 } from '../recoil/states/monster';
 
-import { renderDays } from '../utils/date';
-import { setFormattedDuration } from '../utils/setFormatDuration';
+import { habitApis, mainApis } from '../api';
 
 import { Trash } from '../assets/icons/common';
-import { habitApis, mainApis } from '../api';
-import { OK } from '../constants/statusCode';
+import monsters from '../assets/images/monsters/svg';
+
 import {
-  disappearScrollbar,
-  setFlexStyles,
-  setFontStyles,
-} from '../styles/Mixin';
+  SubTitleOuter,
+  BottomFixedButton,
+  BackButtonHeader,
+  Modal,
+} from '../components/common';
+import { BottomDialog } from '../components/dialog';
+
+import { OK } from '../constants/statusCode';
+
+import { disappearScrollbar, setFlexStyles, setFontStyles } from '../styles';
+
+import { renderDays } from '../utils/date';
+import { setFormattedDuration } from '../utils/setFormatDuration';
 
 const HabitDetail = () => {
   const { habitId } = useParams();
@@ -143,7 +140,7 @@ const HabitDetail = () => {
           </SubTitleOuter>
         </Wrapper>
         <Wrapper>
-          <SubTitleOuter subTitle="빈도" clasName="subTitle">
+          <SubTitleOuter subTitle="하루에 몇 번 할까요?" clasName="subTitle">
             <p className="content">하루에 {habitDetail.count}번</p>
           </SubTitleOuter>
         </Wrapper>
@@ -174,6 +171,7 @@ const HabitDetail = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
   ${setFlexStyles({
     display: 'flex',

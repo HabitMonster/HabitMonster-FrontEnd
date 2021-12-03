@@ -9,17 +9,18 @@ import {
 } from '../recoil/states/habit';
 
 import { addHabitApis } from '../api';
+
 import { OK } from '../constants/statusCode';
 
 export default function useHabitPresets() {
   const [selectedPresetId, setSelectedPresetId] = useState(false);
+  const history = useHistory();
+  const { categoryId } = useParams();
   const [habitIdList, setHabitIdList] = useRecoilState(habitIdListState);
   const [habits, setHabits] = useRecoilState(habitListState);
   const [totalHabitCount, setTotalHabitCount] =
     useRecoilState(myHabitCountState);
-  const { categoryId } = useParams();
   const presets = useRecoilValue(presetListById(categoryId));
-  const history = useHistory();
 
   const onPresetChosen = useCallback((presetId) => {
     setSelectedPresetId(presetId);

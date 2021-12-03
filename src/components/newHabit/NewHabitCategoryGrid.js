@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { disappearScrollbar, setFlexStyles } from '../../styles/Mixin';
+import styled from 'styled-components';
+
+import { disappearScrollbar, setFlexStyles } from '../../styles';
 
 const NewHabitCategoryGrid = ({ children }) => {
   return <GridContainer>{children}</GridContainer>;

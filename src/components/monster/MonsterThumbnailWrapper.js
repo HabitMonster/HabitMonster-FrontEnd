@@ -31,7 +31,14 @@ const MonsterThumbnailWrapper = ({
   );
 };
 
-export default MonsterThumbnailWrapper;
+MonsterThumbnailWrapper.propTypes = {
+  isProfile: PropTypes.bool,
+  monsterId: PropTypes.number.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  thumbnailSize: PropTypes.string,
+  monsterLevel: PropTypes.number,
+};
 
 const getThumbnailSize = (size) => {
   switch (size) {
@@ -59,15 +66,6 @@ const getThumbnailSize = (size) => {
         padding: '7px',
       };
   }
-};
-
-MonsterThumbnailWrapper.propTypes = {
-  isProfile: PropTypes.bool,
-  monsterId: PropTypes.number.isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  thumbnailSize: PropTypes.string,
-  monsterLevel: PropTypes.number,
 };
 
 const ThumbnailWrapper = styled.div`
@@ -101,3 +99,5 @@ const LevelBadge = styled.span`
   transform: translateX(-50%);
   z-index: 1;
 `;
+
+export default MonsterThumbnailWrapper;

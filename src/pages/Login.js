@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { OnBoard } from '../components/onBoard';
 import {
   LoginTitle,
   GoogleLogin,
@@ -8,9 +9,7 @@ import {
   NaverLogin,
 } from '../components/login';
 
-import OnBoard from '../components/onBoard/OnBoard';
-
-import { setFontStyles, setFlexStyles } from '../styles/Mixin';
+import { setFontStyles, setFlexStyles } from '../styles';
 
 const Login = () => {
   if (!window.localStorage.getItem('isOnboarding')) {

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
+
 import { LoadingSpinner } from '../../assets/icons/common';
+
+import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
+
 import noop from '../../utils/noop';
 
 const NewHabitCategoryCell = ({ src, name, onClick, skeleton }) => {

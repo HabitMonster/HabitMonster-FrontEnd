@@ -1,11 +1,10 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import { globalWebViewWrapperState } from '../../recoil/states/ui';
 
-import Portal from './Portal';
+import { Portal } from './';
 
 import { setFontStyles, setFlexStyles } from '../../styles';
 

@@ -1,18 +1,17 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import { categoryListSelector } from '../recoil/states/habit';
 
+import CATEGORIES from '../assets/images/category';
+
+import { Gnb } from '../components/gnb';
 import {
   NewHabitCategoryCell,
   NewHabitCategoryGrid,
   NewHabitCategoryHelperText,
 } from '../components/newHabit';
-import { Gnb } from '../components/gnb';
-
-import CATEGORIES from '../assets/images/category';
 
 const NewHabitCategoryList = () => {
   const history = useHistory();

@@ -2,13 +2,18 @@ import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { auth } from '../../api';
+
+import { GoogleSymbol } from '../../assets/icons/loginSymbol';
+
+import { OK } from '../../constants/statusCode';
+
 import { useRefreshUser } from '../../hooks/';
 
-import { auth } from '../../api';
-import { GoogleSymbol } from '../../assets/icons/loginSymbol';
-import { OK } from '../../constants/statusCode';
+import { loginBtnStyle } from '../../styles';
+
 import { loadGoogleScript } from '../../utils/loadGoogleScript';
-import { loginBtnStyle } from '../../styles/Mixin';
+import { setCookie } from '../../utils/cookie';
 
 const GoogleLogin = () => {
   const history = useHistory();
@@ -35,14 +40,8 @@ const GoogleLogin = () => {
                     socialName,
                     googleUser.getAuthResponse().id_token,
                   );
-                  window.localStorage.setItem(
-                    'habit-A-Token',
-                    data.accessToken,
-                  );
-                  window.localStorage.setItem(
-                    'habit-R-Token',
-                    data.refreshToken,
-                  );
+                  setCookie('habit-A-Token', data.accessToken);
+                  setCookie('habit-R-Token', data.refreshToken);
                   refresher();
                   if (data.statusCode === OK) {
                     history.replace(data.isFirstLogin ? '/select' : '/');

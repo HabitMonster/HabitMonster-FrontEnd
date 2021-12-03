@@ -2,17 +2,14 @@ import React from 'react';
 import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { PencilIcon } from '../assets/icons/habits';
+
 import { BackButtonHeader, BottomFixedButton } from '../components/common';
 import { NewHabitPresetItem } from '../components/newHabit';
 
 import { useHabitPresets } from '../hooks';
-import { PencilIcon } from '../assets/icons/habits';
 
-import {
-  disappearScrollbar,
-  setFlexStyles,
-  setFontStyles,
-} from '../styles/Mixin';
+import { disappearScrollbar, setFlexStyles, setFontStyles } from '../styles';
 
 const NewHabitPresetList = () => {
   const { state: selectedHabitCategory } = useLocation();

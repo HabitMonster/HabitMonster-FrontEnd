@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { Gnb } from '../gnb';
+
 import { Wrapper } from '../../pages/NewHabitCategoryList';
+
 import {
   NewHabitCategoryCell,
   NewHabitCategoryGrid,

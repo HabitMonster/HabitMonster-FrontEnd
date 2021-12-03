@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Wrapper, Inner, HelperText } from '../../pages/NewHabitPresetList';
+import { LoadingSpinner } from '../../assets/icons/common';
+
 import { BackButtonHeader, BottomFixedButton } from '../common';
 
-import { LoadingSpinner } from '../../assets/icons/common';
+import { Wrapper, Inner, HelperText } from '../../pages/NewHabitPresetList';
+
 import { setFlexStyles } from '../../styles';
+
 const skeletons = [...Array(2).keys()].map((key) => ({
   id: key,
 }));

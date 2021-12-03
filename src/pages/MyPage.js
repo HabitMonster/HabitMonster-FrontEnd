@@ -2,12 +2,12 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { NavButtonHeader } from '../components/common';
+import { Gnb } from '../components/gnb';
+
 import Loading from './Loading';
 
-import { Gnb } from '../components/gnb';
-import { NavButtonHeader } from '../components/common';
-
-import { disappearScrollbar } from '../styles/Mixin';
+import { disappearScrollbar } from '../styles';
 
 const UserInformation = lazy(() =>
   import('../components/myPage/UserInformation'),
@@ -46,8 +46,6 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
-
 const MypageContainer = styled.div`
   background-color: var(--bg-wrapper);
   font-family: var(--font-name-apple);
@@ -62,3 +60,5 @@ const PageContentWrap = styled.div`
   overflow-y: auto;
   ${disappearScrollbar()};
 `;
+
+export default MyPage;
