@@ -10,46 +10,9 @@
 import { clientsClaim, setCacheNameDetails } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
-import { registerRoute, NetworkOnly } from 'workbox-routing';
+import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-import { Queue, BackgroundSyncPlugin } from 'workbox-background-sync';
-import { Strategy } from 'workbox-strategies';
-
-class CacheNetworkRace extends Strategy {
-  _handle(request, handler) {
-    const fetchAndCachePutDone = handler.fetchAndCachePut(request);
-    const cacheMatchDone = handler.cacheMatch(request);
-
-    return new Promise((resolve, reject) => {
-      fetchAndCachePutDone.then(resolve);
-      cacheMatchDone.then((response) => response && resolve(response));
-
-      // Reject if both network and cache error or find no response.
-      Promise.allSettled([fetchAndCachePutDone, cacheMatchDone]).then(
-        (results) => {
-          const [fetchAndCachePutResult, cacheMatchResult] = results;
-          if (
-            fetchAndCachePutResult.status === 'rejected' &&
-            !cacheMatchResult.value
-          ) {
-            reject(fetchAndCachePutResult.reason);
-          }
-        },
-      );
-    });
-  }
-}
-const bgSyncPlugin = new BackgroundSyncPlugin('myQueueName', {
-  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours (specified in minutes)
-});
-
-registerRoute(
-  /\/api\/.*\/*.json/,
-  new NetworkOnly({
-    plugins: [bgSyncPlugin],
-  }),
-  'POST',
-);
+import { Queue } from 'workbox-background-sync';
 
 // Add statusPlugin to the plugins array in your strategy.
 
