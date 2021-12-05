@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { monsterState } from '../../recoil/states/monster';
 
 import { monsterApis } from '../../api';
 
 import { QuestionIcon } from '../../assets/icons/achievement';
 
-import { NonePlaceHolder, MonsterThumbnail } from '../common';
+import { MonsterThumbnail } from '../common';
 
 import { OK } from '../../constants/statusCode';
 import { MAX_LEVEL } from '../../constants/monster';
 
 import { useHorizontalScroll } from '../../hooks';
 
-import {
-  whiteOpacity,
-  disappearScrollbar,
-  setFontStyles,
-  setFlexStyles,
-} from '../../styles';
+import { whiteOpacity, disappearScrollbar, setFontStyles } from '../../styles';
 
 const MonsterCollection = () => {
+  const levelOneMonster = useRecoilValue(monsterState);
+  console.log(levelOneMonster);
   const [collectionList, setCollectionList] = useState([]);
   const wheelScrollRef = useHorizontalScroll();
 
@@ -36,15 +35,23 @@ const MonsterCollection = () => {
   }, []);
 
   return (
-    <Wrapper isPlaceholder={!collectionList?.length}>
+    <Wrapper>
       {!collectionList?.length ? (
-        <NonePlaceHolder>
-          <span>
-            아직 수집한 몬스터가 없어요.
-            <br />
-            습관을 실천해 몬스터를 모아보세요!
-          </span>
-        </NonePlaceHolder>
+        <EachCollectionWrapper>
+          <p>{levelOneMonster.monsterName}</p>
+          <MonsterInformationWrapper>
+            <span>현재 레벨 LV.1</span>
+            <span>{levelOneMonster.createAt} 생성</span>
+          </MonsterInformationWrapper>
+          <MonsterImageWrapper>
+            <MonsterThumbnail
+              id={levelOneMonster.levelOneId}
+              width={'40px'}
+              height={'45px'}
+            />
+            <span> LV. 1</span>
+          </MonsterImageWrapper>
+        </EachCollectionWrapper>
       ) : (
         collectionList.map((monster) => (
           <EachCollectionWrapper key={monster.monsterName}>
@@ -80,10 +87,9 @@ const MonsterCollection = () => {
 };
 
 const Wrapper = styled.div`
-  padding-left: ${({ isPlaceholder }) => !isPlaceholder && '24px'};
-  padding-bottom: ${({ isPlaceholder }) => !isPlaceholder && '64px'};
+  padding-left: 24px;
+  padding-bottom: 64px;
   position: relative;
-  height: ${({ isPlaceholder }) => isPlaceholder && '100%'};
 `;
 
 const EachCollectionWrapper = styled.div`
@@ -103,11 +109,9 @@ const EachCollectionWrapper = styled.div`
 const MonsterInformationWrapper = styled.div`
   padding-right: 24px;
   margin-bottom: 14px;
-  ${setFlexStyles({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  })}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   ${whiteOpacity('0.6')}
   ${setFontStyles({
     fontSize: 'xs',
@@ -131,12 +135,10 @@ const MonsterImageWrapper = styled.div`
   margin-right: 10px;
   padding-top: 14px;
   padding-bottom: 12px;
-  ${setFlexStyles({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  })}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: var(--bg-primary);
   border-radius: var(--border-radius-semi);
 

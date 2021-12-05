@@ -12,6 +12,32 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { Queue } from 'workbox-background-sync';
+
+// Add statusPlugin to the plugins array in your strategy.
+
+// Workbox 백그라운드 동기화 대기열
+const queue = new Queue('myQueueName');
+
+self.addEventListener('fetch', (event) => {
+  // Add in your own criteria here to return early if this
+  // isn't a request that should use background sync.
+  if (event.request.method !== 'POST') {
+    return;
+  }
+
+  const bgSyncLogic = async () => {
+    try {
+      const response = await fetch(event.request.clone());
+      return response;
+    } catch (error) {
+      await queue.pushRequest({ request: event.request });
+      return error;
+    }
+  };
+
+  event.respondWith(bgSyncLogic());
+});
 
 /* Custom Logic */
 const CACHE_VARIABLE = process.env.REACT_APP_VERSION_UNIQUE_STRING;
@@ -153,6 +179,49 @@ self.addEventListener('message', (event) => {
   }
 });
 /* End of Custom Logic */
+
+const DYNAMIC_CACHE_NAME = 'dynamicCacheStorage';
+
+// fetch event는 어딘가에서 리소스를 가져올 때 모두 실행된다.
+// js를 가져오거나 이미지를 가져오거나 페이지를 가져오거나 등등
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      // 캐시에 있으면 repsonse를 그대로 돌려준다.
+      if (response) {
+        return response;
+      }
+
+      // 여기서 request를 복사해준다.
+      // request는 스트림으로 fetch 당 한 번만 사용해야하기 때문이다.
+      // 근데 event.request로 받아도 실행은 된다
+      const fetchRequest = event.request.clone();
+
+      // if (response) return response 구문을 하나로 합칠 수도 있다.
+      // return response || fetch(fetchRequest)
+      return fetch(fetchRequest).then((response) => {
+        // 응답이 제대로 왔는지 체크한다.
+        // 구글 문서에는 다음과 같이 처리하라고 되어있는데
+        // 이 경우 Cross Site Request에 대해 캐싱 처리를 할 수가 없다.
+        // if(!response || response.status !== 200 || response.type !== 'basic') {
+        if (!response) {
+          return response;
+        }
+
+        // 응답은 꼭 복사 해줘야한다.
+        const responseToCache = response.clone();
+
+        // 캐시 스토리지를 열고 정말 캐싱을 해준다.
+        caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
+        // 여기서 response를 내보내줘야 캐싱 처리 후에 리소스를 반환한다.
+        return response;
+      });
+    }),
+  );
+});
 
 // Any other custom service worker logic can go here.
 

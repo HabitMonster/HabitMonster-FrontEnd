@@ -2,7 +2,6 @@ import { ReactComponent as Back } from './back.svg';
 import { ReactComponent as CopyIcon } from './copy.svg';
 import { ReactComponent as DownIcon } from './down.svg';
 import { ReactComponent as EditIcon } from './edit.svg';
-import { ReactComponent as FeedbackIcon } from './feedback.svg';
 import { ReactComponent as LeftIcon } from './left.svg';
 import { ReactComponent as LoadingSpinner } from './loadingSpinner.svg';
 import { ReactComponent as Pencil } from './pencil.svg';
@@ -18,7 +17,6 @@ export {
   CopyIcon,
   DownIcon,
   EditIcon,
-  FeedbackIcon,
   LeftIcon,
   LoadingSpinner,
   Pencil,
