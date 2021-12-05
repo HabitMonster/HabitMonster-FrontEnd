@@ -5,6 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import PrivateRoute from '../components/PrivateRoute';
 
 import Loading from '../pages/Loading';
+import Credit from '../pages/Credit';
 import Login from '../pages/Login';
 import MyPage from '../pages/MyPage';
 import New from '../pages/New';
@@ -27,6 +28,7 @@ function App() {
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route path={['/login', '/#']} component={Login} />
+          <Route path="/credit" component={Credit} />
           <PrivateRoute path="/select" component={<Select />} />
           <PrivateRoute exact path="/" component={<Main />} />
           <PrivateRoute path="/new" component={<New />} />

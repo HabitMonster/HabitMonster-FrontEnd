@@ -1,8 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SearchIcon, FeedbackIcon } from '../../assets/icons/common';
+import { SearchIcon } from '../../assets/icons/common';
 
 import { whiteOpacity, setFontStyles, setFlexStyles } from '../../styles';
 
@@ -11,14 +11,9 @@ const MonsterSearchSection = () => {
 
   return (
     <Header>
-      <FeedbackLink
-        href="https://forms.gle/H9fYGuAomKwzo5ZD6"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <FeedbackLink to="/credit">
         <div>
-          <FeedbackIcon />
-          <span>피드백</span>
+          <span>Credit</span>
         </div>
       </FeedbackLink>
       <SearchIcon
@@ -41,7 +36,7 @@ const Header = styled.header`
   })}
 `;
 
-const FeedbackLink = styled.a`
+const FeedbackLink = styled(Link)`
   height: 32px;
   background: #7d3cff;
   padding: 4px 14px;
