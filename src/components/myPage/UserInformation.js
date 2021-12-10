@@ -71,8 +71,8 @@ const UserInformation = () => {
   }, []);
 
   const deleteToken = useCallback(() => {
-    removeCookie('accessTokenTest');
-    removeCookie('refreshTokenTest');
+    removeCookie('habit-A-Token');
+    removeCookie('habit-R-Token');
   }, []);
 
   const dispatcher = async (type) => {
