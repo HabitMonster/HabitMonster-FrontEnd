@@ -44,7 +44,7 @@
   - react-router-dom
   - swiper
   - react-error-boundary
-  - react-cookie
+  - Universal-cookie
 - Recoil
 - axios
 - workbox modules
@@ -63,7 +63,7 @@
    - Mobile-Friendly한 웹앱을 만드는 것이 프로젝트의 주안점이었지만 웹사이트로 접속하였을 때 랜딩 페이지의 뷰가 따로 그려졌으면 좋겠다고 판단하였습니다. 이를 위해 유저 에이전트 별로 다른 뷰를 분기 처리하여 렌더링 할 필요가 있었습니다. 유저가 어떤 프로그램을 통하여 프로덕트에 접근하였는지 감지하기 위해 해당 패키지를 선택하였습니다.
 5. React-error-boundary
    - 런타임 에러가 발생할 때에도 서비스 플로우를 유지하고자 도입하였습니다.
-6. React-cookie
+6. Universal-cookie
    - JWT 토큰을 쿠키에 안전하게 보관하기 위해 도입하였습니다.
 7. Swiper
    - 모바일 환경에서의 터치 이벤트(스와이프에)에 잘 반응하는 Slider를 표현하기 위해 선택하였습니다.
